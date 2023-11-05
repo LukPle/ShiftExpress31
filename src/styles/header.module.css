@@ -1,0 +1,50 @@
+.stickyHeader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    width: 100%;
+}
+
+.badge {
+    width: 55px;
+    height: 25px;
+    background: linear-gradient(to bottom right, green 50%, red 50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 550;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.badgeContainer {
+    display: flex;
+    align-items: center;
+    margin-left: -10px;
+}
+
+.badgeContainer2 {
+    display: flex;
+    align-items: center;
+    margin-right: -18px;
+}
+
+.badge2 {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+}
