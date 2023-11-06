@@ -17,8 +17,8 @@ export default function Home() {
       </Stack>
       <Stack direction={"column"} width="100%" pt={8.5} pl={3}>
         <Stack direction={"row"} gap={3}>
-        <div className={headerStyles.badgeContainer2}>
-            <div className={headerStyles.badge2} style={{backgroundColor: "#56B9E3"}}>1</div>
+        <div className={headerStyles.badgeRoundContainer}>
+            <div className={headerStyles.badgeRound} style={{backgroundColor: "#56B9E3"}}>1</div>
           </div>
           <Typography level="h2">Intro</Typography>
         </Stack>

@@ -11,20 +11,20 @@ export default function Header() {
             <div className={headerStyles.badge}>WS23</div>
           </div>
           <div style={{ flexGrow: 1 }} />
-          <div className={headerStyles.badgeContainer2}>
-            <div className={headerStyles.badge2} style={{backgroundColor: "#56B9E3"}}>1</div>
+          <div className={headerStyles.badgeRoundContainer}>
+            <div className={headerStyles.badgeRound} style={{backgroundColor: "#56B9E3"}}>1</div>
           </div>
           <Typography level="h3">Intro</Typography>
-          <div className={headerStyles.badgeContainer2}>
-            <div className={headerStyles.badge2} style={{backgroundColor: "#84BE55"}}>2</div>
+          <div className={headerStyles.badgeRoundContainer}>
+            <div className={headerStyles.badgeRound} style={{backgroundColor: "#84BE55"}}>2</div>
           </div>
           <Typography level="h3">Project</Typography>
-          <div className={headerStyles.badgeContainer2}>
-            <div className={headerStyles.badge2} style={{backgroundColor: "#8A237E"}}>3</div>
+          <div className={headerStyles.badgeRoundContainer}>
+            <div className={headerStyles.badgeRound} style={{backgroundColor: "#8A237E"}}>3</div>
           </div>
           <Typography level="h3">Insights</Typography>
-          <div className={headerStyles.badgeContainer2}>
-            <div className={headerStyles.badge2} style={{backgroundColor: "#D12D26"}}>4</div>
+          <div className={headerStyles.badgeRoundContainer}>
+            <div className={headerStyles.badgeRound} style={{backgroundColor: "#D12D26"}}>4</div>
           </div>
           <Typography level="h3">Team</Typography>
         </Stack>

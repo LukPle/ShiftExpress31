@@ -30,13 +30,13 @@
     margin-left: -10px;
 }
 
-.badgeContainer2 {
+.badgeRoundContainer {
     display: flex;
     align-items: center;
     margin-right: -18px;
 }
 
-.badge2 {
+.badgeRound {
     width: 25px;
     height: 25px;
     border-radius: 50%;
