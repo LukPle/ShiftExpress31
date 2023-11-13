@@ -1,6 +1,5 @@
-import { Card, Typography, Stack, Button } from "@mui/joy"
+import { Card, Typography, Stack } from "@mui/joy"
 import indexStyles from '../styles/index.module.css';
-import headerStyles from '../styles/header.module.css';
 import Keyfact from "@/components/Keyfact";
 import Map from "@/components/Map";
 import Comparison from "@/components/Comparison";
@@ -18,76 +17,63 @@ import FederalStateBox from "@/components/FederalStateBox";
 
 export default function Home() {
   return (
-    <Stack direction={"column"}>
+    <Stack direction={"column"} mx={17} my={7}>
 
       <Stack direction="column">
-        <Typography level="h1">Visualizing the transportation shift in Germany</Typography>
-        <Typography>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</Typography>
+        <Typography level="h1">Visualizing the transportation <br/> shift in Germany</Typography>
+        <Typography mt={2}>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</Typography>
       </Stack>
 
-      <Stack direction={"row"}>
+
+      <Stack direction={"column"} id="project" mt={7}>
+        <Typography level="h2">Project</Typography>
+        <Typography mt={2}>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo do</Typography>
+      </Stack>
+
+
+      <Stack direction={"column"} id="insights" mt={7}>
+        <Typography level="h2">Insights and Map</Typography>
         <Stack direction={"column"}>
-          <div className={indexStyles.ring}></div>
-          <div className={indexStyles.colorLine} style={{backgroundColor: "#56B9E3"}}></div>
+          <Typography level="h3" mt={4}>Our Key Findings</Typography>
+          <Stack
+            direction={"row"}
+            justifyContent="space-evenly"
+            alignItems="center"
+            spacing={4}
+            mt={2}
+          >
+            <Keyfact />
+            <Keyfact />
+            <Keyfact />
+          </Stack>
         </Stack>
-        <Stack direction={"column"} id="project">
-          <Typography level="h2">Project</Typography>
-          <Typography>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo do</Typography>
+
+        <Stack direction={"column"}>
+          <Typography level="h3" mt={4}>Explore Yourself</Typography>
+          <Stack direction={"row"} mt={2}>
+            <Stack direction={"column"}>
+              <FilterBox />
+              <FederalStateBox />
+            </Stack>
+            <Map />
+          </Stack>
+          <Comparison />
         </Stack>
       </Stack>
+
       
-      <Stack direction={"row"}>
-        <Stack direction={"column"}>
-          <div className={indexStyles.ring}></div>
-          <div className={indexStyles.colorLine} style={{backgroundColor: "#84BE55", height: "1000px"}}></div>
-        </Stack>
-        <Stack direction={"column"} id="insights">
-          <Typography level="h2">Insights and Map</Typography>
-          <Stack direction={"column"}>
-            <Typography level="h3">Our Key Findings</Typography>
-            <Stack 
-              direction={"row"}
-              justifyContent="space-evenly"
-              alignItems="center"
-              spacing={4}
-            >
-              <Keyfact />
-              <Keyfact />
-              <Keyfact />
-            </Stack>
-          </Stack>
-
-          <Stack direction={"column"}>
-            <Typography level="h3">Explore Yourself</Typography>
-            <Stack direction={"row"}>
-              <Stack direction={"column"}>
-                <FilterBox />
-                <FederalStateBox />
-              </Stack>
-              <Map />
-            </Stack>
-            <Comparison />
-          </Stack>
-        </Stack>
-      </Stack>
-
-      <Stack direction={"row"}>
-        <Stack direction={"column"}>
-          <div className={indexStyles.ring}></div>
-          <div className={indexStyles.colorLine} style={{backgroundColor: "#8A237E"}}></div>
-        </Stack>
-        <Stack direction={"column"}>
-            <Typography level="h2" id="team">Team</Typography>
-            <Card
-              variant="outlined"
-              sx={{
+        <Stack direction={"column"} mt={7}>
+          <Typography level="h2" id="team">Team</Typography>
+          <Card
+            variant="outlined"
+            sx={{
               width: 800,
-              height: 200
-              }}
-            >
-            </Card>
+              height: 200,
+              mt: 2
+            }}
+          >
+          </Card>
         </Stack>
-      </Stack>
     </Stack>
 
   )
