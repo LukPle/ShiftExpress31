@@ -5,6 +5,15 @@ import Keyfact from "@/components/Keyfact";
 import Map from "@/components/Map";
 import Comparison from "@/components/Comparison";
 
+/*
+  The main structure is a column stack.
+  Each station (Intro, Project, etc) is built as a row stack comprising of the vertical line
+  and the content of the station, which itsself is a column stack that starts with a title of
+  the section.
+  The visualizations are imported into this file from the components folder, where each
+  component is implemented (for example the Map component)
+*/
+
 export default function Home() {
   return (
     <Stack direction={"column"}>
