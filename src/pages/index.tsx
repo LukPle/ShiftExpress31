@@ -3,6 +3,7 @@ import indexStyles from '../styles/index.module.css';
 import headerStyles from '../styles/header.module.css';
 import Keyfact from "@/components/Keyfact";
 import Map from "@/components/Map";
+import Comparison from "@/components/Comparison";
 
 export default function Home() {
   return (
@@ -18,10 +19,10 @@ export default function Home() {
           <div className={indexStyles.ring}></div>
           <div className={indexStyles.colorLine} style={{backgroundColor: "#56B9E3"}}></div>
         </Stack>
-        <Card variant="plain" sx={{ maxWidth: 50000 }}>
+        <Stack direction={"column"}>
           <Typography level="h2">Project</Typography>
           <Typography>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo do</Typography>
-        </Card>
+        </Stack>
       </Stack>
       
       <Stack direction={"row"}>
@@ -49,7 +50,7 @@ export default function Home() {
               </Stack>
               <Map />
             </Stack>
-            <Card></Card>
+            <Comparison />
           </Stack>
         </Stack>
       </Stack>
