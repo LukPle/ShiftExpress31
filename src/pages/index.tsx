@@ -78,7 +78,14 @@ export default function Home() {
         </Stack>
         <Stack direction={"column"}>
             <Typography level="h2" id="team">Team</Typography>
-            <Card></Card>
+            <Card
+              variant="outlined"
+              sx={{
+              width: 800,
+              height: 200
+              }}
+            >
+            </Card>
         </Stack>
       </Stack>
     </Stack>

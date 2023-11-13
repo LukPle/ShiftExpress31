@@ -6,7 +6,7 @@ export default function Map() {
             variant="outlined"
             sx={{
             width: 500,
-            height: 250
+            height: 284
             }}
         >
         </Card>

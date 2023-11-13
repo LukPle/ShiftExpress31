@@ -5,7 +5,7 @@ export default function Comparison() {
     <Card 
       variant="outlined"
       sx={{
-      width: 800,
+      width: 835,
       height: 200
       }}
     >
