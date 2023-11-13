@@ -30,7 +30,7 @@ export default function Home() {
           <div className={indexStyles.ring}></div>
           <div className={indexStyles.colorLine} style={{backgroundColor: "#56B9E3"}}></div>
         </Stack>
-        <Stack direction={"column"}>
+        <Stack direction={"column"} id="project">
           <Typography level="h2">Project</Typography>
           <Typography>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo do</Typography>
         </Stack>
@@ -39,9 +39,9 @@ export default function Home() {
       <Stack direction={"row"}>
         <Stack direction={"column"}>
           <div className={indexStyles.ring}></div>
-          <div className={indexStyles.colorLine} style={{backgroundColor: "#84BE55"}}></div>
+          <div className={indexStyles.colorLine} style={{backgroundColor: "#84BE55", height: "1000px"}}></div>
         </Stack>
-        <Stack direction={"column"}>
+        <Stack direction={"column"} id="insights">
           <Typography level="h2">Insights and Map</Typography>
           <Stack direction={"column"}>
             <Typography level="h3">Our Key Findings</Typography>
@@ -77,7 +77,7 @@ export default function Home() {
           <div className={indexStyles.colorLine} style={{backgroundColor: "#8A237E"}}></div>
         </Stack>
         <Stack direction={"column"}>
-            <Typography level="h2">Team</Typography>
+            <Typography level="h2" id="team">Team</Typography>
             <Card></Card>
         </Stack>
       </Stack>

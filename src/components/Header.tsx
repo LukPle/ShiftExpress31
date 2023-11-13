@@ -14,17 +14,17 @@ export default function Header() {
             </Link>
           </Typography>
           <Typography level="h3">
-            <Link href="#" underline="hover">
+            <Link href="#project" underline="hover">
               Project
             </Link>
           </Typography>
           <Typography level="h3">
-            <Link href="#" underline="hover">
+            <Link href="#insights" underline="hover">
               Insights and Map
             </Link>
           </Typography>
           <Typography level="h3">
-            <Link href="#" underline="hover">
+            <Link href="#team" underline="hover">
               Team
             </Link>
           </Typography>

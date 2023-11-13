@@ -5,7 +5,8 @@ export default function FilterBox() {
         <Card
             variant="outlined"
             sx={{
-            width: 320
+            width: 300,
+            height: 100
             }}
         >
         </Card>

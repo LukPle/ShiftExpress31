@@ -5,7 +5,8 @@ export default function FederalStateBox() {
         <Card
             variant="outlined"
             sx={{
-            width: 320
+            width: 300,
+            height: 150
             }}
         >
         </Card>
