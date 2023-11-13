@@ -1,29 +1,70 @@
-import { Typography, Stack } from "@mui/joy"
+import { Card, Typography, Stack } from "@mui/joy"
 import indexStyles from '../styles/index.module.css';
 import headerStyles from '../styles/header.module.css';
+import Keyfact from "@/components/Keyfact";
+import Map from "@/components/Map";
 
 export default function Home() {
   return (
-    <Stack direction={"row"}>
-      <Stack direction={"column"} my={10}>
-      <div className={indexStyles.ring}></div>
-      <div className={indexStyles.colorLine} style={{backgroundColor: "#56B9E3"}}></div>
-      <div className={indexStyles.ring}></div>
-      <div className={indexStyles.colorLine} style={{backgroundColor: "#84BE55"}}></div>
-      <div className={indexStyles.ring}></div>
-      <div className={indexStyles.colorLine} style={{backgroundColor: "#8A237E"}}></div>
-      <div className={indexStyles.ring}></div>
-      <div className={indexStyles.colorLine} style={{backgroundColor: "#D12D26"}}></div>
+    <Stack direction={"column"}>
+
+      <Stack direction="column">
+        <Typography level="h1">Visualizing the transportation shift in Germany</Typography>
+        <Typography>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</Typography>
       </Stack>
-      <Stack direction={"column"} width="100%" pt={8.5} pl={3}>
-        <Stack direction={"row"} gap={3}>
-        <div className={headerStyles.badgeRoundContainer}>
-            <div className={headerStyles.badgeRound} style={{backgroundColor: "#56B9E3"}}>1</div>
-          </div>
-          <Typography level="h2">Intro</Typography>
+
+      <Stack direction={"row"}>
+        <Stack direction={"column"}>
+          <div className={indexStyles.ring}></div>
+          <div className={indexStyles.colorLine} style={{backgroundColor: "#56B9E3"}}></div>
         </Stack>
-        <Typography><i>Here could be our code!</i></Typography>
+        <Card variant="plain" sx={{ maxWidth: 50000 }}>
+          <Typography level="h2">Project</Typography>
+          <Typography>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo do</Typography>
+        </Card>
+      </Stack>
+      
+      <Stack direction={"row"}>
+        <Stack direction={"column"}>
+          <div className={indexStyles.ring}></div>
+          <div className={indexStyles.colorLine} style={{backgroundColor: "#84BE55"}}></div>
+        </Stack>
+        <Stack direction={"column"}>
+          <Typography level="h2">Insights and Map</Typography>
+          <Stack direction={"column"}>
+            <Typography level="h3">Our Key Findings</Typography>
+            <Stack direction={"row"}>
+              <Keyfact />
+              <Keyfact />
+              <Keyfact />
+            </Stack>
+          </Stack>
+
+          <Stack direction={"column"}>
+            <Typography level="h3">Explore Yourself</Typography>
+            <Stack direction={"row"}>
+              <Stack direction={"column"}>
+                <Card></Card>
+                <Card></Card>
+              </Stack>
+              <Map />
+            </Stack>
+            <Card></Card>
+          </Stack>
+        </Stack>
+      </Stack>
+
+      <Stack direction={"row"}>
+        <Stack direction={"column"}>
+          <div className={indexStyles.ring}></div>
+          <div className={indexStyles.colorLine} style={{backgroundColor: "#8A237E"}}></div>
+        </Stack>
+        <Stack direction={"column"}>
+            <Typography level="h2">Team</Typography>
+            <Card></Card>
+        </Stack>
       </Stack>
     </Stack>
+
   )
 }
