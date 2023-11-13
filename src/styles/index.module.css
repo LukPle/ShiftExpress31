@@ -1,0 +1,25 @@
+.colorLine {
+    width: 4px;
+    /* Width of the line */
+    height: 500px;
+    /* Height of the line */
+    margin: 0 auto;
+    /* This centers the line if inside a block with a specified width */
+    margin-left: 80px;
+}
+
+.ring {
+    width: 14px;
+    /* Width of the ring */
+    height: 14px;
+    /* Height of the ring */
+    border: 4px solid #000000;
+    /* Thickness and color of the ring */
+    border-radius: 50%;
+    /* Makes the element a circle */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    margin-left: 75px;
+}
