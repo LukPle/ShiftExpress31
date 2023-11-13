@@ -1,12 +1,11 @@
 import { Card } from "@mui/joy"
 
-export default function Map() {
+export default function FilterBox() {
     return (
         <Card
             variant="outlined"
             sx={{
-            width: 500,
-            height: 500
+            width: 320
             }}
         >
         </Card>

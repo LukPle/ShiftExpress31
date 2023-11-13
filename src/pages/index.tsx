@@ -4,6 +4,8 @@ import headerStyles from '../styles/header.module.css';
 import Keyfact from "@/components/Keyfact";
 import Map from "@/components/Map";
 import Comparison from "@/components/Comparison";
+import FilterBox from "@/components/FilterBox";
+import FederalStateBox from "@/components/FederalStateBox";
 
 /*
   The main structure is a column stack.
@@ -43,7 +45,12 @@ export default function Home() {
           <Typography level="h2">Insights and Map</Typography>
           <Stack direction={"column"}>
             <Typography level="h3">Our Key Findings</Typography>
-            <Stack direction={"row"}>
+            <Stack 
+              direction={"row"}
+              justifyContent="space-evenly"
+              alignItems="center"
+              spacing={4}
+            >
               <Keyfact />
               <Keyfact />
               <Keyfact />
@@ -54,8 +61,8 @@ export default function Home() {
             <Typography level="h3">Explore Yourself</Typography>
             <Stack direction={"row"}>
               <Stack direction={"column"}>
-                <Card></Card>
-                <Card></Card>
+                <FilterBox />
+                <FederalStateBox />
               </Stack>
               <Map />
             </Stack>
