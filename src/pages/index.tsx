@@ -19,9 +19,15 @@ export default function Home() {
   return (
     <Stack direction={"column"} mx={17} my={7}>
 
-      <Stack direction="column">
-        <Box></Box>
-        <Typography level="h1">Visualizing the transportation <br/> shift in Germany</Typography>
+      <Stack direction="column" className={indexStyles.headingStack}>
+        {/* SVG with line background */}
+        <svg className={indexStyles.headingSvg} viewBox="0 0 1000 200" version='1.1' xmlns='http://www.w3.org/2000/svg'>
+          <rect x="410" y="65" width="80" height="30" rx="15" className={indexStyles.stationCircleHeadingSvg}/>
+          <text x="427" y="85" className={indexStyles.stationTextHeadingSvg}>InfoViz</text>
+          <polyline points="490,80 980,80 995,95 995,180 980,195 18,195 3,210 3,230" className={indexStyles.lineHeadingSvg} />
+        </svg>
+
+        <Typography level="h1" className={indexStyles.titleHeading}>Visualizing the transportation <br/> shift in Germany</Typography>
         <Typography mt={2}>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</Typography>
       </Stack>
 

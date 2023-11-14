@@ -1,3 +1,37 @@
+.headingStack {
+  position: relative;
+  margin: 0;
+  padding: 0 250px 100px 0;
+}
+
+.titleHeading {
+  font-size: 5em;
+}
+
+.headingSvg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.lineHeadingSvg {
+  stroke: var(--joy-palette-primary-500);
+  stroke-width: 6px;
+  fill: transparent;
+}
+
+.stationCircleHeadingSvg {
+  stroke: var(--joy-palette-primary-500);
+  stroke-width: 3px;
+  fill: transparent;
+}
+
+.stationTextHeadingSvg {
+  fill: var(--joy-palette-text-primary);
+  font-family: var(--joy-fontFamily-body);
+  font-size: 14px;
+}
+
 .lineLeftStack {
   margin: 0;
   padding: 20px 100px 80px 50px;
