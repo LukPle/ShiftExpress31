@@ -6,7 +6,7 @@ This is the main repository for Team 31's InfoVis web application built with Nex
 
 Before you begin, ensure you have met the following requirements:
 
-- You have installed Node.js version 14 or above (https://nodejs.org/)
+- You have installed Node.js version ~~14~~ 20 or above (https://nodejs.org/)
 - You have installed Git (https://git-scm.com/)
 
 ## Getting Started
