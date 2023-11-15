@@ -37,4 +37,5 @@ Open http://localhost:3000 with your browser to see the result.
 ### Content
 
 One of our visualization components is a map of Germany's federal states. To implement the map using d3 js, we needed a GeoJSON file
-containing geographical information about these states. For this purpose, we used a json file found on a Github repository: https://github.com/isellsoap/deutschlandGeoJSON/blob/main/2_bundeslaender/1_sehr_hoch.geo.json.
+containing geographical information about these states. For this purpose, we used a json file found on a Github repository: https://github.com/isellsoap/deutschlandGeoJSON/blob/main/2_bundeslaender/1_sehr_hoch.geo.json. Following the structure of our project, this
+file can be found in src/data/germany-states.json.
