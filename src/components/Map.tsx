@@ -1,4 +1,4 @@
-import { Card } from "@mui/joy"
+import { Card } from "@mui/joy";
 
 export default function Map() {
     return (
