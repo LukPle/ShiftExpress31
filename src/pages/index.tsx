@@ -1,10 +1,14 @@
 import { Card, Typography, Stack } from "@mui/joy"
+import TrainIcon from '@mui/icons-material/Train';
 import indexStyles from '../styles/index.module.css';
 import Keyfact from "@/components/Keyfact";
 import Map from "@/components/Map";
 import Comparison from "@/components/Comparison";
 import FilterBox from "@/components/FilterBox";
 import FederalStateBox from "@/components/FederalStateBox";
+import MyBarChart from "@/components/BarChart";
+import LineChart from "@/components/LineChartPT";
+import pTData from "../data/pT.json";
 
 /*
   The main structure is a column stack.
@@ -61,7 +65,11 @@ export default function Home() {
         </Stack>
       </Stack>
 
-      
+      <Typography level="h3" mt={4} startDecorator={<TrainIcon />}>Insights: <i>&nbsp;Public Transportation</i></Typography>
+      <Typography level="h4" mt={4}>Passengers in one Year</Typography>
+      <Card sx={{my: 3}}><MyBarChart data={pTData} /></Card>
+      <Typography level="h4" mt={4}>Passenger development over Time</Typography>
+      <Card sx={{my: 3}}><LineChart data={pTData} /></Card>
         <Stack direction={"column"} mt={7}>
           <Typography level="h2" id="team">Team</Typography>
           <Card
