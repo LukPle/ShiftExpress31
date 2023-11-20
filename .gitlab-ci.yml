@@ -1,0 +1,18 @@
+# Specify the GitLab CI/CD runner
+image: docker:latest
+
+# Define stages for the CI/CD pipeline
+stages:
+  - build
+
+# Jobs to be executed in each stage
+build:
+  stage: build
+  script:
+    - docker build -t my-nextjs-app .
+    - docker run my-nextjs-app npm run build
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
