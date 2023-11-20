@@ -6,6 +6,7 @@ before_script:
 pages:
   script:
     - npm run build
+    - rm -r public/*
     - mv out/* public
   artifacts:
     paths:
