@@ -127,3 +127,30 @@
   border: 15px solid var(--joy-palette-text-tertiary);
   border-radius: 50%;
 }
+
+.teamTileTop,
+.teamTileTop {
+  position: relative;
+}
+
+.teamTileTop::before {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: -70px;
+  left: calc(50% - 5px);
+  height: 70px;
+  width: 10px;
+  background-color: var(--joy-palette-primary-500);
+}
+
+.teamTileBottom::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: -70px;
+  left: calc(50% - 5px);
+  height: 70px;
+  width: 10px;
+  background-color: var(--joy-palette-primary-500);
+}
