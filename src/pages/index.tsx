@@ -1,10 +1,19 @@
-import { Card, Typography, Stack } from "@mui/joy"
+import { Card, Typography, Stack, Divider } from "@mui/joy"
+import TrainIcon from '@mui/icons-material/Train';
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import indexStyles from '../styles/index.module.css';
 import Keyfact from "@/components/Keyfact";
 import Map from "@/components/Map";
 import Comparison from "@/components/Comparison";
 import FilterBox from "@/components/FilterBox";
 import FederalStateBox from "@/components/FederalStateBox";
+import BarChartPT from "@/components/BarChartPT";
+import BarChartCar from "@/components/BarChartCar";
+import LineChartPT from "@/components/LineChartPT";
+import LineChartCar from "@/components/LineChartCar";
+import pTData from "../data/pT.json";
+import carData from "../data/car.json";
+
 
 /*
   The main structure is a column stack.
@@ -61,7 +70,21 @@ export default function Home() {
         </Stack>
       </Stack>
 
-      
+      <Typography level="h3" mt={4} startDecorator={<TrainIcon />}>Insights: <i>&nbsp;Public Transportation</i></Typography>
+      <Typography level="h4" mt={4}>Passengers in one Year</Typography>
+      <Card sx={{my: 3}}><BarChartPT data={pTData} /></Card>
+      <Typography level="h4" mt={4}>Passenger development over Time</Typography>
+      <Card sx={{my: 3}}><LineChartPT data={pTData} /></Card>
+
+      <Divider sx={{my: 3}}/>
+
+      <Typography level="h3" mt={4} startDecorator={<DirectionsCarIcon />}>Insights: <i>&nbsp;Cars</i></Typography>
+      <Typography level="h4" mt={4}>Passenger KMs in one Year</Typography>
+      <Card sx={{my: 3}}><BarChartCar data={carData} /></Card>
+      <Typography level="h4" mt={4}>Passenger KMs development over Time</Typography>
+      <Card sx={{my: 3}}><LineChartCar data={carData} /></Card>
+
+
         <Stack direction={"column"} mt={7}>
           <Typography level="h2" id="team">Team</Typography>
           <Card
