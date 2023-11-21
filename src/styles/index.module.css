@@ -99,7 +99,7 @@
 
 .markerLeftHeadingActive {
   position: relative; 
-  color: var(--joy-palette-text-ter);
+  color: var(--joy-palette-text-tertiary);
  }
 
 .markerLeftHeading::before {
