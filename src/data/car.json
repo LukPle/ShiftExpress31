@@ -970,10 +970,10 @@
   "2014": [
     {
      "state": "BW",
-     "per_car_km": 13070,
-     "per_car_pass_km": 19605,
+     "per_car_km": 11701,
+     "per_car_pass_km": 17552,
      "cars": 6070405,
-     "passenger_km": 119010290000
+     "passenger_km": 106544713000
     },
     {
      "state": "BY",
