@@ -3,7 +3,7 @@
 This is the main repository for Team 31's InfoVis web application built with Next.js. It includes a set of UI components styled with Joy UI, and integrated with D3 for data visualizations.
 
 ## Website
-hosting in progress ..
+You can visit the current version of the website through this link: https://team-31-iv2324-projects-9267fe386ec9af87e7d6c214ab1ee355db087ee.pages.gitlab.lrz.de
 
 
 ## Prerequisites
