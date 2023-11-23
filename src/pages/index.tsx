@@ -100,43 +100,29 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
             </Stack>
             <Comparison />
           </Stack>
+          <Typography level="h3" mt={4} startDecorator={<TrainIcon />}>Insights: <i>Public Transportation</i></Typography>
+          <Typography level="h4" mt={4}>Passengers in one Year</Typography>
+          <Card sx={{ my: 3 }}><BarChartPT data={pTData} /></Card>
+          <Typography level="h4" mt={4}>Passenger development over Time</Typography>
+          <Card sx={{ my: 3 }}><LineChartPT data={pTData} /></Card>
+
+          <Divider sx={{ my: 3 }} />
+
+          <Typography level="h3" mt={4} startDecorator={<DirectionsCarIcon />}>Insights: <i>Cars</i></Typography>
+          <Typography level="h4" mt={4}>Passenger KMs in one Year</Typography>
+          <Card sx={{ my: 3 }}><BarChartCar data={carData} /></Card>
+          <Typography level="h4" mt={4}>Passenger KMs development over Time</Typography>
+          <Card sx={{ my: 3 }}><LineChartCar data={carData} /></Card>
         </Stack>
 
-        <Typography level="h3" mt={4} startDecorator={<TrainIcon />}>Insights: <i>Public Transportation</i></Typography>
-        <Typography level="h4" mt={4}>Passengers in one Year</Typography>
-        <Card sx={{ my: 3 }}><BarChartPT data={pTData} /></Card>
-        <Typography level="h4" mt={4}>Passenger development over Time</Typography>
-        <Card sx={{ my: 3 }}><LineChartPT data={pTData} /></Card>
-
-        <Divider sx={{ my: 3 }} />
-
-        <Typography level="h3" mt={4} startDecorator={<DirectionsCarIcon />}>Insights: <i>Cars</i></Typography>
-        <Typography level="h4" mt={4}>Passenger KMs in one Year</Typography>
-        <Card sx={{ my: 3 }}><BarChartCar data={carData} /></Card>
-        <Typography level="h4" mt={4}>Passenger KMs development over Time</Typography>
-        <Card sx={{ my: 3 }}><LineChartCar data={carData} /></Card>
-
-        <Stack direction={"column"} mt={7}>
-          <Typography level="h2" id="team">Team</Typography>
-          <Card
-            variant="outlined"
-            sx={{
-              width: 800,
-              height: 200,
-              mt: 2
-            }}
-          >
-          </Card>
-
-          <Stack direction={"column"} mt={7} className={indexStyles.lineLeftHalfAcrossStack} ref={teamSectionRef}>
-            <Typography level="h2" id="team" className={currentSection == 3 ? indexStyles.markerLeftHeadingActive : indexStyles.markerLeftHeading}>Team</Typography>
-            <Stack mt={3} direction={"row"} alignItems={"center"} justifyContent={"center"} flexWrap="wrap" gap={15}>
-              <TeamTile className={indexStyles.teamTileTop} imageSrc={require('@/assets/amiin.png')} name="Amiin Najjar" desc="HCI student with a passion for sport and cooking, I've swapped public transportation for pedaling my bike, blending tech insights with a dash of culinary creativity and a healthy dose of physical activity." />
-              <TeamTile className={indexStyles.teamTileTop} imageSrc={require('@/assets/lukas.png')} name="Lukas Plenk" desc="I’m a Human-Computer-Interaction student at LMU Munich interested in digital media, culture, and traveling. Just like public transport, I’m always out for the next destination ahead." />
-              <TeamTile className={indexStyles.teamTileTop} imageSrc={require('@/assets/tim.png')} name="Timothy Summers" desc="I love collaborating in a team and solving creative challenges! Always ready for adventure - I can even handle Munich public transportation during rush hour!" />
-              <TeamTile className={indexStyles.teamTileBottom} imageSrc={require('@/assets/malek.png')} name="Malek Jarraya" desc="I’m a Media Informatics student at LMU Munich. I love colors, the sun, and the sea. I didn't know much about public transportation in the past, but our project definitely changed that." />
-              <TeamTile className={indexStyles.teamTileBottom} imageSrc={require('@/assets/maxi.png')} name="Maximilian Wiegand" desc="Hey, I'm a media computer science student at LMU Munich. I love to design, develop and explore - not only for computers. Some ideas even came up in delayed and overcrowded public transport…" />
-            </Stack>
+        <Stack direction={"column"} mt={7} className={indexStyles.lineLeftHalfAcrossStack} ref={teamSectionRef}>
+          <Typography level="h2" id="team" className={currentSection == 3 ? indexStyles.markerLeftHeadingActive : indexStyles.markerLeftHeading}>Team</Typography>
+          <Stack mt={3} direction={"row"} alignItems={"center"} justifyContent={"center"} flexWrap="wrap" gap={15}>
+            <TeamTile className={indexStyles.teamTileTop} imageSrc={require('@/assets/amiin.png')} name="Amiin Najjar" desc="HCI student with a passion for sport and cooking, I've swapped public transportation for pedaling my bike, blending tech insights with a dash of culinary creativity and a healthy dose of physical activity." />
+            <TeamTile className={indexStyles.teamTileTop} imageSrc={require('@/assets/lukas.png')} name="Lukas Plenk" desc="I’m a Human-Computer-Interaction student at LMU Munich interested in digital media, culture, and traveling. Just like public transport, I’m always out for the next destination ahead." />
+            <TeamTile className={indexStyles.teamTileTop} imageSrc={require('@/assets/tim.png')} name="Timothy Summers" desc="I love collaborating in a team and solving creative challenges! Always ready for adventure - I can even handle Munich public transportation during rush hour!" />
+            <TeamTile className={indexStyles.teamTileBottom} imageSrc={require('@/assets/malek.png')} name="Malek Jarraya" desc="I’m a Media Informatics student at LMU Munich. I love colors, the sun, and the sea. I didn't know much about public transportation in the past, but our project definitely changed that." />
+            <TeamTile className={indexStyles.teamTileBottom} imageSrc={require('@/assets/maxi.png')} name="Maximilian Wiegand" desc="Hey, I'm a media computer science student at LMU Munich. I love to design, develop and explore - not only for computers. Some ideas even came up in delayed and overcrowded public transport…" />
           </Stack>
         </Stack>
       </Stack>
