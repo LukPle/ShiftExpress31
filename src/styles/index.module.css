@@ -1,25 +1,156 @@
-.colorLine {
-    width: 4px;
-    /* Width of the line */
-    height: 500px;
-    /* Height of the line */
-    margin: 0 auto;
-    /* This centers the line if inside a block with a specified width */
-    margin-left: 80px;
+.headingStack {
+  position: relative;
+  margin: 0;
+  padding: 0 250px 100px 0;
 }
 
-.ring {
-    width: 14px;
-    /* Width of the ring */
-    height: 14px;
-    /* Height of the ring */
-    border: 4px solid #000000;
-    /* Thickness and color of the ring */
-    border-radius: 50%;
-    /* Makes the element a circle */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
-    margin-left: 75px;
+.titleHeading {
+  font-size: 5em;
+}
+
+.headingSvg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.lineHeadingSvg {
+  stroke: var(--joy-palette-primary-500);
+  stroke-width: 6px;
+  fill: transparent;
+}
+
+.stationCircleHeadingSvg {
+  stroke: var(--joy-palette-primary-500);
+  stroke-width: 3px;
+  fill: transparent;
+}
+
+.stationTextHeadingSvg {
+  fill: var(--joy-palette-text-primary);
+  font-family: var(--joy-fontFamily-body);
+  font-size: 14px;
+}
+
+.trainSvg {
+  position: absolute;
+  right: 110px;
+  top: 105px;
+}
+
+.lineLeftStack {
+  margin: 0;
+  padding: 20px 100px 80px 50px;
+  position: relative;
+}
+
+.lineLeftHalfAcrossStack {
+  margin: 0 0 0 25px;
+  padding: 20px 100px 80px 25px;
+  position: relative;
+  background-image: linear-gradient(0deg,
+    transparent 0%,
+    transparent calc(50% - 5.1px),
+    var(--joy-palette-primary-500) calc(50% - 5px),
+    var(--joy-palette-primary-500) calc(50% + 5px),
+    transparent calc(50% + 5.1px),
+    transparent 100%
+  );
+}
+
+.lineLeftStack::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  width: 10px;
+  background-color: var(--joy-palette-primary-500);
+  height: 100%;
+}
+
+.lineLeftHalfAcrossStack::before {
+  content: '';
+  position: absolute;
+  left: -25px;
+  top: 0;
+  display: block;
+  width: 10px;
+  background-color: var(--joy-palette-primary-500);
+  height: calc(50% - 20px);
+}
+
+.lineLeftHalfAcrossStack::after {
+  content: '';
+  position: absolute;
+  left: -14px;
+  top: calc(50% - 29px);
+  display: block;
+  width: 9.5px;
+  background-color: var(--joy-palette-primary-500);
+  height: 36px;
+  transform: rotate(-45deg);
+}
+
+.markerLeftHeading {
+ position: relative; 
+ color: var(--joy-palette-primary-500);
+}
+
+.markerLeftHeadingActive {
+  position: relative; 
+  color: var(--joy-palette-text-tertiary);
+ }
+
+.markerLeftHeading::before {
+  content: '';
+  position: absolute;
+  left: -70px;
+  top: -5px;;
+  display: block;
+  height: 20px;
+  width: 20px;
+  background-color: var(--joy-palette-primary-50);
+  border: 15px solid var(--joy-palette-primary-500);
+  border-radius: 50%;
+}
+
+.markerLeftHeadingActive::before {
+  content: '';
+  position: absolute;
+  left: -70px;
+  top: -5px;;
+  display: block;
+  height: 20px;
+  width: 20px;
+  background-color: var(--joy-palette-primary-50);
+  border: 15px solid var(--joy-palette-text-tertiary);
+  border-radius: 50%;
+}
+
+.teamTileTop,
+.teamTileTop {
+  position: relative;
+}
+
+.teamTileTop::before {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: -70px;
+  left: calc(50% - 5px);
+  height: 70px;
+  width: 10px;
+  background-color: var(--joy-palette-primary-500);
+}
+
+.teamTileBottom::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: -70px;
+  left: calc(50% - 5px);
+  height: 70px;
+  width: 10px;
+  background-color: var(--joy-palette-primary-500);
 }

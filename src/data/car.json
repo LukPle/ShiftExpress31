@@ -1,0 +1,1212 @@
+{
+  "2022": [
+    {
+     "state": "BW",
+     "per_car_km": 11005,
+     "per_car_pass_km": 16508,
+     "cars": 6838130,
+     "passenger_km": 112880431000
+    },
+    {
+     "state": "BY",
+     "per_car_km": 11220,
+     "per_car_pass_km": 16830,
+     "cars": 8228614,
+     "passenger_km": 138487574000
+    },
+    {
+     "state": "BE",
+     "per_car_km": 9323,
+     "per_car_pass_km": 13985,
+     "cars": 1241793,
+     "passenger_km": 17365854000
+    },
+    {
+     "state": "BB",
+     "per_car_km": 11686,
+     "per_car_pass_km": 17529,
+     "cars": 1468651,
+     "passenger_km": 25743983000
+    },
+    {
+     "state": "HB",
+     "per_car_km": 10816,
+     "per_car_pass_km": 16224,
+     "cars": 299330,
+     "passenger_km": 4856330000
+    },
+    {
+     "state": "HH",
+     "per_car_km": 10144,
+     "per_car_pass_km": 15216,
+     "cars": 813847,
+     "passenger_km": 12383496000
+    },
+    {
+     "state": "HE",
+     "per_car_km": 11077,
+     "per_car_pass_km": 16616,
+     "cars": 3813653,
+     "passenger_km": 63365751000
+    },
+    {
+     "state": "MV",
+     "per_car_km": 12434,
+     "per_car_pass_km": 18651,
+     "cars": 881398,
+     "passenger_km": 16438954000
+    },
+    {
+     "state": "NI",
+     "per_car_km": 11611,
+     "per_car_pass_km": 17417,
+     "cars": 4909123,
+     "passenger_km": 85499741000
+    },
+    {
+     "state": "NW",
+     "per_car_km": 10741,
+     "per_car_pass_km": 16112,
+     "cars": 10422671,
+     "passenger_km": 167924864000
+    },
+    {
+     "state": "RP",
+     "per_car_km": 11769,
+     "per_car_pass_km": 17654,
+     "cars": 2602699,
+     "passenger_km": 45946747000
+    },
+    {
+     "state": "SL",
+     "per_car_km": 11080,
+     "per_car_pass_km": 16620,
+     "cars": 648268,
+     "passenger_km": 10774214000
+    },
+    {
+     "state": "SN",
+     "per_car_km": 11329,
+     "per_car_pass_km": 16994,
+     "cars": 2182655,
+     "passenger_km": 37090948000
+    },
+    {
+     "state": "ST",
+     "per_car_km": 11900,
+     "per_car_pass_km": 17850,
+     "cars": 1222087,
+     "passenger_km": 21814253000
+    },
+    {
+     "state": "SH",
+     "per_car_km": 11999,
+     "per_car_pass_km": 17999,
+     "cars": 1731189,
+     "passenger_km": 31158805000
+    },
+    {
+     "state": "TH",
+     "per_car_km": 11644,
+     "per_car_pass_km": 17466,
+     "cars": 1194461,
+     "passenger_km": 20862456000
+    },
+    {
+     "state": "FEDERAL",
+     "per_car_km": 11085,
+     "per_car_pass_km": 16628,
+     "cars": 48498569,
+     "passenger_km": 806409956000
+    }
+  ],
+  "2021": [
+    {
+     "state": "BW",
+     "per_car_km": 11143,
+     "per_car_pass_km": 16715,
+     "cars": 6802786,
+     "passenger_km": 113705167000
+    },
+    {
+     "state": "BY",
+     "per_car_km": 11343,
+     "per_car_pass_km": 17015,
+     "cars": 8170101,
+     "passenger_km": 139010183000
+    },
+    {
+     "state": "BE",
+     "per_car_km": 9525,
+     "per_car_pass_km": 14288,
+     "cars": 1234645,
+     "passenger_km": 17639990000
+    },
+    {
+     "state": "BB",
+     "per_car_km": 12011,
+     "per_car_pass_km": 18017,
+     "cars": 1457114,
+     "passenger_km": 26252094000
+    },
+    {
+     "state": "HB",
+     "per_car_km": 10909,
+     "per_car_pass_km": 16364,
+     "cars": 297835,
+     "passenger_km": 4873623000
+    },
+    {
+     "state": "HH",
+     "per_car_km": 10318,
+     "per_car_pass_km": 15477,
+     "cars": 805780,
+     "passenger_km": 12471057000
+    },
+    {
+     "state": "HE",
+     "per_car_km": 11165,
+     "per_car_pass_km": 16748,
+     "cars": 3772207,
+     "passenger_km": 63175037000
+    },
+    {
+     "state": "MV",
+     "per_car_km": 12745,
+     "per_car_pass_km": 19118,
+     "cars": 876602,
+     "passenger_km": 16758439000
+    },
+    {
+     "state": "NI",
+     "per_car_km": 11755,
+     "per_car_pass_km": 17633,
+     "cars": 4876983,
+     "passenger_km": 85993403000
+    },
+    {
+     "state": "NW",
+     "per_car_km": 10851,
+     "per_car_pass_km": 16277,
+     "cars": 10365586,
+     "passenger_km": 168715461000
+    },
+    {
+     "state": "RP",
+     "per_car_km": 11823,
+     "per_car_pass_km": 17735,
+     "cars": 2588775,
+     "passenger_km": 45910630000
+    },
+    {
+     "state": "SL",
+     "per_car_km": 11197,
+     "per_car_pass_km": 16796,
+     "cars": 647432,
+     "passenger_km": 10873944000
+    },
+    {
+     "state": "SN",
+     "per_car_km": 11436,
+     "per_car_pass_km": 17154,
+     "cars": 2178531,
+     "passenger_km": 37370521000
+    },
+    {
+     "state": "ST",
+     "per_car_km": 12129,
+     "per_car_pass_km": 18194,
+     "cars": 1222844,
+     "passenger_km": 22247812000
+    },
+    {
+     "state": "SH",
+     "per_car_km": 12317,
+     "per_car_pass_km": 18476,
+     "cars": 1715107,
+     "passenger_km": 31687459000
+    },
+    {
+     "state": "TH",
+     "per_car_km": 11798,
+     "per_car_pass_km": 17697,
+     "cars": 1195550,
+     "passenger_km": 21157648000
+    },
+    {
+     "state": "FEDERAL",
+     "per_car_km": 11226,
+     "per_car_pass_km": 16839,
+     "cars": 48207878,
+     "passenger_km": 811772458000
+    }
+  ],
+  "2020": [
+    {
+     "state": "BW",
+     "per_car_km": 11300,
+     "per_car_pass_km": 16950,
+     "cars": 6723070,
+     "passenger_km": 113956037000
+    },
+    {
+     "state": "BY",
+     "per_car_km": 11489,
+     "per_car_pass_km": 17234,
+     "cars": 8096844,
+     "passenger_km": 139536961000
+    },
+    {
+     "state": "BE",
+     "per_car_km": 9545,
+     "per_car_pass_km": 14318,
+     "cars": 1221433,
+     "passenger_km": 17487867000
+    },
+    {
+     "state": "BB",
+     "per_car_km": 12039,
+     "per_car_pass_km": 18059,
+     "cars": 1439194,
+     "passenger_km": 25989685000
+    },
+    {
+     "state": "HB",
+     "per_car_km": 11029,
+     "per_car_pass_km": 16544,
+     "cars": 294547,
+     "passenger_km": 4872838000
+    },
+    {
+     "state": "HH",
+     "per_car_km": 10461,
+     "per_car_pass_km": 15692,
+     "cars": 804196,
+     "passenger_km": 12619042000
+    },
+    {
+     "state": "HE",
+     "per_car_km": 11399,
+     "per_car_pass_km": 17099,
+     "cars": 3754502,
+     "passenger_km": 64196352000
+    },
+    {
+     "state": "MV",
+     "per_car_km": 12813,
+     "per_car_pass_km": 19220,
+     "cars": 864963,
+     "passenger_km": 16624156000
+    },
+    {
+     "state": "NI",
+     "per_car_km": 11898,
+     "per_car_pass_km": 17847,
+     "cars": 4812978,
+     "passenger_km": 85897218000
+    },
+    {
+     "state": "NW",
+     "per_car_km": 11049,
+     "per_car_pass_km": 16574,
+     "cars": 10232556,
+     "passenger_km": 169589267000
+    },
+    {
+     "state": "RP",
+     "per_car_km": 11959,
+     "per_car_pass_km": 17939,
+     "cars": 2556805,
+     "passenger_km": 45865246000
+    },
+    {
+     "state": "SL",
+     "per_car_km": 11371,
+     "per_car_pass_km": 17057,
+     "cars": 642412,
+     "passenger_km": 10957300000
+    },
+    {
+     "state": "SN",
+     "per_car_km": 11626,
+     "per_car_pass_km": 17439,
+     "cars": 2161883,
+     "passenger_km": 37701078000
+    },
+    {
+     "state": "ST",
+     "per_car_km": 12254,
+     "per_car_pass_km": 18381,
+     "cars": 1215896,
+     "passenger_km": 22349384000
+    },
+    {
+     "state": "SH",
+     "per_car_km": 12446,
+     "per_car_pass_km": 18669,
+     "cars": 1687370,
+     "passenger_km": 31501511000
+    },
+    {
+     "state": "TH",
+     "per_car_km": 12068,
+     "per_car_pass_km": 18102,
+     "cars": 1189416,
+     "passenger_km": 21530808000
+    },
+    {
+     "state": "FEDERAL",
+     "per_car_km": 11387,
+     "per_car_pass_km": 17081,
+     "cars": 47698065,
+     "passenger_km": 814706799000
+    }
+  ],
+  "2019": [
+    {
+     "state": "BW",
+     "per_car_km": 11590,
+     "per_car_pass_km": 17385,
+     "cars": 6626660,
+     "passenger_km": 115204484000
+    },
+    {
+     "state": "BY",
+     "per_car_km": 11846,
+     "per_car_pass_km": 17769,
+     "cars": 7973421,
+     "passenger_km": 141679718000
+    },
+    {
+     "state": "BE",
+     "per_car_km": 9531,
+     "per_car_pass_km": 14297,
+     "cars": 1210790,
+     "passenger_km": 17310059000
+    },
+    {
+     "state": "BB",
+     "per_car_km": 12247,
+     "per_car_pass_km": 18371,
+     "cars": 1423631,
+     "passenger_km": 26152813000
+    },
+    {
+     "state": "HB",
+     "per_car_km": 11412,
+     "per_car_pass_km": 17118,
+     "cars": 292514,
+     "passenger_km": 5007255000
+    },
+    {
+     "state": "HH",
+     "per_car_km": 10667,
+     "per_car_pass_km": 16001,
+     "cars": 794618,
+     "passenger_km": 12714285000
+    },
+    {
+     "state": "HE",
+     "per_car_km": 11864,
+     "per_car_pass_km": 17796,
+     "cars": 3703192,
+     "passenger_km": 65902005000
+    },
+    {
+     "state": "MV",
+     "per_car_km": 13079,
+     "per_car_pass_km": 19619,
+     "cars": 856882,
+     "passenger_km": 16810740000
+    },
+    {
+     "state": "NI",
+     "per_car_km": 12237,
+     "per_car_pass_km": 18356,
+     "cars": 4747593,
+     "passenger_km": 87144443000
+    },
+    {
+     "state": "NW",
+     "per_car_km": 11497,
+     "per_car_pass_km": 17246,
+     "cars": 10083891,
+     "passenger_km": 173901742000
+    },
+    {
+     "state": "RP",
+     "per_car_km": 12391,
+     "per_car_pass_km": 18587,
+     "cars": 2520846,
+     "passenger_km": 46853704000
+    },
+    {
+     "state": "SL",
+     "per_car_km": 11700,
+     "per_car_pass_km": 17550,
+     "cars": 636176,
+     "passenger_km": 11164889000
+    },
+    {
+     "state": "SN",
+     "per_car_km": 11843,
+     "per_car_pass_km": 17765,
+     "cars": 2148960,
+     "passenger_km": 38175200000
+    },
+    {
+     "state": "ST",
+     "per_car_km": 12482,
+     "per_car_pass_km": 18723,
+     "cars": 1210884,
+     "passenger_km": 22671381000
+    },
+    {
+     "state": "SH",
+     "per_car_km": 12799,
+     "per_car_pass_km": 19199,
+     "cars": 1663285,
+     "passenger_km": 31932577000
+    },
+    {
+     "state": "TH",
+     "per_car_km": 12231,
+     "per_car_pass_km": 18347,
+     "cars": 1184512,
+     "passenger_km": 21731649000
+    },
+    {
+     "state": "FEDERAL",
+     "per_car_km": 11733,
+     "per_car_pass_km": 17600,
+     "cars": 47077855,
+     "passenger_km": 828546709000
+    }
+  ],
+  "2018": [
+    {
+     "state": "BW",
+     "per_car_km": 11543,
+     "per_car_pass_km": 17315,
+     "cars": 6521643,
+     "passenger_km": 112918988000
+    },
+    {
+     "state": "BY",
+     "per_car_km": 11804,
+     "per_car_pass_km": 17706,
+     "cars": 7845761,
+     "passenger_km": 138917044000
+    },
+    {
+     "state": "BE",
+     "per_car_km": 9631,
+     "per_car_pass_km": 14447,
+     "cars": 1202829,
+     "passenger_km": 17376669000
+    },
+    {
+     "state": "BB",
+     "per_car_km": 12401,
+     "per_car_pass_km": 18602,
+     "cars": 1407031,
+     "passenger_km": 26172887000
+    },
+    {
+     "state": "HB",
+     "per_car_km": 10915,
+     "per_car_pass_km": 16373,
+     "cars": 290188,
+     "passenger_km": 4751103000
+    },
+    {
+     "state": "HH",
+     "per_car_km": 10713,
+     "per_car_pass_km": 16070,
+     "cars": 783255,
+     "passenger_km": 12586516000
+    },
+    {
+     "state": "HE",
+     "per_car_km": 11805,
+     "per_car_pass_km": 17708,
+     "cars": 3658894,
+     "passenger_km": 64789866000
+    },
+    {
+     "state": "MV",
+     "per_car_km": 12930,
+     "per_car_pass_km": 19395,
+     "cars": 848812,
+     "passenger_km": 16462709000
+    },
+    {
+     "state": "NI",
+     "per_car_km": 12239,
+     "per_car_pass_km": 18359,
+     "cars": 4674059,
+     "passenger_km": 85808712000
+    },
+    {
+     "state": "NW",
+     "per_car_km": 11363,
+     "per_car_pass_km": 17045,
+     "cars": 9950324,
+     "passenger_km": 169598297000
+    },
+    {
+     "state": "RP",
+     "per_car_km": 12335,
+     "per_car_pass_km": 18503,
+     "cars": 2482960,
+     "passenger_km": 45940967000
+    },
+    {
+     "state": "SL",
+     "per_car_km": 11342,
+     "per_car_pass_km": 17013,
+     "cars": 629613,
+     "passenger_km": 10711606000
+    },
+    {
+     "state": "SN",
+     "per_car_km": 11606,
+     "per_car_pass_km": 17409,
+     "cars": 2135861,
+     "passenger_km": 37183204000
+    },
+    {
+     "state": "ST",
+     "per_car_km": 12379,
+     "per_car_pass_km": 18569,
+     "cars": 1205202,
+     "passenger_km": 22378793000
+    },
+    {
+     "state": "SH",
+     "per_car_km": 12654,
+     "per_car_pass_km": 18981,
+     "cars": 1639337,
+     "passenger_km": 31116256000
+    },
+    {
+     "state": "TH",
+     "per_car_km": 12255,
+     "per_car_pass_km": 18383,
+     "cars": 1179434,
+     "passenger_km": 21680946000
+    },
+    {
+     "state": "FEDERAL",
+     "per_car_km": 11672,
+     "per_car_pass_km": 17508,
+     "cars": 46455203,
+     "passenger_km": 813337694000
+    }
+  ],
+  "2017": [
+    {
+     "state": "BW",
+     "per_car_km": 11731,
+     "per_car_pass_km": 17597,
+     "cars": 6410321,
+     "passenger_km": 112799213000
+    },
+    {
+     "state": "BY",
+     "per_car_km": 11988,
+     "per_car_pass_km": 17982,
+     "cars": 7695182,
+     "passenger_km": 138374763000
+    },
+    {
+     "state": "BE",
+     "per_car_km": 9668,
+     "per_car_pass_km": 14502,
+     "cars": 1195149,
+     "passenger_km": 17332051000
+    },
+    {
+     "state": "BB",
+     "per_car_km": 12743,
+     "per_car_pass_km": 19115,
+     "cars": 1387847,
+     "passenger_km": 26528001000
+    },
+    {
+     "state": "HB",
+     "per_car_km": 10862,
+     "per_car_pass_km": 16293,
+     "cars": 290136,
+     "passenger_km": 4727186000
+    },
+    {
+     "state": "HH",
+     "per_car_km": 10734,
+     "per_car_pass_km": 16101,
+     "cars": 771573,
+     "passenger_km": 12423097000
+    },
+    {
+     "state": "HE",
+     "per_car_km": 12012,
+     "per_car_pass_km": 18018,
+     "cars": 3598862,
+     "passenger_km": 64844296000
+    },
+    {
+     "state": "MV",
+     "per_car_km": 13302,
+     "per_car_pass_km": 19953,
+     "cars": 840968,
+     "passenger_km": 16779835000
+    },
+    {
+     "state": "NI",
+     "per_car_km": 12522,
+     "per_car_pass_km": 18783,
+     "cars": 4602743,
+     "passenger_km": 86453322000
+    },
+    {
+     "state": "NW",
+     "per_car_km": 11620,
+     "per_car_pass_km": 17430,
+     "cars": 9807338,
+     "passenger_km": 170941901000
+    },
+    {
+     "state": "RP",
+     "per_car_km": 12614,
+     "per_car_pass_km": 18921,
+     "cars": 2449404,
+     "passenger_km": 46345173000
+    },
+    {
+     "state": "SL",
+     "per_car_km": 11649,
+     "per_car_pass_km": 17474,
+     "cars": 622819,
+     "passenger_km": 10882828000
+    },
+    {
+     "state": "SN",
+     "per_car_km": 11967,
+     "per_car_pass_km": 17951,
+     "cars": 2122324,
+     "passenger_km": 38096777000
+    },
+    {
+     "state": "ST",
+     "per_car_km": 12853,
+     "per_car_pass_km": 19280,
+     "cars": 1199771,
+     "passenger_km": 23130985000
+    },
+    {
+     "state": "SH",
+     "per_car_km": 12954,
+     "per_car_pass_km": 19431,
+     "cars": 1613213,
+     "passenger_km": 31346342000
+    },
+    {
+     "state": "TH",
+     "per_car_km": 12500,
+     "per_car_pass_km": 18750,
+     "cars": 1174517,
+     "passenger_km": 22022194000
+    },
+    {
+     "state": "FEDERAL",
+     "per_car_km": 11888,
+     "per_car_pass_km": 17832,
+     "cars": 45782167,
+     "passenger_km": 816387602000
+    }
+  ],
+  "2016": [
+    {
+     "state": "BW",
+     "per_car_km": 11680,
+     "per_car_pass_km": 17520,
+     "cars": 6282597,
+     "passenger_km": 110071099000
+    },
+    {
+     "state": "BY",
+     "per_car_km": 11888,
+     "per_car_pass_km": 17832,
+     "cars": 7550273,
+     "passenger_km": 134636468000
+    },
+    {
+     "state": "BE",
+     "per_car_km": 9484,
+     "per_car_pass_km": 14226,
+     "cars": 1178417,
+     "passenger_km": 16764160000
+    },
+    {
+     "state": "BB",
+     "per_car_km": 12686,
+     "per_car_pass_km": 19029,
+     "cars": 1369736,
+     "passenger_km": 26064706000
+    },
+    {
+     "state": "HB",
+     "per_car_km": 11035,
+     "per_car_pass_km": 16553,
+     "cars": 284484,
+     "passenger_km": 4708921000
+    },
+    {
+     "state": "HH",
+     "per_car_km": 10690,
+     "per_car_pass_km": 16035,
+     "cars": 761655,
+     "passenger_km": 12213138000
+    },
+    {
+     "state": "HE",
+     "per_car_km": 11903,
+     "per_car_pass_km": 17855,
+     "cars": 3539412,
+     "passenger_km": 63194432000
+    },
+    {
+     "state": "MV",
+     "per_car_km": 13099,
+     "per_car_pass_km": 19649,
+     "cars": 832708,
+     "passenger_km": 16361463000
+    },
+    {
+     "state": "NI",
+     "per_car_km": 12347,
+     "per_car_pass_km": 18521,
+     "cars": 4528650,
+     "passenger_km": 83872862000
+    },
+    {
+     "state": "NW",
+     "per_car_km": 11514,
+     "per_car_pass_km": 17271,
+     "cars": 9639714,
+     "passenger_km": 166487500000
+    },
+    {
+     "state": "RP",
+     "per_car_km": 12529,
+     "per_car_pass_km": 18794,
+     "cars": 2410786,
+     "passenger_km": 45307107000
+    },
+    {
+     "state": "SL",
+     "per_car_km": 11570,
+     "per_car_pass_km": 17355,
+     "cars": 615611,
+     "passenger_km": 10683929000
+    },
+    {
+     "state": "SN",
+     "per_car_km": 11891,
+     "per_car_pass_km": 17837,
+     "cars": 2107126,
+     "passenger_km": 37583753000
+    },
+    {
+     "state": "ST",
+     "per_car_km": 12720,
+     "per_car_pass_km": 19080,
+     "cars": 1193889,
+     "passenger_km": 22779402000
+    },
+    {
+     "state": "SH",
+     "per_car_km": 12821,
+     "per_car_pass_km": 19232,
+     "cars": 1583822,
+     "passenger_km": 30459273000
+    },
+    {
+     "state": "TH",
+     "per_car_km": 12431,
+     "per_car_pass_km": 18647,
+     "cars": 1167684,
+     "passenger_km": 21773220000
+    },
+    {
+     "state": "FEDERAL",
+     "per_car_km": 11782,
+     "per_car_pass_km": 17673,
+     "cars": 45046564,
+     "passenger_km": 796107926000
+    }
+  ],
+  "2015": [
+    {
+     "state": "BW",
+     "per_car_km": 11612,
+     "per_car_pass_km": 17418,
+     "cars": 6171168,
+     "passenger_km": 107489404000
+    },
+    {
+     "state": "BY",
+     "per_car_km": 11851,
+     "per_car_pass_km": 17777,
+     "cars": 7427661,
+     "passenger_km": 132037816000
+    },
+    {
+     "state": "BE",
+     "per_car_km": 9573,
+     "per_car_pass_km": 14360,
+     "cars": 1165215,
+     "passenger_km": 16731905000
+    },
+    {
+     "state": "BB",
+     "per_car_km": 12515,
+     "per_car_pass_km": 18773,
+     "cars": 1353356,
+     "passenger_km": 25405876000
+    },
+    {
+     "state": "HB",
+     "per_car_km": 11179,
+     "per_car_pass_km": 16769,
+     "cars": 280107,
+     "passenger_km": 4696974000
+    },
+    {
+     "state": "HH",
+     "per_car_km": 10789,
+     "per_car_pass_km": 16184,
+     "cars": 750510,
+     "passenger_km": 12145879000
+    },
+    {
+     "state": "HE",
+     "per_car_km": 11951,
+     "per_car_pass_km": 17927,
+     "cars": 3483965,
+     "passenger_km": 62455299000
+    },
+    {
+     "state": "MV",
+     "per_car_km": 12891,
+     "per_car_pass_km": 19337,
+     "cars": 825797,
+     "passenger_km": 15968024000
+    },
+    {
+     "state": "NI",
+     "per_car_km": 12389,
+     "per_car_pass_km": 18584,
+     "cars": 4451016,
+     "passenger_km": 82715456000
+    },
+    {
+     "state": "NW",
+     "per_car_km": 11581,
+     "per_car_pass_km": 17372,
+     "cars": 9478829,
+     "passenger_km": 164661478000
+    },
+    {
+     "state": "RP",
+     "per_car_km": 12487,
+     "per_car_pass_km": 18731,
+     "cars": 2374497,
+     "passenger_km": 44475516000
+    },
+    {
+     "state": "SL",
+     "per_car_km": 11743,
+     "per_car_pass_km": 17615,
+     "cars": 608463,
+     "passenger_km": 10717772000
+    },
+    {
+     "state": "SN",
+     "per_car_km": 11814,
+     "per_car_pass_km": 17721,
+     "cars": 2094414,
+     "passenger_km": 37115110000
+    },
+    {
+     "state": "ST",
+     "per_car_km": 12368,
+     "per_car_pass_km": 18552,
+     "cars": 1189962,
+     "passenger_km": 22076175000
+    },
+    {
+     "state": "SH",
+     "per_car_km": 12819,
+     "per_car_pass_km": 19229,
+     "cars": 1555863,
+     "passenger_km": 29916912000
+    },
+    {
+     "state": "TH",
+     "per_car_km": 12179,
+     "per_car_pass_km": 18269,
+     "cars": 1163737,
+     "passenger_km": 21259729000
+    },
+    {
+     "state": "FEDERAL",
+     "per_car_km": 11782,
+     "per_car_pass_km": 17673,
+     "cars": 44374560,
+     "passenger_km": 784231599000
+    }
+  ],
+  "2014": [
+    {
+     "state": "BW",
+     "per_car_km": 11701,
+     "per_car_pass_km": 17552,
+     "cars": 6070405,
+     "passenger_km": 106544713000
+    },
+    {
+     "state": "BY",
+     "per_car_km": 12014,
+     "per_car_pass_km": 18021,
+     "cars": 7311093,
+     "passenger_km": 131753207000
+    },
+    {
+     "state": "BE",
+     "per_car_km": 9947,
+     "per_car_pass_km": 14921,
+     "cars": 1154106,
+     "passenger_km": 17219839000
+    },
+    {
+     "state": "BB",
+     "per_car_km": 12565,
+     "per_car_pass_km": 18848,
+     "cars": 1343315,
+     "passenger_km": 25318129000
+    },
+    {
+     "state": "HB",
+     "per_car_km": 11091,
+     "per_car_pass_km": 16637,
+     "cars": 276270,
+     "passenger_km": 4596166000
+    },
+    {
+     "state": "HH",
+     "per_car_km": 10906,
+     "per_car_pass_km": 16359,
+     "cars": 742320,
+     "passenger_km": 12143613000
+    },
+    {
+     "state": "HE",
+     "per_car_km": 12020,
+     "per_car_pass_km": 18030,
+     "cars": 3441406,
+     "passenger_km": 62048550000
+    },
+    {
+     "state": "MV",
+     "per_car_km": 13070,
+     "per_car_pass_km": 19605,
+     "cars": 821255,
+     "passenger_km": 16100704000
+    },
+    {
+     "state": "NI",
+     "per_car_km": 12462,
+     "per_car_pass_km": 18693,
+     "cars": 4383401,
+     "passenger_km": 81938915000
+    },
+    {
+     "state": "NW",
+     "per_car_km": 11659,
+     "per_car_pass_km": 17489,
+     "cars": 9354668,
+     "passenger_km": 163599111000
+    },
+    {
+     "state": "RP",
+     "per_car_km": 12602,
+     "per_car_pass_km": 18903,
+     "cars": 2343457,
+     "passenger_km": 44298368000
+    },
+    {
+     "state": "SL",
+     "per_car_km": 11839,
+     "per_car_pass_km": 17759,
+     "cars": 603331,
+     "passenger_km": 10714254000
+    },
+    {
+     "state": "SN",
+     "per_car_km": 11876,
+     "per_car_pass_km": 17814,
+     "cars": 2086828,
+     "passenger_km": 37174754000
+    },
+    {
+     "state": "ST",
+     "per_car_km": 12499,
+     "per_car_pass_km": 18749,
+     "cars": 1188376,
+     "passenger_km": 22280267000
+    },
+    {
+     "state": "SH",
+     "per_car_km": 12932,
+     "per_car_pass_km": 19398,
+     "cars": 1534917,
+     "passenger_km": 29774320000
+    },
+    {
+     "state": "TH",
+     "per_car_km": 12208,
+     "per_car_pass_km": 18312,
+     "cars": 1161592,
+     "passenger_km": 21271073000
+    },
+    {
+     "state": "FEDERAL",
+     "per_car_km": 11903,
+     "per_car_pass_km": 17855,
+     "cars": 43816740,
+     "passenger_km": 782325984000
+    }
+  ],
+  "2013": [
+    {
+     "state": "BW",
+     "per_car_km": 11581,
+     "per_car_pass_km": 17372,
+     "cars": 5989716,
+     "passenger_km": 104050351000
+    },
+    {
+     "state": "BY",
+     "per_car_km": 11935,
+     "per_car_pass_km": 17903,
+     "cars": 7214493,
+     "passenger_km": 129157461000
+    },
+    {
+     "state": "BE",
+     "per_car_km": 10186,
+     "per_car_pass_km": 15279,
+     "cars": 1149520,
+     "passenger_km": 17563516000
+    },
+    {
+     "state": "BB",
+     "per_car_km": 12423,
+     "per_car_pass_km": 18635,
+     "cars": 1337091,
+     "passenger_km": 24916022000
+    },
+    {
+     "state": "HB",
+     "per_car_km": 11358,
+     "per_car_pass_km": 17037,
+     "cars": 273406,
+     "passenger_km": 4658018000
+    },
+    {
+     "state": "HH",
+     "per_car_km": 10876,
+     "per_car_pass_km": 16314,
+     "cars": 738610,
+     "passenger_km": 12049684000
+    },
+    {
+     "state": "HE",
+     "per_car_km": 11935,
+     "per_car_pass_km": 17903,
+     "cars": 3414865,
+     "passenger_km": 61134621000
+    },
+    {
+     "state": "MV",
+     "per_car_km": 12788,
+     "per_car_pass_km": 19182,
+     "cars": 820717,
+     "passenger_km": 15742993000
+    },
+    {
+     "state": "NI",
+     "per_car_km": 12358,
+     "per_car_pass_km": 18537,
+     "cars": 4320354,
+     "passenger_km": 80086402000
+    },
+    {
+     "state": "NW",
+     "per_car_km": 11585,
+     "per_car_pass_km": 17378,
+     "cars": 9264268,
+     "passenger_km": 160989817000
+    },
+    {
+     "state": "RP",
+     "per_car_km": 12447,
+     "per_car_pass_km": 18671,
+     "cars": 2320090,
+     "passenger_km": 43317240000
+    },
+    {
+     "state": "SL",
+     "per_car_km": 11872,
+     "per_car_pass_km": 17808,
+     "cars": 599509,
+     "passenger_km": 10676056000
+    },
+    {
+     "state": "SN",
+     "per_car_km": 11639,
+     "per_car_pass_km": 17459,
+     "cars": 2084165,
+     "passenger_km": 36386395000
+    },
+    {
+     "state": "ST",
+     "per_car_km": 12190,
+     "per_car_pass_km": 18285,
+     "cars": 1190580,
+     "passenger_km": 21769755000
+    },
+    {
+     "state": "SH",
+     "per_car_km": 12719,
+     "per_car_pass_km": 19079,
+     "cars": 1517779,
+     "passenger_km": 28956947000
+    },
+    {
+     "state": "TH",
+     "per_car_km": 11865,
+     "per_car_pass_km": 17798,
+     "cars": 1162296,
+     "passenger_km": 20685963000
+    },
+    {
+     "state": "FEDERAL",
+     "per_car_km": 11812,
+     "per_car_pass_km": 17718,
+     "cars": 43397459,
+     "passenger_km": 768916179
+    }
+  ]
+}
