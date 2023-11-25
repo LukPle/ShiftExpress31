@@ -1,7 +1,7 @@
 import { Link, Stack, Typography, Button, Divider } from "@mui/joy"
 import headerStyles from '../styles/header.module.css';
 
-export default function Header({currentSection, setSection}) {
+export default function Header({currentSection, setSection}: {currentSection: number, setSection: (section: number) => void}) {
   return (
     <div className={headerStyles.stickyHeader}>
       <Stack direction="column" sx={{ mt: "10px", width: "100%" }} alignContent={"flex-start"}>
