@@ -104,22 +104,21 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
           </Stack>
 
           <Typography level="h3" mt={4} startDecorator={<TrainIcon />}>Insights: <i>&nbsp;Public Transportation</i></Typography>
-
           <AccordionGroup size='lg' sx={{ my: 3, minWidth: "100%" }}>
             <Accordion>
-              <AccordionSummary>Total PT in specific Year</AccordionSummary>
+              <AccordionSummary>Total PT Data in specific Year</AccordionSummary>
               <AccordionDetails>
                 <Card sx={{ my: 3 }}><BarChartPT data={pTData} /></Card>
               </AccordionDetails>
             </Accordion>
             <Accordion>
-              <AccordionSummary>PT development over Time</AccordionSummary>
+              <AccordionSummary>Total PT Data development over Time</AccordionSummary>
               <AccordionDetails>
                 <Card sx={{ my: 3 }}><LineChartPT data={pTData} /></Card>
               </AccordionDetails>
             </Accordion>
             <Accordion>
-              <AccordionSummary>PT change over Interval</AccordionSummary>
+              <AccordionSummary>Total PT Data change over Interval</AccordionSummary>
               <AccordionDetails>
                 <Card sx={{ my: 3, minWidth: "100%" }}><BarChartPTDev data={pTData} /></Card>
               </AccordionDetails>
@@ -127,14 +126,27 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
           </AccordionGroup>
 
 
-
           <Typography level="h3" mt={4} startDecorator={<DirectionsCarIcon />}>Insights: <i>&nbsp;Cars</i></Typography>
-          <Typography level="h4" mt={4}>Passenger KMs in one Year</Typography>
-          <Card sx={{ my: 3, minWidth: "100%" }}><BarChartCar data={carData} /></Card>
-          <Typography level="h4" mt={4}>Passenger KMs development over Time</Typography>
-          <Card sx={{ my: 3, minWidth: "100%" }}><LineChartCar data={carData} /></Card>
-          <Typography level="h4" mt={4}>Passengers KMs change over Interval</Typography>
-          <Card sx={{ my: 3, minWidth: "100%" }}><BarChartCarDev data={carData} /></Card>
+          <AccordionGroup size='lg' sx={{ my: 3, minWidth: "100%" }}>
+            <Accordion>
+              <AccordionSummary>Car Data in specific Year</AccordionSummary>
+              <AccordionDetails>
+                <Card sx={{ my: 3 }}><BarChartCar data={carData} /></Card>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion>
+              <AccordionSummary>Car Data development over Time</AccordionSummary>
+              <AccordionDetails>
+              <Card sx={{ my: 3 }}><LineChartCar data={carData} /></Card>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion>
+              <AccordionSummary>Car Data change over Interval</AccordionSummary>
+              <AccordionDetails>
+              <Card sx={{ my: 3 }}><BarChartCarDev data={carData} /></Card>
+              </AccordionDetails>
+            </Accordion>
+          </AccordionGroup>
         </Stack>
 
         <Stack direction={"column"} mt={7} className={indexStyles.lineLeftHalfAcrossStack} ref={teamSectionRef}>

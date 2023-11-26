@@ -1,7 +1,7 @@
+import { Select, Option, Stack } from "@mui/joy";
 import React, { useState, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
-import { Select, Option } from "@mui/joy";
-import { YearlyData } from '../../data/carDataInterface';
+import { CarData, YearlyData } from '../../data/carDataInterface';
 
 interface Props {
     data: YearlyData;
@@ -10,7 +10,26 @@ interface Props {
 const CarDataChangeVisualization: React.FC<Props> = ({ data }) => {
     const [startYear, setStartYear] = useState('2013');
     const [endYear, setEndYear] = useState('2022');
+    const [selectedMetric, setSelectedMetric] = useState<keyof CarData>('passenger_km');
     const d3Container = useRef<SVGSVGElement | null>(null);
+
+    const calculatePercentageChange = (state: string, metric: keyof CarData) => {
+        const startYearData = data[startYear].find(d => d.state === state);
+        const endYearData = data[endYear].find(d => d.state === state);
+
+        if (!startYearData || !endYearData) {
+            return 0;
+        }
+
+        const startValue = startYearData[metric];
+        const endValue = endYearData[metric];
+
+        if (typeof startValue === 'number' && typeof endValue === 'number') {
+            return ((endValue - startValue) / startValue) * 100;
+        } else {
+            return 0;
+        }
+    };
 
     useEffect(() => {
         if (data && d3Container.current) {
@@ -34,22 +53,10 @@ const CarDataChangeVisualization: React.FC<Props> = ({ data }) => {
 
             const color = d3.scaleOrdinal(d3.schemeCategory10);
 
-            // Function to calculate percentage change
-            const calculatePercentageChange = (state: string) => {
-                const startYearData = data[startYear].find(d => d.state === state);
-                const endYearData = data[endYear].find(d => d.state === state);
-
-                if (!startYearData || !endYearData) {
-                    return 0;
-                }
-
-                return ((endYearData.passenger_km - startYearData.passenger_km) / startYearData.passenger_km) * 100;
-            };
-
             // Calculate the percentage change for each state
             let percentageChanges = Object.values(data[startYear]).map(d => ({
                 state: d.state,
-                change: calculatePercentageChange(d.state)
+                change: calculatePercentageChange(d.state, selectedMetric)
             }));
 
             // Filter out 'federal' data
@@ -82,34 +89,44 @@ const CarDataChangeVisualization: React.FC<Props> = ({ data }) => {
                 .attr("class", "y-axis")
                 .call(d3.axisLeft(y) as any);
         }
-    }, [data, startYear, endYear]);
+    }, [data, startYear, endYear, selectedMetric]);
 
     return (
         <div>
-            <Select defaultValue="2013" sx={{ maxWidth: "100px" }}>
-                <Option value="2013" onClick={() => setStartYear('2013')}>2013</Option>
-                <Option value="2014" onClick={() => setStartYear('2014')}>2014</Option>
-                <Option value="2015" onClick={() => setStartYear('2015')}>2015</Option>
-                <Option value="2016" onClick={() => setStartYear('2016')}>2016</Option>
-                <Option value="2017" onClick={() => setStartYear('2017')}>2017</Option>
-                <Option value="2018" onClick={() => setStartYear('2018')}>2018</Option>
-                <Option value="2019" onClick={() => setStartYear('2019')}>2019</Option>
-                <Option value="2020" onClick={() => setStartYear('2020')}>2020</Option>
-                <Option value="2021" onClick={() => setStartYear('2021')}>2021</Option>
-                <Option value="2022" onClick={() => setStartYear('2022')}>2022</Option>
-            </Select>
-            <Select defaultValue="2022" sx={{ maxWidth: "100px" }}>
-                <Option value="2013" onClick={() => setEndYear('2013')}>2013</Option>
-                <Option value="2014" onClick={() => setEndYear('2014')}>2014</Option>
-                <Option value="2015" onClick={() => setEndYear('2015')}>2015</Option>
-                <Option value="2016" onClick={() => setEndYear('2016')}>2016</Option>
-                <Option value="2017" onClick={() => setEndYear('2017')}>2017</Option>
-                <Option value="2018" onClick={() => setEndYear('2018')}>2018</Option>
-                <Option value="2019" onClick={() => setEndYear('2019')}>2019</Option>
-                <Option value="2020" onClick={() => setEndYear('2020')}>2020</Option>
-                <Option value="2021" onClick={() => setEndYear('2021')}>2021</Option>
-                <Option value="2022" onClick={() => setEndYear('2022')}>2022</Option>
-            </Select>
+            <Stack direction={"row"}>
+                <Stack gap={"5px"}>
+                    <Select defaultValue="2013" sx={{ maxWidth: "100px" }}>
+                        <Option value="2013" onClick={() => setStartYear('2013')}>2013</Option>
+                        <Option value="2014" onClick={() => setStartYear('2014')}>2014</Option>
+                        <Option value="2015" onClick={() => setStartYear('2015')}>2015</Option>
+                        <Option value="2016" onClick={() => setStartYear('2016')}>2016</Option>
+                        <Option value="2017" onClick={() => setStartYear('2017')}>2017</Option>
+                        <Option value="2018" onClick={() => setStartYear('2018')}>2018</Option>
+                        <Option value="2019" onClick={() => setStartYear('2019')}>2019</Option>
+                        <Option value="2020" onClick={() => setStartYear('2020')}>2020</Option>
+                        <Option value="2021" onClick={() => setStartYear('2021')}>2021</Option>
+                        <Option value="2022" onClick={() => setStartYear('2022')}>2022</Option>
+                    </Select>
+                    <Select defaultValue="2022" sx={{ maxWidth: "100px" }}>
+                        <Option value="2013" onClick={() => setEndYear('2013')}>2013</Option>
+                        <Option value="2014" onClick={() => setEndYear('2014')}>2014</Option>
+                        <Option value="2015" onClick={() => setEndYear('2015')}>2015</Option>
+                        <Option value="2016" onClick={() => setEndYear('2016')}>2016</Option>
+                        <Option value="2017" onClick={() => setEndYear('2017')}>2017</Option>
+                        <Option value="2018" onClick={() => setEndYear('2018')}>2018</Option>
+                        <Option value="2019" onClick={() => setEndYear('2019')}>2019</Option>
+                        <Option value="2020" onClick={() => setEndYear('2020')}>2020</Option>
+                        <Option value="2021" onClick={() => setEndYear('2021')}>2021</Option>
+                        <Option value="2022" onClick={() => setEndYear('2022')}>2022</Option>
+                    </Select>
+                </Stack>
+                <Select defaultValue="passenger_km" sx={{ minWidth: "250px", maxHeight:"30px", marginLeft: "10px" }}>
+                    <Option value="passenger_km" onClick={() => setSelectedMetric('passenger_km')}>Total Passenger KMs</Option>
+                    <Option value="per_car_km" onClick={() => setSelectedMetric('per_car_km')}>Per Car Km</Option>
+                    <Option value="per_car_pass_km" onClick={() => setSelectedMetric('per_car_pass_km')}>Per Car Passenger Km</Option>
+                    <Option value="cars" onClick={() => setSelectedMetric('cars')}>Number of Cars</Option>
+                </Select>
+            </Stack>
             <svg ref={d3Container} />
         </div>
     );
