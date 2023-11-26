@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Card, Typography, Stack, Divider } from "@mui/joy";
+import { Card, Typography, Stack, Divider, AccordionGroup, Accordion, AccordionDetails, AccordionSummary } from "@mui/joy";
 import TrainIcon from '@mui/icons-material/Train';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import indexStyles from '../styles/index.module.css';
@@ -102,23 +102,39 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
             </Stack>
             <Comparison />
           </Stack>
-          <Typography level="h3" mt={4} startDecorator={<TrainIcon />}>Insights: <i>Public Transportation</i></Typography>
-          <Typography level="h4" mt={4}>Passengers in one Year</Typography>
-          <Card sx={{ my: 3, minWidth: "100%" }}><BarChartPT data={pTData} /></Card>
-          <Typography level="h4" mt={4}>Passenger development over Time</Typography>
-          <Card sx={{ my: 3, minWidth: "100%"  }}><LineChartPT data={pTData} /></Card>
-          <Typography level="h4" mt={4}>Passengers change over Interval</Typography>
-          <Card sx={{ my: 3, minWidth: "100%"  }}><BarChartPTDev data={pTData} /></Card>
 
-          <Divider sx={{ my: 3 }} />
+          <Typography level="h3" mt={4} startDecorator={<TrainIcon />}>Insights: <i>&nbsp;Public Transportation</i></Typography>
 
-          <Typography level="h3" mt={4} startDecorator={<DirectionsCarIcon />}>Insights: <i>Cars</i></Typography>
+          <AccordionGroup size='lg' sx={{ my: 3, minWidth: "100%" }}>
+            <Accordion>
+              <AccordionSummary>Total PT in specific Year</AccordionSummary>
+              <AccordionDetails>
+                <Card sx={{ my: 3 }}><BarChartPT data={pTData} /></Card>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion>
+              <AccordionSummary>PT development over Time</AccordionSummary>
+              <AccordionDetails>
+                <Card sx={{ my: 3 }}><LineChartPT data={pTData} /></Card>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion>
+              <AccordionSummary>PT change over Interval</AccordionSummary>
+              <AccordionDetails>
+                <Card sx={{ my: 3, minWidth: "100%" }}><BarChartPTDev data={pTData} /></Card>
+              </AccordionDetails>
+            </Accordion>
+          </AccordionGroup>
+
+
+
+          <Typography level="h3" mt={4} startDecorator={<DirectionsCarIcon />}>Insights: <i>&nbsp;Cars</i></Typography>
           <Typography level="h4" mt={4}>Passenger KMs in one Year</Typography>
-          <Card sx={{ my: 3, minWidth: "100%"  }}><BarChartCar data={carData} /></Card>
+          <Card sx={{ my: 3, minWidth: "100%" }}><BarChartCar data={carData} /></Card>
           <Typography level="h4" mt={4}>Passenger KMs development over Time</Typography>
-          <Card sx={{ my: 3, minWidth: "100%"  }}><LineChartCar data={carData} /></Card>
+          <Card sx={{ my: 3, minWidth: "100%" }}><LineChartCar data={carData} /></Card>
           <Typography level="h4" mt={4}>Passengers KMs change over Interval</Typography>
-          <Card sx={{ my: 3, minWidth: "100%"  }}><BarChartCarDev data={carData} /></Card>
+          <Card sx={{ my: 3, minWidth: "100%" }}><BarChartCarDev data={carData} /></Card>
         </Stack>
 
         <Stack direction={"column"} mt={7} className={indexStyles.lineLeftHalfAcrossStack} ref={teamSectionRef}>

@@ -1,5 +1,5 @@
-// TransportDataVisualization.tsx
-import React, { useEffect, useRef } from 'react';
+import { Select, Option } from "@mui/joy";
+import React, { useState, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import { TransportData, YearlyData } from '../../data/pTDataInterface';
 
@@ -8,20 +8,24 @@ interface Props {
 }
 
 const TransportDataVisualization: React.FC<Props> = ({ data }) => {
+  const [selectedMetric, setSelectedMetric] = useState<keyof TransportData>('total_local_passengers');
   const d3Container = useRef<SVGSVGElement | null>(null);
 
-  // Data transformation
-  const transformData = (data: YearlyData): { state: string; values: { year: string; passengers: number; }[] }[] => {
+  const transformData = (data: YearlyData, metric: keyof TransportData): { state: string; values: { year: string; value: number; }[] }[] => {
     const states = new Set<string>();
     Object.values(data).forEach(yearData => yearData.forEach(d => states.add(d.state)));
-    
-    const seriesData: { state: string; values: { year: string; passengers: number; }[] }[] = [];
+
+    const seriesData: { state: string; values: { year: string; value: number; }[] }[] = [];
     states.forEach(state => {
-      const stateData = { state, values: [] as { year: string; passengers: number; }[] };
+      const stateData = { state, values: [] as { year: string; value: number; }[] };
       for (const year in data) {
         const yearDatum = data[year].find(d => d.state === state);
         if (yearDatum) {
-          stateData.values.push({ year, passengers: yearDatum.total_local_passengers });
+          const value = yearDatum[metric];
+          // Ensuring value is treated as a number
+          if (typeof value === 'number') {
+            stateData.values.push({ year, value });
+          }
         }
       }
       seriesData.push(stateData);
@@ -31,6 +35,8 @@ const TransportDataVisualization: React.FC<Props> = ({ data }) => {
 
   useEffect(() => {
     if (data && d3Container.current) {
+      d3.select(d3Container.current).selectAll("*").remove();
+
       const margin = { top: 20, right: 80, bottom: 30, left: 80 };
       const width = 960 - margin.left - margin.right;
       const height = 500 - margin.top - margin.bottom;
@@ -41,32 +47,36 @@ const TransportDataVisualization: React.FC<Props> = ({ data }) => {
         .append("g")
         .attr("transform", `translate(${margin.left},${margin.top})`);
 
-        const x = d3.scalePoint()
+      const x = d3.scalePoint()
         .range([0, width])
         .domain(Object.keys(data).sort());
+
+      // Correcting the domain calculation
       const y = d3.scaleLinear()
         .range([height, 0])
-        .domain([0, d3.max(Object.values(data).flat(), d => d.total_local_passengers) as number]);
+        .domain([0, d3.max(Object.values(data).flat(), d => {
+          const value = d[selectedMetric];
+          return typeof value === 'number' ? value : undefined;
+        }) as number]); // Ensuring the accessor always returns a number or undefined
 
-      const color = d3.scaleOrdinal(d3.schemeCategory10); // Using a D3 color scheme
+      const color = d3.scaleOrdinal(d3.schemeCategory10);
 
-      const line = d3.line<{ year: string; passengers: number }>()
+      const line = d3.line<{ year: string; value: number }>()
         .x(d => x(d.year) as number)
-        .y(d => y(d.passengers));
+        .y(d => y(d.value));
 
-      const series = transformData(data);
+      const series = transformData(data, selectedMetric);
 
       series.forEach(s => {
-        const path = svg.append("path")
+        svg.append("path")
           .datum(s.values)
           .attr("fill", "none")
           .attr("stroke", () => color(s.state))
           .attr("stroke-width", 1.5)
           .attr("d", line);
 
-        // Add labels
         svg.append("text")
-          .attr("transform", `translate(${width},${y(s.values[s.values.length - 1].passengers)})`)
+          .attr("transform", `translate(${width},${y(s.values[s.values.length - 1].value)})`)
           .attr("dy", ".35em")
           .attr("dx", ".35em")
           .attr("text-anchor", "start")
@@ -81,10 +91,14 @@ const TransportDataVisualization: React.FC<Props> = ({ data }) => {
       svg.append("g")
         .call(d3.axisLeft(y));
     }
-  }, [data]);
+  }, [data, selectedMetric]);
 
   return (
     <div>
+      <Select defaultValue="total_local_passengers" sx={{ maxWidth: "250px" }}>
+        <Option value="total_local_passengers" onClick={() => setSelectedMetric('total_local_passengers')}>Total Local Passengers</Option>
+        <Option value="total_local_passenger_km" onClick={() => setSelectedMetric('total_local_passenger_km')}>Total Local Passenger Km</Option>
+      </Select>
       <svg ref={d3Container} />
     </div>
   );
