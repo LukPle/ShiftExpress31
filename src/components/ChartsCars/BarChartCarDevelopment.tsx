@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import { Select, Option } from "@mui/joy";
-import { YearlyData } from '../data/pTDataInterface';
+import { YearlyData } from '../../data/carDataInterface';
 
 interface Props {
     data: YearlyData;
 }
 
-const TransportDataChangeVisualization: React.FC<Props> = ({ data }) => {
+const CarDataChangeVisualization: React.FC<Props> = ({ data }) => {
     const [startYear, setStartYear] = useState('2013');
     const [endYear, setEndYear] = useState('2022');
     const d3Container = useRef<SVGSVGElement | null>(null);
@@ -43,14 +43,17 @@ const TransportDataChangeVisualization: React.FC<Props> = ({ data }) => {
                     return 0;
                 }
 
-                return ((endYearData.total_local_passengers - startYearData.total_local_passengers) / startYearData.total_local_passengers) * 100;
+                return ((endYearData.passenger_km - startYearData.passenger_km) / startYearData.passenger_km) * 100;
             };
 
             // Calculate the percentage change for each state
-            const percentageChanges = Object.values(data[startYear]).map(d => ({
+            let percentageChanges = Object.values(data[startYear]).map(d => ({
                 state: d.state,
                 change: calculatePercentageChange(d.state)
             }));
+
+            // Filter out 'federal' data
+            percentageChanges = percentageChanges.filter(d => d.state !== 'FEDERAL');
 
             // Sort data
             percentageChanges.sort((a, b) => b.change - a.change);
@@ -112,4 +115,4 @@ const TransportDataChangeVisualization: React.FC<Props> = ({ data }) => {
     );
 };
 
-export default TransportDataChangeVisualization;
+export default CarDataChangeVisualization;

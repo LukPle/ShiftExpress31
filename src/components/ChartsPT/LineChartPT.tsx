@@ -1,7 +1,7 @@
 // TransportDataVisualization.tsx
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
-import { TransportData, YearlyData } from '../data/pTDataInterface';
+import { TransportData, YearlyData } from '../../data/pTDataInterface';
 
 interface Props {
   data: YearlyData;

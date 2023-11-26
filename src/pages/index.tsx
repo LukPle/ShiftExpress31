@@ -10,11 +10,12 @@ import FilterBox from "@/components/FilterBox";
 import FederalStateBox from "@/components/FederalStateBox";
 import TeamTile from "@/components/TeamTile";
 import Image from 'next/image';
-import BarChartPT from "@/components/BarChartPT";
-import BarChartPTDev from "@/components/BarChartPTDevelopment";
-import BarChartCar from "@/components/BarChartCar";
-import LineChartPT from "@/components/LineChartPT";
-import LineChartCar from "@/components/LineChartCar";
+import BarChartPT from "@/components/ChartsPT/BarChartPT";
+import BarChartPTDev from "@/components/ChartsPT/BarChartPTDevelopment";
+import BarChartCar from "@/components/ChartsCars/BarChartCar";
+import BarChartCarDev from "@/components/ChartsCars/BarChartCarDevelopment";
+import LineChartPT from "@/components/ChartsPT/LineChartPT";
+import LineChartCar from "@/components/ChartsCars/LineChartCar";
 import pTData from "../data/pT.json";
 import carData from "../data/car.json";
 
@@ -116,6 +117,8 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
           <Card sx={{ my: 3, minWidth: "100%"  }}><BarChartCar data={carData} /></Card>
           <Typography level="h4" mt={4}>Passenger KMs development over Time</Typography>
           <Card sx={{ my: 3, minWidth: "100%"  }}><LineChartCar data={carData} /></Card>
+          <Typography level="h4" mt={4}>Passengers KMs change over Interval</Typography>
+          <Card sx={{ my: 3, minWidth: "100%"  }}><BarChartCarDev data={carData} /></Card>
         </Stack>
 
         <Stack direction={"column"} mt={7} className={indexStyles.lineLeftHalfAcrossStack} ref={teamSectionRef}>
