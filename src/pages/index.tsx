@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { Card, Typography, Stack, Divider, AccordionGroup, Accordion, AccordionDetails, AccordionSummary } from "@mui/joy";
 import TrainIcon from '@mui/icons-material/Train';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+import MergeTypeIcon from '@mui/icons-material/MergeType';
 import indexStyles from '../styles/index.module.css';
 import Keyfact from "@/components/Keyfact";
 import Map from "@/components/Map";
@@ -16,6 +17,7 @@ import BarChartCar from "@/components/ChartsCars/BarChartCar";
 import BarChartCarDev from "@/components/ChartsCars/BarChartCarDevelopment";
 import LineChartPT from "@/components/ChartsPT/LineChartPT";
 import LineChartCar from "@/components/ChartsCars/LineChartCar";
+import BarChartDevelopmentCombined from "@/components/ChartsCombined/BarChartDevelopmentCombined";
 import pTData from "../data/pT.json";
 import carData from "../data/car.json";
 
@@ -147,6 +149,17 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
               </AccordionDetails>
             </Accordion>
           </AccordionGroup>
+
+          <Typography level="h3" mt={4} startDecorator={<MergeTypeIcon />}>Insights: <i>&nbsp;Combining Data Sets</i></Typography>
+          <AccordionGroup size='lg' sx={{ my: 3, minWidth: "100%" }}>
+            <Accordion>
+              <AccordionSummary>Combined Data development over Time</AccordionSummary>
+              <AccordionDetails>
+                <Card sx={{ my: 3 }}><BarChartDevelopmentCombined carData={carData} transportData={pTData}/></Card>
+              </AccordionDetails>
+            </Accordion>
+          </AccordionGroup>
+
         </Stack>
 
         <Stack direction={"column"} mt={7} className={indexStyles.lineLeftHalfAcrossStack} ref={teamSectionRef}>
