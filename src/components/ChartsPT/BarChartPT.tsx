@@ -1,19 +1,27 @@
-import { Select, Option, Stack } from "@mui/joy";
+import { Select, Option, Stack, Button } from "@mui/joy";
+import { Sort, Calculate } from '@mui/icons-material';
 import React, { useState, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import { TransportData, YearlyData } from '../../data/pTDataInterface';
+import { PopulationData } from '../../data/populationInterface';
 
 interface Props {
     data: YearlyData;
+    populationData: PopulationData[];
 }
 
-const TransportDataVisualization: React.FC<Props> = ({ data }) => {
+const TransportDataVisualization: React.FC<Props> = ({ data, populationData }) => {
     const [selectedYear, setSelectedYear] = useState<string>('2013');
     const [selectedMetric, setSelectedMetric] = useState<keyof TransportData>('total_local_passengers');
+    const [sortByPopulation, setSortByPopulation] = useState(false);
+    const [inRelationToPopulation, setInRelationToPopulation] = useState(false);
+    const [originalData, setOriginalData] = useState<YearlyData | null>(null);
     const d3Container = useRef<SVGSVGElement | null>(null);
 
     useEffect(() => {
+        setOriginalData(data);
         if (data && d3Container.current) {
+            // Clear the existing SVG content
             d3.select(d3Container.current).selectAll("*").remove();
 
             const margin = { top: 20, right: 30, bottom: 40, left: 90 };
@@ -35,21 +43,45 @@ const TransportDataVisualization: React.FC<Props> = ({ data }) => {
             const color = d3.scaleOrdinal(d3.schemeCategory10);
 
             const updateChart = (year: string, metric: keyof TransportData) => {
-                const yearData = data[year];
+                if (!originalData) return;
 
-                // Sort data with proper typing for the metric
-                yearData.sort((a, b) => (b[metric] as number) - (a[metric] as number));
+                let yearData = JSON.parse(JSON.stringify(originalData[year]));
 
+                if (inRelationToPopulation) {
+                    const populationMap = new Map(populationData.map(d => [d.state, d.population]));
+                    // @ts-ignore
+                    yearData.forEach(d => {
+                        const population = populationMap.get(d.state) || 1;
+                        // @ts-ignore
+                        d[metric] = (d[metric] as number) / population;
+                    });
+                }
+                
+                if (sortByPopulation) {
+                    const populationMap = new Map(populationData.map(d => [d.state, d.population]));
+                    // @ts-ignore
+                    yearData.sort((a, b) => (populationMap.get(b.state) || 0) - (populationMap.get(a.state) || 0));
+                } else {
+                    // Sort data with proper typing for the metric
+                    // @ts-ignore
+                    yearData.sort((a, b) => (b[metric] as number) - (a[metric] as number));
+                }
+
+                // @ts-ignore
                 x.domain(yearData.map(d => d.state));
+                // @ts-ignore
                 y.domain([0, d3.max(yearData, d => d[metric] as number) as number]);
 
+                // Remove existing bars before redrawing
                 svg.selectAll(".bar").remove();
 
                 const bars = svg.selectAll<SVGRectElement, TransportData>(".bar")
+                    // @ts-ignore
                     .data(yearData, d => d.state);
 
                 bars.enter().append("rect")
                     .attr("class", "bar")
+                    // @ts-ignore
                     .attr("x", d => x(d.state) as number)
                     .attr("width", x.bandwidth())
                     .attr("y", height)
@@ -57,7 +89,9 @@ const TransportDataVisualization: React.FC<Props> = ({ data }) => {
                     .merge(bars)
                     .transition()
                     .duration(750)
+                    // @ts-ignore
                     .attr("y", d => y(d[metric] as number))
+                    // @ts-ignore
                     .attr("height", d => height - y(d[metric] as number))
                     .attr("fill", (d, i) => color(i.toString()));
 
@@ -76,7 +110,7 @@ const TransportDataVisualization: React.FC<Props> = ({ data }) => {
 
             updateChart(selectedYear, selectedMetric);
         }
-    }, [data, selectedYear, selectedMetric]);
+    }, [originalData, data, selectedYear, selectedMetric, sortByPopulation, populationData, inRelationToPopulation]);
 
     return (
         <div>
@@ -99,6 +133,14 @@ const TransportDataVisualization: React.FC<Props> = ({ data }) => {
                 </Select>
             </Stack>
             <svg ref={d3Container} />
+            <Stack direction={"row"}>
+                <Button onClick={() => setSortByPopulation(!sortByPopulation)} startDecorator={<Sort />}>
+                    {sortByPopulation ? 'Default Sort' : 'Sort by Population'}
+                </Button>
+                <Button onClick={() => setInRelationToPopulation(!inRelationToPopulation)} sx={{ marginLeft: "10px" }} startDecorator={<Calculate />}>
+                    {inRelationToPopulation ? 'Show Absolute Values' : 'Show Values in Relation to Population'}
+                </Button>
+            </Stack>
         </div>
     );
 };

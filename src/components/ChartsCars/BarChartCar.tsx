@@ -1,18 +1,25 @@
-import { Select, Option, Stack } from "@mui/joy"
+import { Select, Option, Stack, Button } from "@mui/joy"
+import { Sort, Calculate } from '@mui/icons-material';
 import React, { useState, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import { CarData, YearlyData } from '../../data/carDataInterface';
+import { PopulationData } from '../../data/populationInterface';
 
 interface Props {
     data: YearlyData;
+    populationData: PopulationData[];
 }
 
-const CarDataVisualization: React.FC<Props> = ({ data }) => {
+const CarDataVisualization: React.FC<Props> = ({ data, populationData }) => {
     const [selectedYear, setSelectedYear] = useState('2013');
     const [selectedMetric, setSelectedMetric] = useState<keyof CarData>('passenger_km');
+    const [sortByPopulation, setSortByPopulation] = useState(false);
+    const [inRelationToPopulation, setInRelationToPopulation] = useState(false);
+    const [originalData, setOriginalData] = useState<YearlyData | null>(null);
     const d3Container = useRef<SVGSVGElement | null>(null);
 
     useEffect(() => {
+        setOriginalData(data);
         if (data && d3Container.current) {
             // Clear the existing SVG content
             d3.select(d3Container.current).selectAll("*").remove();
@@ -37,15 +44,37 @@ const CarDataVisualization: React.FC<Props> = ({ data }) => {
 
             // Function to update the chart
             const updateChart = (year: string, metric: keyof CarData) => {
-                let yearData = data[year];
+                if (!originalData) return;
+
+                let yearData = JSON.parse(JSON.stringify(originalData[year]));
 
                 // Filter out 'federal' data
+                // @ts-ignore
                 yearData = yearData.filter(d => d.state !== 'FEDERAL');
 
-               // Sort data with proper typing for the metric
-               yearData.sort((a, b) => (b[metric] as number) - (a[metric] as number));
+                if (inRelationToPopulation) {
+                    const populationMap = new Map(populationData.map(d => [d.state, d.population]));
+                    // @ts-ignore
+                    yearData.forEach(d => {
+                        const population = populationMap.get(d.state) || 1;
+                        // @ts-ignore
+                        d[metric] = (d[metric] as number) / population;
+                    });
+                }
 
+                if (sortByPopulation) {
+                    const populationMap = new Map(populationData.map(d => [d.state, d.population]));
+                    // @ts-ignore
+                    yearData.sort((a, b) => (populationMap.get(b.state) || 0) - (populationMap.get(a.state) || 0));
+                } else {
+                    // Sort data with proper typing for the metric
+                    // @ts-ignore
+                    yearData.sort((a, b) => (b[metric] as number) - (a[metric] as number));
+                }
+
+                // @ts-ignore
                 x.domain(yearData.map(d => d.state));
+                // @ts-ignore
                 y.domain([0, d3.max(yearData, d => d[metric] as number) as number]);
 
                 // Remove existing bars before redrawing
@@ -54,7 +83,7 @@ const CarDataVisualization: React.FC<Props> = ({ data }) => {
                 const bars = svg.selectAll<SVGRectElement, CarData>(".bar")
                     .data(yearData, d => d.state) as d3.Selection<SVGRectElement, CarData, SVGGElement, unknown>;
 
-                    bars.enter().append("rect")
+                bars.enter().append("rect")
                     .attr("class", "bar")
                     .attr("x", d => x(d.state) as number)
                     .attr("width", x.bandwidth())
@@ -86,7 +115,7 @@ const CarDataVisualization: React.FC<Props> = ({ data }) => {
             // Initial chart render
             updateChart(selectedYear, selectedMetric);
         }
-    }, [data, selectedYear, selectedMetric]);
+    }, [originalData, data, selectedYear, selectedMetric, sortByPopulation, populationData, inRelationToPopulation]);
 
     return (
         <div>
@@ -111,6 +140,14 @@ const CarDataVisualization: React.FC<Props> = ({ data }) => {
                 </Select>
             </Stack>
             <svg ref={d3Container} />
+            <Stack direction={"row"}>
+                <Button onClick={() => setSortByPopulation(!sortByPopulation)} startDecorator={<Sort />}>
+                    {sortByPopulation ? 'Default Sort' : 'Sort by Population'}
+                </Button>
+                <Button onClick={() => setInRelationToPopulation(!inRelationToPopulation)} sx={{ marginLeft: "10px" }} startDecorator={<Calculate />}>
+                    {inRelationToPopulation ? 'Show Absolute Values' : 'Show Values in Relation to Population'}
+                </Button>
+            </Stack>
         </div>
     );
 };

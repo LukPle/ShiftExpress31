@@ -1,8 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Card, Typography, Stack, Divider, AccordionGroup, Accordion, AccordionDetails, AccordionSummary } from "@mui/joy";
-import TrainIcon from '@mui/icons-material/Train';
-import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
-import MergeTypeIcon from '@mui/icons-material/MergeType';
+import {Train, DirectionsCar, MergeType } from '@mui/icons-material';
 import indexStyles from '../styles/index.module.css';
 import Keyfact from "@/components/Keyfact";
 import Map from "@/components/Map";
@@ -20,6 +18,7 @@ import LineChartCar from "@/components/ChartsCars/LineChartCar";
 import BarChartDevelopmentCombined from "@/components/ChartsCombined/BarChartDevelopmentCombined";
 import pTData from "../data/pT.json";
 import carData from "../data/car.json";
+import popData from "../data/population.json";
 
 type HomeProps = {
   currentSection: number;
@@ -105,12 +104,12 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
             <Comparison />
           </Stack>
 
-          <Typography level="h3" mt={4} startDecorator={<TrainIcon />}>Insights: <i>&nbsp;Public Transportation</i></Typography>
+          <Typography level="h3" mt={4} startDecorator={<Train />}>Insights: <i>&nbsp;Public Transportation</i></Typography>
           <AccordionGroup size='lg' sx={{ my: 3, minWidth: "100%" }}>
             <Accordion>
               <AccordionSummary>Total PT Data in specific Year</AccordionSummary>
               <AccordionDetails>
-                <Card sx={{ my: 3 }}><BarChartPT data={pTData} /></Card>
+                <Card sx={{ my: 3 }}><BarChartPT data={pTData} populationData={popData} /></Card>
               </AccordionDetails>
             </Accordion>
             <Accordion>
@@ -128,12 +127,12 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
           </AccordionGroup>
 
 
-          <Typography level="h3" mt={4} startDecorator={<DirectionsCarIcon />}>Insights: <i>&nbsp;Cars</i></Typography>
+          <Typography level="h3" mt={4} startDecorator={<DirectionsCar />}>Insights: <i>&nbsp;Cars</i></Typography>
           <AccordionGroup size='lg' sx={{ my: 3, minWidth: "100%" }}>
             <Accordion>
               <AccordionSummary>Car Data in specific Year</AccordionSummary>
               <AccordionDetails>
-                <Card sx={{ my: 3 }}><BarChartCar data={carData} /></Card>
+                <Card sx={{ my: 3 }}><BarChartCar data={carData} populationData={popData} /></Card>
               </AccordionDetails>
             </Accordion>
             <Accordion>
@@ -150,7 +149,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
             </Accordion>
           </AccordionGroup>
 
-          <Typography level="h3" mt={4} startDecorator={<MergeTypeIcon />}>Insights: <i>&nbsp;Combining Data Sets</i></Typography>
+          <Typography level="h3" mt={4} startDecorator={<MergeType />}>Insights: <i>&nbsp;Combining Data Sets</i></Typography>
           <AccordionGroup size='lg' sx={{ my: 3, minWidth: "100%" }}>
             <Accordion>
               <AccordionSummary>Combined Data development over Time</AccordionSummary>

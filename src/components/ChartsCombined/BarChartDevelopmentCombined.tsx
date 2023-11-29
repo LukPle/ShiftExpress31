@@ -179,7 +179,7 @@ const CombinedDataDevelopment: React.FC<Props> = ({ carData, transportData }) =>
                 </Stack>
                 <Stack gap={"5px"} ml={3}>
                     <Stack direction={"row"} gap={"5px"}>
-                        <Typography pt={"5px"}>Car Data:</Typography>
+                        <Typography pt={"5px"}>Car Dataset:</Typography>
                         {/* @ts-ignore */}
                         <Badge color="cars">
                             <Select defaultValue="passenger_km" sx={{ minWidth: "250px", maxHeight: "30px", marginLeft: "10px" }}>
@@ -191,7 +191,7 @@ const CombinedDataDevelopment: React.FC<Props> = ({ carData, transportData }) =>
                         </Badge>
                     </Stack>
                     <Stack direction={"row"} gap={"5px"}>
-                        <Typography pt={"5px"}>Transport Data:</Typography>
+                        <Typography pt={"5px"}>Public Transport Dataset:</Typography>
                         {/* @ts-ignore */}
                         <Badge color="pT">
                             <Select defaultValue="total_local_passengers" sx={{ minWidth: "250px", maxHeight: "30px", marginLeft: "10px" }}>
