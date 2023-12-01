@@ -4,6 +4,11 @@
   padding: 0 250px 100px 0;
 }
 
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
 .titleHeading {
   font-size: 5em;
 }
@@ -34,8 +39,8 @@
 
 .trainSvg {
   position: absolute;
-  right: 110px;
-  top: 105px;
+  right: 40px;
+  top: 130px;
 }
 
 .lineLeftStack {
