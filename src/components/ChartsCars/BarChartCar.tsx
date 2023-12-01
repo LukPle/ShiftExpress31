@@ -46,6 +46,7 @@ const CarDataVisualization: React.FC<Props> = ({ data, populationData }) => {
             const updateChart = (year: string, metric: keyof CarData) => {
                 if (!originalData) return;
 
+                // Doing this to avoid mutating the original data
                 let yearData = JSON.parse(JSON.stringify(originalData[year]));
 
                 // Filter out 'federal' data

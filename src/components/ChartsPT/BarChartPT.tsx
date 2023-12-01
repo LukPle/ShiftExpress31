@@ -45,6 +45,7 @@ const TransportDataVisualization: React.FC<Props> = ({ data, populationData }) =
             const updateChart = (year: string, metric: keyof TransportData) => {
                 if (!originalData) return;
 
+                // Doing this to avoid mutating the original data
                 let yearData = JSON.parse(JSON.stringify(originalData[year]));
 
                 if (inRelationToPopulation) {

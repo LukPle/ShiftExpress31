@@ -16,6 +16,7 @@ import BarChartCarDev from "@/components/ChartsCars/BarChartCarDevelopment";
 import LineChartPT from "@/components/ChartsPT/LineChartPT";
 import LineChartCar from "@/components/ChartsCars/LineChartCar";
 import BarChartDevelopmentCombined from "@/components/ChartsCombined/BarChartDevelopmentCombined";
+import BarChartCombined from "@/components/ChartsCombined/BarChartCombined";
 import pTData from "../data/pT.json";
 import carData from "../data/car.json";
 import popData from "../data/population.json";
@@ -155,6 +156,12 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
               <AccordionSummary>Combined Data development over Time</AccordionSummary>
               <AccordionDetails>
                 <Card sx={{ my: 3 }}><BarChartDevelopmentCombined carData={carData} transportData={pTData}/></Card>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion>
+              <AccordionSummary>Combined Data in specific Year</AccordionSummary>
+              <AccordionDetails>
+                <Card sx={{ my: 3 }}><BarChartCombined carData={carData} transportData={pTData} populationData={popData} /></Card>
               </AccordionDetails>
             </Accordion>
           </AccordionGroup>
