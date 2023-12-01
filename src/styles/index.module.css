@@ -1,7 +1,7 @@
 .headingStack {
   position: relative;
   margin: 0;
-  padding: 0 250px 100px 0;
+  padding: 25px 50px 100px 0;
 }
 
 .column {
@@ -10,7 +10,7 @@
 }
 
 .titleHeading {
-  font-size: 5em;
+  font-size: 6em;
 }
 
 .headingSvg {
@@ -28,7 +28,7 @@
 .stationCircleHeadingSvg {
   stroke: var(--joy-palette-primary-500);
   stroke-width: 3px;
-  fill: transparent;
+  fill: white;
 }
 
 .stationTextHeadingSvg {
@@ -39,8 +39,8 @@
 
 .trainSvg {
   position: absolute;
-  right: 40px;
-  top: 130px;
+  right: 265px;
+  top: 525px;
 }
 
 .lineLeftStack {

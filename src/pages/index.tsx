@@ -55,21 +55,21 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
 
   return (
     <>
-      <Stack direction={"column"} mx={17} my={7}>
+      <Stack direction={"column"} mx={13} my={7}>
           <ChapterArea>
             <Stack direction="column" className={indexStyles.headingStack} ref={introSectionRef}>
               {/* SVG with line background */}
               <svg className={indexStyles.headingSvg} viewBox="0 0 1000 200" version='1.1' xmlns='http://www.w3.org/2000/svg'>
-                <rect x="410" y="65" width="80" height="30" rx="15" className={indexStyles.stationCircleHeadingSvg} />
-                <text x="427" y="85" className={indexStyles.stationTextHeadingSvg}>InfoViz</text>
-                <polyline points="490,80 980,80 995,95 995,180 980,195 18,195 3,210 3,230" className={indexStyles.lineHeadingSvg} />
+                <rect x="580" y="50" width="80" height="30" rx="15" className={indexStyles.stationCircleHeadingSvg} />
+                <text x="598" y="70.5" className={indexStyles.stationTextHeadingSvg}>InfoVis</text>
+                <polyline points="660,65 960,65 995,105 995,200 960,240 25,240 3,270 5,590" className={indexStyles.lineHeadingSvg} />
               </svg>
               <Image src={require('@/assets/train.svg')} alt="train" className={indexStyles.trainSvg} />
               
               <div className="column">
                 <Typography level="h1" className={indexStyles.titleHeading}>Visualizing the transportation <br /> shift in Germany</Typography>
                 <br />
-                <Typography level="h2" mt={2}>Comparing the usage of public transport and cars <br /> for the years from 2013 to 2022 across all federal states.</Typography>
+                <Typography level="h2" mt={2}>Comparing the usage of public transport and cars for <br /> the years from 2013 to 2022 across all federal states.</Typography>
               </div>
             </Stack>
           </ChapterArea>
