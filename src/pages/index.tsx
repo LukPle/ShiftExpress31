@@ -16,6 +16,9 @@ import LineChartPT from "@/components/LineChartPT";
 import LineChartCar from "@/components/LineChartCar";
 import pTData from "../data/pT.json";
 import carData from "../data/car.json";
+import ComparisonChart from '@/components/BarChartPTandCar';
+import PTBarChartInKm from '@/components/BarChartPTinKM';
+import PTDataVisualizationInKm from '@/components/LineChartPTinKM';
 
 type HomeProps = {
   currentSection: number;
@@ -64,7 +67,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
           <Image src={require('@/assets/train.svg')} alt="train" className={indexStyles.trainSvg} />
 
           <Typography level="h1" className={indexStyles.titleHeading}>Visualizing the transportation <br /> shift in Germany</Typography>
-          <Typography mt={2}>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</Typography>
+          <Typography level="h2" mt={2}>Comparing the usage of public transport and cars for the years from 20XX to 20XX across all federal states.</Typography>
         </Stack>
 
         <Stack direction={"column"} id="project" mt={7} className={indexStyles.lineLeftStack} ref={projectSectionRef}>
@@ -113,6 +116,17 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
           <Card sx={{ my: 3 }}><BarChartCar data={carData} /></Card>
           <Typography level="h4" mt={4}>Passenger KMs development over Time</Typography>
           <Card sx={{ my: 3 }}><LineChartCar data={carData} /></Card>
+
+          <Typography level="h4" mt={4}>Grouped Bar Chart</Typography>
+          <Card sx={{ my: 3 }}>
+            <ComparisonChart data={{ dataPT: pTData, dataCars: carData }} />
+          </Card>
+
+          <Typography level="h4" mt={4}>Passenger KMs in one Year for PT - Numbers</Typography>
+          <Card sx={{ my: 3 }}><PTBarChartInKm data={pTData} /></Card>
+          <Typography level="h4" mt={4}>Passenger KMs in one Year for PT - Change</Typography>
+          <Card sx={{ my: 3 }}><PTDataVisualizationInKm data={pTData} /></Card>
+
         </Stack>
 
         <Stack direction={"column"} mt={7} className={indexStyles.lineLeftHalfAcrossStack} ref={teamSectionRef}>

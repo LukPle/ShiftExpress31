@@ -17,7 +17,7 @@ export default function TeamTile({ className, name, imageSrc, desc }: TeamTilePr
           className={teamTileStyles.teamTile + ' ' + className} 
           sx={{
             width: 300,
-            height: 200
+            height: 225
           }}
       >
         <Image src={imageSrc} alt={name} className={teamTileStyles.teamTileImage} layout='fill'/>
