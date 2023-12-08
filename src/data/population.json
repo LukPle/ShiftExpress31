@@ -65,35 +65,600 @@
       "population": 2126846
     }
   ],
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  "2021": [
+    {
+      "state": "BW",
+      "population": 0
+    },
+    {
+      "state": "BY",
+      "population": 0
+    },
+    {
+      "state": "BE",
+      "population": 0
+    },
+    {
+      "state": "BB",
+      "population": 0
+    },
+    {
+      "state": "HB",
+      "population": 0
+    },
+    {
+      "state": "HH",
+      "population": 0
+    },
+    {
+      "state": "HE",
+      "population": 0
+    },
+    {
+      "state": "MV",
+      "population": 0
+    },
+    {
+      "state": "NI",
+      "population": 0
+    },
+    {
+      "state": "NW",
+      "population": 0
+    },
+    {
+      "state": "RP",
+      "population": 0
+    },
+    {
+      "state": "SL",
+      "population": 0
+    },
+    {
+      "state": "SN",
+      "population": 0
+    },
+    {
+      "state": "ST",
+      "population": 0
+    },
+    {
+      "state": "SH",
+      "population": 0
+    },
+    {
+      "state": "TH",
+      "population": 0
+    }
+  ],
+  "2020": [
+    {
+      "state": "BW",
+      "population": 0
+    },
+    {
+      "state": "BY",
+      "population": 0
+    },
+    {
+      "state": "BE",
+      "population": 0
+    },
+    {
+      "state": "BB",
+      "population": 0
+    },
+    {
+      "state": "HB",
+      "population": 0
+    },
+    {
+      "state": "HH",
+      "population": 0
+    },
+    {
+      "state": "HE",
+      "population": 0
+    },
+    {
+      "state": "MV",
+      "population": 0
+    },
+    {
+      "state": "NI",
+      "population": 0
+    },
+    {
+      "state": "NW",
+      "population": 0
+    },
+    {
+      "state": "RP",
+      "population": 0
+    },
+    {
+      "state": "SL",
+      "population": 0
+    },
+    {
+      "state": "SN",
+      "population": 0
+    },
+    {
+      "state": "ST",
+      "population": 0
+    },
+    {
+      "state": "SH",
+      "population": 0
+    },
+    {
+      "state": "TH",
+      "population": 0
+    }
+  ],
+  "2019": [
+    {
+      "state": "BW",
+      "population": 0
+    },
+    {
+      "state": "BY",
+      "population": 0
+    },
+    {
+      "state": "BE",
+      "population": 0
+    },
+    {
+      "state": "BB",
+      "population": 0
+    },
+    {
+      "state": "HB",
+      "population": 0
+    },
+    {
+      "state": "HH",
+      "population": 0
+    },
+    {
+      "state": "HE",
+      "population": 0
+    },
+    {
+      "state": "MV",
+      "population": 0
+    },
+    {
+      "state": "NI",
+      "population": 0
+    },
+    {
+      "state": "NW",
+      "population": 0
+    },
+    {
+      "state": "RP",
+      "population": 0
+    },
+    {
+      "state": "SL",
+      "population": 0
+    },
+    {
+      "state": "SN",
+      "population": 0
+    },
+    {
+      "state": "ST",
+      "population": 0
+    },
+    {
+      "state": "SH",
+      "population": 0
+    },
+    {
+      "state": "TH",
+      "population": 0
+    }
+  ],
+  "2018": [
+    {
+      "state": "BW",
+      "population": 0
+    },
+    {
+      "state": "BY",
+      "population": 0
+    },
+    {
+      "state": "BE",
+      "population": 0
+    },
+    {
+      "state": "BB",
+      "population": 0
+    },
+    {
+      "state": "HB",
+      "population": 0
+    },
+    {
+      "state": "HH",
+      "population": 0
+    },
+    {
+      "state": "HE",
+      "population": 0
+    },
+    {
+      "state": "MV",
+      "population": 0
+    },
+    {
+      "state": "NI",
+      "population": 0
+    },
+    {
+      "state": "NW",
+      "population": 0
+    },
+    {
+      "state": "RP",
+      "population": 0
+    },
+    {
+      "state": "SL",
+      "population": 0
+    },
+    {
+      "state": "SN",
+      "population": 0
+    },
+    {
+      "state": "ST",
+      "population": 0
+    },
+    {
+      "state": "SH",
+      "population": 0
+    },
+    {
+      "state": "TH",
+      "population": 0
+    }
+  ],
+  "2017": [
+    {
+      "state": "BW",
+      "population": 0
+    },
+    {
+      "state": "BY",
+      "population": 0
+    },
+    {
+      "state": "BE",
+      "population": 0
+    },
+    {
+      "state": "BB",
+      "population": 0
+    },
+    {
+      "state": "HB",
+      "population": 0
+    },
+    {
+      "state": "HH",
+      "population": 0
+    },
+    {
+      "state": "HE",
+      "population": 0
+    },
+    {
+      "state": "MV",
+      "population": 0
+    },
+    {
+      "state": "NI",
+      "population": 0
+    },
+    {
+      "state": "NW",
+      "population": 0
+    },
+    {
+      "state": "RP",
+      "population": 0
+    },
+    {
+      "state": "SL",
+      "population": 0
+    },
+    {
+      "state": "SN",
+      "population": 0
+    },
+    {
+      "state": "ST",
+      "population": 0
+    },
+    {
+      "state": "SH",
+      "population": 0
+    },
+    {
+      "state": "TH",
+      "population": 0
+    }
+  ],
+  "2016": [
+    {
+      "state": "BW",
+      "population": 0
+    },
+    {
+      "state": "BY",
+      "population": 0
+    },
+    {
+      "state": "BE",
+      "population": 0
+    },
+    {
+      "state": "BB",
+      "population": 0
+    },
+    {
+      "state": "HB",
+      "population": 0
+    },
+    {
+      "state": "HH",
+      "population": 0
+    },
+    {
+      "state": "HE",
+      "population": 0
+    },
+    {
+      "state": "MV",
+      "population": 0
+    },
+    {
+      "state": "NI",
+      "population": 0
+    },
+    {
+      "state": "NW",
+      "population": 0
+    },
+    {
+      "state": "RP",
+      "population": 0
+    },
+    {
+      "state": "SL",
+      "population": 0
+    },
+    {
+      "state": "SN",
+      "population": 0
+    },
+    {
+      "state": "ST",
+      "population": 0
+    },
+    {
+      "state": "SH",
+      "population": 0
+    },
+    {
+      "state": "TH",
+      "population": 0
+    }
+  ],
+  "2015": [
+    {
+      "state": "BW",
+      "population": 0
+    },
+    {
+      "state": "BY",
+      "population": 0
+    },
+    {
+      "state": "BE",
+      "population": 0
+    },
+    {
+      "state": "BB",
+      "population": 0
+    },
+    {
+      "state": "HB",
+      "population": 0
+    },
+    {
+      "state": "HH",
+      "population": 0
+    },
+    {
+      "state": "HE",
+      "population": 0
+    },
+    {
+      "state": "MV",
+      "population": 0
+    },
+    {
+      "state": "NI",
+      "population": 0
+    },
+    {
+      "state": "NW",
+      "population": 0
+    },
+    {
+      "state": "RP",
+      "population": 0
+    },
+    {
+      "state": "SL",
+      "population": 0
+    },
+    {
+      "state": "SN",
+      "population": 0
+    },
+    {
+      "state": "ST",
+      "population": 0
+    },
+    {
+      "state": "SH",
+      "population": 0
+    },
+    {
+      "state": "TH",
+      "population": 0
+    }
+  ],
+  "2014": [
+    {
+      "state": "BW",
+      "population": 0
+    },
+    {
+      "state": "BY",
+      "population": 0
+    },
+    {
+      "state": "BE",
+      "population": 0
+    },
+    {
+      "state": "BB",
+      "population": 0
+    },
+    {
+      "state": "HB",
+      "population": 0
+    },
+    {
+      "state": "HH",
+      "population": 0
+    },
+    {
+      "state": "HE",
+      "population": 0
+    },
+    {
+      "state": "MV",
+      "population": 0
+    },
+    {
+      "state": "NI",
+      "population": 0
+    },
+    {
+      "state": "NW",
+      "population": 0
+    },
+    {
+      "state": "RP",
+      "population": 0
+    },
+    {
+      "state": "SL",
+      "population": 0
+    },
+    {
+      "state": "SN",
+      "population": 0
+    },
+    {
+      "state": "ST",
+      "population": 0
+    },
+    {
+      "state": "SH",
+      "population": 0
+    },
+    {
+      "state": "TH",
+      "population": 0
+    }
+  ],
+  "2013": [
+    {
+      "state": "BW",
+      "population": 0
+    },
+    {
+      "state": "BY",
+      "population": 0
+    },
+    {
+      "state": "BE",
+      "population": 0
+    },
+    {
+      "state": "BB",
+      "population": 0
+    },
+    {
+      "state": "HB",
+      "population": 0
+    },
+    {
+      "state": "HH",
+      "population": 0
+    },
+    {
+      "state": "HE",
+      "population": 0
+    },
+    {
+      "state": "MV",
+      "population": 0
+    },
+    {
+      "state": "NI",
+      "population": 0
+    },
+    {
+      "state": "NW",
+      "population": 0
+    },
+    {
+      "state": "RP",
+      "population": 0
+    },
+    {
+      "state": "SL",
+      "population": 0
+    },
+    {
+      "state": "SN",
+      "population": 0
+    },
+    {
+      "state": "ST",
+      "population": 0
+    },
+    {
+      "state": "SH",
+      "population": 0
+    },
+    {
+      "state": "TH",
+      "population": 0
+    }
+  ],
   "20XX": [
     {
       "state": "BW",
