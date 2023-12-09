@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Card, Stack } from "@mui/joy";
+import { Card } from "@mui/joy";
 import Select from '@mui/joy/Select';
 import Option from '@mui/joy/Option';
 import * as d3 from 'd3';
@@ -71,8 +71,19 @@ const TimeLineChart: React.FC = () => {
         .attr('transform', `translate(0,${height})`)
         .call(d3.axisBottom(xScale));
       // Draw Y-axis
+      const yAxis = d3
+        .axisLeft(yScale)
+        .tickFormat((value) => {
+          if (value >= 1e9) {
+            // Convert values in the billions
+            return d3.format('.2s')(value).replace('G', 'B');
+          } else {
+            return d3.format('.2s')(value);
+          }
+        });
+
       svg.append('g')
-        .call(d3.axisLeft(yScale));
+        .call(yAxis);
       // Draw bars
       years.forEach((year, index) => {
         svg.selectAll(`.bar-${year}`)
