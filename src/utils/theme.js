@@ -2,6 +2,20 @@ import { extendTheme } from '@mui/joy/styles';
 
 //We can implement a color theme here see: https://mui.com/joy-ui/customization/theme-builder/
 const theme = extendTheme({
+  components: {
+    JoyBadge: {
+      styleOverrides: {
+        badge: ({ ownerState, theme }) => ({
+          ...(ownerState.color === 'cars' && {
+            backgroundColor: "#3B75AF",
+          }),
+          ...(ownerState.color === 'pT' && {
+            backgroundColor: "#EF8636",
+          }),
+        }),
+      }
+    }
+  },
     "colorSchemes": {
         "light": {
           "palette": {

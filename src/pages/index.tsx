@@ -1,8 +1,7 @@
 import React, { useEffect, useRef } from 'react';
-import { Card, Typography, Stack, Divider } from "@mui/joy";
 import ChapterArea from '@/components/ChapterArea';
-import TrainIcon from '@mui/icons-material/Train';
-import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+import { Card, Typography, Stack, AccordionGroup, Accordion, AccordionDetails, AccordionSummary } from "@mui/joy";
+import {Train, DirectionsCar, MergeType } from '@mui/icons-material';
 import indexStyles from '../styles/index.module.css';
 import Keyfact from "@/components/Keyfact";
 import Map from "@/components/Map";
@@ -11,12 +10,17 @@ import FilterBox from "@/components/FilterBox";
 import FederalStateBox from "@/components/FederalStateBox";
 import TeamTile from "@/components/TeamTile";
 import Image from 'next/image';
-import BarChartPT from "@/components/BarChartPT";
-import BarChartCar from "@/components/BarChartCar";
-import LineChartPT from "@/components/LineChartPT";
-import LineChartCar from "@/components/LineChartCar";
+import BarChartPT from "@/components/ChartsPT/BarChartPT";
+import BarChartPTDev from "@/components/ChartsPT/BarChartPTDevelopment";
+import BarChartCar from "@/components/ChartsCars/BarChartCar";
+import BarChartCarDev from "@/components/ChartsCars/BarChartCarDevelopment";
+import LineChartPT from "@/components/ChartsPT/LineChartPT";
+import LineChartCar from "@/components/ChartsCars/LineChartCar";
+import BarChartDevelopmentCombined from "@/components/ChartsCombined/BarChartDevelopmentCombined";
+import BarChartCombined from "@/components/ChartsCombined/BarChartCombined";
 import pTData from "../data/pT.json";
 import carData from "../data/car.json";
+import popData from "../data/population.json";
 
 type HomeProps = {
   currentSection: number;
@@ -111,19 +115,66 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
               </Stack>
               <Comparison />
             </Stack>
-            <Typography level="h3" mt={4} startDecorator={<TrainIcon />}>Insights: <i>Public Transportation</i></Typography>
-            <Typography level="h4" mt={4}>Passengers in one Year</Typography>
-            <Card sx={{ my: 3 }}><BarChartPT data={pTData} /></Card>
-            <Typography level="h4" mt={4}>Passenger development over Time</Typography>
-            <Card sx={{ my: 3 }}><LineChartPT data={pTData} /></Card>
+            <Typography level="h3" mt={4} startDecorator={<Train />}>Insights: <i>&nbsp;Public Transportation</i></Typography>
+          <AccordionGroup size='lg' sx={{ my: 3, minWidth: "100%" }}>
+            <Accordion>
+              <AccordionSummary>Total PT Data in specific Year</AccordionSummary>
+              <AccordionDetails>
+                <Card sx={{ my: 3 }}><BarChartPT data={pTData} populationData={popData} /></Card>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion>
+              <AccordionSummary>Total PT Data development over Time</AccordionSummary>
+              <AccordionDetails>
+                <Card sx={{ my: 3 }}><LineChartPT data={pTData} /></Card>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion>
+              <AccordionSummary>Total PT Data change over Interval</AccordionSummary>
+              <AccordionDetails>
+                <Card sx={{ my: 3, minWidth: "100%" }}><BarChartPTDev data={pTData} /></Card>
+              </AccordionDetails>
+            </Accordion>
+          </AccordionGroup>
 
-            <Divider sx={{ my: 3 }} />
 
-            <Typography level="h3" mt={4} startDecorator={<DirectionsCarIcon />}>Insights: <i>Cars</i></Typography>
-            <Typography level="h4" mt={4}>Passenger KMs in one Year</Typography>
-            <Card sx={{ my: 3 }}><BarChartCar data={carData} /></Card>
-            <Typography level="h4" mt={4}>Passenger KMs development over Time</Typography>
-            <Card sx={{ my: 3 }}><LineChartCar data={carData} /></Card>
+          <Typography level="h3" mt={4} startDecorator={<DirectionsCar />}>Insights: <i>&nbsp;Cars</i></Typography>
+          <AccordionGroup size='lg' sx={{ my: 3, minWidth: "100%" }}>
+            <Accordion>
+              <AccordionSummary>Car Data in specific Year</AccordionSummary>
+              <AccordionDetails>
+                <Card sx={{ my: 3 }}><BarChartCar data={carData} populationData={popData} /></Card>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion>
+              <AccordionSummary>Car Data development over Time</AccordionSummary>
+              <AccordionDetails>
+              <Card sx={{ my: 3 }}><LineChartCar data={carData} /></Card>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion>
+              <AccordionSummary>Car Data change over Interval</AccordionSummary>
+              <AccordionDetails>
+              <Card sx={{ my: 3 }}><BarChartCarDev data={carData} /></Card>
+              </AccordionDetails>
+            </Accordion>
+          </AccordionGroup>
+
+          <Typography level="h3" mt={4} startDecorator={<MergeType />}>Insights: <i>&nbsp;Combining Data Sets</i></Typography>
+          <AccordionGroup size='lg' sx={{ my: 3, minWidth: "100%" }}>
+            <Accordion>
+              <AccordionSummary>Combined Data development over Time</AccordionSummary>
+              <AccordionDetails>
+                <Card sx={{ my: 3 }}><BarChartDevelopmentCombined carData={carData} transportData={pTData}/></Card>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion>
+              <AccordionSummary>Combined Data in specific Year</AccordionSummary>
+              <AccordionDetails>
+                <Card sx={{ my: 3 }}><BarChartCombined carData={carData} transportData={pTData} populationData={popData} /></Card>
+              </AccordionDetails>
+            </Accordion>
+          </AccordionGroup>
           </Stack>
         </ChapterArea>
         
