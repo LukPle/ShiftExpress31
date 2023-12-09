@@ -13,7 +13,7 @@ const ProjectArea: React.FC = () => {
   const objectivesDescription = 'Through comprehensive data analyzation, we found several insights and selected the most interesting ones. We put them in graphical explorable key findings that highlight these findings inside multiple visualizations. There is an option to examine each key finding or individually explore the data on your own. We develped a map for an overview where changes did happened and what regional differences are observeable.';
 
   return (
-    <Stack direction="row" divider={<Divider orientation="vertical" />} justifyContent="space-between" alignItems="flex-start" className={projectSectionStyles.projectRow}>
+    <Stack direction="row" divider={<Divider orientation="vertical" />} justifyContent="space-between" alignItems="flex-start" className={projectSectionStyles.projectRow} sx={{minWidth: "100%"}}>
         <TextColumn title='Background' description={backgroundDescription} icon={backgroundIcon} isBig={false}></TextColumn>
         <TextColumn title='Relevance' description={relevanceDescription} icon={relevanceIcon} isBig={true}></TextColumn>
         <TextColumn title='Objectives' description={objectivesDescription} icon={objectivesIcon} isBig={false}></TextColumn>
