@@ -1,6 +1,6 @@
 .projectRow {
     padding-top: 5%;
-    width: 100vh;
+    width: 100%;
 }
 
 .textColumn {
@@ -15,7 +15,7 @@
 }
 
 .description {
-    padding-top: 25%;
+    padding-top: 15%;
     text-align: justify;
 }
 
@@ -36,6 +36,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    left: -40px;
   }
   
   .zStack img {
@@ -52,4 +53,22 @@
     transform: translateY(50%);
     z-index: 2;
   }
+
+.impressionRow {
+    padding-top: 10%;
+    position: relative;
+}
+
+.impressionImage {
+    width: 310px;
+    height: 215px;
+    border-radius: 5%;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.edgeImage {
+    top: -30px;
+    position: relative;
+}
   

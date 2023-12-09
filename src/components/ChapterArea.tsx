@@ -9,7 +9,7 @@ const ChapterArea: React.FC<ChapterAreaProps> = ({ children }) => {
     <div
       style={{
         width: '100%',
-        minHeight: '100vh',
+        minHeight: '90vh',
         display: 'flex',
         alignItems: 'start',
       }}
