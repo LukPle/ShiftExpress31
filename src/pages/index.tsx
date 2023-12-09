@@ -21,6 +21,7 @@ import BarChartCombined from "@/components/ChartsCombined/BarChartCombined";
 import pTData from "../data/pT.json";
 import carData from "../data/car.json";
 import popData from "../data/population.json";
+import ToolBar from "@/components/KeyFindings/ToolBar";
 import { max } from 'd3';
 
 type HomeProps = {
@@ -48,21 +49,30 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
   useEffect(() => {
     sectionOffsets.push(introSectionRef.current?.offsetTop || 0);
     sectionOffsets.push(projectSectionRef.current?.offsetTop || 0);
+    sectionOffsets.push(keyFindingSectionRef.current?.offsetTop || 0);
     sectionOffsets.push(insightsSectionRef.current?.offsetTop || 0);
     sectionOffsets.push(teamSectionRef.current?.offsetTop || 0);
-    sectionOffsets.push(keyFindingSectionRef.current?.offsetTop || 0);
     sectionOffsets.push(keyFindingDetailSectionRef.current?.offsetTop || 0);
 
     const scrollHandleSection = () => {
       const position = window.scrollY;
-      const currentSecOffset = sectionOffsets.find(el => el + scrollShiftFactor >= position);
-      const currentSec = sectionOffsets.indexOf(currentSecOffset || 0);
+      let currentSec = 0;
+    
+      // Dynamically check each section's position
+      if (introSectionRef.current && position >= introSectionRef.current.offsetTop) currentSec = 0;
+      if (projectSectionRef.current && position >= projectSectionRef.current.offsetTop) currentSec = 1;
+      if (keyFindingSectionRef.current && position >= keyFindingSectionRef.current.offsetTop) currentSec = 2;
+      if (keyFindingDetailSectionRef.current && position >= keyFindingDetailSectionRef.current.offsetTop) currentSec = 3;
+      if (teamSectionRef.current && position >= teamSectionRef.current.offsetTop) currentSec = 4;
+      if (insightsSectionRef.current && position >= insightsSectionRef.current.offsetTop) currentSec = 5;
 
+    
       setSection(currentSec);
       console.log(currentSec);
     };
-
+    
     window.addEventListener('scroll', scrollHandleSection);
+    
 
     return () => {
       window.removeEventListener('scroll', scrollHandleSection);
@@ -102,7 +112,6 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
             </div>
           </Stack>
         </ChapterArea>
-
 
         <ChapterArea>
           <Stack direction={"column"} id="project" mt={7} className={indexStyles.lineLeftStack} ref={projectSectionRef}>
@@ -161,6 +170,8 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
         <ChapterArea>
         <Stack direction={"column"} id="keyFindingDetail" mt={7} className={indexStyles.lineLeftStack} ref={keyFindingDetailSectionRef}>
         <div style={{minHeight: "100px"}}></div>
+        {/*@ts-ignore*/}
+        <ToolBar currentSection={currentSection} keyFinding={JSON.stringify(currentKeyFinding)}/>
             <Typography level="h2" className={currentSection == 3 ? indexStyles.markerLeftHeadingActive : indexStyles.markerLeftHeading}>
               {currentKeyFinding == KeyFinding.Shift ? "🚉 Transportation Shift" : ""}
               {currentKeyFinding == KeyFinding.Covid ? "🦠 COVID" : ""}
