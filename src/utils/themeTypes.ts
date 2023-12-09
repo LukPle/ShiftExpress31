@@ -30,9 +30,4 @@ declare module '@mui/joy/styles' {
       palette: Palette;
     };
   }
-
-  interface BadgePropsColorOverrides {
-    cars: true;
-    pT: true;
-  }
 }
