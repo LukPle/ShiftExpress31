@@ -47,6 +47,7 @@
   margin: 0;
   padding: 20px 100px 80px 50px;
   position: relative;
+  height: 100vh;
 }
 
 .lineLeftHalfAcrossStack {
