@@ -41,6 +41,8 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
   const projectSectionRef = useRef<HTMLDivElement>(null);
   const insightsSectionRef = useRef<HTMLDivElement>(null);
   const teamSectionRef = useRef<HTMLDivElement>(null);
+  const keyFindingSectionRef = useRef<HTMLDivElement>(null);
+  const keyFindingDetailSectionRef = useRef<HTMLDivElement>(null);
   const scrollShiftFactor = 100;
 
   useEffect(() => {
@@ -48,6 +50,8 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
     sectionOffsets.push(projectSectionRef.current?.offsetTop || 0);
     sectionOffsets.push(insightsSectionRef.current?.offsetTop || 0);
     sectionOffsets.push(teamSectionRef.current?.offsetTop || 0);
+    sectionOffsets.push(keyFindingSectionRef.current?.offsetTop || 0);
+    sectionOffsets.push(keyFindingDetailSectionRef.current?.offsetTop || 0);
 
     const scrollHandleSection = () => {
       const position = window.scrollY;
@@ -55,6 +59,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
       const currentSec = sectionOffsets.indexOf(currentSecOffset || 0);
 
       setSection(currentSec);
+      console.log(currentSec);
     };
 
     window.addEventListener('scroll', scrollHandleSection);
@@ -101,44 +106,43 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
 
         <ChapterArea>
           <Stack direction={"column"} id="project" mt={7} className={indexStyles.lineLeftStack} ref={projectSectionRef}>
+          <div style={{minHeight: "100px"}}></div>
             <Typography level="h2" className={currentSection == 1 ? indexStyles.markerLeftHeadingActive : indexStyles.markerLeftHeading}>Project</Typography>
             <Typography mt={2}>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo do</Typography>
           </Stack>
         </ChapterArea>
 
         <ChapterArea>
-          <Stack direction={"column"} id="keyFinding" mt={7} className={indexStyles.lineLeftStack} ref={projectSectionRef}>
+          <Stack direction={"column"} id="keyFinding" mt={7} className={indexStyles.lineLeftStack} ref={keyFindingSectionRef}>
+          <div style={{minHeight: "100px"}}></div>
             <Typography level="h2" className={currentSection == 2 ? indexStyles.markerLeftHeadingActive : indexStyles.markerLeftHeading}>Key Finding</Typography>
             <Typography mt={2}>To continue select a specific key finding in order to take a deeper dive into our data!</Typography>
             <Stack direction={"row"} mt={2} spacing={2}>
               <Card sx={{ width: "30%" }}>
                 <CardCover>
-                  <TrendingUp sx={{ opacity: 0.1, maxWidth: "100px", position: 'relative', top: '-65px' }} />
                 </CardCover>
                 <CardContent>
-                  <Typography level="h3">Transportaion Shift</Typography>
+                  <Typography level="h3">🚉 Transportaion Shift</Typography>
                   <Typography>See how transportation has evolved in resent years. Take a deeper look at how public transportaion and cars compete.</Typography>
                   <div style={{ height: "100%" }}></div>
-                  <Button onClick={() => setCurrentKeyFinding(KeyFinding.Shift)} sx={{ width: "115px", mt: 2 }}>Take a look!</Button>
+                  <Button onClick={() => {setCurrentKeyFinding(KeyFinding.Shift); setSection(3)}} sx={{ width: "115px", mt: 2 }}><a href="#keyFindingDetail" style={{textDecoration: "none", color: "inherit"}}>Take a look!</a></Button>
                 </CardContent>
               </Card>
               <Card sx={{ width: "30%" }}>
                 <CardCover>
-                  <Coronavirus sx={{ opacity: 0.1, maxWidth: "100px", position: 'relative', top: '-60px' }} />
                 </CardCover>
                 <CardContent>
-                  <Typography level="h3">COVID</Typography>
+                  <Typography level="h3">🦠 COVID</Typography>
                   <Typography>Due to the COVID-19 pandemic, the usage of public transportation has decreased significantly.</Typography>
                   <div style={{ height: "100%" }}></div>
-                  <Button onClick={() => setCurrentKeyFinding(KeyFinding.Covid)} sx={{ width: "115px", mt: 2 }}>Take a look!</Button>
+                  <Button onClick={() => {setCurrentKeyFinding(KeyFinding.Covid); setSection(3)}} sx={{ width: "115px", mt: 2 }}><a href="#keyFindingDetail" style={{textDecoration: "none", color: "inherit"}}>Take a look!</a></Button>
                 </CardContent>
               </Card>
               <Card sx={{ width: "30%" }}>
                 <CardCover>
-                  <DirectionsCar sx={{ opacity: 0.1, maxWidth: "100px", position: 'relative', top: '-60px' }} />
                 </CardCover>
                 <CardContent>
-                  <Typography level="h3">Cars in Germany</Typography>
+                  <Typography level="h3">🚗 Cars in Germany</Typography>
                   <Typography>
                     Germany is known for its car industry. But how many cars are actually on the road? How many people own a car? How many people use public transportation?
                   </Typography>
@@ -150,13 +154,41 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
           </Stack>
         </ChapterArea>
 
+        { currentKeyFinding == KeyFinding.None ? 
+        <></> 
+        : 
+        <div>
         <ChapterArea>
-          {renderKeyFinding()}
+        <Stack direction={"column"} id="keyFindingDetail" mt={7} className={indexStyles.lineLeftStack} ref={keyFindingDetailSectionRef}>
+        <div style={{minHeight: "100px"}}></div>
+            <Typography level="h2" className={currentSection == 3 ? indexStyles.markerLeftHeadingActive : indexStyles.markerLeftHeading}>
+              {currentKeyFinding == KeyFinding.Shift ? "🚉 Transportation Shift" : ""}
+              {currentKeyFinding == KeyFinding.Covid ? "🦠 COVID" : ""}
+            </Typography>
+            <Typography mt={2}>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo do</Typography>
+            {renderKeyFinding()}
+          </Stack>
+        </ChapterArea>
+        </div>
+        }
+
+        <ChapterArea>
+          <Stack direction={"column"} mt={7} className={indexStyles.lineLeftHalfAcrossStack} ref={teamSectionRef}>
+          <div style={{minHeight: "100px"}}></div>
+            <Typography level="h2" id="team" className={currentSection == 4 ? indexStyles.markerLeftHeadingActive : indexStyles.markerLeftHeading}>Team</Typography>
+            <Stack mt={3} direction={"row"} alignItems={"center"} justifyContent={"center"} flexWrap="wrap" gap={15}>
+              <TeamTile className={indexStyles.teamTileTop} imageSrc={require('@/assets/amiin.png')} name="Amiin Najjar" desc="HCI student with a passion for sport and cooking, I've swapped public transportation for pedaling my bike, blending tech insights with a dash of culinary creativity and a healthy dose of physical activity." />
+              <TeamTile className={indexStyles.teamTileTop} imageSrc={require('@/assets/lukas.png')} name="Lukas Plenk" desc="I’m a Human-Computer-Interaction student at LMU Munich interested in digital media, culture, and traveling. Just like public transport, I’m always out for the next destination ahead." />
+              <TeamTile className={indexStyles.teamTileTop} imageSrc={require('@/assets/tim.png')} name="Timothy Summers" desc="I love collaborating in a team and solving creative challenges! Always ready for adventure - I can even handle Munich public transportation during rush hour!" />
+              <TeamTile className={indexStyles.teamTileBottom} imageSrc={require('@/assets/malek.png')} name="Malek Jarraya" desc="I’m a Media Informatics student at LMU Munich. I love colors, the sun, and the sea. I didn't know much about public transportation in the past, but our project definitely changed that." />
+              <TeamTile className={indexStyles.teamTileBottom} imageSrc={require('@/assets/maxi.png')} name="Maximilian Wiegand" desc="Hey, I'm a media computer science student at LMU Munich. I love to design, develop and explore - not only for computers. Some ideas even came up in delayed and overcrowded public transport…" />
+            </Stack>
+          </Stack>
         </ChapterArea>
 
         <ChapterArea>
           <Stack direction={"column"} id="insights" mt={7} className={indexStyles.lineLeftStack} ref={insightsSectionRef}>
-            <Typography level="h2" className={currentSection == 3 ? indexStyles.markerLeftHeadingActive : indexStyles.markerLeftHeading}>Insights and Map</Typography>
+            <Typography level="h2" className={currentSection == 5 ? indexStyles.markerLeftHeadingActive : indexStyles.markerLeftHeading}>🛠️ Helper Components</Typography>
             <Stack direction={"column"}>
               <Typography level="h3" mt={4}>Our Key Findings</Typography>
               <Stack
@@ -243,19 +275,6 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
                 </AccordionDetails>
               </Accordion>
             </AccordionGroup>
-          </Stack>
-        </ChapterArea>
-
-        <ChapterArea>
-          <Stack direction={"column"} mt={7} className={indexStyles.lineLeftHalfAcrossStack} ref={teamSectionRef}>
-            <Typography level="h2" id="team" className={currentSection == 4 ? indexStyles.markerLeftHeadingActive : indexStyles.markerLeftHeading}>Team</Typography>
-            <Stack mt={3} direction={"row"} alignItems={"center"} justifyContent={"center"} flexWrap="wrap" gap={15}>
-              <TeamTile className={indexStyles.teamTileTop} imageSrc={require('@/assets/amiin.png')} name="Amiin Najjar" desc="HCI student with a passion for sport and cooking, I've swapped public transportation for pedaling my bike, blending tech insights with a dash of culinary creativity and a healthy dose of physical activity." />
-              <TeamTile className={indexStyles.teamTileTop} imageSrc={require('@/assets/lukas.png')} name="Lukas Plenk" desc="I’m a Human-Computer-Interaction student at LMU Munich interested in digital media, culture, and traveling. Just like public transport, I’m always out for the next destination ahead." />
-              <TeamTile className={indexStyles.teamTileTop} imageSrc={require('@/assets/tim.png')} name="Timothy Summers" desc="I love collaborating in a team and solving creative challenges! Always ready for adventure - I can even handle Munich public transportation during rush hour!" />
-              <TeamTile className={indexStyles.teamTileBottom} imageSrc={require('@/assets/malek.png')} name="Malek Jarraya" desc="I’m a Media Informatics student at LMU Munich. I love colors, the sun, and the sea. I didn't know much about public transportation in the past, but our project definitely changed that." />
-              <TeamTile className={indexStyles.teamTileBottom} imageSrc={require('@/assets/maxi.png')} name="Maximilian Wiegand" desc="Hey, I'm a media computer science student at LMU Munich. I love to design, develop and explore - not only for computers. Some ideas even came up in delayed and overcrowded public transport…" />
-            </Stack>
           </Stack>
         </ChapterArea>
 
