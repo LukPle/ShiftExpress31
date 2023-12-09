@@ -9,7 +9,6 @@ import Comparison from "@/components/Comparison";
 import FilterBox from "@/components/FilterBox";
 import FederalStateBox from "@/components/FederalStateBox";
 import TeamTile from "@/components/TeamTile";
-import Image from 'next/image';
 import BarChartPT from "@/components/ChartsPT/BarChartPT";
 import BarChartPTDev from "@/components/ChartsPT/BarChartPTDevelopment";
 import BarChartCar from "@/components/ChartsCars/BarChartCar";
@@ -21,6 +20,7 @@ import BarChartCombined from "@/components/ChartsCombined/BarChartCombined";
 import pTData from "../data/pT.json";
 import carData from "../data/car.json";
 import popData from "../data/population.json";
+import ProjectArea from '@/components/ProjectSection/ProjectArea';
 
 type HomeProps = {
   currentSection: number;
@@ -68,7 +68,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
                 <text x="598" y="70.5" className={indexStyles.stationTextHeadingSvg}>InfoVis</text>
                 <polyline points="660,65 960,65 995,105 995,200 960,240 25,240 3,270 5,590" className={indexStyles.lineHeadingSvg} />
               </svg>
-              <Image src={require('@/assets/train.svg')} alt="train" className={indexStyles.trainSvg} />
+              <img src={'/train.svg'} alt="train" className={indexStyles.trainSvg} />
               
               <div className="column">
                 <Typography level="h1" className={indexStyles.titleHeading}>Visualizing the transportation <br /> shift in Germany</Typography>
@@ -82,7 +82,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
         <ChapterArea>
           <Stack direction={"column"} id="project" mt={7} className={indexStyles.lineLeftStack} ref={projectSectionRef}>
             <Typography level="h2" className={currentSection == 1 ? indexStyles.markerLeftHeadingActive : indexStyles.markerLeftHeading}>Project</Typography>
-            <Typography mt={2}>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo do</Typography>
+            <ProjectArea></ProjectArea>
           </Stack>
         </ChapterArea>
 
@@ -182,11 +182,11 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
           <Stack direction={"column"} mt={7} className={indexStyles.lineLeftHalfAcrossStack} ref={teamSectionRef}>
             <Typography level="h2" id="team" className={currentSection == 3 ? indexStyles.markerLeftHeadingActive : indexStyles.markerLeftHeading}>Team</Typography>
             <Stack mt={3} direction={"row"} alignItems={"center"} justifyContent={"center"} flexWrap="wrap" gap={15}>
-              <TeamTile className={indexStyles.teamTileTop} imageSrc={require('@/assets/amiin.png')} name="Amiin Najjar" desc="HCI student with a passion for sport and cooking, I've swapped public transportation for pedaling my bike, blending tech insights with a dash of culinary creativity and a healthy dose of physical activity." />
-              <TeamTile className={indexStyles.teamTileTop} imageSrc={require('@/assets/lukas.png')} name="Lukas Plenk" desc="I’m a Human-Computer-Interaction student at LMU Munich interested in digital media, culture, and traveling. Just like public transport, I’m always out for the next destination ahead." />
-              <TeamTile className={indexStyles.teamTileTop} imageSrc={require('@/assets/tim.png')} name="Timothy Summers" desc="I love collaborating in a team and solving creative challenges! Always ready for adventure - I can even handle Munich public transportation during rush hour!" />
-              <TeamTile className={indexStyles.teamTileBottom} imageSrc={require('@/assets/malek.png')} name="Malek Jarraya" desc="I’m a Media Informatics student at LMU Munich. I love colors, the sun, and the sea. I didn't know much about public transportation in the past, but our project definitely changed that." />
-              <TeamTile className={indexStyles.teamTileBottom} imageSrc={require('@/assets/maxi.png')} name="Maximilian Wiegand" desc="Hey, I'm a media computer science student at LMU Munich. I love to design, develop and explore - not only for computers. Some ideas even came up in delayed and overcrowded public transport…" />
+              <TeamTile className={indexStyles.teamTileTop} imageSrc={'/amiin.png'} name="Amiin Najjar" desc="HCI student with a passion for sport and cooking, I've swapped public transportation for pedaling my bike, blending tech insights with a dash of culinary creativity and a healthy dose of physical activity." />
+              <TeamTile className={indexStyles.teamTileTop} imageSrc={'/lukas.png'} name="Lukas Plenk" desc="I’m a Human-Computer-Interaction student at LMU Munich interested in digital media, culture, and traveling. Just like public transport, I’m always out for the next destination ahead." />
+              <TeamTile className={indexStyles.teamTileTop} imageSrc={'/tim.png'} name="Timothy Summers" desc="I love collaborating in a team and solving creative challenges! Always ready for adventure - I can even handle Munich public transportation during rush hour!" />
+              <TeamTile className={indexStyles.teamTileBottom} imageSrc={'/malek.png'} name="Malek Jarraya" desc="I’m a Media Informatics student at LMU Munich. I love colors, the sun, and the sea. I didn't know much about public transportation in the past, but our project definitely changed that." />
+              <TeamTile className={indexStyles.teamTileBottom} imageSrc={'/maxi.png'} name="Maximilian Wiegand" desc="Hey, I'm a media computer science student at LMU Munich. I love to design, develop and explore - not only for computers. Some ideas even came up in delayed and overcrowded public transport…" />
             </Stack>
           </Stack>
         </ChapterArea>
