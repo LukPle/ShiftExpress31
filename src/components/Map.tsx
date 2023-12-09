@@ -3,6 +3,13 @@ import * as d3 from "d3";
 import germanyGeoJSON from "../data/germany-states.json";
 import React, { useEffect, useRef, useState } from 'react';
 import { FeatureCollection } from 'geojson';
+import { TransportData, YearlyData } from '@/data/pTDataInterface';
+import { PopulationData } from '@/data/populationInterface';
+
+interface Props {
+    data: YearlyData;
+    populationData: PopulationData[];
+}
 
 const mapData: FeatureCollection = germanyGeoJSON as FeatureCollection;
 
@@ -21,17 +28,22 @@ const MapChart: React.FC = () => {
         // Create a path generator
         const pathGenerator = d3.geoPath().projection(projection);
 
-        //Handels the mouse hover
+        //Handling the mouse hover
         const handleMouseOver = (event: React.MouseEvent<SVGPathElement, MouseEvent>, d: any) => {
             setSelectedState(d.properties.name);
-            d3.select(event.currentTarget as Element).style('fill', 'lightblue');
+            d3.select(event.currentTarget as Element).style('fill', '#4748dc');
         };
         
-        //Handels the mouse exit
+        //Handling the mouse exit
         const handleMouseOut = (event: React.MouseEvent<SVGPathElement, MouseEvent>, d: any) => {
             setSelectedState(null);
-            d3.select(event.currentTarget as Element).style('fill', 'blue');
-        };        
+            d3.select(event.currentTarget as Element).style('fill', 'rgba(3,4,94,0.92)');
+        };
+
+        // Sort Data
+
+
+
 
         // Render the map
         svg
@@ -40,7 +52,9 @@ const MapChart: React.FC = () => {
             .enter()
             .append('path')
             .attr('d', (d) => pathGenerator(d) as string)
-            .style('fill', 'blue')
+            .style('fill', 'rgba(3,4,94,0.92)')
+            .style('stroke', 'white')
+            .style('stroke-width', 1.5)
             .on('mouseover', handleMouseOver)
             .on('mouseout', handleMouseOut);
 
