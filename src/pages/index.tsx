@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import ChapterArea from '@/components/ChapterArea';
 import { Card, Typography, Stack, AccordionGroup, Accordion, AccordionDetails, AccordionSummary } from "@mui/joy";
-import {Train, DirectionsCar, MergeType } from '@mui/icons-material';
+import {Train, DirectionsCar, MergeType, Timeline } from '@mui/icons-material';
 import indexStyles from '../styles/index.module.css';
 import Keyfact from "@/components/Keyfact";
 import Map from "@/components/Map";
@@ -21,6 +21,7 @@ import BarChartCombined from "@/components/ChartsCombined/BarChartCombined";
 import pTData from "../data/pT.json";
 import carData from "../data/car.json";
 import popData from "../data/population.json";
+import TimeLineChart from '@/components/TimeLineChart';
 
 type HomeProps = {
   currentSection: number;
@@ -114,6 +115,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
                 <Map />
               </Stack>
               <Comparison />
+              <TimeLineChart />
             </Stack>
             <Typography level="h3" mt={4} startDecorator={<Train />}>Insights: <i>&nbsp;Public Transportation</i></Typography>
           <AccordionGroup size='lg' sx={{ my: 3, minWidth: "100%" }}>
