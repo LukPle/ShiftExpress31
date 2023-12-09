@@ -1,0 +1,55 @@
+.projectRow {
+    padding-top: 5%;
+    width: 100vh;
+}
+
+.textColumn {
+    flex: 1;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.title {
+    padding-bottom: 5%;
+    font-size: 1.5em;
+}
+
+.description {
+    padding-top: 25%;
+    text-align: justify;
+}
+
+.leadingIconSmall {
+    width: 55px;
+    height: 55px;
+    opacity: 35%;
+}
+
+.leadingIconBig {
+    width: 70px;
+    height: 70px;
+    opacity: 35%;
+}
+
+.zStack {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .zStack img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+  
+  .zStack h4 {
+    position: relative;
+    top: 55%;
+    left: 50px;
+    transform: translateY(50%);
+    z-index: 2;
+  }
+  
