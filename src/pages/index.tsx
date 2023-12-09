@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import { Card, Typography, Stack, Divider, AccordionGroup, Accordion, AccordionDetails, AccordionSummary } from "@mui/joy";
+import ChapterArea from '@/components/ChapterArea';
+import { Card, Typography, Stack, AccordionGroup, Accordion, AccordionDetails, AccordionSummary } from "@mui/joy";
 import {Train, DirectionsCar, MergeType } from '@mui/icons-material';
 import indexStyles from '../styles/index.module.css';
 import Keyfact from "@/components/Keyfact";
@@ -54,58 +55,67 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
       window.removeEventListener('scroll', scrollHandleSection);
     };
   }, []);
+  
 
   return (
     <>
-      <Stack direction={"column"} mx={17} my={7}>
-        <Stack direction="column" className={indexStyles.headingStack} ref={introSectionRef}>
-          {/* SVG with line background */}
-          <svg className={indexStyles.headingSvg} viewBox="0 0 1000 200" version='1.1' xmlns='http://www.w3.org/2000/svg'>
-            <rect x="410" y="65" width="80" height="30" rx="15" className={indexStyles.stationCircleHeadingSvg} />
-            <text x="427" y="85" className={indexStyles.stationTextHeadingSvg}>InfoViz</text>
-            <polyline points="490,80 980,80 995,95 995,180 980,195 18,195 3,210 3,230" className={indexStyles.lineHeadingSvg} />
-          </svg>
-          <Image src={require('@/assets/train.svg')} alt="train" className={indexStyles.trainSvg} />
-
-          <Typography level="h1" className={indexStyles.titleHeading}>Visualizing the transportation <br /> shift in Germany</Typography>
-          <Typography mt={2}>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</Typography>
-        </Stack>
-
-        <Stack direction={"column"} id="project" mt={7} className={indexStyles.lineLeftStack} ref={projectSectionRef}>
-          <Typography level="h2" className={currentSection == 1 ? indexStyles.markerLeftHeadingActive : indexStyles.markerLeftHeading}>Project</Typography>
-          <Typography mt={2}>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo do</Typography>
-        </Stack>
-
-        <Stack direction={"column"} id="insights" mt={7} className={indexStyles.lineLeftStack} ref={insightsSectionRef}>
-          <Typography level="h2" className={currentSection == 2 ? indexStyles.markerLeftHeadingActive : indexStyles.markerLeftHeading}>Insights and Map</Typography>
-          <Stack direction={"column"}>
-            <Typography level="h3" mt={4}>Our Key Findings</Typography>
-            <Stack
-              direction={"row"}
-              justifyContent="space-evenly"
-              alignItems="center"
-              spacing={4}
-              mt={2}
-            >
-              <Keyfact />
-              <Keyfact />
-              <Keyfact />
+      <Stack direction={"column"} mx={13} my={7}>
+          <ChapterArea>
+            <Stack direction="column" className={indexStyles.headingStack} ref={introSectionRef}>
+              {/* SVG with line background */}
+              <svg className={indexStyles.headingSvg} viewBox="0 0 1000 200" version='1.1' xmlns='http://www.w3.org/2000/svg'>
+                <rect x="580" y="50" width="80" height="30" rx="15" className={indexStyles.stationCircleHeadingSvg} />
+                <text x="598" y="70.5" className={indexStyles.stationTextHeadingSvg}>InfoVis</text>
+                <polyline points="660,65 960,65 995,105 995,200 960,240 25,240 3,270 5,590" className={indexStyles.lineHeadingSvg} />
+              </svg>
+              <Image src={require('@/assets/train.svg')} alt="train" className={indexStyles.trainSvg} />
+              
+              <div className="column">
+                <Typography level="h1" className={indexStyles.titleHeading}>Visualizing the transportation <br /> shift in Germany</Typography>
+                <br />
+                <Typography level="h2" mt={2}>Comparing the usage of public transport and cars for <br /> the years from 2013 to 2022 across all federal states.</Typography>
+              </div>
             </Stack>
-          </Stack>
+          </ChapterArea>
+        
 
-          <Stack direction={"column"}>
-            <Typography level="h3" mt={4}>Explore Yourself</Typography>
-            <Stack direction={"row"} mt={2}>
-              <Stack direction={"column"}>
-                <FilterBox />
-                <FederalStateBox />
+        <ChapterArea>
+          <Stack direction={"column"} id="project" mt={7} className={indexStyles.lineLeftStack} ref={projectSectionRef}>
+            <Typography level="h2" className={currentSection == 1 ? indexStyles.markerLeftHeadingActive : indexStyles.markerLeftHeading}>Project</Typography>
+            <Typography mt={2}>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo do</Typography>
+          </Stack>
+        </ChapterArea>
+
+        <ChapterArea>
+          <Stack direction={"column"} id="insights" mt={7} className={indexStyles.lineLeftStack} ref={insightsSectionRef}>
+            <Typography level="h2" className={currentSection == 2 ? indexStyles.markerLeftHeadingActive : indexStyles.markerLeftHeading}>Insights and Map</Typography>
+            <Stack direction={"column"}>
+              <Typography level="h3" mt={4}>Our Key Findings</Typography>
+              <Stack
+                direction={"row"}
+                justifyContent="space-evenly"
+                alignItems="center"
+                spacing={4}
+                mt={2}
+              >
+                <Keyfact />
+                <Keyfact />
+                <Keyfact />
               </Stack>
-              <Map />
             </Stack>
-            <Comparison />
-          </Stack>
 
-          <Typography level="h3" mt={4} startDecorator={<Train />}>Insights: <i>&nbsp;Public Transportation</i></Typography>
+            <Stack direction={"column"}>
+              <Typography level="h3" mt={4}>Explore Yourself</Typography>
+              <Stack direction={"row"} mt={2}>
+                <Stack direction={"column"}>
+                  <FilterBox />
+                  <FederalStateBox />
+                </Stack>
+                <Map />
+              </Stack>
+              <Comparison />
+            </Stack>
+            <Typography level="h3" mt={4} startDecorator={<Train />}>Insights: <i>&nbsp;Public Transportation</i></Typography>
           <AccordionGroup size='lg' sx={{ my: 3, minWidth: "100%" }}>
             <Accordion>
               <AccordionSummary>Total PT Data in specific Year</AccordionSummary>
@@ -165,19 +175,22 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
               </AccordionDetails>
             </Accordion>
           </AccordionGroup>
-
-        </Stack>
-
-        <Stack direction={"column"} mt={7} className={indexStyles.lineLeftHalfAcrossStack} ref={teamSectionRef}>
-          <Typography level="h2" id="team" className={currentSection == 3 ? indexStyles.markerLeftHeadingActive : indexStyles.markerLeftHeading}>Team</Typography>
-          <Stack mt={3} direction={"row"} alignItems={"center"} justifyContent={"center"} flexWrap="wrap" gap={15}>
-            <TeamTile className={indexStyles.teamTileTop} imageSrc={require('@/assets/amiin.png')} name="Amiin Najjar" desc="HCI student with a passion for sport and cooking, I've swapped public transportation for pedaling my bike, blending tech insights with a dash of culinary creativity and a healthy dose of physical activity." />
-            <TeamTile className={indexStyles.teamTileTop} imageSrc={require('@/assets/lukas.png')} name="Lukas Plenk" desc="I’m a Human-Computer-Interaction student at LMU Munich interested in digital media, culture, and traveling. Just like public transport, I’m always out for the next destination ahead." />
-            <TeamTile className={indexStyles.teamTileTop} imageSrc={require('@/assets/tim.png')} name="Timothy Summers" desc="I love collaborating in a team and solving creative challenges! Always ready for adventure - I can even handle Munich public transportation during rush hour!" />
-            <TeamTile className={indexStyles.teamTileBottom} imageSrc={require('@/assets/malek.png')} name="Malek Jarraya" desc="I’m a Media Informatics student at LMU Munich. I love colors, the sun, and the sea. I didn't know much about public transportation in the past, but our project definitely changed that." />
-            <TeamTile className={indexStyles.teamTileBottom} imageSrc={require('@/assets/maxi.png')} name="Maximilian Wiegand" desc="Hey, I'm a media computer science student at LMU Munich. I love to design, develop and explore - not only for computers. Some ideas even came up in delayed and overcrowded public transport…" />
           </Stack>
-        </Stack>
+        </ChapterArea>
+        
+        <ChapterArea>
+          <Stack direction={"column"} mt={7} className={indexStyles.lineLeftHalfAcrossStack} ref={teamSectionRef}>
+            <Typography level="h2" id="team" className={currentSection == 3 ? indexStyles.markerLeftHeadingActive : indexStyles.markerLeftHeading}>Team</Typography>
+            <Stack mt={3} direction={"row"} alignItems={"center"} justifyContent={"center"} flexWrap="wrap" gap={15}>
+              <TeamTile className={indexStyles.teamTileTop} imageSrc={require('@/assets/amiin.png')} name="Amiin Najjar" desc="HCI student with a passion for sport and cooking, I've swapped public transportation for pedaling my bike, blending tech insights with a dash of culinary creativity and a healthy dose of physical activity." />
+              <TeamTile className={indexStyles.teamTileTop} imageSrc={require('@/assets/lukas.png')} name="Lukas Plenk" desc="I’m a Human-Computer-Interaction student at LMU Munich interested in digital media, culture, and traveling. Just like public transport, I’m always out for the next destination ahead." />
+              <TeamTile className={indexStyles.teamTileTop} imageSrc={require('@/assets/tim.png')} name="Timothy Summers" desc="I love collaborating in a team and solving creative challenges! Always ready for adventure - I can even handle Munich public transportation during rush hour!" />
+              <TeamTile className={indexStyles.teamTileBottom} imageSrc={require('@/assets/malek.png')} name="Malek Jarraya" desc="I’m a Media Informatics student at LMU Munich. I love colors, the sun, and the sea. I didn't know much about public transportation in the past, but our project definitely changed that." />
+              <TeamTile className={indexStyles.teamTileBottom} imageSrc={require('@/assets/maxi.png')} name="Maximilian Wiegand" desc="Hey, I'm a media computer science student at LMU Munich. I love to design, develop and explore - not only for computers. Some ideas even came up in delayed and overcrowded public transport…" />
+            </Stack>
+          </Stack>
+        </ChapterArea>
+
       </Stack>
 
     </>
