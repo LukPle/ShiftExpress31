@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import { CarData, YearlyData as CarYearlyData } from '../../data/carDataInterface';
 import { TransportData, YearlyData as TransportYearlyData } from '../../data/pTDataInterface';
-import { PopulationData } from '../../data/populationInterface';
+import { PopulationData } from '@/data/populationInterface';
 
 interface CombinedData {
     state: string;
@@ -86,7 +86,9 @@ const CombinedVisualization: React.FC<Props> = ({ carData, transportData, popula
 
                 x0.domain(combinedData.map(d => d.state));
                 x1.domain(['carData', 'transportData']).rangeRound([0, x0.bandwidth()]);
+                // @ts-ignore
                 yLeft.domain([0, d3.max(combinedData, d => d.carValue)]);
+                // @ts-ignore
                 yRight.domain([0, d3.max(combinedData, d => d.transportValue)]);
 
                 svg.selectAll(".bar").remove();
@@ -96,6 +98,7 @@ const CombinedVisualization: React.FC<Props> = ({ carData, transportData, popula
                     .enter().append("g")
                     .attr("class", "state-group")
                     .attr("transform", d => `translate(${x0(d.state)}, 0)`);
+
 
                 stateGroups.selectAll(".bar.car")
                     .data(d => [{ key: 'carData', value: d.carValue }])

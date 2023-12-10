@@ -2,7 +2,7 @@
 import { Select, Option } from "@mui/joy";
 import React, { useState, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
-import { CarData, YearlyData } from '../../data/carDataInterface';
+import { CarData, YearlyData } from '@/data/carDataInterface';
 
 interface Props {
     data: YearlyData;
