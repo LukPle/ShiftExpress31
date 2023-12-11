@@ -1,5 +1,4 @@
 import { Link, Stack, Typography, Button, Divider } from "@mui/joy"
-import Image from 'next/image';
 import headerStyles from '../styles/header.module.css';
 
 export default function Header({currentSection, setSection}: {currentSection: number, setSection: (section: number) => void}) {
@@ -7,7 +6,7 @@ export default function Header({currentSection, setSection}: {currentSection: nu
     <div className={headerStyles.stickyHeader}>
       <Stack direction="column" sx={{ mt: "10px", width: "100%" }} alignContent={"flex-start"}>
         <Stack direction="row" alignItems={"center"} alignContent={"flex-start"} sx={{ mb: "10px", paddingX: "30px" }} gap={3}>
-          <Image src={require('@/assets/logo.svg')} alt="Shift Express 31 Logo" className={headerStyles.logoSVG} />
+          <img src={'/logo.svg'} alt="Shift Express 31 Logo" className={headerStyles.logoSVG} />
           <div style={{ flexGrow: 1 }} />
           <Typography level="h3">
             <Link href="#" underline={currentSection === 0 ? "always" : "none"} onClick={() => setSection(0)}>
