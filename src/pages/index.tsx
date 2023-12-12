@@ -21,7 +21,7 @@ import {
 } from "@mui/icons-material";
 import indexStyles from "../styles/index.module.css";
 import Keyfact from "@/components/Keyfact";
-import Map from "@/components/Map";
+import Map from "@/components/MapComponents/Map";
 import Comparison from "@/components/Comparison";
 import FilterBox from "@/components/FilterBox";
 import FederalStateBox from "@/components/FederalStateBox";
