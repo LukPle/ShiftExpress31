@@ -34,6 +34,7 @@ import LineChartPT from "@/components/BaseCharts/ChartsPT/LineChartPT";
 import LineChartCar from "@/components/BaseCharts/ChartsCars/LineChartCar";
 import BarChartDevelopmentCombined from "@/components/BaseCharts/ChartsCombined/BarChartDevelopmentCombined";
 import BarChartCombined from "@/components/BaseCharts/ChartsCombined/BarChartCombined";
+import TimeLineChart from "@/components/BaseCharts/TimeLineChart";
 import pTData from "../data/pT.json";
 import carData from "../data/car.json";
 import popData from "../data/population.json";
@@ -445,6 +446,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
                 <Map />
               </Stack>
               <Comparison />
+              <TimeLineChart />
             </Stack>
             </AccordionDetails>
           </Accordion>
