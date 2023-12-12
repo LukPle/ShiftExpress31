@@ -321,7 +321,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
                 {/*@ts-ignore*/}
                 <ToolBar
                   currentSection={currentSection}
-                  keyFinding={JSON.stringify(currentKeyFinding)}
+                  keyFinding={currentKeyFinding}
                   onUpdateKeyFinding={updateKeyFinding}
                 />
                 <Typography

@@ -7,7 +7,7 @@ import { KeyFinding } from '../../pages/index';
 
 type ToolProps = {
     currentSection: number;
-    keyFinding: string;
+    keyFinding: KeyFinding;
     onUpdateKeyFinding: (keyFinding: KeyFinding) => void;
 };
 
@@ -31,10 +31,10 @@ const ToolPanel: React.FC<ToolProps> = ({ currentSection, keyFinding, onUpdateKe
         <>
             <div className={`${styles.toolPanel} ${isPanelOpen ? styles.open : ''}`}>
                 <Stack direction={"row"} gap={2} sx={{ transform: "rotate(90deg)" }}>
-                    <Button variant={keyFinding==="SHIFT" ? "solid" : "outlined"} sx={{ minWidth: "190px", maxHeight: "40px" }} onClick={() => onUpdateKeyFinding(KeyFinding.Shift)}>
+                    <Button variant={keyFinding===KeyFinding.Shift ? "solid" : "outlined"} sx={{ minWidth: "190px", maxHeight: "40px" }} onClick={() => onUpdateKeyFinding(KeyFinding.Shift)}>
                         🚉 &nbsp;Transportaion Shift
                     </Button>
-                    <Button variant={keyFinding==="COVID" ? "solid" : "outlined"} sx={{ minWidth: "110px", maxHeight: "40px" }} onClick={() => onUpdateKeyFinding(KeyFinding.Covid)}>
+                    <Button variant={keyFinding===KeyFinding.Covid ? "solid" : "outlined"} sx={{ minWidth: "110px", maxHeight: "40px" }} onClick={() => onUpdateKeyFinding(KeyFinding.Covid)}>
                         🦠 &nbsp;COVID
                     </Button>
                     <Button variant="outlined" sx={{ minWidth: "170px", maxHeight: "40px" }}>
