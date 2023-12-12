@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import ChapterArea from "@/components/ChapterArea";
+import ChapterArea from "@/components/Layout/ChapterArea";
 import {
   Card,
   CardContent,
@@ -20,25 +20,26 @@ import {
   Coronavirus,
 } from "@mui/icons-material";
 import indexStyles from "../styles/index.module.css";
-import Keyfact from "@/components/Keyfact";
+import Keyfact from "@/components/Layout/Keyfact";
 import Map from "@/components/MapComponents/Map";
-import Comparison from "@/components/Comparison";
-import FilterBox from "@/components/FilterBox";
-import FederalStateBox from "@/components/FederalStateBox";
+import Comparison from "@/components/Layout/Comparison";
+import FilterBox from "@/components/Layout/FilterBox";
+import FederalStateBox from "@/components/Layout/FederalStateBox";
 import TeamTile from "@/components/TeamTile";
-import BarChartPT from "@/components/ChartsPT/BarChartPT";
-import BarChartPTDev from "@/components/ChartsPT/BarChartPTDevelopment";
-import BarChartCar from "@/components/ChartsCars/BarChartCar";
-import BarChartCarDev from "@/components/ChartsCars/BarChartCarDevelopment";
-import LineChartPT from "@/components/ChartsPT/LineChartPT";
-import LineChartCar from "@/components/ChartsCars/LineChartCar";
-import BarChartDevelopmentCombined from "@/components/ChartsCombined/BarChartDevelopmentCombined";
-import BarChartCombined from "@/components/ChartsCombined/BarChartCombined";
+import BarChartPT from "@/components/BaseCharts/ChartsPT/BarChartPT";
+import BarChartPTDev from "@/components/BaseCharts/ChartsPT/BarChartPTDevelopment";
+import BarChartCar from "@/components/BaseCharts/ChartsCars/BarChartCar";
+import BarChartCarDev from "@/components/BaseCharts/ChartsCars/BarChartCarDevelopment";
+import LineChartPT from "@/components/BaseCharts/ChartsPT/LineChartPT";
+import LineChartCar from "@/components/BaseCharts/ChartsCars/LineChartCar";
+import BarChartDevelopmentCombined from "@/components/BaseCharts/ChartsCombined/BarChartDevelopmentCombined";
+import BarChartCombined from "@/components/BaseCharts/ChartsCombined/BarChartCombined";
 import pTData from "../data/pT.json";
 import carData from "../data/car.json";
 import popData from "../data/population.json";
 import ProjectArea from "@/components/ProjectSection/ProjectArea";
 import ToolBar from "@/components/KeyFindings/ToolBar";
+import TransportShift from "@/components/KeyFindings/TransportShift/TransportShift";
 import { max } from "d3";
 
 type HomeProps = {
@@ -127,7 +128,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
   const renderKeyFinding = () => {
     switch (currentKeyFinding) {
       case KeyFinding.Shift:
-        return <div>Shift Component</div>;
+        return <div></div>;
       case KeyFinding.Covid:
         return <div>Covid Component</div>;
       case KeyFinding.None:
@@ -341,16 +342,10 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
                   Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
                   diam nonumy eirmod tempor invidunt ut labore et dolore magna
                   aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                  justo duo dolores et ea rebum. Stet clita kasd gubergren, no
-                  sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem
-                  ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-                  nonumy eirmod tempor invidunt ut labore et dolore magna
-                  aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet,
-                  consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-                  invidunt ut labore et dolore magna aliquyam erat, sed diam
-                  voluptua. At vero eos et accusam et justo duo do
+                  justo duo dolores et ea rebum. 
                 </Typography>
-                {renderKeyFinding()}
+                <TransportShift />
+                {renderKeyFinding()} {/*use this late to clean code*/}
               </Stack>
             </ChapterArea>
           </div>
@@ -416,24 +411,11 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
           </Stack>
         </ChapterArea>
 
-        <ChapterArea>
-          <Stack
-            direction={"column"}
-            id="insights"
-            mt={7}
-            className={indexStyles.lineLeftStack}
-            ref={insightsSectionRef}
-          >
-            <Typography
-              level="h2"
-              className={
-                currentSection == 5
-                  ? indexStyles.markerLeftHeadingActive
-                  : indexStyles.markerLeftHeading
-              }
-            >
-              🛠️ Helper Components
-            </Typography>
+        <Typography level="h2">🛠️ Legacy Components</Typography>
+        <AccordionGroup size="lg" sx={{ my: 3, minWidth: "100%" }}>
+          <Accordion>
+            <AccordionSummary>Map</AccordionSummary>
+            <AccordionDetails>
             <Stack direction={"column"}>
               <Typography level="h3" mt={4}>
                 Our Key Findings
@@ -464,6 +446,11 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
               </Stack>
               <Comparison />
             </Stack>
+            </AccordionDetails>
+          </Accordion>
+          <Accordion>
+            <AccordionSummary>Charts</AccordionSummary>
+            <AccordionDetails>
             <Typography level="h3" mt={4} startDecorator={<Train />}>
               Insights: <i>&nbsp;Public Transportation</i>
             </Typography>
@@ -566,8 +553,9 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
                 </AccordionDetails>
               </Accordion>
             </AccordionGroup>
-          </Stack>
-        </ChapterArea>
+            </AccordionDetails>
+          </Accordion>
+        </AccordionGroup>
       </Stack>
     </>
   );
