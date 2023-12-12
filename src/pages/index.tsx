@@ -63,54 +63,27 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
   const teamSectionRef = useRef<HTMLDivElement>(null);
   const keyFindingSectionRef = useRef<HTMLDivElement>(null);
   const keyFindingDetailSectionRef = useRef<HTMLDivElement>(null);
-  const scrollShiftFactor = 100;
 
   useEffect(() => {
-    sectionOffsets.push(introSectionRef.current?.offsetTop || 0);
-    sectionOffsets.push(projectSectionRef.current?.offsetTop || 0);
-    sectionOffsets.push(keyFindingSectionRef.current?.offsetTop || 0);
-    sectionOffsets.push(insightsSectionRef.current?.offsetTop || 0);
-    sectionOffsets.push(teamSectionRef.current?.offsetTop || 0);
-    sectionOffsets.push(keyFindingDetailSectionRef.current?.offsetTop || 0);
+    sectionOffsets.push(introSectionRef.current?.offsetTop || 1);
+    sectionOffsets.push(projectSectionRef.current?.offsetTop || 1);
+    sectionOffsets.push(keyFindingSectionRef.current?.offsetTop || 1);
+    sectionOffsets.push(teamSectionRef.current?.offsetTop || 1);
+    sectionOffsets.push(keyFindingDetailSectionRef.current?.offsetTop || 1);
+    sectionOffsets.push(insightsSectionRef.current?.offsetTop || 1);
 
     const scrollHandleSection = () => {
-      const position = window.scrollY;
-      let currentSec = 0;
+      const windowFrameTop = window.scrollY;
+      const windowFrameBottom =  window.scrollY + window.innerHeight;
+      console.log(windowFrameTop + " - " + windowFrameBottom);
+      let currentSec = currentSection;
 
-      // Dynamically check each section's position
-      if (
-        introSectionRef.current &&
-        position >= introSectionRef.current.offsetTop
-      )
-        currentSec = 0;
-      if (
-        projectSectionRef.current &&
-        position >= projectSectionRef.current.offsetTop
-      )
-        currentSec = 1;
-      if (
-        keyFindingSectionRef.current &&
-        position >= keyFindingSectionRef.current.offsetTop
-      )
-        currentSec = 2;
-      if (
-        keyFindingDetailSectionRef.current &&
-        position >= keyFindingDetailSectionRef.current.offsetTop
-      )
-        currentSec = 3;
-      if (
-        teamSectionRef.current &&
-        position >= teamSectionRef.current.offsetTop
-      )
-        currentSec = 4;
-      if (
-        insightsSectionRef.current &&
-        position >= insightsSectionRef.current.offsetTop
-      )
-        currentSec = 5;
-
+      sectionOffsets.forEach((el, i) => {
+        if (el >= windowFrameTop && el <= windowFrameBottom) {
+          currentSec = i;
+        }
+      });
       setSection(currentSec);
-      console.log(currentSec);
     };
 
     window.addEventListener("scroll", scrollHandleSection);
