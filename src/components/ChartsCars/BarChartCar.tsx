@@ -2,8 +2,8 @@ import { Select, Option, Stack, Button } from "@mui/joy"
 import { Sort, Calculate } from '@mui/icons-material';
 import React, { useState, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
-import { CarData, YearlyData } from '../../data/carDataInterface';
-import { PopulationData } from '../../data/populationInterface';
+import { CarData, YearlyData } from '@/data/carDataInterface';
+import { PopulationData } from '@/data/populationInterface';
 
 interface Props {
     data: YearlyData;
@@ -40,7 +40,24 @@ const CarDataVisualization: React.FC<Props> = ({ data, populationData }) => {
             const y = d3.scaleLinear()
                 .range([height, 0]);
 
-            const color = d3.scaleOrdinal(d3.schemeCategory10);
+            //const color = d3.scaleOrdinal(d3.schemeAccent);
+            //const color = d3.scaleOrdinal(['#000000', '#252525', '#171723', '#004949', '#490092', '#920000', '#8f4e00', '#22cf22','#223567', '#676767', '#006ddb', '#009999', '#b66dff', '#ff6db6', '#db6d00', '#ffdf4d']);
+            const color = d3.scaleOrdinal(['#68023F'
+                ,'#008169'
+                ,'#EF0096'
+                ,'#00DCB5'
+                ,'#FFCFE2'
+                ,'#003C86'
+                ,'#9400E6'
+                ,'#FF6E3A'
+                ,'#009FFA'
+                ,'#FF71FD'
+                ,'#7CFFFA'
+                ,'#6A0213'
+                ,'#008607'
+                ,'#F60239'
+                ,'#FFDC3D'
+                ,'#00EBC1']);
 
             // Function to update the chart
             const updateChart = (year: string, metric: keyof CarData) => {
@@ -95,17 +112,20 @@ const CarDataVisualization: React.FC<Props> = ({ data, populationData }) => {
                     .duration(750)
                     .attr("y", d => y(d[metric] as number))
                     .attr("height", d => height - y(d[metric] as number))
-                    .attr("fill", (d, i) => color(i.toString()));
-
+                    .attr("fill","#FF6E3A");
+                //.attr("fill", (d, i) => color(i.toString()));
 
                 bars.exit().remove();
-
                 // Update axes
                 svg.select<SVGGElement>(".x-axis").call(d3.axisBottom(x) as any);
                 svg.select<SVGGElement>(".y-axis").call(d3.axisLeft(y) as any);
+
+
+
+
             };
 
-            // Append the x and y axis groups
+            // Append the x and y-axis groups
             svg.append("g")
                 .attr("class", "x-axis")
                 .attr("transform", `translate(0,${height})`);
@@ -121,7 +141,7 @@ const CarDataVisualization: React.FC<Props> = ({ data, populationData }) => {
     return (
         <div>
             <Stack direction={"row"}>
-                <Select defaultValue="2013" sx={{ maxWidth: "100px" }}>
+                <Select defaultValue="2013" sx={{maxWidth: "100px"}}>
                     <Option value="2013" onClick={() => setSelectedYear('2013')}>2013</Option>
                     <Option value="2014" onClick={() => setSelectedYear('2014')}>2014</Option>
                     <Option value="2015" onClick={() => setSelectedYear('2015')}>2015</Option>
@@ -133,19 +153,22 @@ const CarDataVisualization: React.FC<Props> = ({ data, populationData }) => {
                     <Option value="2021" onClick={() => setSelectedYear('2021')}>2021</Option>
                     <Option value="2022" onClick={() => setSelectedYear('2022')}>2022</Option>
                 </Select>
-                <Select defaultValue="passenger_km" sx={{ maxWidth: "250px", marginLeft: "10px" }}>
-                    <Option value="passenger_km" onClick={() => setSelectedMetric('passenger_km')}>Total Passenger KMs</Option>
+                <Select defaultValue="passenger_km" sx={{maxWidth: "250px", marginLeft: "10px"}}>
+                    <Option value="passenger_km" onClick={() => setSelectedMetric('passenger_km')}>Total Passenger
+                        KMs</Option>
                     <Option value="per_car_km" onClick={() => setSelectedMetric('per_car_km')}>Per Car Km</Option>
-                    <Option value="per_car_pass_km" onClick={() => setSelectedMetric('per_car_pass_km')}>Per Car Passenger Km</Option>
+                    <Option value="per_car_pass_km" onClick={() => setSelectedMetric('per_car_pass_km')}>Per Car
+                        Passenger Km</Option>
                     <Option value="cars" onClick={() => setSelectedMetric('cars')}>Number of Cars</Option>
                 </Select>
             </Stack>
-            <svg ref={d3Container} />
+            <svg ref={d3Container}/>
             <Stack direction={"row"}>
-                <Button onClick={() => setSortByPopulation(!sortByPopulation)} startDecorator={<Sort />}>
+                <Button onClick={() => setSortByPopulation(!sortByPopulation)} startDecorator={<Sort/>}>
                     {sortByPopulation ? 'Default Sort' : 'Sort by Population'}
                 </Button>
-                <Button onClick={() => setInRelationToPopulation(!inRelationToPopulation)} sx={{ marginLeft: "10px" }} startDecorator={<Calculate />}>
+                <Button onClick={() => setInRelationToPopulation(!inRelationToPopulation)} sx={{marginLeft: "10px"}}
+                        startDecorator={<Calculate/>}>
                     {inRelationToPopulation ? 'Show Absolute Values' : 'Show Values in Relation to Population'}
                 </Button>
             </Stack>

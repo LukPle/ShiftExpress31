@@ -2,8 +2,9 @@ import { Select, Option, Stack, Button } from "@mui/joy";
 import { Sort, Calculate } from '@mui/icons-material';
 import React, { useState, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
-import { TransportData, YearlyData } from '../../data/pTDataInterface';
-import { PopulationData } from '../../data/populationInterface';
+import { TransportData, YearlyData } from '@/data/pTDataInterface';
+import { PopulationData } from '@/data/populationInterface';
+
 
 interface Props {
     data: YearlyData;
@@ -40,13 +41,38 @@ const TransportDataVisualization: React.FC<Props> = ({ data, populationData }) =
             const y = d3.scaleLinear()
                 .range([height, 0]);
 
-            const color = d3.scaleOrdinal(d3.schemeCategory10);
+
+            //const color = d3.scaleOrdinal(d3.schemeCategory10);
+            //const color = d3.scaleOrdinal(d3.schemeAccent);
+            //const color = d3.scaleOrdinal(['#000000', '#252525', '#171723', '#004949', '#490092', '#920000', '#8f4e00', '#22cf22','#223567', '#676767', '#006ddb', '#009999', '#b66dff', '#ff6db6', '#db6d00', '#ffdf4d']);
+            const color = d3.scaleOrdinal(['#68023F'
+                ,'#008169'
+                ,'#EF0096'
+                ,'#00DCB5'
+                ,'#FFCFE2'
+                ,'#003C86'
+                ,'#9400E6'
+                ,'#FF6E3A'
+                ,'#009FFA'
+                ,'#FF71FD'
+                ,'#7CFFFA'
+                ,'#6A0213'
+                ,'#008607'
+                ,'#F60239'
+                ,'#FFDC3D'
+                ,'#00EBC1']);
 
             const updateChart = (year: string, metric: keyof TransportData) => {
                 if (!originalData) return;
 
+
+
                 // Doing this to avoid mutating the original data
                 let yearData = JSON.parse(JSON.stringify(originalData[year]));
+
+                // Sort data
+                //
+                //let sortedData = [...yearData].sort((a, b) => (b[selectedMetric] as number) - (a[selectedMetric] as number));
 
                 if (inRelationToPopulation) {
                     const populationMap = new Map(populationData.map(d => [d.state, d.population]));
@@ -66,7 +92,13 @@ const TransportDataVisualization: React.FC<Props> = ({ data, populationData }) =
                     // Sort data with proper typing for the metric
                     // @ts-ignore
                     yearData.sort((a, b) => (b[metric] as number) - (a[metric] as number));
+
                 }
+
+                 // Determine the 3 highest values
+                let sortedData = [...yearData];
+                sortedData.sort((a, b) => (b[selectedMetric] as number) - (a[selectedMetric] as number));
+                let top3Values = sortedData.slice(0, 3).map(d => d[selectedMetric]);
 
                 // @ts-ignore
                 x.domain(yearData.map(d => d.state));
@@ -94,7 +126,9 @@ const TransportDataVisualization: React.FC<Props> = ({ data, populationData }) =
                     .attr("y", d => y(d[metric] as number))
                     // @ts-ignore
                     .attr("height", d => height - y(d[metric] as number))
-                    .attr("fill", (d, i) => color(i.toString()));
+                    // @ts-ignore
+                    .attr("fill", d => top3Values.includes(d[metric]) ? "#008000" : "#004949");
+                //.attr("fill", (d, i) => color(i.toString()));
 
                 bars.exit().remove();
 
