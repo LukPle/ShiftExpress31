@@ -44,12 +44,16 @@ const TimeLineChart: React.FC = () => {
   const ptMaxChange = d3.max(Object.values(ptYearlyChange)) || 0;
   const ptMinChange = d3.min(Object.values(ptYearlyChange)) || 0;
   //Cars data
-  const carsFormattedData: CarYearlyData = carData;
+
+  let carsFormattedData: CarYearlyData = carData;
   const carsSumPerYear: { [year: string]: number } = Object.keys(carData).reduce((acc: CarYearlyTotalPassengerKM, year) => {
-    const sum = carsFormattedData[year].reduce((total:number, entry: CarData) => total + entry.passenger_km, 0);
+    const sum = carsFormattedData[year]
+    .filter((entry: CarData) => entry.state !== 'FEDERAL')
+    .reduce((total:number, entry: CarData) => total + entry.passenger_km, 0);
     acc[year] = sum;
     return acc;
   }, {});
+
   const carsColor = '#364a87';
   const carsYearlyChange = yearlyChange(carsSumPerYear);
   const carsMaxChange = d3.max(Object.values(carsYearlyChange)) || 0;
@@ -153,7 +157,7 @@ const TimeLineChart: React.FC = () => {
         //adjust yscale and y-axis
         title = 'The %-Change in Passenger KMs using Public Transportation and Cars in relation to 2013';
         //adjust yscale and y-axis
-        yScale.domain([-max, max]);
+        yScale.domain([min, max]);
         svg.append('g')
           .attr('class', 'x-axis')
           .attr('transform', `translate(0,${yScale(0)})`)
