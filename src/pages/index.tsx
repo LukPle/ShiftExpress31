@@ -129,9 +129,24 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
   const renderKeyFinding = () => {
     switch (currentKeyFinding) {
       case KeyFinding.Shift:
-        return <div></div>;
+        return <div>
+          <Typography mt={2}>
+            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
+            diam nonumy eirmod tempor invidunt ut labore et dolore magna
+            aliquyam erat, sed diam voluptua. At vero eos et accusam et
+            justo duo dolores et ea rebum.
+          </Typography>
+          <TransportShift />
+        </div>;
       case KeyFinding.Covid:
-        return <div>Covid Component</div>;
+        return <div>
+          <Typography mt={2}>
+            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
+            diam nonumy eirmod tempor invidunt ut labore et dolore magna
+            aliquyam erat, sed diam voluptua. At vero eos et accusam et
+            justo duo dolores et ea rebum.
+          </Typography>
+        </div>;
       case KeyFinding.None:
       default:
         return <div>Select a key finding to see more details.</div>;
@@ -339,14 +354,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
                     : ""}
                   {currentKeyFinding == KeyFinding.Covid ? "🦠 COVID" : ""}
                 </Typography>
-                <Typography mt={2}>
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                  diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                  aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                  justo duo dolores et ea rebum. 
-                </Typography>
-                <TransportShift />
-                {renderKeyFinding()} {/*use this late to clean code*/}
+                {renderKeyFinding()}
               </Stack>
             </ChapterArea>
           </div>
@@ -417,144 +425,144 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
           <Accordion>
             <AccordionSummary>Map</AccordionSummary>
             <AccordionDetails>
-            <Stack direction={"column"}>
-              <Typography level="h3" mt={4}>
-                Our Key Findings
-              </Typography>
-              <Stack
-                direction={"row"}
-                justifyContent="space-evenly"
-                alignItems="center"
-                spacing={4}
-                mt={2}
-              >
-                <Keyfact />
-                <Keyfact />
-                <Keyfact />
-              </Stack>
-            </Stack>
-
-            <Stack direction={"column"}>
-              <Typography level="h3" mt={4}>
-                Explore Yourself
-              </Typography>
-              <Stack direction={"row"} mt={2}>
-                <Stack direction={"column"}>
-                  <FilterBox />
-                  <FederalStateBox />
+              <Stack direction={"column"}>
+                <Typography level="h3" mt={4}>
+                  Our Key Findings
+                </Typography>
+                <Stack
+                  direction={"row"}
+                  justifyContent="space-evenly"
+                  alignItems="center"
+                  spacing={4}
+                  mt={2}
+                >
+                  <Keyfact />
+                  <Keyfact />
+                  <Keyfact />
                 </Stack>
-                <Map />
               </Stack>
-              <Comparison />
-              <TimeLineChart />
-            </Stack>
+
+              <Stack direction={"column"}>
+                <Typography level="h3" mt={4}>
+                  Explore Yourself
+                </Typography>
+                <Stack direction={"row"} mt={2}>
+                  <Stack direction={"column"}>
+                    <FilterBox />
+                    <FederalStateBox />
+                  </Stack>
+                  <Map />
+                </Stack>
+                <Comparison />
+                <TimeLineChart />
+              </Stack>
             </AccordionDetails>
           </Accordion>
           <Accordion>
             <AccordionSummary>Charts</AccordionSummary>
             <AccordionDetails>
-            <Typography level="h3" mt={4} startDecorator={<Train />}>
-              Insights: <i>&nbsp;Public Transportation</i>
-            </Typography>
-            <AccordionGroup size="lg" sx={{ my: 3, minWidth: "100%" }}>
-              <Accordion>
-                <AccordionSummary>
-                  Total PT Data in specific Year
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Card sx={{ my: 3 }}>
-                    <BarChartPT data={pTData} populationData={popData} />
-                  </Card>
-                </AccordionDetails>
-              </Accordion>
-              <Accordion>
-                <AccordionSummary>
-                  Total PT Data development over Time
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Card sx={{ my: 3 }}>
-                    <LineChartPT data={pTData} />
-                  </Card>
-                </AccordionDetails>
-              </Accordion>
-              <Accordion>
-                <AccordionSummary>
-                  Total PT Data change over Interval
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Card sx={{ my: 3, minWidth: "100%" }}>
-                    <BarChartPTDev data={pTData} />
-                  </Card>
-                </AccordionDetails>
-              </Accordion>
-            </AccordionGroup>
+              <Typography level="h3" mt={4} startDecorator={<Train />}>
+                Insights: <i>&nbsp;Public Transportation</i>
+              </Typography>
+              <AccordionGroup size="lg" sx={{ my: 3, minWidth: "100%" }}>
+                <Accordion>
+                  <AccordionSummary>
+                    Total PT Data in specific Year
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Card sx={{ my: 3 }}>
+                      <BarChartPT data={pTData} populationData={popData} />
+                    </Card>
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion>
+                  <AccordionSummary>
+                    Total PT Data development over Time
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Card sx={{ my: 3 }}>
+                      <LineChartPT data={pTData} />
+                    </Card>
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion>
+                  <AccordionSummary>
+                    Total PT Data change over Interval
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Card sx={{ my: 3, minWidth: "100%" }}>
+                      <BarChartPTDev data={pTData} />
+                    </Card>
+                  </AccordionDetails>
+                </Accordion>
+              </AccordionGroup>
 
-            <Typography level="h3" mt={4} startDecorator={<DirectionsCar />}>
-              Insights: <i>&nbsp;Cars</i>
-            </Typography>
-            <AccordionGroup size="lg" sx={{ my: 3, minWidth: "100%" }}>
-              <Accordion>
-                <AccordionSummary>Car Data in specific Year</AccordionSummary>
-                <AccordionDetails>
-                  <Card sx={{ my: 3 }}>
-                    <BarChartCar data={carData} populationData={popData} />
-                  </Card>
-                </AccordionDetails>
-              </Accordion>
-              <Accordion>
-                <AccordionSummary>
-                  Car Data development over Time
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Card sx={{ my: 3 }}>
-                    <LineChartCar data={carData} />
-                  </Card>
-                </AccordionDetails>
-              </Accordion>
-              <Accordion>
-                <AccordionSummary>
-                  Car Data change over Interval
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Card sx={{ my: 3 }}>
-                    <BarChartCarDev data={carData} />
-                  </Card>
-                </AccordionDetails>
-              </Accordion>
-            </AccordionGroup>
+              <Typography level="h3" mt={4} startDecorator={<DirectionsCar />}>
+                Insights: <i>&nbsp;Cars</i>
+              </Typography>
+              <AccordionGroup size="lg" sx={{ my: 3, minWidth: "100%" }}>
+                <Accordion>
+                  <AccordionSummary>Car Data in specific Year</AccordionSummary>
+                  <AccordionDetails>
+                    <Card sx={{ my: 3 }}>
+                      <BarChartCar data={carData} populationData={popData} />
+                    </Card>
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion>
+                  <AccordionSummary>
+                    Car Data development over Time
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Card sx={{ my: 3 }}>
+                      <LineChartCar data={carData} />
+                    </Card>
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion>
+                  <AccordionSummary>
+                    Car Data change over Interval
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Card sx={{ my: 3 }}>
+                      <BarChartCarDev data={carData} />
+                    </Card>
+                  </AccordionDetails>
+                </Accordion>
+              </AccordionGroup>
 
-            <Typography level="h3" mt={4} startDecorator={<MergeType />}>
-              Insights: <i>&nbsp;Combining Data Sets</i>
-            </Typography>
-            <AccordionGroup size="lg" sx={{ my: 3, minWidth: "100%" }}>
-              <Accordion>
-                <AccordionSummary>
-                  Combined Data development over Time
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Card sx={{ my: 3 }}>
-                    <BarChartDevelopmentCombined
-                      carData={carData}
-                      transportData={pTData}
-                    />
-                  </Card>
-                </AccordionDetails>
-              </Accordion>
-              <Accordion>
-                <AccordionSummary>
-                  Combined Data in specific Year
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Card sx={{ my: 3 }}>
-                    <BarChartCombined
-                      carData={carData}
-                      transportData={pTData}
-                      populationData={popData}
-                    />
-                  </Card>
-                </AccordionDetails>
-              </Accordion>
-            </AccordionGroup>
+              <Typography level="h3" mt={4} startDecorator={<MergeType />}>
+                Insights: <i>&nbsp;Combining Data Sets</i>
+              </Typography>
+              <AccordionGroup size="lg" sx={{ my: 3, minWidth: "100%" }}>
+                <Accordion>
+                  <AccordionSummary>
+                    Combined Data development over Time
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Card sx={{ my: 3 }}>
+                      <BarChartDevelopmentCombined
+                        carData={carData}
+                        transportData={pTData}
+                      />
+                    </Card>
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion>
+                  <AccordionSummary>
+                    Combined Data in specific Year
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Card sx={{ my: 3 }}>
+                      <BarChartCombined
+                        carData={carData}
+                        transportData={pTData}
+                        populationData={popData}
+                      />
+                    </Card>
+                  </AccordionDetails>
+                </Accordion>
+              </AccordionGroup>
             </AccordionDetails>
           </Accordion>
         </AccordionGroup>
