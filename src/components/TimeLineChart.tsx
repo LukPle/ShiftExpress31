@@ -10,7 +10,60 @@ import { YearlyData as CarYearlyData, CarData, YearlyTotalPassengerKM as CarYear
 
 const TimeLineChart: React.FC = () => {
   const chartRef = useRef<SVGSVGElement | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [selectedDataset, setSelectedDataset] = useState<string>('total_passenger_km');
+
+  const years = Object.keys(data);
+  //Helper Function to calculate the yearly change in ref to 2013.
+  const yearlyChange = (dataobj: { [year: string]: number }) => {
+    let changeObj : { [year: string]: number } = {};
+    const baseYear = '2013';
+    const ptBaseValue = dataobj[baseYear];
+    for (const year in dataobj) {
+      if (dataobj.hasOwnProperty(year)) {
+        const value = dataobj[year];
+        
+        // Calculate percentage change relative to the base year (2013)
+        const percentageChange = ((dataobj[year] - ptBaseValue) / ptBaseValue) * 100;
+    
+        // Store the percentage change in the new object
+        changeObj[year] = percentageChange;
+      }
+    }
+    return changeObj;
+  };
+
+  //Public Transportation data
+  const ptFormattedData: YearlyData = data;
+  //PT: Yearly Total Passenger KM (accumulated over all states)
+  const ptSumPerYear: { [year: string]: number } = Object.keys(data).reduce((acc: YearlyTotalPassengerKM, year) => {
+    const sum = ptFormattedData[year].reduce((total:number, entry: TransportData) => total + entry.total_local_passenger_km, 0);
+    acc[year] = sum;
+    return acc;
+  }, {});
+  //Percental change of Total Passenger KM in relation to 2013.
+  const ptColor = '#32a1b8';
+  const ptYearlyChange = yearlyChange(ptSumPerYear);
+  const ptMaxChange = d3.max(Object.values(ptYearlyChange)) || 0;
+  const ptMinChange = d3.min(Object.values(ptYearlyChange)) || 0;
+  //Cars data
+  const carsFormattedData: CarYearlyData = carData;
+  const carsSumPerYear: { [year: string]: number } = Object.keys(carData).reduce((acc: CarYearlyTotalPassengerKM, year) => {
+    const sum = carsFormattedData[year].reduce((total:number, entry: CarData) => total + entry.passenger_km, 0);
+    acc[year] = sum;
+    return acc;
+  }, {});
+  const carsColor = '#364a87';
+  const carsYearlyChange = yearlyChange(carsSumPerYear);
+  const carsMaxChange = d3.max(Object.values(carsYearlyChange)) || 0;
+  const carsMinChange = d3.min(Object.values(carsYearlyChange)) || 0;
+  //Max and Min % of both sets:
+  const max = ptMaxChange >= carsMaxChange ? ptMaxChange : carsMaxChange;
+  const min = ptMinChange <= carsMinChange ? ptMinChange : carsMinChange; 
+  
+
+  let title = "The Yearly Development of Passenger KMs using Public Transportation and Cars";
+
 
   useEffect(() => {
     if (!chartRef.current) return;
@@ -27,102 +80,98 @@ const TimeLineChart: React.FC = () => {
       .append('g')
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
-    const years = Object.keys(data);
-    let sumPerYear: { [year: string]: number }
-    let maxSum = 0;
-    let title = "The Yearly Development of Passenger KMs using Public Transportation";
-    const updateChart = (metric: string) => {
-      if (selectedDataset === 'total_passenger_km') {
-        const formattedData: YearlyData = data;
-        sumPerYear = Object.keys(data).reduce((acc: YearlyTotalPassengerKM, year) => {
-          const sum = formattedData[year].reduce((total:number, entry: TransportData) => total + entry.total_local_passenger_km, 0);
-          acc[year] = sum;
-          return acc;
-        }, {});
-        maxSum = 120000000000;
-        console.log("PT " + maxSum);
-      } else {
-          const formattedData: CarYearlyData = carData;
-          sumPerYear = Object.keys(carData).reduce((acc: CarYearlyTotalPassengerKM, year) => {
-            const sum = formattedData[year].reduce((total:number, entry: CarData) => total + entry.passenger_km, 0);
-            acc[year] = sum;
-            return acc;
-          }, {});
-          maxSum = 1800000000000;
-          title = "The Yearly Development of Passenger KMs using Cars";
-          console.log("cars: " + maxSum);
-      }
-
+  
+    const updateChart = () => {
       //remove existing shapes before redrawing
-      svg.selectAll('rect').remove();
       svg.selectAll('.y-axis').remove();
 
       const xScale = d3.scaleBand()
       .domain(years)
       .range([0, width])
-      .padding(0.9);
+      .padding(0.7);
 
-      const yScale = d3.scaleLinear()
-        .domain([0, maxSum])
+      let yScale = d3.scaleLinear()
+        .domain([-max, max])
         .range([height, 0]);
 
       // Draw X-axis
       svg.append('g')
-        .attr('transform', `translate(0,${height})`)
+        .attr('transform', `translate(0,${yScale(0)})`)
         .call(d3.axisBottom(xScale));
       // Draw Y-axis
-      const yAxis = d3
-        .axisLeft(yScale)
-        .tickFormat((value) => {
-          if (value >= 1e9) {
-            // Convert values in the billions
-            return d3.format('.2s')(value).replace('G', 'B');
-          } else {
-            return d3.format('.2s')(value);
-          }
-        });
-
+      let yAxis = d3
+        .axisLeft(yScale);
+        
       svg.append('g')
         .call(yAxis);
-      // Draw bars
-      years.forEach((year, index) => {
-        svg.selectAll(`.bar-${year}`)
-          .data([sumPerYear[year]])
-          .enter()
-          .append('rect')
-          .attr('class', `bar-${year}`)
-          .attr('x', xScale(year) || 0)
-          .attr('y', d => yScale(d) || 0)
-          .attr('width', xScale.bandwidth())
-          .attr('height', d => height - yScale(d) || 0)
-          .attr('fill', `rgb(${index * 25}, 0, 0)`);
 
+      // Draw PT Data
+      years.forEach((year, index) => {
         // Add dots at the tops of each bar
         svg.append('circle')
-        .attr('class', 'dot')
+        .attr('class', 'pt-dot')
         .attr('cx', xScale(year) + xScale.bandwidth() / 2)
-        .attr('cy', yScale(sumPerYear[year]) || 0)
-        .attr('r', 5)  // Adjust the radius as needed
-        .attr('fill', 'blue');  // You can set the color as needed
+        .attr('cy', yScale(ptYearlyChange[year]) || 0)
+        .attr('r', 6) 
+        .attr('fill', ptColor); 
       });
-
-      //Draw lines linking the tops of the bars
+      //Draw lines linking the dots
       years.slice(0, -1).forEach((year, index) => {
         const x1Pos = xScale(year) + xScale.bandwidth() / 2;
-        const y1Pos = yScale(sumPerYear[year]) || 0;
-
+        const y1Pos = yScale(ptYearlyChange[year]) || 0;
         const nextYear = years[index + 1];
         const x2Pos = xScale(nextYear) + xScale.bandwidth() / 2;
-        const y2Pos = yScale(sumPerYear[nextYear]) || 0;
+        const y2Pos = yScale(ptYearlyChange[nextYear]) || 0;
 
         svg.append('line')
-          .attr('class', 'connecting-line')
+          .attr('class', 'pt-connecting-line')
           .attr('x1', x1Pos)
           .attr('y1', y1Pos)
           .attr('x2', x2Pos)
           .attr('y2', y2Pos)
-          .attr('stroke', 'blue');  // You can set the color as needed
+          .attr('stroke', ptColor)
+          .attr('stroke-width', 4);;  // You can set the color as needed
       });
+
+      //Draw Cars Data
+      years.forEach((year, index) => {
+        // Add dots at the tops of each bar
+        svg.append('circle')
+        .attr('class', 'cars-dot')
+        .attr('cx', xScale(year) + xScale.bandwidth() / 2)
+        .attr('cy', yScale(carsYearlyChange[year]) || 0)
+        .attr('r', 6) 
+        .attr('fill', carsColor); 
+      });
+      //Draw lines linking the dots
+      years.slice(0, -1).forEach((year, index) => {
+        const x1Pos = xScale(year) + xScale.bandwidth() / 2;
+        const y1Pos = yScale(carsYearlyChange[year]) || 0;
+        const nextYear = years[index + 1];
+        const x2Pos = xScale(nextYear) + xScale.bandwidth() / 2;
+        const y2Pos = yScale(carsYearlyChange[nextYear]) || 0;
+
+        svg.append('line')
+          .attr('class', 'cars-connecting-line')
+          .attr('x1', x1Pos)
+          .attr('y1', y1Pos)
+          .attr('x2', x2Pos)
+          .attr('y2', y2Pos)
+          .attr('stroke', carsColor)
+          .attr('stroke-width', 4);;  // You can set the color as needed
+      });
+
+      //if only one data set is selected, delete the non-selected one
+      if (selectedDataset === 'total_passenger_km') {
+        d3.select(chartRef.current).selectAll(".cars-connecting-line").remove();
+        d3.select(chartRef.current).selectAll(".cars-dot").remove();
+        title = 'The Yearly Development of Passenger KMs using Public Transportation';
+        //TODO: redraw y-axis
+      } else if (selectedDataset === 'car_passenger_km') {
+        d3.select(chartRef.current).selectAll(".pt-connecting-line").remove();
+        d3.select(chartRef.current).selectAll(".pt-dot").remove();
+        title = 'The Yearly Development of Passenger KMs using Cars';
+      }
 
       // Add chart title
       svg.append('text')
@@ -132,22 +181,23 @@ const TimeLineChart: React.FC = () => {
         .attr('text-anchor', 'middle')
         .style('font-size', '18px')
         .text(title);
-
-
     }
-    updateChart(selectedDataset);
 
-  }, [selectedDataset]);
+    updateChart();
+
+  }, [selectedDataset, isPlaying]);
   
   return (
     <Card>
       <div>
         <label htmlFor="datasetSelect">Select Dataset: </label>
-        <Select id="datasetSelect" value={selectedDataset} sx={{ width: 210 }}>
+        <Select id="datasetSelect" value={selectedDataset} sx={{ width: 300 }}>
           <Option value="total_passenger_km" onClick={() => setSelectedDataset("total_passenger_km")}>Public Transporation</Option>
           <Option value="car_passenger_km" onClick={() => setSelectedDataset("car_passenger_km")}>Cars</Option>
+          <Option value="both" onClick={() => setSelectedDataset("both")}>Public Transportation and Cars</Option>
         </Select>
         <svg ref={chartRef}></svg>
+
       </div>
     </Card>
   );
