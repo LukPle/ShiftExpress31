@@ -46,7 +46,7 @@ type HomeProps = {
   setSection: (section: number) => void;
 };
 
-enum KeyFinding {
+export enum KeyFinding {
   None = "NONE",
   Shift = "SHIFT",
   Covid = "COVID",
@@ -119,6 +119,10 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
       window.removeEventListener("scroll", scrollHandleSection);
     };
   }, []);
+
+  const updateKeyFinding = (keyFinding: KeyFinding) => {
+    setCurrentKeyFinding(keyFinding);
+  };
 
   const renderKeyFinding = () => {
     switch (currentKeyFinding) {
@@ -318,6 +322,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
                 <ToolBar
                   currentSection={currentSection}
                   keyFinding={JSON.stringify(currentKeyFinding)}
+                  onUpdateKeyFinding={updateKeyFinding}
                 />
                 <Typography
                   level="h2"
