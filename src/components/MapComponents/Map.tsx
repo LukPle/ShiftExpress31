@@ -1,10 +1,12 @@
-import { Card } from "@mui/joy";
+import { Card, Stack } from "@mui/joy";
 import * as d3 from "d3";
-import germanyGeoJSON from "../data/germany-states.json";
+import germanyGeoJSON from "../../data/germany-states.json";
 import React, { useEffect, useRef, useState } from 'react';
 import { FeatureCollection } from 'geojson';
 import { TransportData, YearlyData } from '@/data/pTDataInterface';
 import { PopulationData } from '@/data/populationInterface';
+import MapLegend from "./MapLegend";
+import TextColumn from "../ProjectSection/TextColumn";
 
 interface Props {
     data: YearlyData;
@@ -64,17 +66,21 @@ const MapChart: React.FC = () => {
     const height = 600;
 
     return (
-        <Card variant="outlined" sx={{ width: 500, height: 600 }}>
-            <svg
-                ref={svgRef}
-                width={width}
-                height={height}
-            ></svg>
-            {selectedState && (
-                <div style={{ position: 'absolute', pointerEvents: 'none' }}>
-                    {selectedState}
-                </div>
-            )}
+        <Card variant="outlined" sx={{ width: 650, height: 600 }}>
+            <Stack direction="row">
+                <Stack direction="column" paddingRight="25px">
+                    <svg ref={svgRef} width={width} height={height}></svg>
+                    {selectedState && (
+                        <div style={{ position: 'absolute', pointerEvents: 'none' }}>
+                            {selectedState}
+                        </div>
+                    )}
+                </Stack>
+                <Stack direction="column">
+                    <MapLegend isPT={true} paddingEnd={40}></MapLegend>
+                    <MapLegend isPT={false} paddingEnd={0}></MapLegend>
+                </Stack>
+            </Stack>
         </Card>
     );
 };
