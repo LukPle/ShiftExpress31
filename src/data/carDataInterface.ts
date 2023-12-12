@@ -10,3 +10,7 @@ export interface CarData {
 export interface YearlyData {
     [year: string]: CarData[];
 }
+
+export interface YearlyTotalPassengerKM {
+    [year: string]: number;
+}

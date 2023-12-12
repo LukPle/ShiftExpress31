@@ -32,6 +32,7 @@ import BarChartCar from "@/components/ChartsCars/BarChartCar";
 import BarChartCarDev from "@/components/ChartsCars/BarChartCarDevelopment";
 import LineChartPT from "@/components/ChartsPT/LineChartPT";
 import LineChartCar from "@/components/ChartsCars/LineChartCar";
+import TimeLineChart from "@/components/TimeLineChart";
 import BarChartDevelopmentCombined from "@/components/ChartsCombined/BarChartDevelopmentCombined";
 import BarChartCombined from "@/components/ChartsCombined/BarChartCombined";
 import pTData from "../data/pT.json";
@@ -458,6 +459,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
                 <Map />
               </Stack>
               <Comparison />
+              <TimeLineChart />
             </Stack>
             <Typography level="h3" mt={4} startDecorator={<Train />}>
               Insights: <i>&nbsp;Public Transportation</i>
