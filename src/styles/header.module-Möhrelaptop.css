@@ -1,0 +1,16 @@
+.stickyHeader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: white;
+    width: 100%;
+}
+
+.logoSVG {
+    height: 60px;
+    width: auto;
+}
