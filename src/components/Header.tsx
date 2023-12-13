@@ -19,12 +19,12 @@ export default function Header({currentSection, setSection}: {currentSection: nu
             </Link>
           </Typography>
           <Typography level="h3">
-            <Link href="#insights" underline={currentSection === 2 ? "always" : "none"} onClick={() => setSection(2)}>
+            <Link href="#insights" underline={currentSection === 2 || currentSection === 3 ? "always" : "none"} onClick={() => setSection(2)}>
               Insights and Map
             </Link>
           </Typography>
           <Typography level="h3">
-            <Link href="#team" underline={currentSection === 3 ? "always" : "none"} onClick={() => setSection(3)}>
+            <Link href="#team" underline={currentSection === 4 ? "always" : "none"} onClick={() => setSection(3)}>
               Team
             </Link>
           </Typography>

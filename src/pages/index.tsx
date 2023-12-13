@@ -11,6 +11,7 @@ import {
   AccordionDetails,
   AccordionSummary,
   Button,
+  Grid,
 } from "@mui/joy";
 import {
   Train,
@@ -65,54 +66,31 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
   const teamSectionRef = useRef<HTMLDivElement>(null);
   const keyFindingSectionRef = useRef<HTMLDivElement>(null);
   const keyFindingDetailSectionRef = useRef<HTMLDivElement>(null);
-  const scrollShiftFactor = 100;
 
   useEffect(() => {
-    sectionOffsets.push(introSectionRef.current?.offsetTop || 0);
-    sectionOffsets.push(projectSectionRef.current?.offsetTop || 0);
-    sectionOffsets.push(keyFindingSectionRef.current?.offsetTop || 0);
-    sectionOffsets.push(insightsSectionRef.current?.offsetTop || 0);
-    sectionOffsets.push(teamSectionRef.current?.offsetTop || 0);
-    sectionOffsets.push(keyFindingDetailSectionRef.current?.offsetTop || 0);
-
     const scrollHandleSection = () => {
-      const position = window.scrollY;
-      let currentSec = 0;
+      // refresh needed due to potentially changed page layout 
+      sectionOffsets[0] = introSectionRef.current?.offsetTop || -1;
+      sectionOffsets[1] = projectSectionRef.current?.offsetTop || -1;
+      sectionOffsets[2] = keyFindingSectionRef.current?.offsetTop || -1;
+      sectionOffsets[3] = keyFindingDetailSectionRef.current?.offsetTop || -1;
+      sectionOffsets[4] = teamSectionRef.current?.offsetTop || -1;
+      sectionOffsets[5] = insightsSectionRef.current?.offsetTop || -1;
 
-      // Dynamically check each section's position
-      if (
-        introSectionRef.current &&
-        position >= introSectionRef.current.offsetTop
-      )
-        currentSec = 0;
-      if (
-        projectSectionRef.current &&
-        position >= projectSectionRef.current.offsetTop
-      )
-        currentSec = 1;
-      if (
-        keyFindingSectionRef.current &&
-        position >= keyFindingSectionRef.current.offsetTop
-      )
-        currentSec = 2;
-      if (
-        keyFindingDetailSectionRef.current &&
-        position >= keyFindingDetailSectionRef.current.offsetTop
-      )
-        currentSec = 3;
-      if (
-        teamSectionRef.current &&
-        position >= teamSectionRef.current.offsetTop
-      )
-        currentSec = 4;
-      if (
-        insightsSectionRef.current &&
-        position >= insightsSectionRef.current.offsetTop
-      )
-        currentSec = 5;
+      // get visible frame
+      const windowFrameTop = window.scrollY;
+      const windowFrameBottom =  window.scrollY + window.innerHeight;
+      let currentSec = currentSection;
 
+      // get highest section visible
+      sectionOffsets.forEach((el, i) => {
+        if (el >= windowFrameTop && el <= windowFrameBottom) {
+          currentSec = i;
+        }
+      });
+
+      // set section
       setSection(currentSec);
-      console.log(currentSec);
     };
 
     window.addEventListener("scroll", scrollHandleSection);
@@ -188,12 +166,8 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
                 points="660,65 960,65 995,105 995,200 960,240 25,240 3,270 5,590"
                 className={indexStyles.lineHeadingSvg}
               />
+              <image x="400" y="210" height="30" href="/train.svg"></image>
             </svg>
-            <img
-              src={"/train.svg"}
-              alt="train"
-              className={indexStyles.trainSvg}
-            />
 
             <div className="column">
               <Typography level="h1" className={indexStyles.titleHeading}>
@@ -239,7 +213,6 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
             className={indexStyles.lineLeftStack}
             ref={keyFindingSectionRef}
           >
-            <div style={{ minHeight: "100px" }}></div>
             <Typography
               level="h2"
               className={
@@ -371,13 +344,55 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
               level="h2"
               id="team"
               className={
-                currentSection == 3
+                currentSection == 4
                   ? indexStyles.markerLeftHeadingActive
                   : indexStyles.markerLeftHeading
               }
             >
               Team
             </Typography>
+            <Grid container columns={6} rowSpacing={15} marginTop={-1}>
+              <Grid xs={2} display="flex" justifyContent="center" alignItems="center"> 
+                <TeamTile
+                  className={indexStyles.teamTileTop}
+                  imageSrc={"/amiin.png"}
+                  name="Amiin Najjar"
+                  desc="HCI student with a passion for sport and cooking, I've swapped public transportation for pedaling my bike, blending tech insights with a dash of culinary creativity and a healthy dose of physical activity."
+                />
+              </Grid>
+              <Grid xs={2} display="flex" justifyContent="center" alignItems="center">
+                <TeamTile
+                  className={indexStyles.teamTileTop}
+                  imageSrc={"/lukas.png"}
+                  name="Lukas Plenk"
+                  desc="I’m a Human-Computer-Interaction student at LMU Munich interested in digital media, culture, and traveling. Just like public transport, I’m always out for the next destination ahead."
+                />
+              </Grid>
+              <Grid xs={2} display="flex" justifyContent="center" alignItems="center">
+                <TeamTile
+                  className={indexStyles.teamTileTop}
+                  imageSrc={"/tim.png"}
+                  name="Timothy Summers"
+                  desc="I love collaborating in a team and solving creative challenges! Always ready for adventure - I can even handle Munich public transportation during rush hour!"
+                />
+              </Grid>
+              <Grid xs={3} display="flex" justifyContent="center" alignItems="center">
+                <TeamTile
+                  className={indexStyles.teamTileBottom}
+                  imageSrc={"/malek.png"}
+                  name="Malek Jarraya"
+                  desc="I’m a Media Informatics student at LMU Munich. I love colors, the sun, and the sea. I didn't know much about public transportation in the past, but our project definitely changed that."
+                />
+              </Grid>
+              <Grid xs={3} display="flex" justifyContent="center" alignItems="center">
+                <TeamTile
+                  className={indexStyles.teamTileBottom}
+                  imageSrc={"/maxi.png"}
+                  name="Maximilian Wiegand"
+                  desc="Hey, I'm a media computer science student at LMU Munich. I love to design, develop and explore - not only for computers. Some ideas even came up in delayed and overcrowded public transport…"
+                />
+              </Grid>
+            </Grid>
             <Stack
               mt={3}
               direction={"row"}
@@ -386,36 +401,6 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
               flexWrap="wrap"
               gap={15}
             >
-              <TeamTile
-                className={indexStyles.teamTileTop}
-                imageSrc={"/amiin.png"}
-                name="Amiin Najjar"
-                desc="HCI student with a passion for sport and cooking, I've swapped public transportation for pedaling my bike, blending tech insights with a dash of culinary creativity and a healthy dose of physical activity."
-              />
-              <TeamTile
-                className={indexStyles.teamTileTop}
-                imageSrc={"/lukas.png"}
-                name="Lukas Plenk"
-                desc="I’m a Human-Computer-Interaction student at LMU Munich interested in digital media, culture, and traveling. Just like public transport, I’m always out for the next destination ahead."
-              />
-              <TeamTile
-                className={indexStyles.teamTileTop}
-                imageSrc={"/tim.png"}
-                name="Timothy Summers"
-                desc="I love collaborating in a team and solving creative challenges! Always ready for adventure - I can even handle Munich public transportation during rush hour!"
-              />
-              <TeamTile
-                className={indexStyles.teamTileBottom}
-                imageSrc={"/malek.png"}
-                name="Malek Jarraya"
-                desc="I’m a Media Informatics student at LMU Munich. I love colors, the sun, and the sea. I didn't know much about public transportation in the past, but our project definitely changed that."
-              />
-              <TeamTile
-                className={indexStyles.teamTileBottom}
-                imageSrc={"/maxi.png"}
-                name="Maximilian Wiegand"
-                desc="Hey, I'm a media computer science student at LMU Munich. I love to design, develop and explore - not only for computers. Some ideas even came up in delayed and overcrowded public transport…"
-              />
             </Stack>
           </Stack>
         </ChapterArea>
