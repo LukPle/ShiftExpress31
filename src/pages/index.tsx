@@ -141,12 +141,8 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
                 points="660,65 960,65 995,105 995,200 960,240 25,240 3,270 5,590"
                 className={indexStyles.lineHeadingSvg}
               />
+              <image x="400" y="210" height="30" href="/train.svg"></image>
             </svg>
-            <img
-              src={"/train.svg"}
-              alt="train"
-              className={indexStyles.trainSvg}
-            />
 
             <div className="column">
               <Typography level="h1" className={indexStyles.titleHeading}>
