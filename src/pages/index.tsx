@@ -66,24 +66,28 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
   const keyFindingDetailSectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    sectionOffsets.push(introSectionRef.current?.offsetTop || 1);
-    sectionOffsets.push(projectSectionRef.current?.offsetTop || 1);
-    sectionOffsets.push(keyFindingSectionRef.current?.offsetTop || 1);
-    sectionOffsets.push(teamSectionRef.current?.offsetTop || 1);
-    sectionOffsets.push(keyFindingDetailSectionRef.current?.offsetTop || 1);
-    sectionOffsets.push(insightsSectionRef.current?.offsetTop || 1);
-
     const scrollHandleSection = () => {
+      // refresh needed due to potentially changed page layout 
+      sectionOffsets[0] = introSectionRef.current?.offsetTop || -1;
+      sectionOffsets[1] = projectSectionRef.current?.offsetTop || -1;
+      sectionOffsets[2] = keyFindingSectionRef.current?.offsetTop || -1;
+      sectionOffsets[3] = keyFindingDetailSectionRef.current?.offsetTop || -1;
+      sectionOffsets[4] = teamSectionRef.current?.offsetTop || -1;
+      sectionOffsets[5] = insightsSectionRef.current?.offsetTop || -1;
+
+      // get visible frame
       const windowFrameTop = window.scrollY;
       const windowFrameBottom =  window.scrollY + window.innerHeight;
-      console.log(windowFrameTop + " - " + windowFrameBottom);
       let currentSec = currentSection;
 
+      // get highest section visible
       sectionOffsets.forEach((el, i) => {
         if (el >= windowFrameTop && el <= windowFrameBottom) {
           currentSec = i;
         }
       });
+
+      // set section
       setSection(currentSec);
     };
 
@@ -188,7 +192,6 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
             className={indexStyles.lineLeftStack}
             ref={keyFindingSectionRef}
           >
-            <div style={{ minHeight: "100px" }}></div>
             <Typography
               level="h2"
               className={
@@ -332,7 +335,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
               level="h2"
               id="team"
               className={
-                currentSection == 3
+                currentSection == 4
                   ? indexStyles.markerLeftHeadingActive
                   : indexStyles.markerLeftHeading
               }
