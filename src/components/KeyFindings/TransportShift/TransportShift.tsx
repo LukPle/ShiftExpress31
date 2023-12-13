@@ -42,25 +42,25 @@ const TransportShift: React.FC = () => {
   };
 
   return (
-    <div>
+    <Stack direction={"column"} alignItems={"center"} justifyContent={"center"} minWidth={"100%"}>
       <Stack direction={"row"} gap={2} sx={{}} pt={3}>
-      <Card>
-      <CombinedDevTS carData={carData} transportData={pTData} endYear={endYear.toString()} />
-      </Card>
-      <Card>
-      <MapTS transportData={pTData} endYear={endYear.toString()}/>
-      </Card>
+        <Card>
+          <CombinedDevTS carData={carData} transportData={pTData} endYear={endYear.toString()} />
+        </Card>
+        <Card>
+          <MapTS transportData={pTData} endYear={endYear.toString()} />
+        </Card>
       </Stack>
-      <Stack direction={"row"} gap={1} sx={{}} pt={2}>
-      <IconButton variant="solid" onClick={handlePlayPause} size="lg" sx={{backgroundColor: "#03045A"}}>
-      {isPlaying ? <Pause /> : <PlayArrow />}
-      </IconButton>
-      <IconButton variant="solid" onClick={()=> setEndYear(2013)} size="lg" sx={{backgroundColor: "#03045A"}}>
-      <FastRewind />
-      </IconButton>
+      <Stack direction={"row"} gap={1} sx={{}} pt={2} alignItems={"center"} justifyContent={"flex-start"} minWidth={"100%"}>
+        <IconButton variant="solid" onClick={handlePlayPause} size="lg" sx={{ backgroundColor: "#03045A" }}>
+          {isPlaying ? <Pause /> : <PlayArrow />}
+        </IconButton>
+        <IconButton variant="solid" onClick={() => setEndYear(2013)} size="lg" sx={{ backgroundColor: "#03045A" }}>
+          <FastRewind />
+        </IconButton>
       </Stack>
       <Typography pt={2}><i>End Year: {endYear}</i></Typography>
-    </div>
+    </Stack>
   );
 };
 
