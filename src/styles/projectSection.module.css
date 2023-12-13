@@ -1,0 +1,74 @@
+.projectRow {
+    padding-top: 5%;
+    width: 100%;
+}
+
+.textColumn {
+    flex: 1;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.title {
+    padding-bottom: 5%;
+    font-size: 1.5em;
+}
+
+.description {
+    padding-top: 15%;
+    text-align: justify;
+}
+
+.leadingIconSmall {
+    width: 55px;
+    height: 55px;
+    opacity: 35%;
+}
+
+.leadingIconBig {
+    width: 70px;
+    height: 70px;
+    opacity: 35%;
+}
+
+.zStack {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: -40px;
+  }
+  
+  .zStack img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+  
+  .zStack h4 {
+    position: relative;
+    top: 55%;
+    left: 50px;
+    transform: translateY(50%);
+    z-index: 2;
+  }
+
+.impressionRow {
+    padding-top: 10%;
+    position: relative;
+}
+
+.impressionImage {
+    width: 310px;
+    height: 215px;
+    border-radius: 5%;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.edgeImage {
+    top: -30px;
+    position: relative;
+}
+  

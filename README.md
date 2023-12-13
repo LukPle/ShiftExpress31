@@ -6,9 +6,9 @@ This is the main repository for Team 31's InfoVis web application built with Nex
 You can visit the current version of the website through this link: https://team-31-iv2324-projects-9267fe386ec9af87e7d6c214ab1ee355db087ee.pages.gitlab.lrz.de
 
 ## Roadmap
-Currently, we visualized most of our data in basic bar/line charts to continuously gain insights and ideas about how to better organize them as we develop our product,
-per the principles of agile development.
-To be implemented are the advanced visualizations shown in the Figma prototype created during in milestone 1.
+Currently, we visualized most of our data in basic bar/line charts to continuously gain insights and ideas about how to better organize them as we develop our product.
+In addition to this, we've set the ground work for our key findings philosophy. The architecture has been developed and the first charts for the key finding "transportation shift" have been impemented in basic form.
+Next steps are to clean up the existing architecture, fix bugs, adapt the styling and finalize the other key findings. 🚀
 
 ## Prerequisites
 
