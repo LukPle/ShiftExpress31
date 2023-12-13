@@ -1,17 +1,17 @@
 import { Select, Option, Stack, Typography, Badge } from "@mui/joy";
 import React, { useState, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
-import { CarData, YearlyData as CarYearlyData } from '../../data/carDataInterface';
-import { TransportData, YearlyData as TransportYearlyData } from '../../data/pTDataInterface';
+import { CarData, YearlyData as CarYearlyData } from '../../../data/carDataInterface';
+import { TransportData, YearlyData as TransportYearlyData } from '../../../data/pTDataInterface';
 
 interface Props {
     carData: CarYearlyData;
     transportData: TransportYearlyData;
+    endYear: string;
 }
 
-const CombinedDataDevelopment: React.FC<Props> = ({ carData, transportData }) => {
+const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => {
     const [startYear, setStartYear] = useState<string>('2013');
-    const [endYear, setEndYear] = useState<string>('2022');
     const [selectedCarMetric, setSelectedCarMetric] = useState<keyof CarData>('passenger_km');
     const [selectedTransportMetric, setSelectedTransportMetric] = useState<keyof TransportData>('total_local_passengers');
     const d3Container = useRef<SVGSVGElement | null>(null);
@@ -40,8 +40,8 @@ const CombinedDataDevelopment: React.FC<Props> = ({ carData, transportData }) =>
             d3.select(d3Container.current).selectAll("*").remove();
 
             const margin = { top: 20, right: 30, bottom: 40, left: 30 };
-            const width = 960 - margin.left - margin.right;
-            const height = 500 - margin.top - margin.bottom;
+            const width = 500 - margin.left - margin.right;
+            const height = 300 - margin.top - margin.bottom;
 
             const svg = d3.select(d3Container.current)
                 .attr("width", width + margin.left + margin.right)
@@ -151,32 +151,6 @@ const CombinedDataDevelopment: React.FC<Props> = ({ carData, transportData }) =>
     return (
         <div>
             <Stack direction={"row"}>
-                <Stack gap={"5px"}>
-                    <Select defaultValue="2013" sx={{ maxWidth: "100px" }}>
-                        <Option value="2013" onClick={() => setStartYear('2013')}>2013</Option>
-                        <Option value="2014" onClick={() => setStartYear('2014')}>2014</Option>
-                        <Option value="2015" onClick={() => setStartYear('2015')}>2015</Option>
-                        <Option value="2016" onClick={() => setStartYear('2016')}>2016</Option>
-                        <Option value="2017" onClick={() => setStartYear('2017')}>2017</Option>
-                        <Option value="2018" onClick={() => setStartYear('2018')}>2018</Option>
-                        <Option value="2019" onClick={() => setStartYear('2019')}>2019</Option>
-                        <Option value="2020" onClick={() => setStartYear('2020')}>2020</Option>
-                        <Option value="2021" onClick={() => setStartYear('2021')}>2021</Option>
-                        <Option value="2022" onClick={() => setStartYear('2022')}>2022</Option>
-                    </Select>
-                    <Select defaultValue="2022" sx={{ maxWidth: "100px" }}>
-                        <Option value="2013" onClick={() => setEndYear('2013')}>2013</Option>
-                        <Option value="2014" onClick={() => setEndYear('2014')}>2014</Option>
-                        <Option value="2015" onClick={() => setEndYear('2015')}>2015</Option>
-                        <Option value="2016" onClick={() => setEndYear('2016')}>2016</Option>
-                        <Option value="2017" onClick={() => setEndYear('2017')}>2017</Option>
-                        <Option value="2018" onClick={() => setEndYear('2018')}>2018</Option>
-                        <Option value="2019" onClick={() => setEndYear('2019')}>2019</Option>
-                        <Option value="2020" onClick={() => setEndYear('2020')}>2020</Option>
-                        <Option value="2021" onClick={() => setEndYear('2021')}>2021</Option>
-                        <Option value="2022" onClick={() => setEndYear('2022')}>2022</Option>
-                    </Select>
-                </Stack>
                 <Stack gap={"5px"} ml={3}>
                     <Stack direction={"row"} gap={"5px"}>
                         <Typography pt={"5px"}>Car Dataset:</Typography>
@@ -207,4 +181,4 @@ const CombinedDataDevelopment: React.FC<Props> = ({ carData, transportData }) =>
     );
 };
 
-export default CombinedDataDevelopment;
+export default CombinedDevTS;
