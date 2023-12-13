@@ -39,8 +39,9 @@
 
 .trainSvg {
   position: absolute;
-  right: 265px;
-  top: 555px;
+  right: 200px;
+  top: 415px;
+  height: 40px;
 }
 
 .lineLeftStack {
