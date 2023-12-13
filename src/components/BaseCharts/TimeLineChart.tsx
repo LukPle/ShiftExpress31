@@ -3,8 +3,8 @@ import { Card } from "@mui/joy";
 import Select from '@mui/joy/Select';
 import Option from '@mui/joy/Option';
 import * as d3 from 'd3';
-import data from '../data/pT.json';
-import carData from '../data/car.json';
+import data from '../../data/pT.json';
+import carData from '../../data/car.json';
 import { YearlyData, TransportData, YearlyTotalPassengerKM } from '@/data/pTDataInterface';
 import { YearlyData as CarYearlyData, CarData, YearlyTotalPassengerKM as CarYearlyTotalPassengerKM } from '@/data/carDataInterface';
 
@@ -104,6 +104,7 @@ const TimeLineChart: React.FC = () => {
             // Add dots at the tops of each bar
             svg.append('circle')
             .attr('class', `${key}-dot`)
+            //@ts-ignore
             .attr('cx', xScale(year) + xScale.bandwidth() / 2)
             .attr('cy', yS(data[year]) || 0)
             .attr('r', 6) 
@@ -111,9 +112,11 @@ const TimeLineChart: React.FC = () => {
           });
           //Draw lines linking the dots
           years.slice(0, -1).forEach((year, index) => {
+            //@ts-ignore
             const x1Pos = xScale(year) + xScale.bandwidth() / 2;
             const y1Pos = yS(data[year]) || 0;
             const nextYear = years[index + 1];
+            //@ts-ignore
             const x2Pos = xScale(nextYear) + xScale.bandwidth() / 2;
             const y2Pos = yS(data[nextYear]) || 0;
             svg.append('line')

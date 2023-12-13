@@ -2,14 +2,16 @@ import React, { useState, useEffect } from 'react';
 import styles from '../../styles/toolPanel.module.css'; // Make sure to import the CSS file
 import { Stack, Button, IconButton } from "@mui/joy";
 import { Replay } from '@mui/icons-material';
+import { KeyFinding } from '../../pages/index';
 
 
 type ToolProps = {
     currentSection: number;
-    keyFinding: string;
+    keyFinding: KeyFinding;
+    onUpdateKeyFinding: (keyFinding: KeyFinding) => void;
 };
 
-const ToolPanel: React.FC<ToolProps> = ({ currentSection, keyFinding }) => {
+const ToolPanel: React.FC<ToolProps> = ({ currentSection, keyFinding, onUpdateKeyFinding }) => {
     const [isPanelOpen, setIsPanelOpen] = useState(false);
 
     useEffect(() => {
@@ -29,16 +31,15 @@ const ToolPanel: React.FC<ToolProps> = ({ currentSection, keyFinding }) => {
         <>
             <div className={`${styles.toolPanel} ${isPanelOpen ? styles.open : ''}`}>
                 <Stack direction={"row"} gap={2} sx={{ transform: "rotate(90deg)" }}>
-                    <Button variant={keyFinding==="SHIFT" ? "solid" : "outlined"} sx={{ minWidth: "190px", maxHeight: "40px" }}>
+                    <Button variant={keyFinding===KeyFinding.Shift ? "solid" : "outlined"} sx={{ minWidth: "190px", maxHeight: "40px" }} onClick={() => onUpdateKeyFinding(KeyFinding.Shift)}>
                         🚉 &nbsp;Transportaion Shift
                     </Button>
-                    <Button variant={keyFinding==="COVID" ? "solid" : "outlined"} sx={{ minWidth: "100px", maxHeight: "40px" }}>
+                    <Button variant={keyFinding===KeyFinding.Covid ? "solid" : "outlined"} sx={{ minWidth: "110px", maxHeight: "40px" }} onClick={() => onUpdateKeyFinding(KeyFinding.Covid)}>
                         🦠 &nbsp;COVID
                     </Button>
                     <Button variant="outlined" sx={{ minWidth: "170px", maxHeight: "40px" }}>
                         🚗 &nbsp;Cars in Germany
                     </Button>
-                    <div style={{ minWidth: "10px" }}></div>
                     <IconButton variant="outlined">
                         <Replay sx={{ transform: "rotate(-90deg)" }} />
                     </IconButton>

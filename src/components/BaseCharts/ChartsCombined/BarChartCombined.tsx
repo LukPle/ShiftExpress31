@@ -2,8 +2,8 @@ import { Select, Option, Stack, Button, Typography, Badge } from "@mui/joy";
 import { Sort, Calculate } from '@mui/icons-material';
 import React, { useState, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
-import { CarData, YearlyData as CarYearlyData } from '../../data/carDataInterface';
-import { TransportData, YearlyData as TransportYearlyData } from '../../data/pTDataInterface';
+import { CarData, YearlyData as CarYearlyData } from '../../../data/carDataInterface';
+import { TransportData, YearlyData as TransportYearlyData } from '../../../data/pTDataInterface';
 import { PopulationData } from '@/data/populationInterface';
 
 interface CombinedData {
