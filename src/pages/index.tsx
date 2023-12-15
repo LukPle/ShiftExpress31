@@ -59,45 +59,45 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
   const [currentKeyFinding, setCurrentKeyFinding] = useState<KeyFinding>(
     KeyFinding.None
   );
-  const sectionOffsets: number[] = [];
   const introSectionRef = useRef<HTMLDivElement>(null);
   const projectSectionRef = useRef<HTMLDivElement>(null);
-  const insightsSectionRef = useRef<HTMLDivElement>(null);
   const teamSectionRef = useRef<HTMLDivElement>(null);
   const keyFindingSectionRef = useRef<HTMLDivElement>(null);
   const keyFindingDetailSectionRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const scrollHandleSection = () => {
-      // refresh needed due to potentially changed page layout 
-      sectionOffsets[0] = introSectionRef.current?.offsetTop || -1;
-      sectionOffsets[1] = projectSectionRef.current?.offsetTop || -1;
-      sectionOffsets[2] = keyFindingSectionRef.current?.offsetTop || -1;
-      sectionOffsets[3] = keyFindingDetailSectionRef.current?.offsetTop || -1;
-      sectionOffsets[4] = teamSectionRef.current?.offsetTop || -1;
-      sectionOffsets[5] = insightsSectionRef.current?.offsetTop || -1;
-
-      // get visible frame
-      const windowFrameTop = window.scrollY;
-      const windowFrameBottom =  window.scrollY + window.innerHeight;
-      let currentSec = currentSection;
-
-      // get highest section visible
-      sectionOffsets.forEach((el, i) => {
-        if (el >= windowFrameTop && el <= windowFrameBottom) {
-          currentSec = i;
+  useEffect(() => {    
+    const handleIntersect = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
+      let currentSec = 0;
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          switch(entry.target.id){
+            case "project": 
+              currentSec = 1; break;
+            case "keyFinding": 
+              currentSec = 2; break;
+            case "keyFindingDetail": 
+              currentSec = 3; break;
+            case "team": 
+              currentSec = 4; break;
+            default:
+              currentSec = 0; break;
+          }
         }
-      });
-
-      // set section
+      })
       setSection(currentSec);
-    };
+    }
 
-    window.addEventListener("scroll", scrollHandleSection);
-
-    return () => {
-      window.removeEventListener("scroll", scrollHandleSection);
-    };
+    const observer = new IntersectionObserver(handleIntersect, { root: null, rootMargin: "0px" });
+    //@ts-ignore
+    observer.observe(introSectionRef.current);
+    //@ts-ignore
+    observer.observe(projectSectionRef.current);
+    //@ts-ignore
+    observer.observe(keyFindingSectionRef.current);
+    //@ts-ignore
+    observer.observe(keyFindingDetailSectionRef.current);
+    //@ts-ignore
+    observer.observe(teamSectionRef.current);
   }, []);
 
   const updateKeyFinding = (keyFinding: KeyFinding) => {
@@ -138,7 +138,6 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
           <Stack
             direction="column"
             className={indexStyles.headingStack}
-            ref={introSectionRef}
           >
             {/* SVG with line background */}
             <svg
@@ -170,7 +169,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
             </svg>
 
             <div className="column">
-              <Typography level="h1" className={indexStyles.titleHeading}>
+              <Typography level="h1" className={indexStyles.titleHeading} ref={introSectionRef}>
                 Visualizing the transportation <br /> shift in Germany
               </Typography>
               <br />
@@ -185,16 +184,16 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
         <ChapterArea>
           <Stack
             direction={"column"}
-            id="project"
             mt={7}
             className={indexStyles.lineLeftStack}
-            ref={projectSectionRef}
-          >
-            <div style={{ minHeight: "100px" }}></div>
+            >
+            {/* <div style={{ minHeight: "100px" }}></div> */}
             <Typography
+              ref={projectSectionRef}
+              id="project"
               level="h2"
               className={
-                currentSection == 1
+                currentSection == 1 || currentSection == 0
                   ? indexStyles.markerLeftHeadingActive
                   : indexStyles.markerLeftHeading
               }
@@ -208,12 +207,12 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
         <ChapterArea>
           <Stack
             direction={"column"}
-            id="keyFinding"
             mt={7}
             className={indexStyles.lineLeftStack}
-            ref={keyFindingSectionRef}
-          >
+            >
             <Typography
+              id="keyFinding"
+              ref={keyFindingSectionRef}
               level="h2"
               className={
                 currentSection == 2
@@ -295,54 +294,53 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
           </Stack>
         </ChapterArea>
 
-        {currentKeyFinding == KeyFinding.None ? (
-          <></>
-        ) : (
-          <div>
-            <ChapterArea>
-              <Stack
-                direction={"column"}
-                id="keyFindingDetail"
-                mt={7}
-                className={indexStyles.lineLeftStack}
-                ref={keyFindingDetailSectionRef}
-              >
-                <div style={{ minHeight: "100px" }}></div>
-                {/*@ts-ignore*/}
-                <ToolBar
-                  currentSection={currentSection}
-                  keyFinding={currentKeyFinding}
-                  onUpdateKeyFinding={updateKeyFinding}
-                />
-                <Typography
-                  level="h2"
-                  className={
-                    currentSection == 3
-                      ? indexStyles.markerLeftHeadingActive
-                      : indexStyles.markerLeftHeading
-                  }
-                >
-                  {currentKeyFinding == KeyFinding.Shift
-                    ? "🚉 Transportation Shift"
-                    : ""}
-                  {currentKeyFinding == KeyFinding.Covid ? "🦠 COVID" : ""}
-                </Typography>
-                {renderKeyFinding()}
-              </Stack>
-            </ChapterArea>
-          </div>
-        )}
+        <ChapterArea>
+          <Stack
+            direction={"column"}
+            mt={7}
+            className={indexStyles.lineLeftStack}
+            display={currentKeyFinding == KeyFinding.None ? 'none' : 'block'}
+            >
+            {/*@ts-ignore*/}
+            <Typography
+              id="keyFindingDetail"
+              ref={keyFindingDetailSectionRef}
+              level="h2"
+              className={
+                currentSection == 3
+                  ? indexStyles.markerLeftHeadingActive
+                  : indexStyles.markerLeftHeading
+              }
+            >
+            <ToolBar
+              currentSection={currentSection}
+              keyFinding={currentKeyFinding}
+              onUpdateKeyFinding={updateKeyFinding}
+              />
+              {currentKeyFinding == KeyFinding.Shift
+                ? "🚉 Transportation Shift"
+                : ""}
+              {currentKeyFinding == KeyFinding.Covid ? "🦠 COVID" : ""}
+            </Typography>
+
+            {currentKeyFinding == KeyFinding.None ? (
+              <></>
+            ) : (
+              renderKeyFinding()
+            )}
+          </Stack>
+        </ChapterArea>
 
         <ChapterArea>
           <Stack
             direction={"column"}
             mt={7}
             className={indexStyles.lineLeftHalfAcrossStack}
-            ref={teamSectionRef}
-          >
+            >
             <Typography
-              level="h2"
               id="team"
+              ref={teamSectionRef}
+              level="h2"
               className={
                 currentSection == 4
                   ? indexStyles.markerLeftHeadingActive
@@ -376,7 +374,8 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
                   desc="I love collaborating in a team and solving creative challenges! Always ready for adventure - I can even handle Munich public transportation during rush hour!"
                 />
               </Grid>
-              <Grid xs={3} display="flex" justifyContent="center" alignItems="center">
+              <Grid xs={1} display="flex"></Grid>
+              <Grid xs={2} display="flex" justifyContent="center" alignItems="center">
                 <TeamTile
                   className={indexStyles.teamTileBottom}
                   imageSrc={"/malek.png"}
@@ -384,7 +383,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
                   desc="I’m a Media Informatics student at LMU Munich. I love colors, the sun, and the sea. I didn't know much about public transportation in the past, but our project definitely changed that."
                 />
               </Grid>
-              <Grid xs={3} display="flex" justifyContent="center" alignItems="center">
+              <Grid xs={2} display="flex" justifyContent="center" alignItems="center">
                 <TeamTile
                   className={indexStyles.teamTileBottom}
                   imageSrc={"/maxi.png"}
@@ -392,6 +391,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
                   desc="Hey, I'm a media computer science student at LMU Munich. I love to design, develop and explore - not only for computers. Some ideas even came up in delayed and overcrowded public transport…"
                 />
               </Grid>
+              <Grid xs={1} display="flex"></Grid>
             </Grid>
             <Stack
               mt={3}
