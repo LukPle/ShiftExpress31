@@ -43,6 +43,7 @@ import ProjectArea from "@/components/ProjectSection/ProjectArea";
 import ToolBar from "@/components/KeyFindings/ToolBar";
 import TransportShift from "@/components/KeyFindings/TransportShift/TransportShift";
 import { max } from "d3";
+import Map_Amiin from "@/components/MapComponents/Map_Amiin";
 
 type HomeProps = {
   currentSection: number;
@@ -443,6 +444,16 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
               </Stack>
             </AccordionDetails>
           </Accordion>
+          --------
+          <Accordion>
+            <AccordionSummary>Map 2</AccordionSummary>
+            <AccordionDetails>
+
+              <Map_Amiin />
+
+            </AccordionDetails>
+          </Accordion>
+          ----------
           <Accordion>
             <AccordionSummary>Charts</AccordionSummary>
             <AccordionDetails>
