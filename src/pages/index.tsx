@@ -173,7 +173,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
                 Visualizing the transportation <br /> shift in Germany
               </Typography>
               <br />
-              <Typography level="h2" mt={2}>
+              <Typography level="h2" className={indexStyles.subTitleHeading} mt={2}>
                 Comparing the usage of public transport and cars for <br /> the
                 years from 2013 to 2022 across all federal states.
               </Typography>

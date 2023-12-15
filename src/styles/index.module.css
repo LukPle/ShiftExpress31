@@ -2,6 +2,8 @@
   position: relative;
   margin: 0;
   padding: 25px 50px 100px 0;
+  font-size: 24px;
+  width: 100%;
 }
 
 .column {
@@ -10,12 +12,16 @@
 }
 
 .titleHeading {
-  font-size: 6em;
+  font-size: 3.5em;
+}
+
+.subTitleHeading {
+  font-size: 1.5em;
 }
 
 .headingSvg {
   position: absolute;
-  width: 100%;
+  width: 1300px;
   height: 100%;
 }
 
@@ -160,4 +166,24 @@
   height: 70px;
   width: 10px;
   background-color: var(--joy-palette-primary-500);
+}
+
+@media screen and (max-width: 1600px) {
+  .headingSvg {
+    width: 1000px;
+  }
+
+  .headingStack {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .headingSvg {
+    width: 900px;
+  }
+
+  .headingStack {
+    font-size: 16px;
+  }
 }
