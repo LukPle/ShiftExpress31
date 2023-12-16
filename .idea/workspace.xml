@@ -4,21 +4,35 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a461fec9-052f-4a16-b3b4-00c69e885a81" name="Changes" comment="clean-up &#10;barchart shows top 3 values in different colors&#10;add details to map chart" />
+    <list default="true" id="aa81a689-5682-404a-aae7-5d93fdc228ee" name="Changes" comment="Tip check">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/KeyFindings/TransportShift/MapTS.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/KeyFindings/TransportShift/MapTS.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript JSX File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="milestone3" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="RESET_MODE" value="HARD" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -27,121 +41,83 @@
     <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 1
+  &quot;associatedIndex&quot;: 3
 }</component>
-  <component name="ProjectId" id="2YA3sGMEZOaZ3b6ELBQDESy2B9v" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="2ZLePStrmoApXsKc4nNIEnvsEm8" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Node.js.Node.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "charts-Amiin",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/AMNR/Desktop/LMU/team-31",
+    "git-widget-placeholder": "Map-Amiin",
+    "last_opened_file_path": "C:/Users/AMNR/IdeaProjects/team-31/README.md",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "npm.dev.executor": "Run",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
-    "ts.external.directory.path": "C:\\Users\\AMNR\\Desktop\\LMU\\team-31\\node_modules\\typescript\\lib",
+    "settings.editor.selected.configurable": "terminal",
+    "ts.external.directory.path": "C:\\Users\\AMNR\\IdeaProjects\\team-31\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
-    <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="dev" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="npm.dev" />
-        <item itemvalue="npm.dev" />
-        <item itemvalue="npm.dev" />
-        <item itemvalue="npm.dev" />
-        <item itemvalue="npm.dev" />
-      </list>
-    </recent_temporary>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="a461fec9-052f-4a16-b3b4-00c69e885a81" name="Changes" comment="" />
-      <created>1699954761707</created>
+      <changelist id="aa81a689-5682-404a-aae7-5d93fdc228ee" name="Changes" comment="" />
+      <created>1702205765669</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1699954761707</updated>
-      <workItem from="1699954763196" duration="3456000" />
-      <workItem from="1700565638266" duration="629000" />
-      <workItem from="1701163870607" duration="948000" />
-      <workItem from="1701256263174" duration="6722000" />
-      <workItem from="1701423899659" duration="4131000" />
-      <workItem from="1701700331449" duration="10000" />
-      <workItem from="1701719774153" duration="4220000" />
-      <workItem from="1701769731373" duration="3504000" />
-      <workItem from="1702123106157" duration="9043000" />
-      <workItem from="1702137299705" duration="10024000" />
+      <updated>1702205765669</updated>
+      <workItem from="1702205771479" duration="1330000" />
+      <workItem from="1702309806468" duration="11000" />
+      <workItem from="1702468356736" duration="245000" />
+      <workItem from="1702468658682" duration="29147000" />
     </task>
-    <task id="LOCAL-00001" summary="clean-up &#10;add color options">
+    <task id="LOCAL-00001" summary="Tip check">
       <option name="closed" value="true" />
-      <created>1702137048779</created>
+      <created>1702636804993</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1702137048779</updated>
+      <updated>1702636804993</updated>
     </task>
-    <task id="LOCAL-00002" summary="clean-up &#10;barchart shows top 3 values in different colors&#10;add details to map chart">
-      <option name="closed" value="true" />
-      <created>1702147434520</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1702147434520</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="UnknownFeatures">
-    <option featureType="dependencySupport" implementationName="javascript:npm:react" />
-    <option featureType="dependencySupport" implementationName="executable:docker" />
-    <option featureType="dependencySupport" implementationName="javascript:npm:tailwindcss" />
-    <option featureType="dependencySupport" implementationName="executable:kubectl" />
-    <option featureType="dependencySupport" implementationName="javascript:npm:next" />
-    <option featureType="dependencySupport" implementationName="javascript:npm:postcss" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="milestone3" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="clean-up &#10;add color options" />
-    <MESSAGE value="clean-up &#10;barchart shows top 3 values in different colors&#10;add details to map chart" />
-    <option name="LAST_COMMIT_MESSAGE" value="clean-up &#10;barchart shows top 3 values in different colors&#10;add details to map chart" />
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
+    <MESSAGE value="Tip check" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tip check" />
   </component>
 </project>

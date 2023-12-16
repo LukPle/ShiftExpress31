@@ -449,7 +449,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
             <AccordionSummary>Map 2</AccordionSummary>
             <AccordionDetails>
 
-              <Map_Amiin />
+              <Map_Amiin  transportData={pTData}/>
 
             </AccordionDetails>
           </Accordion>

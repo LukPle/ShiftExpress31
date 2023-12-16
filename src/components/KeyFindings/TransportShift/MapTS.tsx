@@ -39,8 +39,8 @@ const MapChart: React.FC<Props> = ({transportData, endYear}) => {
     };
 
     const colorScale = d3.scaleLinear<string>()
-        .domain([-100, 0, 100]) // Adjust domain as per your data range
-        .range(['red', 'white', 'green']); // Change colors as needed
+        .domain([-10,0, 10]) // Adjust domain as per your data range
+        .range(['red', 'white', '#03045E']); // Change colors as needed
 
     useEffect(() => {
         if (!svgRef.current) return;
@@ -74,7 +74,7 @@ const MapChart: React.FC<Props> = ({transportData, endYear}) => {
             .attr('d', d => pathGenerator(d) as string)
             // @ts-ignore
             .style('fill', d => colorScale(calculatePercentageChange(d.properties.id, selectedMetric)))
-            .style('stroke', 'white')
+            .style('stroke', 'black')
             .style('stroke-width', 1.5);
     }, [startYear, endYear, selectedMetric]);
 
