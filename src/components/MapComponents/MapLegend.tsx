@@ -36,11 +36,11 @@ const MapLegend: React.FC<MapLegendProps> = ({ isPT, paddingEnd }) => {
             <Typography paddingBottom="15px">{isPT ? ptHeadline : carHeadline}</Typography>
             <Stack direction="row">
                 <Stack direction="column" justifyContent="space-evenly" alignItems="center" paddingRight="15px">
-                    <Typography>+50</Typography>
-                    <Typography>+25</Typography>
+                    <Typography>+40</Typography>
+                    <Typography>+20</Typography>
                     <Typography>0</Typography>
-                    <Typography>-25</Typography>
-                    <Typography>-50</Typography>
+                    <Typography>-20</Typography>
+                    <Typography>-40</Typography>
                 </Stack>
                 <Stack direction="column" divider={<Divider orientation="horizontal"/>} style={getColorColumnStyle}>
                     <div style={getRectangleStyle(100, true, false)}></div>

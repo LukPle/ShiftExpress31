@@ -54,7 +54,7 @@ const CombinedVisualization: React.FC<Props> = ({ carData, transportData, popula
             const yRight = d3.scaleLinear()
                 .rangeRound([height, 0]);
 
-            const color = d3.scaleOrdinal().range(["#1f77b4", "#ff7f0e"]);
+            const color = d3.scaleOrdinal().range(["#1f77b4", "#8A760A"]);
 
             // Function to update the chart
             const updateChart = () => {

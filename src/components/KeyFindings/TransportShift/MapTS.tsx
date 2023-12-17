@@ -5,6 +5,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { FeatureCollection } from 'geojson';
 import { TransportData, YearlyData as TransportYearlyData } from '../../../data/pTDataInterface';
 import { PopulationData } from '@/data/populationInterface';
+import MapLegend from "@/components/MapComponents/MapLegend";
 
 interface Props {
     transportData: TransportYearlyData;
@@ -42,8 +43,8 @@ const MapChart: React.FC<Props> = ({transportData, endYear}) => {
     };
 
     const colorScale = d3.scaleLinear<string>()
-        .domain([-15,0, 15]) // Adjust domain as per your data range
-        .range(['#DD0606', 'white', '#03045E']); // Change colors as needed
+    .domain([-40,-20,0, 20, 40]) // Adjust domain as per your data range
+    .range(['#DD0606','rgba(221, 6, 6, 0.5)', '#FFFFFF','rgba(3, 4, 94, 0.5)', '#03045E']); // Change colors as needed
 
     useEffect(() => {
         if (!svgRef.current) return;
@@ -97,8 +98,8 @@ const MapChart: React.FC<Props> = ({transportData, endYear}) => {
             .attr('d', d => pathGenerator(d) as string)
             // @ts-ignore
             .style('fill', d => colorScale(calculatePercentageChange(d.properties.id, selectedMetric)))
-            .style('stroke', 'white')
-            .style('stroke-width', 1.5)
+            .style('stroke', '#9c9cb4')
+            .style('stroke-width', 0.75)
             .on('mouseover',handleMouseOver)
             .on('mouseout',handleMouseOut);
 
@@ -120,13 +121,16 @@ const MapChart: React.FC<Props> = ({transportData, endYear}) => {
                 </Select>
             </Stack>
             <Stack direction="row">
-                <Stack direction="column" paddingRight="25px">
+                <Stack direction="column" paddingRight="45px">
                     <svg ref={svgRef} width={width} height={height}></svg>
                     {selectedState && (
                         <div style={{position: 'absolute', pointerEvents: 'none'}}>
                             {selectedState}
                         </div>
                     )}
+                </Stack>
+                <Stack direction="column">
+                    <MapLegend isPT={true} paddingEnd={40}></MapLegend>
                 </Stack>
             </Stack>
         </>

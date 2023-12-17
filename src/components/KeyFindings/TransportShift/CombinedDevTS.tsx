@@ -83,27 +83,28 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
 
             const x1 = d3.scaleBand()
                 .padding(0.05)
-                .domain(['carData', 'transportData'])
+                .domain(['transportData', 'carData'])
                 .rangeRound([0, x0.bandwidth()]);
 
-            const color = d3.scaleOrdinal(d3.schemeCategory10);
-
+            const color = d3.scaleOrdinal().range(["#8A760A", "#03045E"]);
+            
             // Find the maximum absolute percentage change for both datasets
             const maxCarChange = d3.max(combinedPercentageChanges, d => Math.abs(d.carChange)) as number;
             const maxTransportChange = d3.max(combinedPercentageChanges, d => Math.abs(d.transportChange)) as number;
             const maxChange = Math.max(maxCarChange, maxTransportChange);
 
 
-            // Define the y-scales with the same domain extent to align the zero points
+            // Define the y-scales with fixed domain extent
             const yCar = d3.scaleLinear()
-                .range([height, 0])
-                .domain([-maxChange, maxChange])
-                .nice();
+            .range([height, 0])
+            .domain([-50, 50])
+            .nice();
 
             const yTransport = d3.scaleLinear()
-                .range([height, 0])
-                .domain([-maxChange, maxChange])
-                .nice();
+            .range([height, 0])
+            .domain([-50, 50])
+            .nice();
+
 
             // Create the axes
             const yAxisLeft = d3.axisLeft(yCar);

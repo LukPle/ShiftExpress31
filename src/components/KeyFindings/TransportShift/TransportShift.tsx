@@ -29,7 +29,7 @@ const TransportShift: React.FC = () => {
         } else {
           setIsPlaying(false);
         }
-      }, 1000);
+      }, 1500);
     }
 
     return () => {
@@ -42,7 +42,7 @@ const TransportShift: React.FC = () => {
   };
 
   return (
-    <Stack direction={"column"} alignItems={"center"} justifyContent={"center"} minWidth={"100%"}>
+    <Stack direction={"column"} minWidth={"100%"}>
       <Stack direction={"row"} gap={2} sx={{}} pt={3}>
         <Card>
           <CombinedDevTS carData={carData} transportData={pTData} endYear={endYear.toString()} />
