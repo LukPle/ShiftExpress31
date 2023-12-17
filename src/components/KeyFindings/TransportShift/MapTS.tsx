@@ -20,6 +20,9 @@ const MapChart: React.FC<Props> = ({transportData, endYear}) => {
     const [selectedState, setSelectedState] = useState(null);
     const [selectedTransportMetric, setSelectedTransportMetric] = useState<keyof TransportData>('total_local_passengers');
 
+    // Tooltip-Element
+    const tooltipRef = useRef<HTMLDivElement | null>(null);
+
     const calculatePercentageChange = (state: string, metric: keyof TransportData) => {
         const startYearData = transportData[startYear].find(d => d.state === state);
         const endYearData = transportData[endYear].find(d => d.state === state);
@@ -46,6 +49,7 @@ const MapChart: React.FC<Props> = ({transportData, endYear}) => {
         if (!svgRef.current) return;
 
         const svg = d3.select(svgRef.current);
+        const tooltip = d3.select(tooltipRef.current);
 
         // Define projection
         const projection = d3.geoMercator().fitSize([width, height], mapData);
@@ -53,19 +57,38 @@ const MapChart: React.FC<Props> = ({transportData, endYear}) => {
         // Create a path generator
         const pathGenerator = d3.geoPath().projection(projection);
 
-        //Handling the mouse hover
+        /// Define the SVG pattern
+        const pattern = svg
+            .append('defs')
+            .append('pattern')
+            .attr('id', 'stripes-pattern')
+            .attr('width', 4)
+            .attr('height', 4)
+            .attr('patternUnits', 'userSpaceOnUse')
+            .attr('patternTransform', 'rotate(45)');
+
+        // Add a single diagonal line to the pattern
+        pattern
+            .append('line')
+            .attr('x1', 0)
+            .attr('y1', 0)
+            .attr('x2', 4)
+            .attr('y2', 4)
+            .attr('stroke', 'grey')
+            .attr('stroke-width', 1);
+
+
+        // Handling the mouse hover
         const handleMouseOver = (event: React.MouseEvent<SVGPathElement, MouseEvent>, d: any) => {
             setSelectedState(d.properties.name);
-            d3.select(event.currentTarget as Element).style('fill', '#4748dc');
+            d3.select(event.currentTarget as Element).style('fill', 'url(#stripes-pattern)');
         };
-        
-        //Handling the mouse exit
+
+        // Handling the mouse exit
         const handleMouseOut = (event: React.MouseEvent<SVGPathElement, MouseEvent>, d: any) => {
             setSelectedState(null);
-            d3.select(event.currentTarget as Element).style('fill', 'rgba(3,4,94,0.92)');
+            //d3.select(event.currentTarget as Element).style('fill', 'rgba(3,4,94,0.92)');
         };
-
-
 
         // Render the map
         svg.selectAll('path')
@@ -74,8 +97,11 @@ const MapChart: React.FC<Props> = ({transportData, endYear}) => {
             .attr('d', d => pathGenerator(d) as string)
             // @ts-ignore
             .style('fill', d => colorScale(calculatePercentageChange(d.properties.id, selectedMetric)))
-            .style('stroke', 'black')
-            .style('stroke-width', 1.5);
+            .style('stroke', 'white')
+            .style('stroke-width', 1.5)
+            .on('mouseover',handleMouseOver)
+            .on('mouseout',handleMouseOut);
+
     }, [startYear, endYear, selectedMetric]);
 
     const width = 300;
@@ -83,17 +109,28 @@ const MapChart: React.FC<Props> = ({transportData, endYear}) => {
 
     return (
         <>
-        <Stack direction={"row"}>
-                <Select defaultValue="total_local_passengers" sx={{ minWidth: "250px", maxHeight:"30px", marginLeft: "10px" }}>
-                    <Option value="total_local_passengers" onClick={() => setSelectedMetric('total_local_passengers')}>Total Local Passengers</Option>
-                    <Option value="total_local_passenger_km" onClick={() => setSelectedMetric('total_local_passenger_km')}>Total Local Passenger Km</Option>
+            <Stack direction={"row"}>
+                <Select defaultValue="total_local_passengers"
+                        sx={{minWidth: "250px", maxHeight: "30px", marginLeft: "10px"}}>
+                    <Option value="total_local_passengers" onClick={() => setSelectedMetric('total_local_passengers')}>Total
+                        Local Passengers</Option>
+                    <Option value="total_local_passenger_km"
+                            onClick={() => setSelectedMetric('total_local_passenger_km')}>Total Local Passenger
+                        Km</Option>
                 </Select>
             </Stack>
-        <Stack direction="row">
+            <div ref={tooltipRef} style={{
+                position: 'absolute',
+                visibility: 'hidden',
+                background: '#fff',
+                padding: '5px',
+                border: '1px solid #000'
+            }}></div>
+            <Stack direction="row">
                 <Stack direction="column" paddingRight="25px">
                     <svg ref={svgRef} width={width} height={height}></svg>
                     {selectedState && (
-                        <div style={{ position: 'absolute', pointerEvents: 'none' }}>
+                        <div style={{position: 'absolute', pointerEvents: 'none'}}>
                             {selectedState}
                         </div>
                     )}
