@@ -6,20 +6,27 @@ import { FeatureCollection } from 'geojson';
 import { TransportData, YearlyData as TransportYearlyData } from '../../../data/pTDataInterface';
 import { PopulationData } from '@/data/populationInterface';
 import MapLegend from "@/components/MapComponents/MapLegend";
+import Button from "@mui/material/Button";
+import ToggleButtonGroup from '@mui/joy/ToggleButtonGroup';
+import Tooltip from "@mui/material/Tooltip/Tooltip";
 
 interface Props {
+    isPT: boolean;
     transportData: TransportYearlyData;
     endYear: string;
 }
 
 const mapData: FeatureCollection = germanyGeoJSON as FeatureCollection;
 
-const MapChart: React.FC<Props> = ({transportData, endYear}) => {
+const MapChart: React.FC<Props> = ({isPT, transportData, endYear}) => {
     const [startYear, setStartYear] = useState<string>('2013');
     const [selectedMetric, setSelectedMetric] = useState<keyof TransportData>('total_local_passengers');
     const svgRef = useRef<SVGSVGElement | null>(null);
     const [selectedState, setSelectedState] = useState(null);
     const [selectedTransportMetric, setSelectedTransportMetric] = useState<keyof TransportData>('total_local_passengers');
+    const [clickedState, setClickedState] = useState<string | null>(null);
+    const [tooltipVisible, setTooltipVisible] = useState(false);
+
 
     // Tooltip-Element
     const tooltipRef = useRef<HTMLDivElement | null>(null);
@@ -42,9 +49,15 @@ const MapChart: React.FC<Props> = ({transportData, endYear}) => {
         }
     };
 
+    const colorRange = isPT ? ['#DD0606','rgba(221, 6, 6, 0.5)', '#FFFFFF','rgba(3, 4, 94, 0.5)', '#03045E']
+                            : ['#DD0606','rgba(221, 6, 6, 0.5)', '#FFFFFF','rgba(60, 27, 24, 0.5)', '#3C1B18'];
+
     const colorScale = d3.scaleLinear<string>()
     .domain([-40,-20,0, 20, 40]) // Adjust domain as per your data range
-    .range(['#DD0606','rgba(221, 6, 6, 0.5)', '#FFFFFF','rgba(3, 4, 94, 0.5)', '#03045E']); // Change colors as needed
+    .range(colorRange); // Change colors as needed
+
+    const width = 300;
+    const height = 450;
 
     useEffect(() => {
         if (!svgRef.current) return;
@@ -80,16 +93,24 @@ const MapChart: React.FC<Props> = ({transportData, endYear}) => {
 
         // Handling the mouse hover
         const handleMouseOver = (event: React.MouseEvent<SVGPathElement, MouseEvent>, d: any) => {
-            setSelectedState(d.properties.name);
+            console.log(d.properties.name);
+            setClickedState(d.properties.name);
+            setTooltipVisible(true);
             d3.select(event.currentTarget as Element).style('fill', 'url(#stripes-pattern)');
         };
 
         // Handling the mouse exit
         const handleMouseOut = (event: React.MouseEvent<SVGPathElement, MouseEvent>, d: any) => {
-            setSelectedState(null);
+            setClickedState(null);
+            setTooltipVisible(false);
             // @ts-ignore
             d3.select(event.currentTarget as Element).style('fill', d => colorScale(calculatePercentageChange(d.properties.id, selectedMetric)));
         };
+
+        const handleClick = (d: any) => {
+            setClickedState(d.properties.name);
+            setTooltipVisible(true);
+          };
 
         // Render the map
         svg.selectAll('path')
@@ -101,12 +122,10 @@ const MapChart: React.FC<Props> = ({transportData, endYear}) => {
             .style('stroke', '#9c9cb4')
             .style('stroke-width', 0.75)
             .on('mouseover',handleMouseOver)
-            .on('mouseout',handleMouseOut);
+            .on('mouseout',handleMouseOut)
+            .on('click', handleClick);
 
     }, [startYear, endYear, selectedMetric]);
-
-    const width = 300;
-    const height = 450;
 
     return (
         <>
@@ -122,15 +141,17 @@ const MapChart: React.FC<Props> = ({transportData, endYear}) => {
             </Stack>
             <Stack direction="row">
                 <Stack direction="column" paddingRight="45px">
-                    <svg ref={svgRef} width={width} height={height}></svg>
+                    <Tooltip title={clickedState} open={tooltipVisible}>
+                        <svg ref={svgRef} width={width} height={height}></svg>
+                    </Tooltip>
                     {selectedState && (
-                        <div style={{position: 'absolute', pointerEvents: 'none'}}>
+                        <div style={{ position: 'absolute', pointerEvents: 'none' }}>
                             {selectedState}
                         </div>
                     )}
                 </Stack>
                 <Stack direction="column">
-                    <MapLegend isPT={true} paddingEnd={40}></MapLegend>
+                    <MapLegend isPT={isPT} paddingEnd={40}></MapLegend>
                 </Stack>
             </Stack>
         </>

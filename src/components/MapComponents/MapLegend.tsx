@@ -8,7 +8,7 @@ interface MapLegendProps {
 }
 
 const MapLegend: React.FC<MapLegendProps> = ({ isPT, paddingEnd }) => {
-    const legendColor = isPT ? theme.palette.primary[500] : "#8A760A";
+    const legendColor = isPT ? theme.palette.primary[500] : "#3C1B18";
     const ptHeadline = "🚈 Change of usage in %";
     const carHeadline = "🚗 Change of usage in %";
     const radius = 7.5;
@@ -18,12 +18,14 @@ const MapLegend: React.FC<MapLegendProps> = ({ isPT, paddingEnd }) => {
         borderRadius: radius,
     };
 
-    const getRectangleStyle = (opacity: number, isTopEdge: boolean, isBottomEdge: boolean): React.CSSProperties => {
+    const getRectangleStyle = (color: string, hasOpacity: boolean, isTopEdge: boolean, isBottomEdge: boolean): React.CSSProperties => {
+        const opacityScore = hasOpacity ? 50 : 100;
+
         return {
             width: '45px',
             height: '25px',
-            backgroundColor: legendColor,
-            opacity: opacity / 100,
+            backgroundColor: color,
+            opacity: opacityScore / 100,
             borderTopLeftRadius: isTopEdge ? radius : 0,
             borderTopRightRadius: isTopEdge ? radius : 0,
             borderBottomLeftRadius: isBottomEdge ? radius : 0,
@@ -43,11 +45,11 @@ const MapLegend: React.FC<MapLegendProps> = ({ isPT, paddingEnd }) => {
                     <Typography>-40</Typography>
                 </Stack>
                 <Stack direction="column" divider={<Divider orientation="horizontal"/>} style={getColorColumnStyle}>
-                    <div style={getRectangleStyle(100, true, false)}></div>
-                    <div style={getRectangleStyle(75, false, false)}></div>
-                    <div style={getRectangleStyle(50, false, false)}></div>
-                    <div style={getRectangleStyle(25, false, false)}></div>
-                    <div style={getRectangleStyle(0, false, true)}></div>
+                    <div style={getRectangleStyle(legendColor, false, true, false)}></div>
+                    <div style={getRectangleStyle(legendColor, true, false, false)}></div>
+                    <div style={getRectangleStyle('#fff', false, false, false)}></div>
+                    <div style={getRectangleStyle('#DD0606', true, false, false)}></div>
+                    <div style={getRectangleStyle('#DD0606', false, false, true)}></div>
                 </Stack>
             </Stack>
         </Stack>

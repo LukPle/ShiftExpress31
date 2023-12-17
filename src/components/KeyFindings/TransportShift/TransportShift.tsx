@@ -44,11 +44,11 @@ const TransportShift: React.FC = () => {
   return (
     <Stack direction={"column"} minWidth={"100%"}>
       <Stack direction={"row"} gap={2} sx={{}} pt={3}>
-        <Card>
+        <Card sx={{ flex: 1.5 }}>
           <CombinedDevTS carData={carData} transportData={pTData} endYear={endYear.toString()} />
         </Card>
-        <Card>
-          <MapTS transportData={pTData} endYear={endYear.toString()} />
+        <Card sx={{ flex: 1 }}>
+          <MapTS isPT={false} transportData={pTData} endYear={endYear.toString()} />
         </Card>
       </Stack>
       <Stack direction={"row"} gap={1} sx={{}} pt={2} alignItems={"center"} justifyContent={"flex-start"} minWidth={"100%"}>

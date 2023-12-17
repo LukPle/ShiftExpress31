@@ -86,7 +86,7 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
                 .domain(['transportData', 'carData'])
                 .rangeRound([0, x0.bandwidth()]);
 
-            const color = d3.scaleOrdinal().range(["#8A760A", "#03045E"]);
+            const color = d3.scaleOrdinal().range(["rgba(60, 27, 24, 0.5)", "#03045E"]);
             
             // Find the maximum absolute percentage change for both datasets
             const maxCarChange = d3.max(combinedPercentageChanges, d => Math.abs(d.carChange)) as number;
@@ -109,6 +109,27 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
             // Create the axes
             const yAxisLeft = d3.axisLeft(yCar);
             const yAxisRight = d3.axisRight(yTransport);
+
+            // Append the axes to the SVG
+            svg.append("g")
+            .attr("class", "y axis left")
+            .call(yAxisLeft);
+
+            // Draw horizontal lines at specified values
+            const referenceLines = [-40, -20, 20, 40];
+
+            svg.selectAll(".reference-line")
+                .data(referenceLines)
+                .enter().append("line")
+                .attr("class", "reference-line")
+                .attr("x1", 0)
+                .attr("x2", width)
+                .attr("y1", d => yCar(d))
+                .attr("y2", d => yCar(d))
+                .attr("stroke", "#ddd") // Light grey color
+                .attr("stroke-width", 2.5)
+                .attr("stroke-dasharray", "3,3"); // Dashed line style
+
 
             // Append the axes to the SVG
             svg.append("g")
