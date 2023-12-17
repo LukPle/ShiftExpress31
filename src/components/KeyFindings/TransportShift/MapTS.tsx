@@ -42,8 +42,8 @@ const MapChart: React.FC<Props> = ({transportData, endYear}) => {
     };
 
     const colorScale = d3.scaleLinear<string>()
-        .domain([-10,0, 10]) // Adjust domain as per your data range
-        .range(['red', 'white', '#03045E']); // Change colors as needed
+        .domain([-15,0, 15]) // Adjust domain as per your data range
+        .range(['#DD0606', 'white', '#03045E']); // Change colors as needed
 
     useEffect(() => {
         if (!svgRef.current) return;
@@ -57,7 +57,7 @@ const MapChart: React.FC<Props> = ({transportData, endYear}) => {
         // Create a path generator
         const pathGenerator = d3.geoPath().projection(projection);
 
-        /// Define the SVG pattern
+        /// Define the SVG pattern [OnHover]
         const pattern = svg
             .append('defs')
             .append('pattern')
@@ -87,7 +87,8 @@ const MapChart: React.FC<Props> = ({transportData, endYear}) => {
         // Handling the mouse exit
         const handleMouseOut = (event: React.MouseEvent<SVGPathElement, MouseEvent>, d: any) => {
             setSelectedState(null);
-            //d3.select(event.currentTarget as Element).style('fill', 'rgba(3,4,94,0.92)');
+            // @ts-ignore
+            d3.select(event.currentTarget as Element).style('fill', d => colorScale(calculatePercentageChange(d.properties.id, selectedMetric)));
         };
 
         // Render the map

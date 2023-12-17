@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a461fec9-052f-4a16-b3b4-00c69e885a81" name="Changes" comment="clean-up &#10;barchart shows top 3 values in different colors&#10;add details to map chart">
+    <list default="true" id="a461fec9-052f-4a16-b3b4-00c69e885a81" name="Changes" comment="add some map features">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/KeyFindings/TransportShift/MapTS.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/KeyFindings/TransportShift/MapTS.tsx" afterDir="false" />
     </list>
@@ -52,7 +52,7 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;npm.dev.executor&quot;: &quot;Run&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\AMNR\\IdeaProjects\\team-31\\node_modules\\typescript\\lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -96,7 +96,8 @@
       <workItem from="1701769731373" duration="3504000" />
       <workItem from="1702123106157" duration="9043000" />
       <workItem from="1702137299705" duration="10024000" />
-      <workItem from="1702811100014" duration="5501000" />
+      <workItem from="1702811100014" duration="6591000" />
+      <workItem from="1702820725822" duration="342000" />
     </task>
     <task id="LOCAL-00001" summary="clean-up &#10;add color options">
       <option name="closed" value="true" />
@@ -114,7 +115,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702147434520</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="add some map features">
+      <option name="closed" value="true" />
+      <created>1702819629268</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1702819629268</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -142,7 +151,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="clean-up &#10;add color options" />
     <MESSAGE value="clean-up &#10;barchart shows top 3 values in different colors&#10;add details to map chart" />
-    <option name="LAST_COMMIT_MESSAGE" value="clean-up &#10;barchart shows top 3 values in different colors&#10;add details to map chart" />
+    <MESSAGE value="add some map features" />
+    <option name="LAST_COMMIT_MESSAGE" value="add some map features" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
