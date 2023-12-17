@@ -49,7 +49,6 @@ const MapChart: React.FC<Props> = ({transportData, endYear}) => {
         if (!svgRef.current) return;
 
         const svg = d3.select(svgRef.current);
-        const tooltip = d3.select(tooltipRef.current);
 
         // Define projection
         const projection = d3.geoMercator().fitSize([width, height], mapData);
@@ -120,13 +119,6 @@ const MapChart: React.FC<Props> = ({transportData, endYear}) => {
                         Km</Option>
                 </Select>
             </Stack>
-            <div ref={tooltipRef} style={{
-                position: 'absolute',
-                visibility: 'hidden',
-                background: '#fff',
-                padding: '5px',
-                border: '1px solid #000'
-            }}></div>
             <Stack direction="row">
                 <Stack direction="column" paddingRight="25px">
                     <svg ref={svgRef} width={width} height={height}></svg>

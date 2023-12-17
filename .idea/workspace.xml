@@ -97,7 +97,7 @@
       <workItem from="1702123106157" duration="9043000" />
       <workItem from="1702137299705" duration="10024000" />
       <workItem from="1702811100014" duration="6591000" />
-      <workItem from="1702820725822" duration="342000" />
+      <workItem from="1702820725822" duration="542000" />
     </task>
     <task id="LOCAL-00001" summary="clean-up &#10;add color options">
       <option name="closed" value="true" />
@@ -123,7 +123,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702819629268</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="add some map features">
+      <option name="closed" value="true" />
+      <created>1702821097056</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1702821097056</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
