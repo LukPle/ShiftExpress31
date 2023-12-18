@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import { CarData, YearlyData as CarYearlyData } from '../../../data/carDataInterface';
 import { TransportData, YearlyData as TransportYearlyData } from '../../../data/pTDataInterface';
+import GroupedBarChartLegend from "./GroupedBarChartLegend";
 
 interface Props {
     carData: CarYearlyData;
@@ -40,8 +41,8 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
             d3.select(d3Container.current).selectAll("*").remove();
 
             const margin = { top: 20, right: 30, bottom: 40, left: 30 };
-            const width = 500 - margin.left - margin.right;
-            const height = 300 - margin.top - margin.bottom;
+            const width = 550 - margin.left - margin.right;
+            const height = 400 - margin.top - margin.bottom;
 
             const svg = d3.select(d3Container.current)
                 .attr("width", width + margin.left + margin.right)
@@ -199,6 +200,7 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
                 </Stack>
             </Stack>
             <svg ref={d3Container} />
+            <GroupedBarChartLegend></GroupedBarChartLegend>
         </div>
     );
 };

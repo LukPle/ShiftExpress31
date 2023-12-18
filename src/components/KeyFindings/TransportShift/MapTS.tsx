@@ -93,24 +93,14 @@ const MapChart: React.FC<Props> = ({isPT, transportData, endYear}) => {
 
         // Handling the mouse hover
         const handleMouseOver = (event: React.MouseEvent<SVGPathElement, MouseEvent>, d: any) => {
-            console.log(d.properties.name);
-            setClickedState(d.properties.name);
-            setTooltipVisible(true);
             d3.select(event.currentTarget as Element).style('fill', 'url(#stripes-pattern)');
         };
 
         // Handling the mouse exit
         const handleMouseOut = (event: React.MouseEvent<SVGPathElement, MouseEvent>, d: any) => {
-            setClickedState(null);
-            setTooltipVisible(false);
             // @ts-ignore
             d3.select(event.currentTarget as Element).style('fill', d => colorScale(calculatePercentageChange(d.properties.id, selectedMetric)));
         };
-
-        const handleClick = (d: any) => {
-            setClickedState(d.properties.name);
-            setTooltipVisible(true);
-          };
 
         // Render the map
         svg.selectAll('path')
@@ -122,8 +112,7 @@ const MapChart: React.FC<Props> = ({isPT, transportData, endYear}) => {
             .style('stroke', '#9c9cb4')
             .style('stroke-width', 0.75)
             .on('mouseover',handleMouseOver)
-            .on('mouseout',handleMouseOut)
-            .on('click', handleClick);
+            .on('mouseout',handleMouseOut);
 
     }, [startYear, endYear, selectedMetric]);
 
@@ -140,10 +129,8 @@ const MapChart: React.FC<Props> = ({isPT, transportData, endYear}) => {
                 </Select>
             </Stack>
             <Stack direction="row">
-                <Stack direction="column" paddingRight="45px">
-                    <Tooltip title={clickedState} open={tooltipVisible}>
-                        <svg ref={svgRef} width={width} height={height}></svg>
-                    </Tooltip>
+                <Stack direction="column" paddingRight="35px">
+                    <svg ref={svgRef} width={width} height={height}></svg>
                     {selectedState && (
                         <div style={{ position: 'absolute', pointerEvents: 'none' }}>
                             {selectedState}
