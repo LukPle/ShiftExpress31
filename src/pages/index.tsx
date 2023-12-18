@@ -17,8 +17,6 @@ import {
   Train,
   DirectionsCar,
   MergeType,
-  TrendingUp,
-  Coronavirus,
 } from "@mui/icons-material";
 import indexStyles from "../styles/index.module.css";
 import Keyfact from "@/components/Layout/Keyfact";
@@ -42,7 +40,7 @@ import popData from "../data/population.json";
 import ProjectArea from "@/components/ProjectSection/ProjectArea";
 import ToolBar from "@/components/KeyFindings/ToolBar";
 import TransportShift from "@/components/KeyFindings/TransportShift/TransportShift";
-import { max } from "d3";
+import Covid from "@/components/KeyFindings/Covid/Covid";
 
 type HomeProps = {
   currentSection: number;
@@ -108,22 +106,11 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
     switch (currentKeyFinding) {
       case KeyFinding.Shift:
         return <div>
-          <Typography mt={2}>
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-            diam nonumy eirmod tempor invidunt ut labore et dolore magna
-            aliquyam erat, sed diam voluptua. At vero eos et accusam et
-            justo duo dolores et ea rebum.
-          </Typography>
           <TransportShift />
         </div>;
       case KeyFinding.Covid:
         return <div>
-          <Typography mt={2}>
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-            diam nonumy eirmod tempor invidunt ut labore et dolore magna
-            aliquyam erat, sed diam voluptua. At vero eos et accusam et
-            justo duo dolores et ea rebum.
-          </Typography>
+          <Covid />
         </div>;
       case KeyFinding.None:
       default:
