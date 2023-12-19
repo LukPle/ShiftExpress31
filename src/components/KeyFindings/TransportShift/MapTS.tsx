@@ -28,8 +28,10 @@ const MapChart: React.FC<Props> = ({isPT, transportData, endYear}) => {
     const [tooltipVisible, setTooltipVisible] = useState(false);
 
 
-    // Tooltip-Element
-    const tooltipRef = useRef<HTMLDivElement | null>(null);
+// New state for tooltip position and content
+    const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
+    const [tooltipContent, setTooltipContent] = useState('');
+
 
     const calculatePercentageChange = (state: string, metric: keyof TransportData) => {
         const startYearData = transportData[startYear].find(d => d.state === state);
@@ -93,11 +95,19 @@ const MapChart: React.FC<Props> = ({isPT, transportData, endYear}) => {
 
         // Handling the mouse hover
         const handleMouseOver = (event: React.MouseEvent<SVGPathElement, MouseEvent>, d: any) => {
+            const [x, y] = d3.pointer(event);
+            const stateName = d.properties.name; // Assuming 'name' is the property for the state name
+            const percentageChange = calculatePercentageChange(d.properties.id, selectedMetric);
+            const tooltipInfo = `${stateName}: ${percentageChange.toFixed(2)}% change`; // Formatting the tooltip content
+            setTooltipPosition({ x, y });
+            setTooltipContent(tooltipInfo); // Assuming 'name' is the property for the state name
+            setTooltipVisible(true); // Show the tooltip
             d3.select(event.currentTarget as Element).style('fill', 'url(#stripes-pattern)');
         };
 
         // Handling the mouse exit
         const handleMouseOut = (event: React.MouseEvent<SVGPathElement, MouseEvent>, d: any) => {
+            setTooltipVisible(false); // Hide the tooltip
             // @ts-ignore
             d3.select(event.currentTarget as Element).style('fill', d => colorScale(calculatePercentageChange(d.properties.id, selectedMetric)));
         };
@@ -141,6 +151,22 @@ const MapChart: React.FC<Props> = ({isPT, transportData, endYear}) => {
                     <MapLegend isPT={isPT} paddingEnd={40}></MapLegend>
                 </Stack>
             </Stack>
+            {tooltipVisible && (
+                <div
+                    style={{
+                        position: 'absolute',
+                        left: `${tooltipPosition.x}px`,
+                        top: `${tooltipPosition.y}px`,
+                        backgroundColor: 'white',
+                        padding: '5px',
+                        border: '1px solid black',
+                        borderRadius: '10px',
+                        pointerEvents: 'none' // Important to not interfere with map interaction
+                    }}
+                >
+                    {tooltipContent}
+                </div>
+            )}
         </>
     );
 };

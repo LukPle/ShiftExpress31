@@ -17,6 +17,29 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
     const [selectedTransportMetric, setSelectedTransportMetric] = useState<keyof TransportData>('total_local_passengers');
     const d3Container = useRef<SVGSVGElement | null>(null);
 
+    // Tooltip
+    const [tooltipVisible, setTooltipVisible] = useState(false);
+    const [tooltipContent, setTooltipContent] = useState('');
+    const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
+    const GERMAN_STATES = {
+        'BW': 'Baden-Württemberg',
+        'BY': 'Bayern',
+        'BE': 'Berlin',
+        'BB': 'Brandenburg',
+        'HB': 'Bremen',
+        'HH': 'Hamburg',
+        'HE': 'Hesse',
+        'MV': 'Mecklenburg-Vorpommern',
+        'NI': 'Niedersachsen',
+        'NW': 'Nordrhein-Westfalen',
+        'RP': 'Rheinland-Pfalz',
+        'SL': 'Saarland',
+        'SN': 'Sachsen',
+        'ST': 'Sachsen-Anhalt',
+        'SH': 'Schleswig-Holstein',
+        'TH': 'Thüringen'
+    };
+
     const calculatePercentageChange = (data: CarYearlyData | TransportYearlyData, state: string, metric: keyof CarData | keyof TransportData) => {
         const startYearData = data[startYear].find(d => d.state === state);
         const endYearData = data[endYear].find(d => d.state === state);
@@ -36,6 +59,7 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
         }
     };
 
+    // @ts-ignore
     useEffect(() => {
         if (carData && transportData && d3Container.current) {
             d3.select(d3Container.current).selectAll("*").remove();
@@ -121,6 +145,7 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
             // Draw horizontal lines at specified values
             const referenceLines = [-40, -20, 20, 40];
 
+
             svg.selectAll(".reference-line")
                 .data(referenceLines)
                 .enter().append("line")
@@ -130,6 +155,7 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
                 .attr("y1", d => yCar(d))
                 .attr("y2", d => yCar(d))
                 .attr("stroke", "#ddd") // Light grey color
+                // @ts-ignore
                 .attr("stroke-width", 2.5)
                 .attr("stroke-dasharray", "3,3"); // Dashed line style
 
@@ -142,6 +168,7 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
             
 
             // Draw the bars for CarData
+
             svg.selectAll(".bar.car")
                 .data(combinedPercentageChanges)
                 .enter().append("rect")
@@ -151,7 +178,16 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
                 .attr("width", x1.bandwidth())
                 .attr("y", d => yCar(Math.max(0, d.carChange)))
                 .attr("height", d => Math.abs(yCar(d.carChange) - yCar(0)))
-                .attr("fill", color('carData'));
+                .attr("fill", color('carData'))
+                .on("mouseover", (event, d) => {
+                    const [x, y] = d3.pointer(event);
+                    const stateFullName = GERMAN_STATES[d.state] || d.state; // Use full name if available, else use the abbreviation
+                    setTooltipPosition({ x, y });
+                    setTooltipContent(`${stateFullName}: ${d.carChange.toFixed(2)}%`);
+                    setTooltipVisible(true);
+                })
+                // @ts-ignore
+                .on("mouseout", () => setTooltipVisible(false));
 
             // Draw the bars for TransportData
             svg.selectAll(".bar.transport")
@@ -163,7 +199,15 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
                 .attr("width", x1.bandwidth())
                 .attr("y", d => yTransport(Math.max(0, d.transportChange)))
                 .attr("height", d => Math.abs(yTransport(d.transportChange) - yTransport(0)))
-                .attr("fill", color('transportData'));
+                .attr("fill", color('transportData'))
+                .on("mouseover", (event, d) => {
+                    const [x, y] = d3.pointer(event);
+                    const stateFullName = GERMAN_STATES[d.state] || d.state; // Use full name if available, else use the abbreviation
+                    setTooltipPosition({ x, y });
+                    setTooltipContent(`${stateFullName}: ${d.transportChange.toFixed(2)}%`);
+                    setTooltipVisible(true);
+                })
+                .on("mouseout", () => setTooltipVisible(false));
 
             // Add the x-axis
             svg.append("g")
@@ -203,6 +247,22 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
             </Stack>
             <svg ref={d3Container} />
             <GroupedBarChartLegend></GroupedBarChartLegend>
+            {tooltipVisible && (
+                <div
+                    style={{
+                        position: 'absolute',
+                        left: `${tooltipPosition.x}px`,
+                        top: `${tooltipPosition.y}px`,
+                        backgroundColor: 'white',
+                        padding: '5px',
+                        border: '1px solid black',
+                        borderRadius: '10px',
+                        pointerEvents: 'none' // Important to not interfere with bar chart interaction
+                    }}
+                >
+                    {tooltipContent}
+                </div>
+            )}
         </div>
     );
 };
