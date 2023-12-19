@@ -99,35 +99,51 @@ const TimeLineChart: React.FC = () => {
           .axisLeft(yScale);
 
         const drawData = (key: string, data:  { [year: string]: number }, yS: d3.ScaleLinear<number, number, never>, color: string) => {
-          // Draw PT Data
-          years.forEach((year, index) => {
-            // Add dots at the tops of each bar
+          // Draw Data Points
+          let currentIndex = 0;
+            // Function to draw a single data point (dot and connecting line)
+          const drawSingleDataPoint = (index: number) => {
+            const year = years[index];
+            const x = (xScale(year) as number) + xScale.bandwidth() / 2
+            const y = yS(data[year]) || 0;
+            // Draw dot
             svg.append('circle')
-            .attr('class', `${key}-dot`)
-            //@ts-ignore
-            .attr('cx', xScale(year) + xScale.bandwidth() / 2)
-            .attr('cy', yS(data[year]) || 0)
-            .attr('r', 6) 
-            .attr('fill', color); 
-          });
-          //Draw lines linking the dots
-          years.slice(0, -1).forEach((year, index) => {
-            //@ts-ignore
-            const x1Pos = xScale(year) + xScale.bandwidth() / 2;
-            const y1Pos = yS(data[year]) || 0;
-            const nextYear = years[index + 1];
-            //@ts-ignore
-            const x2Pos = xScale(nextYear) + xScale.bandwidth() / 2;
-            const y2Pos = yS(data[nextYear]) || 0;
-            svg.append('line')
-              .attr('class', `${key}-connecting-line`)
-              .attr('x1', x1Pos)
-              .attr('y1', y1Pos)
-              .attr('x2', x2Pos)
-              .attr('y2', y2Pos)
-              .attr('stroke', color)
-              .attr('stroke-width', 4);;  // You can set the color as needed
-          });
+              .attr('class', `${key}-dot`)
+              .attr('cx', x)
+              .attr('cy', y)
+              .attr('r', 6)
+              .attr('fill', color);
+            // Draw connecting line (skip for the first point)
+            if (index > 0) {
+              const xPrev = (xScale(years[index - 1]) as number) + xScale.bandwidth() / 2;
+              const yPrev = yS(data[years[index - 1]]) || 0;
+              svg.append('line')
+                .attr('class', `${key}-connecting-line`)
+                .attr('x1', xPrev)
+                .attr('y1', yPrev)
+                .attr('x2', x)
+                .attr('y2', y)
+                .attr('stroke', color)
+                .attr('stroke-width', 4);
+            }
+          };
+
+          // Draw the first data point immediately
+          drawSingleDataPoint(currentIndex);
+
+          const interval = setInterval(() => {
+            currentIndex++;
+        
+            // Stop the animation when all data points are drawn
+            if (currentIndex >= years.length) {
+              clearInterval(interval);
+            } else {
+              // Draw the next data point
+              drawSingleDataPoint(currentIndex);
+            }
+          }, 1000);
+
+        
         }
 
       //Depending on the selected option, draw
