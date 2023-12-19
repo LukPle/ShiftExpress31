@@ -141,7 +141,7 @@ const TimeLineChart: React.FC = () => {
               // Draw the next data point
               drawSingleDataPoint(currentIndex);
             }
-          }, 1000);
+          }, 600);
 
         
         }
@@ -229,7 +229,6 @@ const TimeLineChart: React.FC = () => {
           <IconButton className="stop-button" variant="solid" onClick={() => setIsPlaying(false)}>
             <StopCircle />
           </IconButton>
-          <LinearProgress determinate value={30} variant='outlined' size='sm'/>
         </Stack>
       </div>
     </Card>
