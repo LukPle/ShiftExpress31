@@ -161,3 +161,14 @@
   width: 10px;
   background-color: var(--joy-palette-primary-500);
 }
+
+.snappingContainer {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 90vh;
+}
+
+.snappingSection {
+  scroll-snap-align: start;
+  height: 90vh;
+}

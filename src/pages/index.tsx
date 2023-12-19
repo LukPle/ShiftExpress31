@@ -9,6 +9,7 @@ import KeyFindingsSection from "@/components/KeyFindings/KeyFindingsSection";
 import TeamSection from "@/components/TeamSection";
 import BaseChartsSection from "@/components/BaseCharts/BaseChartsSection";
 import Section from "@/components/Section";
+import styles from "@/styles/index.module.css";
 
 
 type HomeProps = {
@@ -48,10 +49,11 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
   };
 
   return (
-    <>
+    <div className={styles.snappingContainer}>
       <Stack direction={"column"} mx={8} my={7}>
-
-        <IntroSection />
+        <Section title="">
+          <IntroSection />
+        </Section>
         <Section title="Introduction">
           <ProjectArea />
         </Section>
@@ -81,7 +83,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
         </Section>
 
       </Stack>
-    </>
+    </div>
   );
 };
 
