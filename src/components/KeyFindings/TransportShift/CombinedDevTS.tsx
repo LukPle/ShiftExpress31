@@ -41,7 +41,7 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
             d3.select(d3Container.current).selectAll("*").remove();
 
             const margin = { top: 20, right: 30, bottom: 40, left: 30 };
-            const width = 550 - margin.left - margin.right;
+            const width = 600 - margin.left - margin.right;
             const height = 400 - margin.top - margin.bottom;
 
             const svg = d3.select(d3Container.current)
@@ -113,8 +113,10 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
 
             // Append the axes to the SVG
             svg.append("g")
-            .attr("class", "y axis left")
-            .call(yAxisLeft);
+                .attr("class", "y axis left")
+                .call(yAxisLeft)
+                .selectAll("text") // Selecting all text elements within the axis
+                .style("font-size", "13px"); // Set the font size
 
             // Draw horizontal lines at specified values
             const referenceLines = [-40, -20, 20, 40];
@@ -131,12 +133,13 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
                 .attr("stroke-width", 2.5)
                 .attr("stroke-dasharray", "3,3"); // Dashed line style
 
-
             // Append the axes to the SVG
             svg.append("g")
                 .attr("class", "y axis left")
-                .call(yAxisLeft);
-
+                .call(yAxisLeft)
+                .selectAll("text") // Selecting all text elements within the axis
+                .style("font-size", "13px"); // Set the font size
+            
 
             // Draw the bars for CarData
             svg.selectAll(".bar.car")
@@ -167,7 +170,6 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
                 .attr("class", "x axis")
                 .attr("transform", `translate(0,${yCar(0)})`)
                 .call(d3.axisBottom(x0));
-
         }
     }, [carData, transportData, startYear, endYear, selectedCarMetric, selectedTransportMetric]);
 

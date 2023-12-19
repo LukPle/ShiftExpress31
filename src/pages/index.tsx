@@ -444,7 +444,6 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
               </Stack>
             </AccordionDetails>
           </Accordion>
-          --------
           <Accordion>
             <AccordionSummary>Map 2</AccordionSummary>
             <AccordionDetails>
@@ -453,7 +452,6 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
 
             </AccordionDetails>
           </Accordion>
-          ----------
           <Accordion>
             <AccordionSummary>Charts</AccordionSummary>
             <AccordionDetails>

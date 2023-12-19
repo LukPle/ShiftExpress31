@@ -15,6 +15,7 @@ const GroupedBarChartLegend: React.FC = () => {
             borderRadius: '10%',
             marginRight: '10px',
             marginLeft: isSecond ? '30px' : '0px',
+            border: '1px solid #BFBFBF',
         };
     };
 
