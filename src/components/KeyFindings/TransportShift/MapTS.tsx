@@ -96,8 +96,11 @@ const MapChart: React.FC<Props> = ({isPT, transportData, endYear}) => {
         // Handling the mouse hover
         const handleMouseOver = (event: React.MouseEvent<SVGPathElement, MouseEvent>, d: any) => {
             const [x, y] = d3.pointer(event);
+            const stateName = d.properties.name; // Assuming 'name' is the property for the state name
+            const percentageChange = calculatePercentageChange(d.properties.id, selectedMetric);
+            const tooltipInfo = `${stateName}: ${percentageChange.toFixed(2)}% change`; // Formatting the tooltip content
             setTooltipPosition({ x, y });
-            setTooltipContent(d.properties.name); // Assuming 'name' is the property for the state name
+            setTooltipContent(tooltipInfo); // Assuming 'name' is the property for the state name
             setTooltipVisible(true); // Show the tooltip
             d3.select(event.currentTarget as Element).style('fill', 'url(#stripes-pattern)');
         };
