@@ -142,7 +142,9 @@ const TimeLineChart: React.FC = () => {
           .attr('class', 'y-axis')
           .call(yAxis);
         //draw data points
-        drawData('pt', ptYearlyChange, yScale, ptColor);
+        if (isPlaying) {
+          drawData('pt', ptYearlyChange, yScale, ptColor);
+        }
       } else if (selectedDataset === 'car_passenger_km') {
         title = 'The %-Change in Passenger KMs using Cars in relation to 2013';
         //adjust yscale and y-axis
@@ -155,7 +157,9 @@ const TimeLineChart: React.FC = () => {
           .attr('class', 'y-axis')
           .call(yAxis);
         //draw data points
-        drawData('cars', carsYearlyChange, yScale, carsColor);
+        if (isPlaying) {
+          drawData('cars', carsYearlyChange, yScale, carsColor);
+        }
       } else {
         //adjust yscale and y-axis
         title = 'The %-Change in Passenger KMs using Public Transportation and Cars in relation to 2013';
@@ -169,8 +173,10 @@ const TimeLineChart: React.FC = () => {
           .attr('class', 'y-axis')
           .call(yAxis);
         //draw data points
-        drawData('pt', ptYearlyChange, yScale, ptColor);
-        drawData('cars', carsYearlyChange, yScale, carsColor);
+        if (isPlaying) {
+          drawData('pt', ptYearlyChange, yScale, ptColor);
+          drawData('cars', carsYearlyChange, yScale, carsColor);
+        }
       }
 
       // Add chart title
@@ -198,14 +204,14 @@ const TimeLineChart: React.FC = () => {
         </Select>
         <svg ref={chartRef}></svg>
         <Stack direction="row" spacing={1}>
-          <IconButton className='play-button' variant="solid">
+          <IconButton className='play-button' variant="solid" onClick={() => setIsPlaying(true)}>
             <PlayCircleFilled />
-          </IconButton>
-          <IconButton className="stop-button" variant="solid">
-            <StopCircle />
           </IconButton>
           <IconButton className="pause-button" variant="solid">
             <PauseCircleFilled />
+          </IconButton>
+          <IconButton className="stop-button" variant="solid" onClick={() => setIsPlaying(false)}>
+            <StopCircle />
           </IconButton>
           <LinearProgress determinate value={30} variant='outlined' size='sm'/>
         </Stack>
