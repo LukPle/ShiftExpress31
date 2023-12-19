@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Card } from "@mui/joy";
-import Select from '@mui/joy/Select';
-import Option from '@mui/joy/Option';
+import { Card, IconButton, LinearProgress, Stack, Select, Option } from "@mui/joy";
+import { PauseCircleFilled, PlayCircleFilled, StopCircle } from '@mui/icons-material';
 import * as d3 from 'd3';
 import data from '../../data/pT.json';
 import carData from '../../data/car.json';
 import { YearlyData, TransportData, YearlyTotalPassengerKM } from '@/data/pTDataInterface';
 import { YearlyData as CarYearlyData, CarData, YearlyTotalPassengerKM as CarYearlyTotalPassengerKM } from '@/data/carDataInterface';
+
 
 const TimeLineChart: React.FC = () => {
   const chartRef = useRef<SVGSVGElement | null>(null);
@@ -197,6 +197,18 @@ const TimeLineChart: React.FC = () => {
           <Option value="both" onClick={() => setSelectedDataset("both")}>Public Transportation and Cars</Option>
         </Select>
         <svg ref={chartRef}></svg>
+        <Stack direction="row" spacing={1}>
+          <IconButton className='play-button' variant="solid">
+            <PlayCircleFilled />
+          </IconButton>
+          <IconButton className="stop-button" variant="solid">
+            <StopCircle />
+          </IconButton>
+          <IconButton className="pause-button" variant="solid">
+            <PauseCircleFilled />
+          </IconButton>
+          <LinearProgress determinate value={30} variant='outlined' size='sm'/>
+        </Stack>
       </div>
     </Card>
   );
