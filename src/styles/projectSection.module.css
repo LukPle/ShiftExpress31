@@ -55,14 +55,13 @@
   }
 
 .impressionRow {
-    padding-top: 10%;
+    padding-top: 20%;
     position: relative;
 }
 
 .impressionImage {
-    width: 310px;
-    height: 215px;
-    border-radius: 5%;
+    height: 180px;
+    border-radius: 20px;
     padding-left: 15px;
     padding-right: 15px;
 }

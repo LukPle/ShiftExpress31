@@ -19,7 +19,8 @@
     "d3": "^7.8.5",
     "next": "14.0.1",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-intersection-observer": "^9.5.3"
   },
   "devDependencies": {
     "@types/d3": "^7.4.3",

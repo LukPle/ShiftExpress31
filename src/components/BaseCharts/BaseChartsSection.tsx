@@ -22,7 +22,6 @@ interface BaseChartsSectionProps {
 const BaseChartsSection: React.FC<BaseChartsSectionProps> = () => {
     return (
         <div>
-           <Typography level="h2">🛠️ Legacy Components</Typography>
         <AccordionGroup size="lg" sx={{ my: 3, minWidth: "100%" }}>
           <Accordion>
             <AccordionSummary>Map</AccordionSummary>
