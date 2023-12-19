@@ -42,7 +42,7 @@ const TransportShift: React.FC = () => {
   };
 
   return (
-    <>
+    <div>
       <Typography mt={2}>
         Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
         diam nonumy eirmod tempor invidunt ut labore et dolore magna
@@ -68,7 +68,7 @@ const TransportShift: React.FC = () => {
         </Stack>
         <Typography pt={2}><i>End Year: {endYear}</i></Typography>
       </Stack>
-    </>
+    </div>
   );
 };
 

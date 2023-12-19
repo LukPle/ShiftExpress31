@@ -35,11 +35,11 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
   const renderKeyFinding = () => {
     switch (currentKeyFinding) {
       case KeyFinding.Shift:
-        return <Section title="Transportation Shift">
+        return <Section title="🚉 Transportation Shift">
           <TransportShift />
         </Section>;
       case KeyFinding.Covid:
-        return <Section title="Transportation Shift">
+        return <Section title="🦠 Covid">
           <Covid />
         </Section>;
       case KeyFinding.None:
@@ -58,9 +58,10 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
           <ProjectArea />
         </Section>
         <Section title="What do you want to research?">
-          <KeyFindingsSection />
+          <KeyFindingsSection keyFinding={currentKeyFinding} onUpdateKeyFinding={updateKeyFinding} />
         </Section>
 
+        <div id='keyFinding'>
         {currentKeyFinding == KeyFinding.None ? (
           <></>
         ) : (
@@ -73,6 +74,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
             {renderKeyFinding()}
           </div>
         )}
+        </div>
 
         <Section title="Who are we?">
           <TeamSection />
