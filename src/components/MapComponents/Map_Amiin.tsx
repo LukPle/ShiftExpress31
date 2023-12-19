@@ -19,8 +19,27 @@ const MapChart: React.FC<Props> = ({ transportData }) => {
     const [selectedMetric, setSelectedMetric] = useState<keyof TransportData>('total_local_passengers');
     const [selectedState, setSelectedState] = useState(null);
 
+
+
+    const [tooltipVisible, setTooltipVisible] = useState(false);
+    const [tooltipContent, setTooltipContent] = useState('');
+    const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
+
     useEffect(() => {
         if (!svgRef.current) return;
+
+        // Mouseover event
+        const handleMouseOver = (event: MouseEvent, d: any) => {
+            const [x, y] = d3.pointer(event);
+            setTooltipPosition({ x, y });
+            setTooltipContent(d.properties.name); // Assuming 'name' is the property for the state name
+            setTooltipVisible(true);
+        };
+
+        // Mouseout event
+        const handleMouseOut = () => {
+            setTooltipVisible(false);
+        };
 
         //Color Mixer
         const colorScalePT = d3.scaleLinear<string>()
@@ -37,8 +56,8 @@ const MapChart: React.FC<Props> = ({ transportData }) => {
 
         // Calculate color based on the change in total_local_passengers between baseYear and comparisonYear
         function calculateColor(stateId: string) {
-            console.log(`transportData Set:  ${transportData}`);
-            console.log(`Calculating color for state ${stateId} between ${baseYear} and ${comparisonYear}`);
+            //console.log(`transportData Set:  ${transportData}`);
+            //console.log(`Calculating color for state ${stateId} between ${baseYear} and ${comparisonYear}`);
             const baseYearData = transportData[baseYear].find(d => d.state === stateId);
             const comparisonYearData = transportData[comparisonYear].find(d => d.state === stateId);
             //const startYearData = transportData[baseYear].find(d => d.state === stateId);
@@ -62,7 +81,9 @@ const MapChart: React.FC<Props> = ({ transportData }) => {
             // @ts-ignore
             .style('fill', (d) => calculateColor(d.properties.id))
             .style('stroke', 'black')
-            .style('stroke-width', 1.5);
+            .style('stroke-width', 1.5)
+            .on('mouseover', handleMouseOver)
+            .on('mouseout', handleMouseOut);
 
 
 
@@ -95,6 +116,22 @@ const MapChart: React.FC<Props> = ({ transportData }) => {
                     </select>
                 </Stack>
             </Stack>
+            {tooltipVisible && (
+                <div
+                    style={{
+                        position: 'absolute',
+                        left: `${tooltipPosition.x}px`,
+                        top: `${tooltipPosition.y}px`,
+                        backgroundColor: 'white',
+                        padding: '5px',
+                        border: '1px solid black',
+                        borderRadius: '5px',
+                        pointerEvents: 'none' // Important to not interfere with map interaction
+                    }}
+                >
+                    {tooltipContent}
+                </div>
+            )}
         </Card>
     );
 };
