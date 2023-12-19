@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Card, IconButton, LinearProgress, Stack, Select, Option } from "@mui/joy";
-import { PauseCircleFilled, PlayCircleFilled, StopCircle } from '@mui/icons-material';
+import { Card, IconButton, Stack, Select, Option } from "@mui/joy";
+import { PauseCircleFilled, PlayCircleFilled, ReplayCircleFilled, StopCircle } from '@mui/icons-material';
 import * as d3 from 'd3';
 import data from '../../data/pT.json';
 import carData from '../../data/car.json';
@@ -133,7 +133,6 @@ const TimeLineChart: React.FC = () => {
 
           const interval = setInterval(() => {
             currentIndex++;
-        
             // Stop the animation when all data points are drawn
             if (currentIndex >= years.length) {
               clearInterval(interval);
@@ -142,8 +141,6 @@ const TimeLineChart: React.FC = () => {
               drawSingleDataPoint(currentIndex);
             }
           }, 600);
-
-        
         }
 
       //Depending on the selected option, draw
@@ -220,9 +217,16 @@ const TimeLineChart: React.FC = () => {
         </Select>
         <svg ref={chartRef}></svg>
         <Stack direction="row" spacing={1}>
-          <IconButton className='play-button' variant="solid" onClick={() => setIsPlaying(true)}>
-            <PlayCircleFilled />
-          </IconButton>
+          {!isPlaying && (
+            <IconButton className='play-button' variant="solid" onClick={() => setIsPlaying(true)}>
+              <PlayCircleFilled />
+            </IconButton>
+          )}
+          {isPlaying && (
+            <IconButton className="replay-button" variant="solid">
+              <ReplayCircleFilled />
+            </IconButton>
+          )}
           <IconButton className="pause-button" variant="solid">
             <PauseCircleFilled />
           </IconButton>
