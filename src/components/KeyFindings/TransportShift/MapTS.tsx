@@ -9,6 +9,7 @@ import MapLegend from "@/components/MapComponents/MapLegend";
 import Button from "@mui/material/Button";
 import ToggleButtonGroup from '@mui/joy/ToggleButtonGroup';
 import Tooltip from "@mui/material/Tooltip/Tooltip";
+import SegmentedControlsFilter from "./SegmentedControlsFilter";
 
 interface Props {
     isPT: boolean;
@@ -128,6 +129,7 @@ const MapChart: React.FC<Props> = ({isPT, transportData, endYear}) => {
 
     return (
         <>
+        <SegmentedControlsFilter></SegmentedControlsFilter>
             <Stack direction={"row"}>
                 <Select defaultValue="total_local_passengers"
                         sx={{minWidth: "250px", maxHeight: "30px", marginLeft: "10px"}}>
