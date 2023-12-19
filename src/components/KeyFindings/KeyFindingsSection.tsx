@@ -35,7 +35,6 @@ const scrollToSection = (sectionId) => {
   }
 }
 
-
 const KeyFindingsSection: React.FC<KeyFindingsSectionProps> = ({keyFinding, onUpdateKeyFinding}) => {
   return (
     <div>

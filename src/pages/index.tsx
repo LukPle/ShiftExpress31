@@ -27,6 +27,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
   const [currentKeyFinding, setCurrentKeyFinding] = useState<KeyFinding>(
     KeyFinding.None
   );
+  const [isKeyFindingSectionInView, setIsKeyFindingSectionInView] = useState(false);
 
   const updateKeyFinding = (keyFinding: KeyFinding) => {
     setCurrentKeyFinding(keyFinding);
@@ -35,11 +36,11 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
   const renderKeyFinding = () => {
     switch (currentKeyFinding) {
       case KeyFinding.Shift:
-        return <Section title="🚉 Transportation Shift">
+        return <Section title="🚉 Transportation Shift" onInViewChange={setIsKeyFindingSectionInView}>
           <TransportShift />
         </Section>;
       case KeyFinding.Covid:
-        return <Section title="🦠 Covid">
+        return <Section title="🦠 Covid" onInViewChange={setIsKeyFindingSectionInView}>
           <Covid />
         </Section>;
       case KeyFinding.None:
@@ -50,7 +51,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
 
   return (
     <div className={styles.snappingContainer}>
-      <Stack direction={"column"} mx={8} my={7}>
+      <Stack direction={"column"} mx={12} my={7}>
         <Section title="">
           <IntroSection />
         </Section>
@@ -67,7 +68,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
         ) : (
           <div>
             <ToolBar
-              currentSection={currentSection}
+              isSpecificSectionInView={isKeyFindingSectionInView}
               keyFinding={currentKeyFinding}
               onUpdateKeyFinding={updateKeyFinding}
             />
