@@ -6,30 +6,28 @@ import { FeatureCollection } from 'geojson';
 import { TransportData, YearlyData as TransportYearlyData } from '../../../data/pTDataInterface';
 import { PopulationData } from '@/data/populationInterface';
 import MapLegend from "@/components/MapComponents/MapLegend";
-import Button from "@mui/material/Button";
-import ToggleButtonGroup from '@mui/joy/ToggleButtonGroup';
-import Tooltip from "@mui/material/Tooltip/Tooltip";
 import SegmentedControlsFilter from "./SegmentedControlsFilter";
 
 interface Props {
-    isPT: boolean;
     transportData: TransportYearlyData;
     endYear: string;
 }
 
 const mapData: FeatureCollection = germanyGeoJSON as FeatureCollection;
 
-const MapChart: React.FC<Props> = ({isPT, transportData, endYear}) => {
+const MapChart: React.FC<Props> = ({ transportData, endYear}) => {
     const [startYear, setStartYear] = useState<string>('2013');
     const [selectedMetric, setSelectedMetric] = useState<keyof TransportData>('total_local_passengers');
     const svgRef = useRef<SVGSVGElement | null>(null);
     const [selectedState, setSelectedState] = useState(null);
     const [selectedTransportMetric, setSelectedTransportMetric] = useState<keyof TransportData>('total_local_passengers');
-    const [clickedState, setClickedState] = useState<string | null>(null);
     const [tooltipVisible, setTooltipVisible] = useState(false);
 
+    // Controlls which dataset is active
+    const [isPT, setPT] = useState(true);
 
-// New state for tooltip position and content
+
+    // New state for tooltip position and content
     const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
     const [tooltipContent, setTooltipContent] = useState('');
 
@@ -129,7 +127,7 @@ const MapChart: React.FC<Props> = ({isPT, transportData, endYear}) => {
 
     return (
         <>
-        <SegmentedControlsFilter></SegmentedControlsFilter>
+        <SegmentedControlsFilter items={["Show Public Transport", "Show Cars"]} onChange={(index, item) => {setPT(index == 0); console.log(index, item);}}></SegmentedControlsFilter>
             <Stack direction={"row"}>
                 <Select defaultValue="total_local_passengers"
                         sx={{minWidth: "250px", maxHeight: "30px", marginLeft: "10px"}}>
