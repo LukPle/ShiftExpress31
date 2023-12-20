@@ -49,6 +49,7 @@ const SegmentedControlsFilter: React.FC<SegmentedControlsFilterProps> = ({ items
         width: '100%',
         borderRadius: '10px',
         boxShadow: '0 0px 8px 0 rgba(0, 0, 0, 0.12) 0 0px 1px 0 rgba(0, 0, 0, 0.04)',
+        transition: 'background-color 0.1s ease',
     };
 
 

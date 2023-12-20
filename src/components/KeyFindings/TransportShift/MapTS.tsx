@@ -4,20 +4,23 @@ import germanyGeoJSON from "../../../data/germany-states.json";
 import React, { useEffect, useRef, useState } from 'react';
 import { FeatureCollection } from 'geojson';
 import { TransportData, YearlyData as TransportYearlyData } from '../../../data/pTDataInterface';
+import { CarData, YearlyData as CarYearlyData } from '../../../data/carDataInterface';
 import { PopulationData } from '@/data/populationInterface';
 import MapLegend from "@/components/MapComponents/MapLegend";
 import SegmentedControlsFilter from "./SegmentedControlsFilter";
 
 interface Props {
     transportData: TransportYearlyData;
+    carData: CarYearlyData;
     endYear: string;
 }
 
 const mapData: FeatureCollection = germanyGeoJSON as FeatureCollection;
 
-const MapChart: React.FC<Props> = ({ transportData, endYear}) => {
+const MapChart: React.FC<Props> = ({ transportData, carData, endYear}) => {
     const [startYear, setStartYear] = useState<string>('2013');
-    const [selectedMetric, setSelectedMetric] = useState<keyof TransportData>('total_local_passengers');
+    const [selectedMetricPT, setSelectedMetricPT] = useState<keyof TransportData>('total_local_passengers');
+    const [selectedMetricCar, setSelectedMetricCar] = useState<keyof CarData>('passenger_km');
     const svgRef = useRef<SVGSVGElement | null>(null);
     const [selectedState, setSelectedState] = useState(null);
     const [selectedTransportMetric, setSelectedTransportMetric] = useState<keyof TransportData>('total_local_passengers');
@@ -32,9 +35,27 @@ const MapChart: React.FC<Props> = ({ transportData, endYear}) => {
     const [tooltipContent, setTooltipContent] = useState('');
 
 
-    const calculatePercentageChange = (state: string, metric: keyof TransportData) => {
+    const calculatePercentageChangePT = (state: string, metric: keyof TransportData) => {
         const startYearData = transportData[startYear].find(d => d.state === state);
         const endYearData = transportData[endYear].find(d => d.state === state);
+
+        if (!startYearData || !endYearData) {
+            return 0;
+        }
+
+        const startValue = startYearData[metric];
+        const endValue = endYearData[metric];
+
+        if (typeof startValue === 'number' && typeof endValue === 'number') {
+            return ((endValue - startValue) / startValue) * 100;
+        } else {
+            return 0;
+        }
+    };
+
+    const calculatePercentageChangeCar = (state: string, metric: keyof CarData) => {
+        const startYearData = carData[startYear].find((d) => d.state === state);
+        const endYearData = carData[endYear].find((d) => d.state === state);
 
         if (!startYearData || !endYearData) {
             return 0;
@@ -96,7 +117,7 @@ const MapChart: React.FC<Props> = ({ transportData, endYear}) => {
         const handleMouseOver = (event: React.MouseEvent<SVGPathElement, MouseEvent>, d: any) => {
             const [x, y] = d3.pointer(event);
             const stateName = d.properties.name; // Assuming 'name' is the property for the state name
-            const percentageChange = calculatePercentageChange(d.properties.id, selectedMetric);
+            const percentageChange = isPT ? calculatePercentageChangePT(d.properties.id, selectedMetricPT) : calculatePercentageChangeCar(d.properties.id, selectedMetricCar);
             const tooltipInfo = `${stateName}: ${percentageChange.toFixed(2)}% change`; // Formatting the tooltip content
             setTooltipPosition({ x, y });
             setTooltipContent(tooltipInfo); // Assuming 'name' is the property for the state name
@@ -108,7 +129,7 @@ const MapChart: React.FC<Props> = ({ transportData, endYear}) => {
         const handleMouseOut = (event: React.MouseEvent<SVGPathElement, MouseEvent>, d: any) => {
             setTooltipVisible(false); // Hide the tooltip
             // @ts-ignore
-            d3.select(event.currentTarget as Element).style('fill', d => colorScale(calculatePercentageChange(d.properties.id, selectedMetric)));
+            isPT ? d3.select(event.currentTarget as Element).style('fill', d => colorScale(calculatePercentageChangePT(d.properties.id, selectedMetricPT))) : d3.select(event.currentTarget as Element).style('fill', d => colorScale(calculatePercentageChangeCar(d.properties.id, selectedMetricCar)));
         };
 
         // Render the map
@@ -117,13 +138,13 @@ const MapChart: React.FC<Props> = ({ transportData, endYear}) => {
             .join('path')
             .attr('d', d => pathGenerator(d) as string)
             // @ts-ignore
-            .style('fill', d => colorScale(calculatePercentageChange(d.properties.id, selectedMetric)))
+            .style('fill', d => colorScale(isPT ? calculatePercentageChangePT(d.properties.id, selectedMetricPT) : calculatePercentageChangeCar(d.properties.id, selectedMetricCar)))
             .style('stroke', '#9c9cb4')
             .style('stroke-width', 0.75)
             .on('mouseover',handleMouseOver)
             .on('mouseout',handleMouseOut);
 
-    }, [startYear, endYear, selectedMetric]);
+    }, [startYear, endYear, selectedMetricPT, selectedMetricCar]);
 
     return (
         <>
@@ -131,10 +152,10 @@ const MapChart: React.FC<Props> = ({ transportData, endYear}) => {
             <Stack direction={"row"}>
                 <Select defaultValue="total_local_passengers"
                         sx={{minWidth: "250px", maxHeight: "30px", marginLeft: "10px"}}>
-                    <Option value="total_local_passengers" onClick={() => setSelectedMetric('total_local_passengers')}>Total
+                    <Option value="total_local_passengers" onClick={() => setSelectedMetricPT('total_local_passengers')}>Total
                         Local Passengers</Option>
                     <Option value="total_local_passenger_km"
-                            onClick={() => setSelectedMetric('total_local_passenger_km')}>Total Local Passenger
+                            onClick={() => setSelectedMetricPT('total_local_passenger_km')}>Total Local Passenger
                         Km</Option>
                 </Select>
             </Stack>
