@@ -11,6 +11,8 @@ import { YearlyData as CarYearlyData, CarData, YearlyTotalPassengerKM as CarYear
 const TimeLineChart: React.FC = () => {
   const chartRef = useRef<SVGSVGElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const [animationFinished, setAnimationFinished] = useState(false);
   const [selectedDataset, setSelectedDataset] = useState<string>('pt_passenger_km');
 
   const years = Object.keys(data);
@@ -83,6 +85,7 @@ const TimeLineChart: React.FC = () => {
 
   
     const updateChart = () => {
+        console.log(animationFinished);
         //remove existing shapes before redrawing
         svg.selectAll('.y-axis').remove();
         svg.selectAll('.x-axis').remove();
@@ -136,6 +139,7 @@ const TimeLineChart: React.FC = () => {
             // Stop the animation when all data points are drawn
             if (currentIndex >= years.length) {
               clearInterval(interval);
+              setAnimationFinished(true);
             } else {
               // Draw the next data point
               drawSingleDataPoint(currentIndex);
@@ -217,20 +221,16 @@ const TimeLineChart: React.FC = () => {
         </Select>
         <svg ref={chartRef}></svg>
         <Stack direction="row" spacing={1}>
-          {!isPlaying && (
-            <IconButton className='play-button' variant="solid" onClick={() => setIsPlaying(true)}>
+          {((!isPlaying || isPaused || animationFinished) && (
+            <IconButton className='play-button' variant="solid" onClick={() => {setIsPlaying(true); setIsPaused(false);} }>
               <PlayCircleFilled />
             </IconButton>
-          )}
-          {isPlaying && (
-            <IconButton className="replay-button" variant="solid">
-              <ReplayCircleFilled />
+          )) || ((!animationFinished || !isPaused)&& (
+            <IconButton className='pause-button' variant="solid" onClick={() => {setIsPaused(true); setAnimationFinished(false); setIsPlaying(false);} }>
+              <PauseCircleFilled />
             </IconButton>
-          )}
-          <IconButton className="pause-button" variant="solid">
-            <PauseCircleFilled />
-          </IconButton>
-          <IconButton className="stop-button" variant="solid" onClick={() => setIsPlaying(false)}>
+          ))}
+          <IconButton className="stop-button" variant="solid" onClick={() => {setIsPlaying(false); setAnimationFinished(false); setIsPaused(true);} }>
             <StopCircle />
           </IconButton>
         </Stack>
