@@ -103,21 +103,21 @@ const CombinedVisualization: React.FC<Props> = ({ carData, transportData, popula
                     .data(d => [{ key: 'carData', value: d.carValue }])
                     .enter().append("rect")
                     .attr("class", "bar car")
-                    .attr("x", d => x1(d.key))
+                    .attr("x", (d: { key: string; value: number; }) => String(x1(d.key)))
                     .attr("y", d => yLeft(d.value))
                     .attr("width", x1.bandwidth())
                     .attr("height", d => height - yLeft(d.value))
-                    .attr("fill", color('carData'));
+                    .attr("fill", color('carData') as string);
 
                 stateGroups.selectAll(".bar.transport")
                     .data(d => [{ key: 'transportData', value: d.transportValue }])
                     .enter().append("rect")
                     .attr("class", "bar transport")
-                    .attr("x", d => x1(d.key))
+                    .attr("x",(d: { key: string; value: number; }) => String(x1(d.key)))
                     .attr("y", d => yRight(d.value))
                     .attr("width", x1.bandwidth())
                     .attr("height", d => height - yRight(d.value))
-                    .attr("fill", color('transportData'));
+                    .attr("fill", color('transportData') as string); //Please review
 
                 svg.append("g")
                     .attr("class", "x-axis")
