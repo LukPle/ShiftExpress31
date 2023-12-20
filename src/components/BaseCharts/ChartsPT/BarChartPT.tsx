@@ -3,12 +3,12 @@ import { Sort, Calculate } from '@mui/icons-material';
 import React, { useState, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import { TransportData, YearlyData } from '@/data/pTDataInterface';
-import { PopulationData } from '@/data/populationInterface';
+import { PopulationData, YearlyData as PopulationYearlyData } from '@/data/populationInterface';
 
 
 interface Props {
     data: YearlyData;
-    populationData: PopulationData[];
+    populationData: PopulationYearlyData;
 }
 
 const TransportDataVisualization: React.FC<Props> = ({ data, populationData }) => {
@@ -75,7 +75,7 @@ const TransportDataVisualization: React.FC<Props> = ({ data, populationData }) =
                 //let sortedData = [...yearData].sort((a, b) => (b[selectedMetric] as number) - (a[selectedMetric] as number));
 
                 if (inRelationToPopulation) {
-                    const populationMap = new Map(populationData.map(d => [d.state, d.population]));
+                    const populationMap = new Map(populationData[selectedYear].map(d => [d.state, d.population]));
                     // @ts-ignore
                     yearData.forEach(d => {
                         const population = populationMap.get(d.state) || 1;
@@ -85,7 +85,7 @@ const TransportDataVisualization: React.FC<Props> = ({ data, populationData }) =
                 }
                 
                 if (sortByPopulation) {
-                    const populationMap = new Map(populationData.map(d => [d.state, d.population]));
+                    const populationMap = new Map(populationData[selectedYear].map(d => [d.state, d.population]));
                     // @ts-ignore
                     yearData.sort((a, b) => (populationMap.get(b.state) || 0) - (populationMap.get(a.state) || 0));
                 } else {
