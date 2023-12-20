@@ -6,6 +6,7 @@ import data from '../../data/pT.json';
 import carData from '../../data/car.json';
 import { YearlyData, TransportData, YearlyTotalPassengerKM } from '@/data/pTDataInterface';
 import { YearlyData as CarYearlyData, CarData, YearlyTotalPassengerKM as CarYearlyTotalPassengerKM } from '@/data/carDataInterface';
+import chartStyles from '../../styles/chart.module.css';
 
 
 const TimeLineChart: React.FC = () => {
@@ -96,7 +97,7 @@ const TimeLineChart: React.FC = () => {
         .padding(0.7);
 
         let yScale = d3.scaleLinear()
-          .domain([ptMinChange, ptMaxChange])
+          .domain([ptMinChange - 10, ptMaxChange + 5])
           .range([height, 0]);
         let yAxis = d3
           .axisLeft(yScale);
@@ -154,7 +155,8 @@ const TimeLineChart: React.FC = () => {
         svg.append('g')
           .attr('class', 'x-axis')
           .attr('transform', `translate(0,${yScale(0)})`)
-          .call(d3.axisBottom(xScale));
+          .call(d3.axisBottom(xScale))
+
         svg.append('g')
           .attr('class', 'y-axis')
           .call(yAxis);
@@ -165,7 +167,7 @@ const TimeLineChart: React.FC = () => {
       } else if (selectedDataset === 'car_passenger_km') {
         title = 'The %-Change in Passenger KMs using Cars in relation to 2013';
         //adjust yscale and y-axis
-        yScale.domain([carsMinChange, carsMaxChange]);
+        yScale.domain([carsMinChange, carsMaxChange + 2]); //added 2 for visibility
         svg.append('g')
           .attr('class', 'x-axis')
           .attr('transform', `translate(0,${yScale(0)})`)
@@ -181,7 +183,7 @@ const TimeLineChart: React.FC = () => {
         //adjust yscale and y-axis
         title = 'The %-Change in Passenger KMs using Public Transportation and Cars in relation to 2013';
         //adjust yscale and y-axis
-        yScale.domain([min, max]);
+        yScale.domain([(-max < min ? -max: min) - 10, (max > - min ? max : -min) + 10]);
         svg.append('g')
           .attr('class', 'x-axis')
           .attr('transform', `translate(0,${yScale(0)})`)
