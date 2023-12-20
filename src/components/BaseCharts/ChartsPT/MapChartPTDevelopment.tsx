@@ -4,7 +4,7 @@ import germanyGeoJSON from "../../../data/germany-states.json";
 import React, { useEffect, useRef, useState } from 'react';
 import { FeatureCollection } from 'geojson';
 import { TransportData, YearlyData as TransportYearlyData } from '../../../data/pTDataInterface';
-import { PopulationData } from '@/data/populationInterface';
+import { PopulationData, YearlyData as PopulationYearlyData } from '@/data/populationInterface';
 
 interface Props {
     transportData: TransportYearlyData;

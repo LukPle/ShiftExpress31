@@ -4,8 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import { CarData, YearlyData as CarYearlyData } from '../../../data/carDataInterface';
 import { TransportData, YearlyData as TransportYearlyData } from '../../../data/pTDataInterface';
-import { PopulationData } from '@/data/populationInterface';
-
+import { PopulationData, YearlyData as PopulationYearlyData } from '@/data/populationInterface';
 interface CombinedData {
     state: string;
     carValue: number;
@@ -15,7 +14,7 @@ interface CombinedData {
 interface Props {
     carData: CarYearlyData;
     transportData: TransportYearlyData;
-    populationData: PopulationData[];
+    populationData: PopulationYearlyData;
 }
 
 const CombinedVisualization: React.FC<Props> = ({ carData, transportData, populationData }) => {
@@ -59,7 +58,7 @@ const CombinedVisualization: React.FC<Props> = ({ carData, transportData, popula
             // Function to update the chart
             const updateChart = () => {
                 // Combine car and transport data for the given year and state
-                let combinedData: CombinedData[] = populationData.map(p => {
+                let combinedData: CombinedData[] = populationData[selectedYear].map(p => {
                     const carDatum = carData[selectedYear].find(d => d.state === p.state) || { [selectedCarMetric]: 0 };
                     const transportDatum = transportData[selectedYear].find(d => d.state === p.state) || { [selectedTransportMetric]: 0 };
                     return {
@@ -71,12 +70,12 @@ const CombinedVisualization: React.FC<Props> = ({ carData, transportData, popula
 
                 // Apply sorting and relation to population if needed
                 if (sortByPopulation) {
-                    const populationMap = new Map(populationData.map(d => [d.state, d.population]));
+                    const populationMap = new Map(populationData[selectedYear].map(d => [d.state, d.population]));
                     combinedData.sort((a, b) => (populationMap.get(b.state) || 0) - (populationMap.get(a.state) || 0));
                 }
 
                 if (inRelationToPopulation) {
-                    const populationMap = new Map(populationData.map(d => [d.state, d.population]));
+                    const populationMap = new Map(populationData[selectedYear].map(d => [d.state, d.population]));
                     combinedData.forEach(d => {
                         const population = populationMap.get(d.state) || 1;
                         d.carValue = d.carValue / population;
