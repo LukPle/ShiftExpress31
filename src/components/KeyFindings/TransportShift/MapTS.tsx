@@ -81,6 +81,25 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear}) => {
     const width = 300;
     const height = 450;
 
+    // Handling the mouse hover
+    const handleMouseOver = (event: React.MouseEvent<SVGPathElement, MouseEvent>, d: any) => {
+        const [x, y] = d3.pointer(event);
+        const stateName = d.properties.name; // Assuming 'name' is the property for the state name
+        const percentageChange = isPT ? calculatePercentageChangePT(d.properties.id, selectedMetricPT) : calculatePercentageChangeCar(d.properties.id, selectedMetricCar);
+        const tooltipInfo = `${stateName}: ${percentageChange.toFixed(2)}% change`; // Formatting the tooltip content
+        setTooltipPosition({ x, y });
+        setTooltipContent(tooltipInfo); // Assuming 'name' is the property for the state name
+        setTooltipVisible(true); // Show the tooltip
+        d3.select(event.currentTarget as Element).style('fill', 'url(#stripes-pattern)');
+    };
+
+    // Handling the mouse exit
+    const handleMouseOut = (event: React.MouseEvent<SVGPathElement, MouseEvent>, d: any) => {
+        setTooltipVisible(false); // Hide the tooltip
+        // @ts-ignore
+        isPT ? d3.select(event.currentTarget as Element).style('fill', d => colorScale(calculatePercentageChangePT(d.properties.id, selectedMetricPT))) : d3.select(event.currentTarget as Element).style('fill', d => colorScale(calculatePercentageChangeCar(d.properties.id, selectedMetricCar)));
+    };
+
     useEffect(() => {
         if (!svgRef.current) return;
 
@@ -112,26 +131,6 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear}) => {
             .attr('stroke', 'grey')
             .attr('stroke-width', 1);
 
-
-        // Handling the mouse hover
-        const handleMouseOver = (event: React.MouseEvent<SVGPathElement, MouseEvent>, d: any) => {
-            const [x, y] = d3.pointer(event);
-            const stateName = d.properties.name; // Assuming 'name' is the property for the state name
-            const percentageChange = isPT ? calculatePercentageChangePT(d.properties.id, selectedMetricPT) : calculatePercentageChangeCar(d.properties.id, selectedMetricCar);
-            const tooltipInfo = `${stateName}: ${percentageChange.toFixed(2)}% change`; // Formatting the tooltip content
-            setTooltipPosition({ x, y });
-            setTooltipContent(tooltipInfo); // Assuming 'name' is the property for the state name
-            setTooltipVisible(true); // Show the tooltip
-            d3.select(event.currentTarget as Element).style('fill', 'url(#stripes-pattern)');
-        };
-
-        // Handling the mouse exit
-        const handleMouseOut = (event: React.MouseEvent<SVGPathElement, MouseEvent>, d: any) => {
-            setTooltipVisible(false); // Hide the tooltip
-            // @ts-ignore
-            isPT ? d3.select(event.currentTarget as Element).style('fill', d => colorScale(calculatePercentageChangePT(d.properties.id, selectedMetricPT))) : d3.select(event.currentTarget as Element).style('fill', d => colorScale(calculatePercentageChangeCar(d.properties.id, selectedMetricCar)));
-        };
-
         // Render the map
         svg.selectAll('path')
             .data(mapData.features)
@@ -144,7 +143,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear}) => {
             .on('mouseover',handleMouseOver)
             .on('mouseout',handleMouseOut);
 
-    }, [startYear, endYear, selectedMetricPT, selectedMetricCar]);
+    }, [startYear, endYear, selectedMetricPT, selectedMetricCar, isPT]);
 
     return (
         <>
