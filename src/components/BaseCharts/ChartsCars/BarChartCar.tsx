@@ -3,11 +3,11 @@ import { Sort, Calculate } from '@mui/icons-material';
 import React, { useState, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import { CarData, YearlyData } from '@/data/carDataInterface';
-import { PopulationData } from '@/data/populationInterface';
+import { PopulationData, YearlyData as PopulationYearlyData } from '@/data/populationInterface';
 
 interface Props {
     data: YearlyData;
-    populationData: PopulationData[];
+    populationData: PopulationYearlyData;
 }
 
 const CarDataVisualization: React.FC<Props> = ({ data, populationData }) => {
@@ -71,7 +71,7 @@ const CarDataVisualization: React.FC<Props> = ({ data, populationData }) => {
                 yearData = yearData.filter(d => d.state !== 'FEDERAL');
 
                 if (inRelationToPopulation) {
-                    const populationMap = new Map(populationData.map(d => [d.state, d.population]));
+                    const populationMap = new Map(populationData[selectedYear].map(d => [d.state, d.population]));
                     // @ts-ignore
                     yearData.forEach(d => {
                         const population = populationMap.get(d.state) || 1;
@@ -81,7 +81,7 @@ const CarDataVisualization: React.FC<Props> = ({ data, populationData }) => {
                 }
 
                 if (sortByPopulation) {
-                    const populationMap = new Map(populationData.map(d => [d.state, d.population]));
+                    const populationMap = new Map(populationData[selectedYear].map(d => [d.state, d.population]));
                     // @ts-ignore
                     yearData.sort((a, b) => (populationMap.get(b.state) || 0) - (populationMap.get(a.state) || 0));
                 } else {

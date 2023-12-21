@@ -4,13 +4,13 @@ import germanyGeoJSON from "../../data/germany-states.json";
 import React, { useEffect, useRef, useState } from 'react';
 import { FeatureCollection } from 'geojson';
 import { TransportData, YearlyData } from '@/data/pTDataInterface';
-import { PopulationData } from '@/data/populationInterface';
+import { PopulationData, YearlyData as PopulationYearlyData } from '@/data/populationInterface';
 import MapLegend from "./MapLegend";
 import TextColumn from "../ProjectSection/TextColumn";
 
 interface Props {
     data: YearlyData;
-    populationData: PopulationData[];
+    populationData: PopulationYearlyData;
 }
 
 const mapData: FeatureCollection = germanyGeoJSON as FeatureCollection;
