@@ -172,3 +172,8 @@
   scroll-snap-align: start;
   height: 90vh;
 }
+
+.scrollableContainer {
+  height: 90vh; /* Set a fixed height for the container */
+  overflow-y: scroll; /* Enable vertical scrolling */
+}

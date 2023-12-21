@@ -14,6 +14,7 @@ import BarChartCombined from './ChartsCombined/BarChartCombined';
 import pTData from "../../data/pT.json";
 import carData from "../../data/car.json";
 import popData from "../../data/population.json";
+import styles from "../../styles/index.module.css";
 
 interface BaseChartsSectionProps {
     // Add any props you need for the component here
@@ -21,7 +22,7 @@ interface BaseChartsSectionProps {
 
 const BaseChartsSection: React.FC<BaseChartsSectionProps> = () => {
     return (
-        <div>
+        <div className={styles.scrollableContainer}>
         <AccordionGroup size="lg" sx={{ my: 3, minWidth: "100%" }}>
           <Accordion>
             <AccordionSummary>Map</AccordionSummary>
