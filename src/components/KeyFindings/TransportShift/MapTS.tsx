@@ -8,6 +8,8 @@ import { CarData, YearlyData as CarYearlyData } from '../../../data/carDataInter
 import { PopulationData } from '@/data/populationInterface';
 import MapLegend from "@/components/MapComponents/MapLegend";
 import SegmentedControlsFilter from "./SegmentedControlsFilter";
+import { getFlagProperty } from './FlagSwitchUtil';
+
 
 interface Props {
     transportData: TransportYearlyData;
@@ -32,6 +34,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear}) => {
 
     // New state for tooltip position and content
     const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
+    const [tooltipState, setTooltipState] = useState('');
     const [tooltipContent, setTooltipContent] = useState('');
 
 
@@ -85,10 +88,11 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear}) => {
     const handleMouseOver = (event: React.MouseEvent<SVGPathElement, MouseEvent>, d: any) => {
         const [x, y] = d3.pointer(event);
         const stateName = d.properties.name; // Assuming 'name' is the property for the state name
+        setTooltipState(stateName);
         const percentageChange = isPT ? calculatePercentageChangePT(d.properties.id, selectedMetricPT) : calculatePercentageChangeCar(d.properties.id, selectedMetricCar);
-        const tooltipInfo = `${stateName}: ${percentageChange.toFixed(2)}% change`; // Formatting the tooltip content
+        const tooltipContent = `${percentageChange.toFixed(2)}% change`; // Formatting the tooltip content
         setTooltipPosition({ x, y });
-        setTooltipContent(tooltipInfo); // Assuming 'name' is the property for the state name
+        setTooltipContent(tooltipContent);
         setTooltipVisible(true); // Show the tooltip
         d3.select(event.currentTarget as Element).style('fill', 'url(#stripes-pattern)');
     };
@@ -178,12 +182,23 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear}) => {
                         left: `${tooltipPosition.x}px`,
                         top: `${tooltipPosition.y}px`,
                         backgroundColor: 'white',
-                        padding: '5px',
+                        padding: '7.5px',
                         border: '1px solid black',
                         borderRadius: '10px',
                         pointerEvents: 'none' // Important to not interfere with map interaction
                     }}
                 >
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            alignItems: 'start',
+                            justifyContent: 'start',
+                            marginBottom: '10px',
+                            }}>
+                        <img src={getFlagProperty(tooltipState)} alt="flag" style={{ width: '35px', height: '22.5px', marginRight: '10px', border: '1px solid black', borderRadius: '5px',}} />
+                        {tooltipState}
+                    </div>
                     {tooltipContent}
                 </div>
             )}
