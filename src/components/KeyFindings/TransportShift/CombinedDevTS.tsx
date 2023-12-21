@@ -206,8 +206,9 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
                 .on("mouseover", (event, d) => {
                     const [x, y] = d3.pointer(event);
                     const stateFullName = GERMAN_STATES[d.state] || d.state; // Use full name if available, else use the abbreviation
+                    setTooltipState(stateFullName);
                     setTooltipPosition({ x, y });
-                    setTooltipContent(`${stateFullName}: ${d.transportChange.toFixed(2)}%`);
+                    setTooltipContent(`${d.transportChange.toFixed(2)}%`);
                     setTooltipVisible(true);
                 })
                 .on("mouseout", () => setTooltipVisible(false));
