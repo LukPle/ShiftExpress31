@@ -8,7 +8,7 @@ import { CarData, YearlyData as CarYearlyData } from '../../../data/carDataInter
 import { PopulationData } from '@/data/populationInterface';
 import MapLegend from "@/components/MapComponents/MapLegend";
 import SegmentedControlsFilter from "./SegmentedControlsFilter";
-import { getFlagProperty } from './FlagSwitchUtil';
+import Tooltip from "./Tooltip";
 
 
 interface Props {
@@ -176,31 +176,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear}) => {
                 </Stack>
             </Stack>
             {tooltipVisible && (
-                <div
-                    style={{
-                        position: 'absolute',
-                        left: `${tooltipPosition.x}px`,
-                        top: `${tooltipPosition.y}px`,
-                        backgroundColor: 'white',
-                        padding: '7.5px',
-                        border: '1px solid black',
-                        borderRadius: '10px',
-                        pointerEvents: 'none' // Important to not interfere with map interaction
-                    }}
-                >
-                    <div
-                        style={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            alignItems: 'start',
-                            justifyContent: 'start',
-                            marginBottom: '10px',
-                            }}>
-                        <img src={getFlagProperty(tooltipState)} alt="flag" style={{ width: '35px', height: '22.5px', marginRight: '10px', border: '1px solid black', borderRadius: '5px',}} />
-                        {tooltipState}
-                    </div>
-                    {tooltipContent}
-                </div>
+                <Tooltip tooltipPosition={tooltipPosition} tooltipState={tooltipState} tooltipContent={tooltipContent}></Tooltip>
             )}
         </>
     );

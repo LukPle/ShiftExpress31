@@ -4,6 +4,7 @@ import * as d3 from 'd3';
 import { CarData, YearlyData as CarYearlyData } from '../../../data/carDataInterface';
 import { TransportData, YearlyData as TransportYearlyData } from '../../../data/pTDataInterface';
 import GroupedBarChartLegend from "./GroupedBarChartLegend";
+import Tooltip from "./Tooltip";
 
 interface Props {
     carData: CarYearlyData;
@@ -20,6 +21,7 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
     // Tooltip
     const [tooltipVisible, setTooltipVisible] = useState(false);
     const [tooltipContent, setTooltipContent] = useState('');
+    const [tooltipState, setTooltipState] = useState('');
     const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
     const GERMAN_STATES = {
         'BW': 'Baden-Württemberg',
@@ -28,7 +30,7 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
         'BB': 'Brandenburg',
         'HB': 'Bremen',
         'HH': 'Hamburg',
-        'HE': 'Hesse',
+        'HE': 'Hessen',
         'MV': 'Mecklenburg-Vorpommern',
         'NI': 'Niedersachsen',
         'NW': 'Nordrhein-Westfalen',
@@ -182,8 +184,9 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
                 .on("mouseover", (event, d) => {
                     const [x, y] = d3.pointer(event);
                     const stateFullName = GERMAN_STATES[d.state] || d.state; // Use full name if available, else use the abbreviation
+                    setTooltipState(stateFullName);
                     setTooltipPosition({ x, y });
-                    setTooltipContent(`${stateFullName}: ${d.carChange.toFixed(2)}%`);
+                    setTooltipContent(`${d.carChange.toFixed(2)}%`);
                     setTooltipVisible(true);
                 })
                 // @ts-ignore
@@ -247,22 +250,7 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
             </Stack>
             <svg ref={d3Container} />
             <GroupedBarChartLegend></GroupedBarChartLegend>
-            {tooltipVisible && (
-                <div
-                    style={{
-                        position: 'absolute',
-                        left: `${tooltipPosition.x}px`,
-                        top: `${tooltipPosition.y}px`,
-                        backgroundColor: 'white',
-                        padding: '5px',
-                        border: '1px solid black',
-                        borderRadius: '10px',
-                        pointerEvents: 'none' // Important to not interfere with bar chart interaction
-                    }}
-                >
-                    {tooltipContent}
-                </div>
-            )}
+            {tooltipVisible && (<Tooltip tooltipPosition={tooltipPosition} tooltipState={tooltipState} tooltipContent={tooltipContent}></Tooltip>)}
         </div>
     );
 };
