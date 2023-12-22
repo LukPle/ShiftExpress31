@@ -8,7 +8,7 @@ interface SegmentedControlsFilterProps {
     onChange: (index: number, item: string) => void;
 }
 
-const SegmentedControlsFilter: React.FC<SegmentedControlsFilterProps> = ({ items, onChange }) => {
+const SegmentedControlsFilter: React.FC<SegmentedControlsFilterProps> = React.memo(({ items, onChange }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     useEffect(() => {
@@ -56,13 +56,15 @@ const SegmentedControlsFilter: React.FC<SegmentedControlsFilterProps> = ({ items
     return (
         <Stack direction={'row'} justifyContent={'space-evenly'} divider={<Divider orientation='vertical'/>} style={getControlContainerSytle}>
             {items.map((item, index) => {
-                return <div style={getControlItemStyle} onClick={() => setCurrentIndex(index)}>
-                            {currentIndex === index ? <motion.div layoutId={'1'} style={getItemBackgroundStyle}></motion.div> : null}
-                            <Typography position={'relative'} zIndex={1} textColor={currentIndex === index ? 'white' : '#03045e'} fontWeight={currentIndex === index ? 'lg' : 'sm'}>{item}</Typography>
-                       </div>
+                return (
+                    <div key={index} style={getControlItemStyle} onClick={() => setCurrentIndex(index)}>
+                        {currentIndex === index ? <motion.div layoutId={'1'} style={getItemBackgroundStyle}></motion.div> : null}
+                        <Typography position={'relative'} zIndex={1} textColor={currentIndex === index ? 'white' : '#03045e'} fontWeight={currentIndex === index ? 'lg' : 'sm'}>{item}</Typography>
+                    </div>
+                );
             })}
         </Stack>
     );
-};
+});
 
 export default SegmentedControlsFilter;
