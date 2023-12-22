@@ -109,22 +109,10 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
     switch (currentKeyFinding) {
       case KeyFinding.Shift:
         return <div>
-          <Typography mt={2}>
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-            diam nonumy eirmod tempor invidunt ut labore et dolore magna
-            aliquyam erat, sed diam voluptua. At vero eos et accusam et
-            justo duo dolores et ea rebum.
-          </Typography>
           <TransportShift />
         </div>;
       case KeyFinding.Covid:
         return <div>
-          <Typography mt={2}>
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-            diam nonumy eirmod tempor invidunt ut labore et dolore magna
-            aliquyam erat, sed diam voluptua. At vero eos et accusam et
-            justo duo dolores et ea rebum.
-          </Typography>
         </div>;
       case KeyFinding.None:
       default:

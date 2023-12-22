@@ -42,6 +42,8 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
         'TH': 'Thüringen'
     };
 
+    const color = d3.scaleOrdinal().range(["rgba(60, 27, 24, 0.5)", "#03045E"]); // Car, PT
+
     const calculatePercentageChange = (data: CarYearlyData | TransportYearlyData, state: string, metric: keyof CarData | keyof TransportData) => {
         const startYearData = data[startYear].find(d => d.state === state);
         const endYearData = data[endYear].find(d => d.state === state);
@@ -60,6 +62,40 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
             return 0;
         }
     };
+
+    // Store the original fill color before applying hover pattern
+    const storeOriginalColor = (event: React.MouseEvent<SVGRectElement, MouseEvent>) => {
+        const originalColor = d3.select(event.currentTarget).style('fill') ?? 'initial';
+        event.currentTarget.setAttribute('data-original-color', originalColor);
+    };
+
+     // Handling the mouse hover for bars
+     const handleMouseOverBar = (event: React.MouseEvent<SVGRectElement, MouseEvent>, d: any, dataset: 'carData' | 'transportData') => {
+        const isPT = dataset === 'transportData' ? true : false;
+        
+        const [x, y] = d3.pointer(event);
+        // @ts-ignore
+        const stateFullName = GERMAN_STATES[d.state] || d.state; // Use full name if available, else use the abbreviation
+
+        setTooltipState(stateFullName);
+        setTooltipPosition({ x, y });
+        setTooltipContent(`${isPT ? '🚈' : '🚗'} ${isPT ? d.transportChange.toFixed(2) : d.carChange.toFixed(2)}% change`);
+        setTooltipVisible(true);
+
+        d3.select(event.currentTarget).style('fill', 'url(#stripes-pattern)');
+    };
+
+    // Handling the mouse exit for bars
+    const handleMouseOutBar = (event: React.MouseEvent<SVGRectElement, MouseEvent>) => {
+        setTooltipVisible(false);
+        // Restore the original fill color
+        const originalColor = event.currentTarget.getAttribute('data-original-color');
+        // @ts-ignore
+        d3.select(event.currentTarget).style('fill', originalColor);
+
+        event.currentTarget.removeAttribute('data-original-color');
+    };
+
 
     // @ts-ignore
     useEffect(() => {
@@ -113,7 +149,6 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
                 .domain(['transportData', 'carData'])
                 .rangeRound([0, x0.bandwidth()]);
 
-            const color = d3.scaleOrdinal().range(["rgba(60, 27, 24, 0.5)", "#03045E"]);
             
             // Find the maximum absolute percentage change for both datasets
             const maxCarChange = d3.max(combinedPercentageChanges, d => Math.abs(d.carChange)) as number;
@@ -170,7 +205,6 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
             
 
             // Draw the bars for CarData
-
             svg.selectAll(".bar.car")
                 .data(combinedPercentageChanges)
                 .enter().append("rect")
@@ -182,15 +216,10 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
                 .attr("height", d => Math.abs(yCar(d.carChange) - yCar(0)))
                 .attr("fill", color('carData'))
                 .on("mouseover", (event, d) => {
-                    const [x, y] = d3.pointer(event);
-                    const stateFullName = GERMAN_STATES[d.state] || d.state; // Use full name if available, else use the abbreviation
-                    setTooltipState(stateFullName);
-                    setTooltipPosition({ x, y });
-                    setTooltipContent(`${d.carChange.toFixed(2)}%`);
-                    setTooltipVisible(true);
+                    storeOriginalColor(event);
+                    handleMouseOverBar(event, d, 'carData');
                 })
-                // @ts-ignore
-                .on("mouseout", () => setTooltipVisible(false));
+                .on("mouseout", handleMouseOutBar);
 
             // Draw the bars for TransportData
             svg.selectAll(".bar.transport")
@@ -204,14 +233,10 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
                 .attr("height", d => Math.abs(yTransport(d.transportChange) - yTransport(0)))
                 .attr("fill", color('transportData'))
                 .on("mouseover", (event, d) => {
-                    const [x, y] = d3.pointer(event);
-                    const stateFullName = GERMAN_STATES[d.state] || d.state; // Use full name if available, else use the abbreviation
-                    setTooltipState(stateFullName);
-                    setTooltipPosition({ x, y });
-                    setTooltipContent(`${d.transportChange.toFixed(2)}%`);
-                    setTooltipVisible(true);
+                    storeOriginalColor(event);
+                    handleMouseOverBar(event, d, 'transportData');
                 })
-                .on("mouseout", () => setTooltipVisible(false));
+                .on("mouseout", handleMouseOutBar);
 
             // Add the x-axis
             svg.append("g")
