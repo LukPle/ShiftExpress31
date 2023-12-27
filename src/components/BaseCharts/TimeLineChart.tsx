@@ -15,6 +15,8 @@ const TimeLineChart: React.FC = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [animationFinished, setAnimationFinished] = useState(false);
   const [selectedDataset, setSelectedDataset] = useState<string>('pt_passenger_km');
+  const [startYear, setStartYear] = useState<string>('2013');
+  const [endYear, setEndYear] = useState<string>('2022');
 
   const years = Object.keys(data);
   //Helper Function to calculate the yearly change in ref to 2013.
@@ -215,6 +217,20 @@ const TimeLineChart: React.FC = () => {
   return (
     <Card>
       <div>
+        <label htmlFor="startYearSelect">Start Year: </label>
+        <Select id="startYearSelect" value={parseInt(startYear, 10)} sx={{ width: 100 }}>
+          {Array.from({ length: 10 }, (_, index) => {
+            const year = 2013 + index;
+            return <Option key={year} value={year} onClick={() => setStartYear(year.toString())}>{year}</Option>;
+          })}
+        </Select>
+        <label htmlFor="endYearSelect">End Year: </label>
+        <Select id="endYearSelect" value={parseInt(endYear, 10)} sx={{ width: 100 }}>
+          {Array.from({ length: 10 }, (_, index) => {
+            const year = 2013 + index;
+            return <Option key={year} value={year} onClick={() => setEndYear(year.toString())}>{year}</Option>;
+          })}
+        </Select>
         <label htmlFor="datasetSelect">Select Dataset: </label>
         <Select id="datasetSelect" value={selectedDataset} sx={{ width: 300 }}>
           <Option value="pt_passenger_km" onClick={() => setSelectedDataset("pt_passenger_km")}>Public Transporation</Option>
