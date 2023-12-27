@@ -80,7 +80,7 @@ const TimeLineChart: React.FC<TimeLineChartProps> = ( {startYearProp, endYearPro
     // Clear the existing SVG content
     d3.select(chartRef.current).selectAll("*").remove();
 
-    const width = 600;
+    const width = 620;
     const height = 400;
     const margin = { top: 100, right: 80, bottom: 30, left: 125 };
 
@@ -231,26 +231,28 @@ const TimeLineChart: React.FC<TimeLineChartProps> = ( {startYearProp, endYearPro
   }, [selectedDataset, isPlaying, startYear, endYear]);
   
   return (
-    <Card>
+    <Card orientation="horizontal" variant="outlined" sx={{ width: 900 }}>
       <div>
-        <Stack direction="row" spacing={1}>
-          <Stack direction="column">
+        <Stack direction="row" spacing={1} justifyContent="center" alignItems="flex-start">
+          <Stack direction="column" alignItems="center">
             <label htmlFor="startYearSelect">Start Year</label>
-            <Select id="startYearSelect" value={parseInt(startYear, 10)} sx={{ width: 100 }}>
+            <Select id="startYearSelect" value={parseInt(startYear, 10)} sx={{ width: 90 }}>
               {Array.from({ length: 10 }, (_, index) => {
                 const year = 2013 + index;
                 return <Option key={year} value={year} onClick={() => setStartYear(year.toString())}>{year}</Option>;
               })}
             </Select>
+          </Stack>
+          <Stack direction="column" alignItems="center">
             <label htmlFor="endYearSelect">End Year</label>
-            <Select id="endYearSelect" value={parseInt(endYear, 10)} sx={{ width: 100 }}>
+            <Select id="endYearSelect" value={parseInt(endYear, 10)} sx={{ width: 90 }}>
               {Array.from({ length: 10 }, (_, index) => {
                 const year = 2013 + index;
                 return <Option key={year} value={year} onClick={() => setEndYear(year.toString())}>{year}</Option>;
               })}
             </Select>
-          </Stack>
-          <Stack direction="column">
+          </Stack>          
+          <Stack direction="column" alignItems="center">
             <label htmlFor="datasetSelect">Dataset</label>
             <Select id="datasetSelect" value={selectedDataset} sx={{ width: 300 }}>
               <Option value="pt_passenger_km" onClick={() => setSelectedDataset("pt_passenger_km")}>Public Transporation</Option>
