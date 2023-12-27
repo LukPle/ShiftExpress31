@@ -233,26 +233,32 @@ const TimeLineChart: React.FC<TimeLineChartProps> = ( {startYearProp, endYearPro
   return (
     <Card>
       <div>
-        <label htmlFor="startYearSelect">Start Year: </label>
-        <Select id="startYearSelect" value={parseInt(startYear, 10)} sx={{ width: 100 }}>
-          {Array.from({ length: 10 }, (_, index) => {
-            const year = 2013 + index;
-            return <Option key={year} value={year} onClick={() => setStartYear(year.toString())}>{year}</Option>;
-          })}
-        </Select>
-        <label htmlFor="endYearSelect">End Year: </label>
-        <Select id="endYearSelect" value={parseInt(endYear, 10)} sx={{ width: 100 }}>
-          {Array.from({ length: 10 }, (_, index) => {
-            const year = 2013 + index;
-            return <Option key={year} value={year} onClick={() => setEndYear(year.toString())}>{year}</Option>;
-          })}
-        </Select>
-        <label htmlFor="datasetSelect">Select Dataset: </label>
-        <Select id="datasetSelect" value={selectedDataset} sx={{ width: 300 }}>
-          <Option value="pt_passenger_km" onClick={() => setSelectedDataset("pt_passenger_km")}>Public Transporation</Option>
-          <Option value="car_passenger_km" onClick={() => setSelectedDataset("car_passenger_km")}>Cars</Option>
-          <Option value="both" onClick={() => setSelectedDataset("both")}>Public Transportation and Cars</Option>
-        </Select>
+        <Stack direction="row" spacing={1}>
+          <Stack direction="column">
+            <label htmlFor="startYearSelect">Start Year</label>
+            <Select id="startYearSelect" value={parseInt(startYear, 10)} sx={{ width: 100 }}>
+              {Array.from({ length: 10 }, (_, index) => {
+                const year = 2013 + index;
+                return <Option key={year} value={year} onClick={() => setStartYear(year.toString())}>{year}</Option>;
+              })}
+            </Select>
+            <label htmlFor="endYearSelect">End Year</label>
+            <Select id="endYearSelect" value={parseInt(endYear, 10)} sx={{ width: 100 }}>
+              {Array.from({ length: 10 }, (_, index) => {
+                const year = 2013 + index;
+                return <Option key={year} value={year} onClick={() => setEndYear(year.toString())}>{year}</Option>;
+              })}
+            </Select>
+          </Stack>
+          <Stack direction="column">
+            <label htmlFor="datasetSelect">Dataset</label>
+            <Select id="datasetSelect" value={selectedDataset} sx={{ width: 300 }}>
+              <Option value="pt_passenger_km" onClick={() => setSelectedDataset("pt_passenger_km")}>Public Transporation</Option>
+              <Option value="car_passenger_km" onClick={() => setSelectedDataset("car_passenger_km")}>Cars</Option>
+              <Option value="both" onClick={() => setSelectedDataset("both")}>Public Transportation and Cars</Option>
+            </Select>
+          </Stack>
+        </Stack>
         <svg ref={chartRef}></svg>
         <Stack direction="row" spacing={1}>
           {((!isPlaying || isPaused || animationFinished) && (
