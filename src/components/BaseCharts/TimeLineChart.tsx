@@ -67,7 +67,6 @@ const TimeLineChart: React.FC = () => {
   const max = ptMaxChange >= carsMaxChange ? ptMaxChange : carsMaxChange;
   const min = ptMinChange <= carsMinChange ? ptMinChange : carsMinChange; 
 
-
   let title = "The %-Change in Passenger KMs using Public Transportation and Cars in relation to 2013";
 
 
@@ -86,7 +85,14 @@ const TimeLineChart: React.FC = () => {
       .append('g')
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
-  
+    //Make sure that the selected start year is always < the end year
+    const startYearInt = parseInt(startYear, 10);
+    const endYearInt = parseInt(endYear, 10);
+    if (isNaN(endYearInt) || isNaN(startYearInt) || endYearInt <= startYearInt) {
+      setStartYear((2013).toString());
+      setEndYear((2022).toString());
+    }
+
     const updateChart = () => {
         console.log(animationFinished);
         //remove existing shapes before redrawing
