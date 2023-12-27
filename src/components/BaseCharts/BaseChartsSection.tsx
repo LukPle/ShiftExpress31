@@ -34,7 +34,7 @@ const BaseChartsSection: React.FC<BaseChartsSectionProps> = () => {
                 <Stack direction={"row"} mt={2}>
                   <MapChart />
                 </Stack>
-                <TimeLineChart />
+                <TimeLineChart startYearProp="2013" endYearProp="2022" />
               </Stack>
             </AccordionDetails>
           </Accordion>

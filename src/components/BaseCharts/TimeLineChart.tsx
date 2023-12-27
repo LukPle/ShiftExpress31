@@ -8,15 +8,20 @@ import { YearlyData, TransportData, YearlyTotalPassengerKM } from '@/data/pTData
 import { YearlyData as CarYearlyData, CarData, YearlyTotalPassengerKM as CarYearlyTotalPassengerKM } from '@/data/carDataInterface';
 import chartStyles from '../../styles/chart.module.css';
 
+interface TimeLineChartProps {
+  startYearProp: string;
+  endYearProp: string;
+}
 
-const TimeLineChart: React.FC = () => {
+
+const TimeLineChart: React.FC<TimeLineChartProps> = ( {startYearProp, endYearProp} ) => {
   const chartRef = useRef<SVGSVGElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [animationFinished, setAnimationFinished] = useState(false);
   const [selectedDataset, setSelectedDataset] = useState<string>('pt_passenger_km');
-  const [startYear, setStartYear] = useState<string>('2013');
-  const [endYear, setEndYear] = useState<string>('2022');
+  const [startYear, setStartYear] = useState<string>(startYearProp);
+  const [endYear, setEndYear] = useState<string>(endYearProp);
 
   const years = Object.keys(data);
   //Helper Function to calculate the yearly change in ref to 2013.
