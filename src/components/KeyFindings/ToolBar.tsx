@@ -6,26 +6,17 @@ import { KeyFinding } from '../../pages/index';
 
 
 type ToolProps = {
-    currentSection: number;
+    isSpecificSectionInView: boolean; // New prop
     keyFinding: KeyFinding;
     onUpdateKeyFinding: (keyFinding: KeyFinding) => void;
 };
 
-const ToolPanel: React.FC<ToolProps> = ({ currentSection, keyFinding, onUpdateKeyFinding }) => {
+const ToolPanel: React.FC<ToolProps> = ({ isSpecificSectionInView, keyFinding, onUpdateKeyFinding }) => {
     const [isPanelOpen, setIsPanelOpen] = useState(false);
 
     useEffect(() => {
-        // Define the section numbers where the panel should be open
-        const sectionsWherePanelIsOpen = [3];
-
-        if (sectionsWherePanelIsOpen.includes(currentSection)) {
-            setIsPanelOpen(true);
-        } else {
-            setIsPanelOpen(false);
-        }
-    }, [currentSection]); // Dependency array includes currentSection to trigger the effect when it changes
-
-    console.log("keyFinding: ", keyFinding);
+        setIsPanelOpen(isSpecificSectionInView); // Directly use the new prop to control panel visibility
+    }, [isSpecificSectionInView]);
 
     return (
         <>

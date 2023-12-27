@@ -20,7 +20,6 @@ const ProjectArea: React.FC = () => {
         <TextColumn title='Relevance' description={relevanceDescription} icon={relevanceIcon} isBig={true}></TextColumn>
         <TextColumn title='Objectives' description={objectivesDescription} icon={objectivesIcon} isBig={false}></TextColumn>
       </Stack>
-      <ProjectImpressions></ProjectImpressions>
     </Stack>
   );
 };
