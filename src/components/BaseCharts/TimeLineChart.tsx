@@ -93,8 +93,13 @@ const TimeLineChart: React.FC = () => {
         svg.selectAll('.y-axis').remove();
         svg.selectAll('.x-axis').remove();
         
+        const selectedYears: string[] = [];
+        for (let year = parseInt(startYear); year <= parseInt(endYear); year++) {
+          selectedYears.push(year.toString()); // Convert each year to a string
+        }
+
         const xScale = d3.scaleBand()
-        .domain(years)
+        .domain(selectedYears)
         .range([0, width])
         .padding(0.7);
 
@@ -109,7 +114,7 @@ const TimeLineChart: React.FC = () => {
           let currentIndex = 0;
             // Function to draw a single data point (dot and connecting line)
           const drawSingleDataPoint = (index: number) => {
-            const year = years[index];
+            const year = selectedYears[index];
             const x = (xScale(year) as number) + xScale.bandwidth() / 2
             const y = yS(data[year]) || 0;
             // Draw dot
@@ -121,8 +126,8 @@ const TimeLineChart: React.FC = () => {
               .attr('fill', color);
             // Draw connecting line (skip for the first point)
             if (index > 0) {
-              const xPrev = (xScale(years[index - 1]) as number) + xScale.bandwidth() / 2;
-              const yPrev = yS(data[years[index - 1]]) || 0;
+              const xPrev = (xScale(selectedYears[index - 1]) as number) + xScale.bandwidth() / 2;
+              const yPrev = yS(data[selectedYears[index - 1]]) || 0;
               svg.append('line')
                 .attr('class', `${key}-connecting-line`)
                 .attr('x1', xPrev)
@@ -140,7 +145,7 @@ const TimeLineChart: React.FC = () => {
           const interval = setInterval(() => {
             currentIndex++;
             // Stop the animation when all data points are drawn
-            if (currentIndex >= years.length) {
+            if (currentIndex >= selectedYears.length) {
               clearInterval(interval);
               setAnimationFinished(true);
             } else {
@@ -212,7 +217,7 @@ const TimeLineChart: React.FC = () => {
 
     updateChart();
 
-  }, [selectedDataset, isPlaying]);
+  }, [selectedDataset, isPlaying, startYear, endYear]);
   
   return (
     <Card>
