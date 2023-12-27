@@ -6,7 +6,6 @@ import data from '../../data/pT.json';
 import carData from '../../data/car.json';
 import { YearlyData, TransportData, YearlyTotalPassengerKM } from '@/data/pTDataInterface';
 import { YearlyData as CarYearlyData, CarData, YearlyTotalPassengerKM as CarYearlyTotalPassengerKM } from '@/data/carDataInterface';
-import chartStyles from '../../styles/chart.module.css';
 
 interface TimeLineChartProps {
   startYearProp: string;
@@ -72,7 +71,7 @@ const TimeLineChart: React.FC<TimeLineChartProps> = ( {startYearProp, endYearPro
   const max = ptMaxChange >= carsMaxChange ? ptMaxChange : carsMaxChange;
   const min = ptMinChange <= carsMinChange ? ptMinChange : carsMinChange; 
 
-  let title = "The %-Change in Passenger KMs using Public Transportation and Cars in relation to 2013";
+  let title = "The %-Change in Passenger KMs using Public Transportation and Cars";
 
 
   useEffect(() => {
@@ -80,8 +79,8 @@ const TimeLineChart: React.FC<TimeLineChartProps> = ( {startYearProp, endYearPro
     // Clear the existing SVG content
     d3.select(chartRef.current).selectAll("*").remove();
 
-    const width = 620;
-    const height = 400;
+    const width = 1000;
+    const height = 250;
     const margin = { top: 100, right: 80, bottom: 30, left: 125 };
 
     const svg = d3.select(chartRef.current)
@@ -168,7 +167,7 @@ const TimeLineChart: React.FC<TimeLineChartProps> = ( {startYearProp, endYearPro
 
       //Depending on the selected option, draw
       if (selectedDataset === 'pt_passenger_km') {
-        title = 'The %-Change in Passenger KMs using Public Transportation in relation to 2013';
+        title = 'The %-Change in Passenger KMs using Public Transportation';
         //draw y-axis and x-axis
         svg.append('g')
           .attr('class', 'x-axis')
@@ -183,7 +182,7 @@ const TimeLineChart: React.FC<TimeLineChartProps> = ( {startYearProp, endYearPro
           drawData('pt', ptYearlyChange, yScale, ptColor);
         }
       } else if (selectedDataset === 'car_passenger_km') {
-        title = 'The %-Change in Passenger KMs using Cars in relation to 2013';
+        title = 'The %-Change in Passenger KMs using Cars';
         //adjust yscale and y-axis
         yScale.domain([carsMinChange, carsMaxChange + 2]); //added 2 for visibility
         svg.append('g')
@@ -199,7 +198,7 @@ const TimeLineChart: React.FC<TimeLineChartProps> = ( {startYearProp, endYearPro
         }
       } else {
         //adjust yscale and y-axis
-        title = 'The %-Change in Passenger KMs using Public Transportation and Cars in relation to 2013';
+        title = 'The %-Change in Passenger KMs using Public Transportation and Cars';
         //adjust yscale and y-axis
         yScale.domain([(-max < min ? -max: min) - 10, (max > - min ? max : -min) + 10]);
         svg.append('g')
@@ -219,10 +218,10 @@ const TimeLineChart: React.FC<TimeLineChartProps> = ( {startYearProp, endYearPro
       // Add chart title
       svg.append('text')
         .attr('class', 'chart-title')
-        .attr('x', width / 2)
-        .attr('y', -margin.top / 2) // Position above the chart area
-        .attr('text-anchor', 'middle')
-        .style('font-size', '18px')
+        .attr('x', -margin.left)
+        .attr('y', -margin.top/4)
+        .attr('text-anchor', 'start')
+        .style('font-size', '12px')
         .text(title);
     }
 
@@ -231,9 +230,9 @@ const TimeLineChart: React.FC<TimeLineChartProps> = ( {startYearProp, endYearPro
   }, [selectedDataset, isPlaying, startYear, endYear]);
   
   return (
-    <Card orientation="horizontal" variant="outlined" sx={{ width: 900 }}>
-      <div>
-        <Stack direction="row" spacing={1} justifyContent="center" alignItems="flex-start">
+    <Card orientation="horizontal" variant="outlined" sx={{ width: 1200 }}>
+      <Stack className="timeline-container" direction="column" spacing={0}>
+        <Stack className="filters-container" direction="row" spacing={1} justifyContent="center" alignItems="flex-start" sx={{ marginBottom: '-50px' }}>
           <Stack direction="column" alignItems="center">
             <label htmlFor="startYearSelect">Start Year</label>
             <Select id="startYearSelect" value={parseInt(startYear, 10)} sx={{ width: 90 }}>
@@ -262,7 +261,7 @@ const TimeLineChart: React.FC<TimeLineChartProps> = ( {startYearProp, endYearPro
           </Stack>
         </Stack>
         <svg ref={chartRef}></svg>
-        <Stack direction="row" spacing={1}>
+        <Stack className="buttons-container" direction="row" spacing={1} alignItems="center" justifyContent="center">
           {((!isPlaying || isPaused || animationFinished) && (
             <IconButton className='play-button' variant="solid" onClick={() => {setIsPlaying(true); setIsPaused(false);} }>
               <PlayCircleFilled />
@@ -276,7 +275,7 @@ const TimeLineChart: React.FC<TimeLineChartProps> = ( {startYearProp, endYearPro
             <StopCircle />
           </IconButton>
         </Stack>
-      </div>
+      </Stack>
     </Card>
   );
 };
