@@ -5,7 +5,7 @@ export default function Header({currentSection, setSection}: {currentSection: nu
   return (
     <div className={headerStyles.stickyHeader}>
       <Stack direction="column" sx={{ mt: "10px", width: "100%" }} alignContent={"flex-start"}>
-        <Stack direction="row" alignItems={"center"} alignContent={"flex-start"} sx={{ mb: "10px", paddingX: "30px" }} gap={3}>
+        <Stack direction="row" alignItems={"center"} alignContent={"flex-start"} sx={{ mb: "10px", paddingX: "21px" }} gap={3}>
           <img src={'/logo.svg'} alt="Shift Express 31 Logo" className={headerStyles.logoSVG} />
           <div style={{ flexGrow: 1 }} />
           <Typography level="h3">

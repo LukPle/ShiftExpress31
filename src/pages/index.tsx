@@ -77,7 +77,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
         )}
         </div>
 
-        <Section title="Who are we?">
+        <Section title="Who are we?" halfAcrossLine={true}>
           <TeamSection />
         </Section>
 

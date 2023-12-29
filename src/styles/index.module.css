@@ -46,14 +46,11 @@
 
 .lineLeftStack {
   margin: 0;
-  padding: 20px 100px 80px 50px;
   position: relative;
   height: 100vh;
 }
 
 .lineLeftHalfAcrossStack {
-  margin: 0 0 0 25px;
-  padding: 20px 100px 80px 25px;
   position: relative;
   background-image: linear-gradient(0deg,
     transparent 0%,
@@ -68,7 +65,7 @@
 .lineLeftStack::before {
   content: '';
   position: absolute;
-  left: 0;
+  left: -50px;
   top: 0;
   display: block;
   width: 10px;
@@ -79,37 +76,37 @@
 .lineLeftHalfAcrossStack::before {
   content: '';
   position: absolute;
-  left: -25px;
+  left: -50px;
   top: 0;
   display: block;
   width: 10px;
   background-color: var(--joy-palette-primary-500);
-  height: calc(50% - 20px);
+  height: calc(50% - 43px);
 }
 
 .lineLeftHalfAcrossStack::after {
   content: '';
   position: absolute;
-  left: -14px;
-  top: calc(50% - 29px);
+  left: -27px;
+  top: calc(50% - 58px);
   display: block;
   width: 9.5px;
   background-color: var(--joy-palette-primary-500);
-  height: 36px;
+  height: 70px;
   transform: rotate(-45deg);
 }
 
-.markerLeftHeading {
+.heading {
  position: relative; 
  color: var(--joy-palette-primary-500);
 }
 
-.markerLeftHeadingActive {
+.headingActive {
   position: relative; 
   color: var(--joy-palette-text-tertiary);
  }
 
-.markerLeftHeading::before {
+.heading::before {
   content: '';
   position: absolute;
   left: -70px;
@@ -122,7 +119,7 @@
   border-radius: 50%;
 }
 
-.markerLeftHeadingActive::before {
+.headingActive::before {
   content: '';
   position: absolute;
   left: -70px;
@@ -160,6 +157,10 @@
   height: 70px;
   width: 10px;
   background-color: var(--joy-palette-primary-500);
+}
+
+.teamSection {
+  height: calc(100% - 100px);
 }
 
 .snappingContainer {
