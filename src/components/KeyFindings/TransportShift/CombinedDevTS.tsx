@@ -25,21 +25,21 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
     const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
     const GERMAN_STATES = {
         'BW': 'Baden-Württemberg',
-        'BY': 'Bayern',
+        'BY': 'Bavaria',
         'BE': 'Berlin',
         'BB': 'Brandenburg',
         'HB': 'Bremen',
         'HH': 'Hamburg',
-        'HE': 'Hessen',
+        'HE': 'Hesse',
         'MV': 'Mecklenburg-Vorpommern',
-        'NI': 'Niedersachsen',
-        'NW': 'Nordrhein-Westfalen',
-        'RP': 'Rheinland-Pfalz',
+        'NI': 'Lower-Saxony',
+        'NW': 'North Rhine-Westphalia',
+        'RP': 'Rhineland-Palatinate',
         'SL': 'Saarland',
-        'SN': 'Sachsen',
-        'ST': 'Sachsen-Anhalt',
+        'SN': 'Saxony',
+        'ST': 'Saxony-Anhalt',
         'SH': 'Schleswig-Holstein',
-        'TH': 'Thüringen'
+        'TH': 'Thuringia'
     };
 
     const color = d3.scaleOrdinal().range(["rgba(60, 27, 24, 0.5)", "#03045E"]); // Car, PT

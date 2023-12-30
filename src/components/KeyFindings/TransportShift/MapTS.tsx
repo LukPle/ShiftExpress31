@@ -78,8 +78,8 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear}) => {
                             : ['#DD0606','rgba(221, 6, 6, 0.5)', '#FFFFFF','rgba(60, 27, 24, 0.5)', '#3C1B18'];
 
     const colorScale = d3.scaleLinear<string>()
-    .domain([-40,-20, 0, 20, 40])
-    .range(colorRange); // Change colors as needed
+        .domain([-40, -20, 0, 20, 40])
+        .range(colorRange);
 
     const width = 300;
     const height = 450;

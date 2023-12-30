@@ -5,8 +5,8 @@ export const getFlagProperty = (stateName: string) => {
         case 'Baden-Württemberg':
             flagUrl = '/state-flags/flag_baden-wuerttemberg.png';
             break;
-        case 'Bayern':
-            flagUrl = '/state-flags/flag_bavaria.png';
+        case 'Bavaria':
+            flagUrl = '/state-flags/flag_Bavaria.png';
             break;
         case 'Berlin':
             flagUrl = '/state-flags/flag_berlin.png';
@@ -20,34 +20,34 @@ export const getFlagProperty = (stateName: string) => {
         case 'Hamburg':
             flagUrl = '/state-flags/flag_hamburg.png';
             break;
-        case 'Hessen':
+        case 'Hesse':
             flagUrl = '/state-flags/flag_hesse.png';
             break;
         case 'Mecklenburg-Vorpommern':
             flagUrl = '/state-flags/flag_mecklenburg-vorpommern.png';
             break;
-        case 'Niedersachsen':
+        case 'Lower-Saxony':
             flagUrl = '/state-flags/flag_lower-saxony.png';
             break;
-        case 'Nordrhein-Westfalen':
+        case 'North Rhine-Westphalia':
             flagUrl = '/state-flags/flag_north-rhine-westphalia.png';
             break;
-        case 'Rheinland-Pfalz':
+        case 'Rhineland-Palatinate':
             flagUrl = '/state-flags/flag_rhineland-palatinate.png';
             break;
         case 'Saarland':
             flagUrl = '/state-flags/flag_saarland.png';
             break;
-        case 'Sachsen':
+        case 'Saxony':
             flagUrl = '/state-flags/flag_saxony.png';
             break;
-        case 'Sachsen-Anhalt':
+        case 'Saxony-Anhalt':
             flagUrl = '/state-flags/flag_saxony-anhalt.png';
             break;
         case 'Schleswig-Holstein':
             flagUrl = '/state-flags/flag_schleswig-holstein.png';
             break;
-        case 'Thüringen':
+        case 'Thuringia':
             flagUrl = '/state-flags/flag_thuringia.png';
             break;
         default:
