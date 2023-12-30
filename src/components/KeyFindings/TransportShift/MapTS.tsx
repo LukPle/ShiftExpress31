@@ -21,11 +21,10 @@ const mapData: FeatureCollection = germanyGeoJSON as FeatureCollection;
 
 const MapChart: React.FC<Props> = ({ transportData, carData, endYear}) => {
     const [startYear, setStartYear] = useState<string>('2013');
-    const [selectedMetricPT, setSelectedMetricPT] = useState<keyof TransportData>('total_local_passengers');
+    const [selectedMetricPT, setSelectedMetricPT] = useState<keyof TransportData>('total_local_passenger_km');
     const [selectedMetricCar, setSelectedMetricCar] = useState<keyof CarData>('passenger_km');
     const svgRef = useRef<SVGSVGElement | null>(null);
     const [selectedState, setSelectedState] = useState(null);
-    const [selectedTransportMetric, setSelectedTransportMetric] = useState<keyof TransportData>('total_local_passengers');
     const [tooltipVisible, setTooltipVisible] = useState(false);
 
     // Controlls which dataset is active
@@ -152,8 +151,9 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear}) => {
     return (
         <>
         <SegmentedControlsFilter items={["Show Public Transport", "Show Cars"]} onChange={(index, item) => {setPT(index == 0); console.log(index, item);}}></SegmentedControlsFilter>
+            {/*
             <Stack direction={"row"}>
-                <Select defaultValue="total_local_passengers"
+                <Select defaultValue="total_local_passenger_km"
                         sx={{minWidth: "250px", maxHeight: "30px", marginLeft: "10px"}}>
                     <Option value="total_local_passengers" onClick={() => setSelectedMetricPT('total_local_passengers')}>Total
                         Local Passengers</Option>
@@ -162,6 +162,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear}) => {
                         Km</Option>
                 </Select>
             </Stack>
+            */}
             <Stack direction="row">
                 <Stack direction="column" paddingRight="35px">
                     <svg ref={svgRef} width={width} height={height}></svg>

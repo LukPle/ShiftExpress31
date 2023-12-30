@@ -23,6 +23,7 @@ const SegmentedControlsFilter: React.FC<SegmentedControlsFilterProps> = React.me
         borderRadius: '15px',
         boxShadow: 'inset 0 0px 8px 0 rgba(0, 0, 0, 0.12), 0 0 1px 0 rgba(0, 0, 0, 0.04)',
         minHeight: '27.5px',
+        marginBottom: '15px',
     };
 
     const getControlItemStyle: React.CSSProperties = {

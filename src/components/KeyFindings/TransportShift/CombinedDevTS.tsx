@@ -15,7 +15,7 @@ interface Props {
 const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => {
     const [startYear, setStartYear] = useState<string>('2013');
     const [selectedCarMetric, setSelectedCarMetric] = useState<keyof CarData>('passenger_km');
-    const [selectedTransportMetric, setSelectedTransportMetric] = useState<keyof TransportData>('total_local_passengers');
+    const [selectedTransportMetric, setSelectedTransportMetric] = useState<keyof TransportData>('total_local_passenger_km');
     const d3Container = useRef<SVGSVGElement | null>(null);
 
     // Tooltip
@@ -248,11 +248,12 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
 
     return (
         <div>
+            {/*
             <Stack direction={"row"}>
                 <Stack gap={"5px"} ml={3}>
                     <Stack direction={"row"} gap={"5px"}>
                         <Typography pt={"5px"}>Car Dataset:</Typography>
-                        {/* @ts-ignore */}
+                        // @ts-ignore
                         <Badge color="cars">
                             <Select defaultValue="passenger_km" sx={{ minWidth: "250px", maxHeight: "30px", marginLeft: "10px" }}>
                                 <Option value="passenger_km" onClick={() => setSelectedCarMetric('passenger_km')}>Total Passenger KMs</Option>
@@ -264,9 +265,9 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
                     </Stack>
                     <Stack direction={"row"} gap={"5px"}>
                         <Typography pt={"5px"}>Public Transport Dataset:</Typography>
-                        {/* @ts-ignore */}
+                        // @ts-ignore
                         <Badge color="pT">
-                            <Select defaultValue="total_local_passengers" sx={{ minWidth: "250px", maxHeight: "30px", marginLeft: "10px" }}>
+                            <Select defaultValue="total_local_passenger_km" sx={{ minWidth: "250px", maxHeight: "30px", marginLeft: "10px" }}>
                                 <Option value="total_local_passengers" onClick={() => setSelectedTransportMetric('total_local_passengers')}>Total Local Passengers</Option>
                                 <Option value="total_local_passenger_km" onClick={() => setSelectedTransportMetric('total_local_passenger_km')}>Total Local Passenger Km</Option>
                             </Select>
@@ -274,6 +275,8 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
                     </Stack>
                 </Stack>
             </Stack>
+            */}
+            <Typography sx={{ marginTop: '10px', marginBottom: '30px', fontWeight: 'lg' }}>Change of usage from 2013 across all federal states</Typography>
             <svg ref={d3Container} />
             <GroupedBarChartLegend></GroupedBarChartLegend>
             {tooltipVisible && (<Tooltip tooltipPosition={tooltipPosition} tooltipState={tooltipState} tooltipContent={tooltipContent}></Tooltip>)}
