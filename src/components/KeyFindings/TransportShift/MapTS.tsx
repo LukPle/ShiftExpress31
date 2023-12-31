@@ -102,6 +102,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear}) => {
         // @ts-ignore
         isPT ? d3.select(event.currentTarget as Element).style('fill', d => colorScale(calculatePercentageChangePT(d.properties.id, selectedMetricPT))) : d3.select(event.currentTarget as Element).style('fill', d => colorScale(calculatePercentageChangeCar(d.properties.id, selectedMetricCar)));
     };
+    
 
     useEffect(() => {
         if (!svgRef.current) return;
@@ -114,25 +115,31 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear}) => {
         // Create a path generator
         const pathGenerator = d3.geoPath().projection(projection);
 
-        /// Define the SVG pattern [OnHover]
+        // Define the SVG pattern [OnHover]
         const pattern = svg
             .append('defs')
             .append('pattern')
             .attr('id', 'stripes-pattern')
-            .attr('width', 4)
-            .attr('height', 4)
+            .attr('width', 8) // Adjust the width to control the density of stripes
+            .attr('height', 8) // Adjust the height to control the density of stripes
             .attr('patternUnits', 'userSpaceOnUse')
             .attr('patternTransform', 'rotate(45)');
 
-        // Add a single diagonal line to the pattern
+
+        // Add alternating diagonal lines and transparent rectangles to the pattern
         pattern
-            .append('line')
-            .attr('x1', 0)
-            .attr('y1', 0)
-            .attr('x2', 4)
-            .attr('y2', 4)
-            .attr('stroke', 'grey')
-            .attr('stroke-width', 1);
+            .selectAll('rect')
+            .data([
+                { x: 0, y: 0, width: 2, height: 8, fill: 'grey' },
+            ])
+            .enter()
+            .append('rect')
+            .attr('x', d => d.x)
+            .attr('y', d => d.y)
+            .attr('width', d => d.width)
+            .attr('height', d => d.height)
+            .attr('fill', d => d.fill);
+
 
         // Render the map
         svg.selectAll('path')
@@ -143,10 +150,12 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear}) => {
             .style('fill', d => colorScale(isPT ? calculatePercentageChangePT(d.properties.id, selectedMetricPT) : calculatePercentageChangeCar(d.properties.id, selectedMetricCar)))
             .style('stroke', '#9c9cb4')
             .style('stroke-width', 0.75)
-            .on('mouseover',handleMouseOver)
-            .on('mouseout',handleMouseOut);
+            .on('mouseover', handleMouseOver)
+            .on('mouseout', handleMouseOut);
+
 
     }, [startYear, endYear, selectedMetricPT, selectedMetricCar, isPT]);
+    
 
     return (
         <>
