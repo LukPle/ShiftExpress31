@@ -4,7 +4,7 @@ import * as d3 from 'd3';
 import { YearlyData as CarYearlyData, CarData } from '@/data/carDataInterface';
 import { YearlyData as TransportYearlyData, TransportData } from '@/data/pTDataInterface';
 import { Card } from "@mui/joy";
-import styles from "../../styles/index.module.css";
+import styles from "@/styles/charts.module.css";
 
 interface LineChartCombinedProps {
     carData: CarYearlyData;
@@ -97,7 +97,7 @@ const LineChartCombined: React.FC<LineChartCombinedProps> = ({ carData, transpor
                 );
 
 
-            // Add an overlay to capture mouse events on the canvas
+            // Add an overlay to capture mouse events on the canvas for the dots and the marker
             const overlay = svg.append('rect')
                 .attr('class', 'overlay')
                 .attr('width', width)
@@ -131,7 +131,7 @@ const LineChartCombined: React.FC<LineChartCombinedProps> = ({ carData, transpor
                 .attr('text-anchor', 'left')
                 .attr('alignment-baseline', 'middle');
 
-            // Function to find the closest data point
+            // Function to find the closest data point for tooltip
             //@ts-ignore
             const mousemove = (event) => {
                 //@ts-ignore
@@ -165,7 +165,7 @@ const LineChartCombined: React.FC<LineChartCombinedProps> = ({ carData, transpor
                     .style('opacity', 1);
             };
 
-            // Event listeners for the overlay
+            // Event listeners for the overlay for tooltip
             overlay
                 .on('mouseover', () => {
                     focusCar.style('display', null);
@@ -181,23 +181,25 @@ const LineChartCombined: React.FC<LineChartCombinedProps> = ({ carData, transpor
                 })
                 .on('mousemove', mousemove);
 
-            overlay.on('click', (event) => {
-                const xPos = d3.pointer(event, this)[0];
-                // @ts-ignore
-                const yearScale = d3.scaleBand().domain(allYears).range([0, width]);
-                // @ts-ignore
-                const clickedYear = yearScale.domain().find(year => yearScale(year) <= xPos && xPos < yearScale(year) + yearScale.bandwidth());
-                // @ts-ignore
-                setCurrentYear(clickedYear);
-            })
-            .on('mouseover', mousemove);
-            ;
+
+            // Event listener for the overlay for changing the current year
+            overlay
+                .on('click', (event) => {
+                    const xPos = d3.pointer(event, this)[0];
+                    // @ts-ignore
+                    const yearScale = d3.scaleBand().domain(allYears).range([0, width]);
+                    // @ts-ignore
+                    const clickedYear = yearScale.domain().find(year => yearScale(year) <= xPos && xPos < yearScale(year) + yearScale.bandwidth());
+                    // @ts-ignore
+                    setCurrentYear(clickedYear);
+                })
+                .on('mouseover', mousemove);;
 
 
             // Update the marker position
             if (currentYear && markerRef.current) {
                 const markerXPosition = x(parseInt(currentYear));
-                d3.select(markerRef.current).style('left', `${margin.left + markerXPosition}px`);
+                d3.select(markerRef.current).style('left', `${margin.left + markerXPosition - 3}px`);
             }
 
         }
@@ -253,10 +255,8 @@ const LineChartCombined: React.FC<LineChartCombinedProps> = ({ carData, transpor
                             position: 'absolute',
                             top: `${margin.top}px`,
                             height: `${height}px`,
-                            width: "2px",
-                            backgroundColor: "red",
-                            pointerEvents: "none",
                         }}
+                        className={styles.timeLineMarker}
                     />
                 )}
             </div>

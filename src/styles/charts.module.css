@@ -1,0 +1,7 @@
+.timeLineMarker {
+    width: 7px;
+    background-color: #03045E;
+    pointer-events: none;
+    border-radius: 10px;
+    border: 1px solid #CFD7E0;
+}
