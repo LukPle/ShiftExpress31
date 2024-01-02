@@ -189,13 +189,13 @@ const LineChartCombined: React.FC<LineChartCombinedProps> = ({ carData, transpor
                 const clickedYear = yearScale.domain().find(year => yearScale(year) <= xPos && xPos < yearScale(year) + yearScale.bandwidth());
                 // @ts-ignore
                 setCurrentYear(clickedYear);
-            });
+            })
+            .on('mouseover', mousemove);
+            ;
 
 
             // Update the marker position
             if (currentYear && markerRef.current) {
-                // @ts-ignore
-                const yearScale = d3.scaleBand().domain(allYears).range([0, width]);
                 const markerXPosition = x(parseInt(currentYear));
                 d3.select(markerRef.current).style('left', `${margin.left + markerXPosition}px`);
             }
