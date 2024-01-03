@@ -68,11 +68,11 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
           <></>
         ) : (
           <div>
-            <ToolBar
+            {/*<ToolBar
               isSpecificSectionInView={isKeyFindingSectionInView}
               keyFinding={currentKeyFinding}
               onUpdateKeyFinding={updateKeyFinding}
-            />
+            />*/}
             {renderKeyFinding()}
           </div>
         )}

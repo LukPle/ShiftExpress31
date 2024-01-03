@@ -136,7 +136,7 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
 
             const margin = { top: 5, right: 30, bottom: 10, left: 30 };
             const width = 800 - margin.left - margin.right;
-            const height = 250 - margin.top - margin.bottom;
+            const height = 280 - margin.top - margin.bottom;
 
             const svg = d3.select(d3Container.current)
                 .attr("width", width + margin.left + margin.right)
@@ -321,7 +321,7 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
                 </Stack>
             </Stack>
             */}
-            <Typography sx={{ marginTop: '10px', marginBottom: '30px', fontWeight: 'lg' }}>Change of usage from 2013 across all federal states</Typography>
+            <Typography sx={{ marginTop: '10px', marginBottom: '30px', fontWeight: 'lg' }}>Change of usage from 2013 to {endYear} across all federal states</Typography>
             <svg ref={d3Container} />
             <GroupedBarChartLegend currentSorting={currentSorting}></GroupedBarChartLegend>
             {tooltipVisible && (<Tooltip tooltipPosition={tooltipPosition} tooltipState={tooltipState} tooltipContent={tooltipContent}></Tooltip>)}

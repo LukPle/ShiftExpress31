@@ -12,6 +12,10 @@ const GroupedBarChartLegend: React.FC<GroupedBarChartLegendProps> = ({ currentSo
     const carColor = 'rgba(60, 27, 24, 0.5)';
     const unfocusedColor = '#E8E8E8';
 
+    const getLegendRowStyle: React.CSSProperties = {
+        marginTop: '15px',
+    };
+
     const getRectangleStyle = (color: string, isSecond: boolean): React.CSSProperties => {
         return {
             width: '30px',
@@ -25,7 +29,7 @@ const GroupedBarChartLegend: React.FC<GroupedBarChartLegendProps> = ({ currentSo
     };
 
     return (
-        <Stack direction="row">
+        <Stack direction="row" style={getLegendRowStyle}>
             <div style={getRectangleStyle(currentSorting != ChartSorting.SortCars ? ptColor : unfocusedColor, false)}></div>
             <Typography>🚈 Change of usage in %</Typography>
             <div style={getRectangleStyle(currentSorting != ChartSorting.SortPublicTransport ? carColor : unfocusedColor, true)}></div>

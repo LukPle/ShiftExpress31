@@ -1,10 +1,10 @@
-// LineChartCombined.tsx
 import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { YearlyData as CarYearlyData, CarData } from '@/data/carDataInterface';
 import { YearlyData as TransportYearlyData, TransportData } from '@/data/pTDataInterface';
-import { Card } from "@mui/joy";
 import styles from "@/styles/charts.module.css";
+import { FilterOptions } from './TransportShift';
+
 
 interface LineChartCombinedProps {
     carData: CarYearlyData;
@@ -13,9 +13,10 @@ interface LineChartCombinedProps {
     endYear: string;
     currentYear: string;
     setCurrentYear: (year: string) => void;
+    currentFilter: FilterOptions;
 }
 
-const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData, startYear, endYear, currentYear, setCurrentYear}) => {
+const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData, startYear, endYear, currentYear, setCurrentYear, currentFilter }) => {
     const d3Container = useRef(null);
     const margin = { top: 10, right: 30, bottom: 20, left: 30 };
     const width = 800 - margin.left - margin.right;
@@ -82,35 +83,38 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
 
 
             // Car Data Line
-            svg
-                .append('path')
-                .datum(carPercentageChangeData)
-                .attr('fill', 'none')
-                .attr('stroke', '#9B8D8C')
-                .attr('stroke-width', 5)
-                .attr(
-                    'd',
-                    d3
-                        .line<any>()
-                        .x((d) => x(d.year))
-                        .y((d) => y(d.percentageChange))
-                );
+            if (currentFilter !== FilterOptions.FocusPublicTransport) {
+                svg
+                    .append('path')
+                    .datum(carPercentageChangeData)
+                    .attr('fill', 'none')
+                    .attr('stroke', '#9B8D8C')
+                    .attr('stroke-width', 5)
+                    .attr(
+                        'd',
+                        d3
+                            .line<any>()
+                            .x((d) => x(d.year))
+                            .y((d) => y(d.percentageChange))
+                    );
+            }
 
             // Transport Data Line
-            svg
-                .append('path')
-                .datum(transportPercentageChangeData)
-                .attr('fill', 'none')
-                .attr('stroke', '#03045A')
-                .attr('stroke-width', 5)
-                .attr(
-                    'd',
-                    d3
-                        .line<any>()
-                        .x((d) => x(d.year))
-                        .y((d) => y(d.percentageChange))
-                );
-
+            if (currentFilter !== FilterOptions.FocusCars) {
+                svg
+                    .append('path')
+                    .datum(transportPercentageChangeData)
+                    .attr('fill', 'none')
+                    .attr('stroke', '#03045A')
+                    .attr('stroke-width', 5)
+                    .attr(
+                        'd',
+                        d3
+                            .line<any>()
+                            .x((d) => x(d.year))
+                            .y((d) => y(d.percentageChange))
+                    );
+            }
 
             // Add an overlay to capture mouse events on the canvas for the dots and the marker
             const overlay = svg.append('rect')
@@ -218,7 +222,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
             }
 
         }
-    }, [carData, transportData, startYear, endYear, currentYear]);
+    }, [carData, transportData, startYear, endYear, currentYear, currentFilter]);
 
     const calculatePercentageChange = (
         data: CarYearlyData | TransportYearlyData,
@@ -257,25 +261,23 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
 
 
     return (
-        <Card>
-            <div style={{ position: 'relative' }}>
-                <svg
-                    className="d3-component"
-                    ref={d3Container}
+        <div style={{ position: 'relative' }}>
+            <svg
+                className="d3-component"
+                ref={d3Container}
+            />
+            {currentYear && (
+                <div
+                    ref={markerRef}
+                    style={{
+                        position: 'absolute',
+                        top: `${margin.top}px`,
+                        height: `${height}px`,
+                    }}
+                    className={styles.timeLineMarker}
                 />
-                {currentYear && (
-                    <div
-                        ref={markerRef}
-                        style={{
-                            position: 'absolute',
-                            top: `${margin.top}px`,
-                            height: `${height}px`,
-                        }}
-                        className={styles.timeLineMarker}
-                    />
-                )}
-            </div>
-        </Card>
+            )}
+        </div>
     );
 };
 

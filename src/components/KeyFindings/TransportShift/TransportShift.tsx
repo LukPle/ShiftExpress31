@@ -36,7 +36,7 @@ const TransportShift: React.FC = () => {
         } else {
           setIsPlaying(false);
         }
-      }, 1000);
+      }, 1500);
     }
 
     return () => {
@@ -66,21 +66,23 @@ const TransportShift: React.FC = () => {
           <Card>
             <CombinedDevTS carData={carData} transportData={pTData} endYear={endYear.toString()} currentFilter={currentFilter} />
           </Card>
-          <LineChartTS carData={carData} transportData={pTData} startYear='2013' endYear='2019' currentYear={endYear.toString()} setCurrentYear={setCurrentYear}/>
+          <Card>
+            <LineChartTS carData={carData} transportData={pTData} startYear='2013' endYear='2019' currentYear={endYear.toString()} setCurrentYear={setCurrentYear} currentFilter={currentFilter}/>
+            <Stack direction={"row"} gap={1} sx={{}} pt={2} alignItems={"center"} justifyContent={"flex-start"} minWidth={"100%"}>
+              <IconButton variant="solid" onClick={handlePlayPause} size="lg" sx={{ backgroundColor: "#03045A" }}>
+                {isPlaying ? <Pause /> : <PlayArrow />}
+              </IconButton>
+              <IconButton variant="solid" onClick={() => setEndYear(2013)} size="lg" sx={{ backgroundColor: "#03045A" }}>
+                <FastRewind />
+              </IconButton>
+              <Typography pt={2} marginLeft={'15px'}><i>End Year: {endYear}</i></Typography>
+          </Stack>
+          </Card>
         </Stack>
         <Card sx={{ flex: 1 }}>
           <MapTS transportData={pTData} carData={carData} endYear={endYear.toString()} currentFilter={currentFilter} />
         </Card>
       </Stack>
-      <Stack direction={"row"} gap={1} sx={{}} pt={2} alignItems={"center"} justifyContent={"flex-start"} minWidth={"100%"}>
-        <IconButton variant="solid" onClick={handlePlayPause} size="lg" sx={{ backgroundColor: "#03045A" }}>
-          {isPlaying ? <Pause /> : <PlayArrow />}
-        </IconButton>
-        <IconButton variant="solid" onClick={() => setEndYear(2013)} size="lg" sx={{ backgroundColor: "#03045A" }}>
-          <FastRewind />
-        </IconButton>
-      </Stack>
-      <Typography pt={2}><i>End Year: {endYear}</i></Typography>
     </Stack>
   );
 };
