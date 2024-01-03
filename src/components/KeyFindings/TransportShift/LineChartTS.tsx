@@ -15,7 +15,7 @@ interface LineChartCombinedProps {
 
 const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData, startYear, endYear }) => {
     const d3Container = useRef(null);
-    const margin = { top: 10, right: 30, bottom: 20, left: 20 };
+    const margin = { top: 10, right: 30, bottom: 20, left: 30 };
     const width = 800 - margin.left - margin.right;
     const height = 120 - margin.top - margin.bottom;
 
@@ -40,12 +40,6 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
             // Process Transport Data
             const transportPercentageChangeData = calculatePercentageChange(transportData, 'total_local_passenger_km', startYear, endYear);
 
-            // Scales
-            const x = d3
-                .scaleLinear()
-                .domain(d3.extent(carPercentageChangeData, (d) => d.year) as [number, number])
-                .range([0, width]);
-
             const y = d3
                 .scaleLinear()
                 .domain([
@@ -53,6 +47,29 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                     Math.max(d3.max(carPercentageChangeData, (d) => d.percentageChange) as number, d3.max(transportPercentageChangeData, (d) => d.percentageChange) as number)
                 ])
                 .range([height, 0]);
+
+            // Specify the tick values you want (2, 4, 6, 8 in this case)
+            const tickValues = [2, 4, 6, 8];
+
+            // Create a custom tick format function to add "%" symbol
+            //@ts-ignore
+            const tickFormat = (d) => d + "%";
+
+            // Apply the custom tick values and format to the y-axis
+            const yAxis = d3.axisLeft(y)
+                .tickValues(tickValues)
+                .tickFormat(tickFormat);
+
+            // Append the y-axis to your chart
+            svg.append("g")
+                .attr("class", "y-axis")
+                .call(yAxis);
+
+            // Scales
+            const x = d3
+                .scaleLinear()
+                .domain(d3.extent(carPercentageChangeData, (d) => d.year) as [number, number])
+                .range([0, width]);
 
             // X axis
             const allYears = carPercentageChangeData.map(d => d.year); // Assuming this is an array of all years you have data for.
@@ -62,9 +79,6 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                     .tickValues(allYears) // Set the tick values to the years from your data
                     .tickFormat(d3.format('d'))); // Format ticks as integers without comma separators
 
-
-            // Y axis
-            svg.append('g').call(d3.axisLeft(y));
 
             // Car Data Line
             svg
@@ -108,13 +122,13 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
             // Add circles for the data points
             const focusCar = svg.append('g')
                 .append('circle')
-                .style('fill', 'steelblue')
+                .style('fill', '#9B8D8C')
                 .attr('r', 7)
                 .style('display', 'none');
 
             const focusTransport = svg.append('g')
                 .append('circle')
-                .style('fill', 'green')
+                .style('fill', '#03045A')
                 .attr('r', 7)
                 .style('display', 'none');
 
