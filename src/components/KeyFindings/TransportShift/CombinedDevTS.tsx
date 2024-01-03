@@ -102,9 +102,9 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
         if (carData && transportData && d3Container.current) {
             d3.select(d3Container.current).selectAll("*").remove();
 
-            const margin = { top: 20, right: 30, bottom: 40, left: 30 };
-            const width = 600 - margin.left - margin.right;
-            const height = 400 - margin.top - margin.bottom;
+            const margin = { top: 5, right: 30, bottom: 10, left: 30 };
+            const width = 800 - margin.left - margin.right;
+            const height = 250 - margin.top - margin.bottom;
 
             const svg = d3.select(d3Container.current)
                 .attr("width", width + margin.left + margin.right)
