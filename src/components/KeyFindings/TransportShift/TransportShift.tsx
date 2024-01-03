@@ -29,7 +29,7 @@ const TransportShift: React.FC = () => {
         } else {
           setIsPlaying(false);
         }
-      }, 1000);
+      }, 2000);
     }
 
     return () => {
@@ -42,33 +42,25 @@ const TransportShift: React.FC = () => {
   };
 
   return (
-    <div>
-      <Typography mt={2}>
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-        diam nonumy eirmod tempor invidunt ut labore et dolore magna
-        aliquyam erat, sed diam voluptua. At vero eos et accusam et
-        justo duo dolores et ea rebum.
-      </Typography>
-      <Stack direction={"column"} alignItems={"center"} justifyContent={"center"} minWidth={"100%"}>
-        <Stack direction={"row"} gap={2} sx={{}} pt={3}>
-          <Card>
-            <CombinedDevTS carData={carData} transportData={pTData} endYear={endYear.toString()} />
-          </Card>
-          <Card>
-            <MapTS transportData={pTData} endYear={endYear.toString()} />
-          </Card>
-        </Stack>
-        <Stack direction={"row"} gap={1} sx={{}} pt={2} alignItems={"center"} justifyContent={"flex-start"} minWidth={"100%"}>
-          <IconButton variant="solid" onClick={handlePlayPause} size="lg" sx={{ backgroundColor: "#03045A" }}>
-            {isPlaying ? <Pause /> : <PlayArrow />}
-          </IconButton>
-          <IconButton variant="solid" onClick={() => setEndYear(2013)} size="lg" sx={{ backgroundColor: "#03045A" }}>
-            <FastRewind />
-          </IconButton>
-        </Stack>
-        <Typography pt={2}><i>End Year: {endYear}</i></Typography>
+    <Stack direction={"column"} minWidth={"100%"}>
+      <Stack direction={"row"} gap={2} sx={{}} pt={3}>
+        <Card sx={{ flex: 2 }}>
+          <CombinedDevTS carData={carData} transportData={pTData} endYear={endYear.toString()} />
+        </Card>
+        <Card sx={{ flex: 1.5 }}>
+          <MapTS transportData={pTData} carData={carData} endYear={endYear.toString()} />
+        </Card>
       </Stack>
-    </div>
+      <Stack direction={"row"} gap={1} sx={{}} pt={2} alignItems={"center"} justifyContent={"flex-start"} minWidth={"100%"}>
+        <IconButton variant="solid" onClick={handlePlayPause} size="lg" sx={{ backgroundColor: "#03045A" }}>
+          {isPlaying ? <Pause /> : <PlayArrow />}
+        </IconButton>
+        <IconButton variant="solid" onClick={() => setEndYear(2013)} size="lg" sx={{ backgroundColor: "#03045A" }}>
+          <FastRewind />
+        </IconButton>
+      </Stack>
+      <Typography pt={2}><i>End Year: {endYear}</i></Typography>
+    </Stack>
   );
 };
 
