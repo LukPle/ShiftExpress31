@@ -68,4 +68,6 @@ const SegmentedControlsFilter: React.FC<SegmentedControlsFilterProps> = React.me
     );
 });
 
+SegmentedControlsFilter.displayName = 'SegmentedControlsFilter';
+
 export default SegmentedControlsFilter;

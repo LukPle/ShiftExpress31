@@ -69,10 +69,10 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
         event.currentTarget.setAttribute('data-original-color', originalColor);
     };
 
-     // Handling the mouse hover for bars
-     const handleMouseOverBar = (event: React.MouseEvent<SVGRectElement, MouseEvent>, d: any, dataset: 'carData' | 'transportData') => {
+    // Handling the mouse hover for bars
+    const handleMouseOverBar = (event: React.MouseEvent<SVGRectElement, MouseEvent>, d: any, dataset: 'carData' | 'transportData') => {
         const isPT = dataset === 'transportData' ? true : false;
-        
+
         const [x, y] = d3.pointer(event);
         // @ts-ignore
         const stateFullName = GERMAN_STATES[d.state] || d.state; // Use full name if available, else use the abbreviation
@@ -149,7 +149,7 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
                 .domain(['transportData', 'carData'])
                 .rangeRound([0, x0.bandwidth()]);
 
-            
+
             // Find the maximum absolute percentage change for both datasets
             const maxCarChange = d3.max(combinedPercentageChanges, d => Math.abs(d.carChange)) as number;
             const maxTransportChange = d3.max(combinedPercentageChanges, d => Math.abs(d.transportChange)) as number;
@@ -158,14 +158,14 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
 
             // Define the y-scales with fixed domain extent
             const yCar = d3.scaleLinear()
-            .range([height, 0])
-            .domain([-50, 50])
-            .nice();
+                .range([height, 0])
+                .domain([-50, 50])
+                .nice();
 
             const yTransport = d3.scaleLinear()
-            .range([height, 0])
-            .domain([-50, 50])
-            .nice();
+                .range([height, 0])
+                .domain([-50, 50])
+                .nice();
 
 
             // Create the axes
@@ -202,7 +202,7 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
                 .call(yAxisLeft)
                 .selectAll("text") // Selecting all text elements within the axis
                 .style("font-size", "13px"); // Set the font size
-            
+
 
             // Draw the bars for CarData
             svg.selectAll(".bar.car")
@@ -214,6 +214,7 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
                 .attr("width", x1.bandwidth())
                 .attr("y", d => yCar(Math.max(0, d.carChange)))
                 .attr("height", d => Math.abs(yCar(d.carChange) - yCar(0)))
+                // @ts-ignore
                 .attr("fill", color('carData'))
                 .on("mouseover", (event, d) => {
                     storeOriginalColor(event);
@@ -231,6 +232,7 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
                 .attr("width", x1.bandwidth())
                 .attr("y", d => yTransport(Math.max(0, d.transportChange)))
                 .attr("height", d => Math.abs(yTransport(d.transportChange) - yTransport(0)))
+                // @ts-ignore
                 .attr("fill", color('transportData'))
                 .on("mouseover", (event, d) => {
                     storeOriginalColor(event);
