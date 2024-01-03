@@ -29,33 +29,26 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
     const [selectedState, setSelectedState] = useState(null);
     const [tooltipVisible, setTooltipVisible] = useState(false);
 
-
-    const _adaptMapToFilter = () => {
-        switch(currentFilter) {
-            case FilterOptions.Comparison:
-                if(isPT === false) {
-                    setPT(true);
-                }
-                break;
-            case FilterOptions.FocusPublicTransport:
-                if(isPT === false) {
-                    setPT(true);
-                }
-                break;  
-            case FilterOptions.FocusCars:
-                if(isPT === true) {
-                    setPT(false);
-                }
-                break;
-            default:
-                console.log(`Got ${currentFilter} but expected Comparison, FocusPublicTransport or FocusCars`);
-        }
-    }
-
-
     // Controlls which dataset is active
     const [isPT, setPT] = useState(true);
-    _adaptMapToFilter();
+    
+    switch(currentFilter) {
+        case FilterOptions.Comparison:
+            // No Action
+            break;
+        case FilterOptions.FocusPublicTransport:
+            if(isPT === false) {
+                setPT(true);
+            }
+            break;  
+        case FilterOptions.FocusCars:
+            if(isPT === true) {
+                setPT(false);
+            }
+            break;
+        default:
+            console.log(`Got ${currentFilter} but expected Comparison, FocusPublicTransport or FocusCars`);
+    }
 
 
     // New state for tooltip position and content
