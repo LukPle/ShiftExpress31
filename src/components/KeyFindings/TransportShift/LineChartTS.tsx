@@ -168,13 +168,13 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                     .style('display', null);
 
                 focusTextCar
-                    .html(`Year: ${selectedDataCar.year}<br/> Car: ${selectedDataCar.percentageChange}%`)
+                    .html(`Car: ${selectedDataCar.percentageChange.toFixed(2)}%`)
                     .attr('x', x(selectedDataCar.year) + 15)
                     .attr('y', y(selectedDataCar.percentageChange))
                     .style('opacity', 1);
 
                 focusTextPT
-                    .html(`Year: ${selectedDataCar.year}<br/> Transport: ${selectedDataTransport.percentageChange}%`)
+                    .html(`Transport: ${selectedDataTransport.percentageChange.toFixed(2)}%`)
                     .attr('x', x(selectedDataCar.year) + 15)
                     .attr('y', y(selectedDataTransport.percentageChange))
                     .style('opacity', 1);
