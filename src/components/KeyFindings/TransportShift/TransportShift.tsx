@@ -49,12 +49,14 @@ const TransportShift: React.FC = () => {
 
   return (
     <Stack direction={"column"} minWidth={"100%"}>
-      <Stack direction={"row"} justifyContent={"space-between"} minWidth={"100%"}>
-        <Button onClick={() => setCurrentFilter(FilterOptions.Comparison)}>Comparison</Button>
-        <Button onClick={() => setCurrentFilter(FilterOptions.FocusPublicTransport)}>Focus Public Transport</Button>
-        <Button onClick={() => setCurrentFilter(FilterOptions.FocusCars)}>Focus Cars</Button>
-      </Stack>
       <Stack direction={"row"} gap={2} sx={{}} pt={3}>
+        <Card sx={{ flex: 0.1 }}>
+          <Stack direction={"column"} spacing={2}>
+            <Button variant={currentFilter === FilterOptions.Comparison ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.Comparison)}>Comparison</Button>
+            <Button variant={currentFilter === FilterOptions.FocusPublicTransport ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.FocusPublicTransport)}>Focus Public Transport</Button>
+            <Button variant={currentFilter === FilterOptions.FocusCars ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.FocusCars)}>Focus Cars</Button>
+          </Stack>
+        </Card>
         <Card sx={{ flex: 2 }}>
           <CombinedDevTS carData={carData} transportData={pTData} endYear={endYear.toString()} currentFilter={currentFilter} />
         </Card>
