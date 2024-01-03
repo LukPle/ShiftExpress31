@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CombinedDevTS from './CombinedDevTS';
 import MapTS from './MapTS';
+import LineChartTS from './LineChartTS';
 import pTData from "../../../data/pT.json";
 import carData from "../../../data/car.json";
 import {
@@ -35,7 +36,7 @@ const TransportShift: React.FC = () => {
         } else {
           setIsPlaying(false);
         }
-      }, 2000);
+      }, 1000);
     }
 
     return () => {
@@ -47,20 +48,27 @@ const TransportShift: React.FC = () => {
     setIsPlaying((prevIsPlaying) => !prevIsPlaying);
   };
 
+  const setCurrentYear = (year: string) => {
+    setEndYear(parseInt(year));
+  };
+
   return (
-    <Stack direction={"column"} minWidth={"100%"}>
-      <Stack direction={"row"} gap={2} sx={{}} pt={3}>
-        <Card sx={{ flex: 0.1 }}>
-          <Stack direction={"column"} spacing={2}>
+    <Stack direction={"column"} minWidth={"100%"} gap={2} pt={3}>
+      <Card>
+          <Stack direction={"row"} spacing={2}>
             <Button variant={currentFilter === FilterOptions.Comparison ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.Comparison)}>Comparison</Button>
             <Button variant={currentFilter === FilterOptions.FocusPublicTransport ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.FocusPublicTransport)}>Focus Public Transport</Button>
             <Button variant={currentFilter === FilterOptions.FocusCars ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.FocusCars)}>Focus Cars</Button>
           </Stack>
         </Card>
-        <Card sx={{ flex: 2 }}>
-          <CombinedDevTS carData={carData} transportData={pTData} endYear={endYear.toString()} currentFilter={currentFilter} />
-        </Card>
-        <Card sx={{ flex: 1.5 }}>
+      <Stack direction={"row"} gap={2} sx={{}} >
+        <Stack direction={"column"} gap={2} sx={{ flex: 2 }}>
+          <Card>
+            <CombinedDevTS carData={carData} transportData={pTData} endYear={endYear.toString()} currentFilter={currentFilter} />
+          </Card>
+          <LineChartTS carData={carData} transportData={pTData} startYear='2013' endYear='2019' currentYear={endYear.toString()} setCurrentYear={setCurrentYear}/>
+        </Stack>
+        <Card sx={{ flex: 1 }}>
           <MapTS transportData={pTData} carData={carData} endYear={endYear.toString()} currentFilter={currentFilter} />
         </Card>
       </Stack>
