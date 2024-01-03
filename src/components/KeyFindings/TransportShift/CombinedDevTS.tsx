@@ -101,10 +101,10 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
         event.currentTarget.setAttribute('data-original-color', originalColor);
     };
 
-     // Handling the mouse hover for bars
-     const handleMouseOverBar = (event: React.MouseEvent<SVGRectElement, MouseEvent>, d: any, dataset: 'carData' | 'transportData') => {
+    // Handling the mouse hover for bars
+    const handleMouseOverBar = (event: React.MouseEvent<SVGRectElement, MouseEvent>, d: any, dataset: 'carData' | 'transportData') => {
         const isPT = dataset === 'transportData' ? true : false;
-        
+
         const [x, y] = d3.pointer(event);
         // @ts-ignore
         const stateFullName = GERMAN_STATES[d.state] || d.state; // Use full name if available, else use the abbreviation
