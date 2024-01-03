@@ -7,7 +7,7 @@ import GroupedBarChartLegend from "./GroupedBarChartLegend";
 import Tooltip from "./Tooltip";
 import { FilterOptions } from "./TransportShift";
 
-enum ChartSorting {
+export enum ChartSorting {
     None, SortPublicTransport, SortCars
 }
 
@@ -25,24 +25,29 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
     const d3Container = useRef<SVGSVGElement | null>(null);
 
     const [currentSorting, setCurrentSorting] = useState<ChartSorting>(ChartSorting.None);
+    var color = d3.scaleOrdinal().range(["grey", "grey"]); // Car, PT
 
     switch(currentFilter) {
         case FilterOptions.Comparison:
             if(currentSorting != ChartSorting.None) {
                 setCurrentSorting(ChartSorting.None);
             }
+            color = d3.scaleOrdinal().range(["rgba(60, 27, 24, 0.5)", "#03045E"]); // Car, PT
             break;
         case FilterOptions.FocusPublicTransport:
             if(currentSorting != ChartSorting.SortPublicTransport) {
                 setCurrentSorting(ChartSorting.SortPublicTransport);
             }
+            color = d3.scaleOrdinal().range(["#E8E8E8", "#03045E"]); // Car, PT
             break;  
         case FilterOptions.FocusCars:
             if(currentSorting != ChartSorting.SortCars) {
                 setCurrentSorting(ChartSorting.SortCars);
             }
+            color = d3.scaleOrdinal().range(["rgba(60, 27, 24, 0.5)", "#E8E8E8"]); // Car, PT
             break;
         default:
+            color = d3.scaleOrdinal().range(["rgba(60, 27, 24, 0.5)", "#03045E"]); // Car, PT
             console.log(`Got ${currentFilter} but expected Comparison, FocusPublicTransport or FocusCars`);
     }
 
@@ -70,8 +75,6 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
         'SH': 'Schleswig-Holstein',
         'TH': 'Thuringia'
     };
-
-    const color = d3.scaleOrdinal().range(["rgba(60, 27, 24, 0.5)", "#03045E"]); // Car, PT
 
     const calculatePercentageChange = (data: CarYearlyData | TransportYearlyData, state: string, metric: keyof CarData | keyof TransportData) => {
         const startYearData = data[startYear].find(d => d.state === state);
@@ -320,7 +323,7 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
             */}
             <Typography sx={{ marginTop: '10px', marginBottom: '30px', fontWeight: 'lg' }}>Change of usage from 2013 across all federal states</Typography>
             <svg ref={d3Container} />
-            <GroupedBarChartLegend></GroupedBarChartLegend>
+            <GroupedBarChartLegend currentSorting={currentSorting}></GroupedBarChartLegend>
             {tooltipVisible && (<Tooltip tooltipPosition={tooltipPosition} tooltipState={tooltipState} tooltipContent={tooltipContent}></Tooltip>)}
         </div>
     );

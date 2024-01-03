@@ -1,11 +1,16 @@
 import theme from '@/utils/theme';
 import { Stack, Typography } from '@mui/joy';
 import React, { ReactNode } from 'react';
+import { ChartSorting } from './CombinedDevTS';
 
+interface GroupedBarChartLegendProps {
+    currentSorting: ChartSorting,
+}
 
-const GroupedBarChartLegend: React.FC = () => {
+const GroupedBarChartLegend: React.FC<GroupedBarChartLegendProps> = ({ currentSorting }) => {
     const ptColor = theme.palette.primary[500];
     const carColor = 'rgba(60, 27, 24, 0.5)';
+    const unfocusedColor = '#E8E8E8';
 
     const getRectangleStyle = (color: string, isSecond: boolean): React.CSSProperties => {
         return {
@@ -21,9 +26,9 @@ const GroupedBarChartLegend: React.FC = () => {
 
     return (
         <Stack direction="row">
-            <div style={getRectangleStyle(ptColor, false)}></div>
+            <div style={getRectangleStyle(currentSorting != ChartSorting.SortCars ? ptColor : unfocusedColor, false)}></div>
             <Typography>🚈 Change of usage in %</Typography>
-            <div style={getRectangleStyle(carColor, true)}></div>
+            <div style={getRectangleStyle(currentSorting != ChartSorting.SortPublicTransport ? carColor : unfocusedColor, true)}></div>
             <Typography>🚗 Change of usage in %</Typography>
         </Stack>
     );
