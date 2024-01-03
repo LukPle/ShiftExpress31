@@ -9,17 +9,19 @@ import { CarData, YearlyData as CarYearlyData } from '../../../data/carDataInter
 import MapLegend from "@/components/MapComponents/MapLegend";
 import SegmentedControlsFilter from "./SegmentedControlsFilter";
 import Tooltip from "./Tooltip";
+import { FilterOptions } from "./TransportShift";
 
 
 interface Props {
     transportData: TransportYearlyData;
     carData: CarYearlyData;
     endYear: string;
+    currentFilter: FilterOptions;
 }
 
 const mapData: FeatureCollection = germanyGeoJSON as FeatureCollection;
 
-const MapChart: React.FC<Props> = ({ transportData, carData, endYear}) => {
+const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFilter }) => {
     const [startYear, setStartYear] = useState<string>('2013');
     const [selectedMetricPT, setSelectedMetricPT] = useState<keyof TransportData>('total_local_passenger_km');
     const [selectedMetricCar, setSelectedMetricCar] = useState<keyof CarData>('passenger_km');
@@ -27,8 +29,33 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear}) => {
     const [selectedState, setSelectedState] = useState(null);
     const [tooltipVisible, setTooltipVisible] = useState(false);
 
+
+    const _adaptMapToFilter = () => {
+        switch(currentFilter) {
+            case FilterOptions.Comparison:
+                if(isPT === false) {
+                    setPT(true);
+                }
+                break;
+            case FilterOptions.FocusPublicTransport:
+                if(isPT === false) {
+                    setPT(true);
+                }
+                break;  
+            case FilterOptions.FocusCars:
+                if(isPT === true) {
+                    setPT(false);
+                }
+                break;
+            default:
+                console.log(`Got ${currentFilter} but expected Comparison, FocusPublicTransport or FocusCars`);
+        }
+    }
+
+
     // Controlls which dataset is active
     const [isPT, setPT] = useState(true);
+    _adaptMapToFilter();
 
 
     // New state for tooltip position and content
@@ -159,7 +186,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear}) => {
 
     return (
         <>
-        <SegmentedControlsFilter items={["Show Public Transport", "Show Cars"]} onChange={(index, item) => {setPT(index == 0); console.log(index, item);}}></SegmentedControlsFilter>
+        {currentFilter === FilterOptions.Comparison ? <SegmentedControlsFilter items={["Show Public Transport", "Show Cars"]} onChange={(index, item) => {setPT(index == 0); console.log(index, item);}}></SegmentedControlsFilter> : null}
             {/*
             <Stack direction={"row"}>
                 <Select defaultValue="total_local_passenger_km"

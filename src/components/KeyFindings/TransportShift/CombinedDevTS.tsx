@@ -5,18 +5,49 @@ import { CarData, YearlyData as CarYearlyData } from '../../../data/carDataInter
 import { TransportData, YearlyData as TransportYearlyData } from '../../../data/pTDataInterface';
 import GroupedBarChartLegend from "./GroupedBarChartLegend";
 import Tooltip from "./Tooltip";
+import { FilterOptions } from "./TransportShift";
+
+enum ChartSorting {
+    None, SortPublicTransport, SortCars
+}
 
 interface Props {
     carData: CarYearlyData;
     transportData: TransportYearlyData;
     endYear: string;
+    currentFilter: FilterOptions;
 }
 
-const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => {
+const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, currentFilter }) => {
     const [startYear, setStartYear] = useState<string>('2013');
     const [selectedCarMetric, setSelectedCarMetric] = useState<keyof CarData>('passenger_km');
     const [selectedTransportMetric, setSelectedTransportMetric] = useState<keyof TransportData>('total_local_passenger_km');
     const d3Container = useRef<SVGSVGElement | null>(null);
+
+    const [currentSorting, setCurrentSorting] = useState<ChartSorting>(ChartSorting.None);
+
+    const _adaptCombinedChartToFilter = () => {
+        switch(currentFilter) {
+            case FilterOptions.Comparison:
+                if(currentSorting != ChartSorting.None) {
+                    setCurrentSorting(ChartSorting.None);
+                }
+                break;
+            case FilterOptions.FocusPublicTransport:
+                if(currentSorting != ChartSorting.SortPublicTransport) {
+                    setCurrentSorting(ChartSorting.SortPublicTransport);
+                }
+                break;  
+            case FilterOptions.FocusCars:
+                if(currentSorting != ChartSorting.SortCars) {
+                    setCurrentSorting(ChartSorting.SortCars);
+                }
+                break;
+            default:
+                console.log(`Got ${currentFilter} but expected Comparison, FocusPublicTransport or FocusCars`);
+        }
+    }
+
 
     // Tooltip
     const [tooltipVisible, setTooltipVisible] = useState(false);
@@ -214,6 +245,7 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
                 .attr("width", x1.bandwidth())
                 .attr("y", d => yCar(Math.max(0, d.carChange)))
                 .attr("height", d => Math.abs(yCar(d.carChange) - yCar(0)))
+                // @ts-ignore
                 .attr("fill", color('carData'))
                 .on("mouseover", (event, d) => {
                     storeOriginalColor(event);
@@ -231,6 +263,7 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
                 .attr("width", x1.bandwidth())
                 .attr("y", d => yTransport(Math.max(0, d.transportChange)))
                 .attr("height", d => Math.abs(yTransport(d.transportChange) - yTransport(0)))
+                // @ts-ignore
                 .attr("fill", color('transportData'))
                 .on("mouseover", (event, d) => {
                     storeOriginalColor(event);

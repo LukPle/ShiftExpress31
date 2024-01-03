@@ -21,6 +21,7 @@ export enum KeyFinding {
   None = "NONE",
   Shift = "SHIFT",
   Covid = "COVID",
+  CarCountry = "CAR_COUNTRY",
 }
 
 const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {

@@ -15,9 +15,14 @@ import {
   FastRewind,
 } from "@mui/icons-material";
 
+export enum FilterOptions {
+  Comparison, FocusPublicTransport, FocusCars
+}
+
 const TransportShift: React.FC = () => {
   const [endYear, setEndYear] = useState<number>(2013);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [currentFilter, setCurrentFilter] = useState<FilterOptions>(FilterOptions.Comparison);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -45,10 +50,10 @@ const TransportShift: React.FC = () => {
     <Stack direction={"column"} minWidth={"100%"}>
       <Stack direction={"row"} gap={2} sx={{}} pt={3}>
         <Card sx={{ flex: 2 }}>
-          <CombinedDevTS carData={carData} transportData={pTData} endYear={endYear.toString()} />
+          <CombinedDevTS carData={carData} transportData={pTData} endYear={endYear.toString()} currentFilter={currentFilter} />
         </Card>
         <Card sx={{ flex: 1.5 }}>
-          <MapTS transportData={pTData} carData={carData} endYear={endYear.toString()} />
+          <MapTS transportData={pTData} carData={carData} endYear={endYear.toString()} currentFilter={currentFilter} />
         </Card>
       </Stack>
       <Stack direction={"row"} gap={1} sx={{}} pt={2} alignItems={"center"} justifyContent={"flex-start"} minWidth={"100%"}>
