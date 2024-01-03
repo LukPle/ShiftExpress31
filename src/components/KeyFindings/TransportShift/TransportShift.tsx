@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CombinedDevTS from './CombinedDevTS';
 import MapTS from './MapTS';
+import LineChartTS from './LineChartTS';
 import pTData from "../../../data/pT.json";
 import carData from "../../../data/car.json";
 import {
@@ -44,10 +45,13 @@ const TransportShift: React.FC = () => {
   return (
     <Stack direction={"column"} minWidth={"100%"}>
       <Stack direction={"row"} gap={2} sx={{}} pt={3}>
-        <Card sx={{ flex: 2 }}>
-          <CombinedDevTS carData={carData} transportData={pTData} endYear={endYear.toString()} />
-        </Card>
-        <Card sx={{ flex: 1.5 }}>
+        <Stack direction={"column"} gap={2} sx={{ flex: 2 }}>
+          <Card>
+            <CombinedDevTS carData={carData} transportData={pTData} endYear={endYear.toString()} />
+          </Card>
+          <LineChartTS carData={carData} transportData={pTData} startYear='2013' endYear='2019' />
+        </Stack>
+        <Card sx={{ flex: 1 }}>
           <MapTS transportData={pTData} carData={carData} endYear={endYear.toString()} />
         </Card>
       </Stack>
