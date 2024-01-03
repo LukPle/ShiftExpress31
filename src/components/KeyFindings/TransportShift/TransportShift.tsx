@@ -42,6 +42,10 @@ const TransportShift: React.FC = () => {
     setIsPlaying((prevIsPlaying) => !prevIsPlaying);
   };
 
+  const setCurrentYear = (year: string) => {
+    setEndYear(parseInt(year));
+  };
+
   return (
     <Stack direction={"column"} minWidth={"100%"}>
       <Stack direction={"row"} gap={2} sx={{}} pt={3}>
@@ -49,7 +53,7 @@ const TransportShift: React.FC = () => {
           <Card>
             <CombinedDevTS carData={carData} transportData={pTData} endYear={endYear.toString()} />
           </Card>
-          <LineChartTS carData={carData} transportData={pTData} startYear='2013' endYear='2019' />
+          <LineChartTS carData={carData} transportData={pTData} startYear='2013' endYear='2019' currentYear={endYear.toString()} setCurrentYear={setCurrentYear}/>
         </Stack>
         <Card sx={{ flex: 1 }}>
           <MapTS transportData={pTData} carData={carData} endYear={endYear.toString()} />

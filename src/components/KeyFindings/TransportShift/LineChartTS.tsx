@@ -11,15 +11,16 @@ interface LineChartCombinedProps {
     transportData: TransportYearlyData;
     startYear: string;
     endYear: string;
+    currentYear: string;
+    setCurrentYear: (year: string) => void;
 }
 
-const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData, startYear, endYear }) => {
+const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData, startYear, endYear, currentYear, setCurrentYear}) => {
     const d3Container = useRef(null);
     const margin = { top: 10, right: 30, bottom: 20, left: 30 };
     const width = 800 - margin.left - margin.right;
     const height = 120 - margin.top - margin.bottom;
 
-    const [currentYear, setCurrentYear] = useState(startYear);
     const markerRef = useRef(null);
 
     useEffect(() => {
