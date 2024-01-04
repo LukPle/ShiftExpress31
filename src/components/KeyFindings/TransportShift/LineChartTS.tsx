@@ -113,7 +113,23 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                         .x((d) => x(d.year))
                         .y((d) => y(d.percentageChange))
                 );
-
+        
+                
+        // Draw horizontal lines at specified values
+        //TODO: Build reference lines based on max / min values of dataset props
+        const referenceLines = [2, 4, 6, 8];
+        svg.selectAll(".reference-line")
+            .data(referenceLines)
+            .enter().append("line")
+            .attr("class", "reference-line")
+            .attr("x1", 0)
+            .attr("x2", width)
+            .attr("y1", d => y(d))
+            .attr("y2", d => y(d))
+            .attr("stroke", "#ddd") // Light grey color
+            // @ts-ignore
+            .attr("stroke-width", 2)
+            .attr("stroke-dasharray", "3,4"); // Dashed line style
 
             // Add an overlay to capture mouse events on the canvas for the dots and the marker
             const overlay = svg.append('rect')
