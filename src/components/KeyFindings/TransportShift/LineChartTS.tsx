@@ -64,7 +64,9 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
             // Append the y-axis to your chart
             svg.append("g")
                 .attr("class", "y-axis")
-                .call(yAxis);
+                .call(yAxis)
+                .selectAll('text')
+                .style('font-size', '13px');
 
             // Scales
             const x = d3
@@ -78,8 +80,9 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                 .attr('transform', `translate(0,${height})`)
                 .call(d3.axisBottom(x)
                     .tickValues(allYears) // Set the tick values to the years from your data
-                    .tickFormat(d3.format('d'))); // Format ticks as integers without comma separators
-
+                    .tickFormat(d3.format('d'))) // Format ticks as integers without comma separators
+                .selectAll('text')
+                .style('font-size', '13px');
 
             // Car Data Line
             svg
