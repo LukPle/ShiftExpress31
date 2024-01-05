@@ -53,7 +53,7 @@ const TransportShift: React.FC = () => {
   };
 
   return (
-    <Stack direction={"column"} minWidth={"100%"} gap={2} pt={3}>
+    <Stack direction={"column"} minWidth={"100%"} gap={2} pt={2}>
       <Card>
           <Stack direction={"row"} spacing={2}>
             <Button variant={currentFilter === FilterOptions.Comparison ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.Comparison)}>Comparison</Button>
@@ -75,7 +75,7 @@ const TransportShift: React.FC = () => {
               <IconButton variant="solid" onClick={() => setEndYear(2013)} size="lg" sx={{ backgroundColor: "#03045A" }}>
                 <FastRewind />
               </IconButton>
-              <Typography pt={2} marginLeft={'15px'}><i>End Year: {endYear}</i></Typography>
+              <Typography pt={2} marginLeft={'15px'}><i>Current Year: {endYear}</i></Typography>
           </Stack>
           </Card>
         </Stack>
