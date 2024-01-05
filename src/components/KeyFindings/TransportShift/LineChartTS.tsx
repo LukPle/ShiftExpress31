@@ -113,23 +113,44 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                         .x((d) => x(d.year))
                         .y((d) => y(d.percentageChange))
                 );
-        
+
+            // Car Data Circles
+            svg.selectAll(".car-circle")
+            .data(carPercentageChangeData)
+            .enter().append("circle")
+            .attr("class", "car-circle")
+            .attr("cx", d => x(d.year))
+            .attr("cy", d => y(d.percentageChange))
+            .attr("r", 5) // Adjust the radius as needed
+            .attr("fill", "#9B8D8C");
+
+            // Transport Data Circles
+            svg.selectAll(".transport-circle")
+            .data(transportPercentageChangeData)
+            .enter().append("circle")
+            .attr("class", "transport-circle")
+            .attr("cx", d => x(d.year))
+            .attr("cy", d => y(d.percentageChange))
+            .attr("r", 5) // Adjust the radius as needed
+            .attr("fill", "#03045A");
+
+
                 
-        // Draw horizontal lines at specified values
-        //TODO: Build reference lines based on max / min values of dataset props
-        const referenceLines = [2, 4, 6, 8];
-        svg.selectAll(".reference-line")
-            .data(referenceLines)
-            .enter().append("line")
-            .attr("class", "reference-line")
-            .attr("x1", 0)
-            .attr("x2", width)
-            .attr("y1", d => y(d))
-            .attr("y2", d => y(d))
-            .attr("stroke", "#ddd") // Light grey color
-            // @ts-ignore
-            .attr("stroke-width", 2)
-            .attr("stroke-dasharray", "3,4"); // Dashed line style
+            // Draw horizontal lines at specified values
+            //TODO: Build reference lines based on max / min values of dataset props
+            const referenceLines = [2, 4, 6, 8];
+            svg.selectAll(".reference-line")
+                .data(referenceLines)
+                .enter().append("line")
+                .attr("class", "reference-line")
+                .attr("x1", 0)
+                .attr("x2", width)
+                .attr("y1", d => y(d))
+                .attr("y2", d => y(d))
+                .attr("stroke", "#ddd") // Light grey color
+                // @ts-ignore
+                .attr("stroke-width", 2)
+                .attr("stroke-dasharray", "3,4"); // Dashed line style
 
             // Add an overlay to capture mouse events on the canvas for the dots and the marker
             const overlay = svg.append('rect')
@@ -157,13 +178,15 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                 .append('text')
                 .style('opacity', 0)
                 .attr('text-anchor', 'left')
-                .attr('alignment-baseline', 'middle');
+                .attr('alignment-baseline', 'middle')
+                .style('background-color', 'white');
 
             const focusTextPT = svg.append('g')
                 .append('text')
                 .style('opacity', 0)
                 .attr('text-anchor', 'left')
-                .attr('alignment-baseline', 'middle');
+                .attr('alignment-baseline', 'middle')
+                .style('background-color', 'brown')
 
             // Function to find the closest data point for tooltip
             //@ts-ignore
