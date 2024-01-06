@@ -4,7 +4,7 @@ import { getFlagProperty } from './FlagSwitchUtil';
 interface TooltipProps {
     tooltipPosition: {x: number; y: number;}
     tooltipState: string;
-    tooltipContent: string;
+    tooltipContent: any;
 }
 
 const Tooltip: React.FC<TooltipProps> = ({ tooltipPosition, tooltipState, tooltipContent }) => {

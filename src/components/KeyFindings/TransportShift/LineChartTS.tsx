@@ -29,7 +29,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
         visible: false,
         position: { x: 0, y: 0 },
         state: '',
-        content: '',
+        content: <></>,
     });
 
     useEffect(() => {
@@ -166,7 +166,13 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                     visible: true,
                     position: { x: x(selectedDataCar.year) + margin.left + 20, y: y(selectedDataCar.percentageChange) + margin.top - 35 },
                     state: "Germany",
-                    content: `🚈 ${selectedDataTransport.percentageChange.toFixed(2)}% change     🚗 ${selectedDataCar.percentageChange.toFixed(2)}% change`,
+                    content: (
+                        <>
+                            🚗 {selectedDataCar.percentageChange.toFixed(2)}% change
+                            <br />
+                            🚈 {selectedDataTransport.percentageChange.toFixed(2)}% change
+                        </>
+                    ),
                 });
             };
 
