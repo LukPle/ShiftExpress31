@@ -91,38 +91,34 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
 
 
             // Car Data Line
-            if (currentFilter !== FilterOptions.FocusPublicTransport) {
-                svg
-                    .append('path')
-                    .datum(carPercentageChangeData)
-                    .attr('fill', 'none')
-                    .attr('stroke', '#9B8D8C')
-                    .attr('stroke-width', 5)
-                    .attr(
-                        'd',
-                        d3
-                            .line<any>()
-                            .x((d) => x(d.year))
-                            .y((d) => y(d.percentageChange))
-                    );
-            }
+            svg
+                .append('path')
+                .datum(carPercentageChangeData)
+                .attr('fill', 'none')
+                .attr('stroke', (currentFilter !== FilterOptions.FocusPublicTransport) ? '#9B8D8C' : '#E8E8E8')
+                .attr('stroke-width', 5)
+                .attr(
+                    'd',
+                    d3
+                        .line<any>()
+                        .x((d) => x(d.year))
+                        .y((d) => y(d.percentageChange))
+                );
 
             // Transport Data Line
-            if (currentFilter !== FilterOptions.FocusCars) {
-                svg
-                    .append('path')
-                    .datum(transportPercentageChangeData)
-                    .attr('fill', 'none')
-                    .attr('stroke', '#03045A')
-                    .attr('stroke-width', 5)
-                    .attr(
-                        'd',
-                        d3
-                            .line<any>()
-                            .x((d) => x(d.year))
-                            .y((d) => y(d.percentageChange))
-                    );
-            }
+            svg
+                .append('path')
+                .datum(transportPercentageChangeData)
+                .attr('fill', 'none')
+                .attr('stroke', (currentFilter !== FilterOptions.FocusCars) ? '#03045A' : '#E8E8E8')
+                .attr('stroke-width', 5)
+                .attr(
+                    'd',
+                    d3
+                        .line<any>()
+                        .x((d) => x(d.year))
+                        .y((d) => y(d.percentageChange))
+                );
 
             // Add an overlay to capture mouse events on the canvas for the dots and the marker
             const overlay = svg.append('rect')
@@ -135,13 +131,13 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
             // Add circles for the data points
             const focusCar = svg.append('g')
                 .append('circle')
-                .style('fill', '#9B8D8C')
+                .style('fill', (currentFilter !== FilterOptions.FocusPublicTransport) ? '#9B8D8C' : '#E8E8E8')
                 .attr('r', 7)
                 .style('display', 'none');
 
             const focusTransport = svg.append('g')
                 .append('circle')
-                .style('fill', '#03045A')
+                .style('fill', (currentFilter !== FilterOptions.FocusCars) ? '#03045A' : '#E8E8E8')
                 .attr('r', 7)
                 .style('display', 'none');
 
@@ -183,6 +179,11 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                 .on('mouseout', () => {
                     focusCar.style('display', 'none');
                     focusTransport.style('display', 'none');
+
+                    setTooltip((prevTooltip) => ({
+                        ...prevTooltip,
+                        visible: false,
+                    }));
                 })
                 .on('mousemove', mousemove);
 
