@@ -97,7 +97,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
                             : ['#DD0606','rgba(221, 6, 6, 0.5)', '#FFFFFF','rgba(60, 27, 24, 0.5)', '#3C1B18'];
 
     const colorScale = d3.scaleLinear<string>()
-        .domain(isPT ? [-40, -20, 0, 20, 40] : [-20, -10, 0, 10, 20])
+        .domain(isPT ? [-40, -20, 0, 20, 40] : [-10, -5, 0, 5, 10])
         .range(colorRange);
 
     const width = 300;
