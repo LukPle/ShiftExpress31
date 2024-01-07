@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CombinedDevTS from './CombinedDevTS';
 import MapTS from './MapTS';
+import LineChartTS from './LineChartTS';
 import pTData from "../../../data/pT.json";
 import carData from "../../../data/car.json";
 import {
@@ -41,34 +42,33 @@ const TransportShift: React.FC = () => {
     setIsPlaying((prevIsPlaying) => !prevIsPlaying);
   };
 
+  const setCurrentYear = (year: string) => {
+    setEndYear(parseInt(year));
+  };
+
   return (
-    <div>
-      <Typography mt={2}>
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-        diam nonumy eirmod tempor invidunt ut labore et dolore magna
-        aliquyam erat, sed diam voluptua. At vero eos et accusam et
-        justo duo dolores et ea rebum.
-      </Typography>
-      <Stack direction={"column"} alignItems={"center"} justifyContent={"center"} minWidth={"100%"}>
-        <Stack direction={"row"} gap={2} sx={{}} pt={3}>
+    <Stack direction={"column"} minWidth={"100%"}>
+      <Stack direction={"row"} gap={2} sx={{}} pt={3}>
+        <Stack direction={"column"} gap={2} sx={{ flex: 2 }}>
           <Card>
             <CombinedDevTS carData={carData} transportData={pTData} endYear={endYear.toString()} />
           </Card>
-          <Card>
-            <MapTS transportData={pTData} endYear={endYear.toString()} />
-          </Card>
+          <LineChartTS carData={carData} transportData={pTData} startYear='2013' endYear='2019' currentYear={endYear.toString()} setCurrentYear={setCurrentYear}/>
         </Stack>
-        <Stack direction={"row"} gap={1} sx={{}} pt={2} alignItems={"center"} justifyContent={"flex-start"} minWidth={"100%"}>
-          <IconButton variant="solid" onClick={handlePlayPause} size="lg" sx={{ backgroundColor: "#03045A" }}>
-            {isPlaying ? <Pause /> : <PlayArrow />}
-          </IconButton>
-          <IconButton variant="solid" onClick={() => setEndYear(2013)} size="lg" sx={{ backgroundColor: "#03045A" }}>
-            <FastRewind />
-          </IconButton>
-        </Stack>
-        <Typography pt={2}><i>End Year: {endYear}</i></Typography>
+        <Card sx={{ flex: 1 }}>
+          <MapTS transportData={pTData} carData={carData} endYear={endYear.toString()} />
+        </Card>
       </Stack>
-    </div>
+      <Stack direction={"row"} gap={1} sx={{}} pt={2} alignItems={"center"} justifyContent={"flex-start"} minWidth={"100%"}>
+        <IconButton variant="solid" onClick={handlePlayPause} size="lg" sx={{ backgroundColor: "#03045A" }}>
+          {isPlaying ? <Pause /> : <PlayArrow />}
+        </IconButton>
+        <IconButton variant="solid" onClick={() => setEndYear(2013)} size="lg" sx={{ backgroundColor: "#03045A" }}>
+          <FastRewind />
+        </IconButton>
+      </Stack>
+      <Typography pt={2}><i>End Year: {endYear}</i></Typography>
+    </Stack>
   );
 };
 

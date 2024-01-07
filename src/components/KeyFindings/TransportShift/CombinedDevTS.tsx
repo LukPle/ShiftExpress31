@@ -3,6 +3,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import { CarData, YearlyData as CarYearlyData } from '../../../data/carDataInterface';
 import { TransportData, YearlyData as TransportYearlyData } from '../../../data/pTDataInterface';
+import GroupedBarChartLegend from "./GroupedBarChartLegend";
+import Tooltip from "./Tooltip";
 
 interface Props {
     carData: CarYearlyData;
@@ -13,8 +15,34 @@ interface Props {
 const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => {
     const [startYear, setStartYear] = useState<string>('2013');
     const [selectedCarMetric, setSelectedCarMetric] = useState<keyof CarData>('passenger_km');
-    const [selectedTransportMetric, setSelectedTransportMetric] = useState<keyof TransportData>('total_local_passengers');
+    const [selectedTransportMetric, setSelectedTransportMetric] = useState<keyof TransportData>('total_local_passenger_km');
     const d3Container = useRef<SVGSVGElement | null>(null);
+
+    // Tooltip
+    const [tooltipVisible, setTooltipVisible] = useState(false);
+    const [tooltipContent, setTooltipContent] = useState('');
+    const [tooltipState, setTooltipState] = useState('');
+    const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
+    const GERMAN_STATES = {
+        'BW': 'Baden-Württemberg',
+        'BY': 'Bavaria',
+        'BE': 'Berlin',
+        'BB': 'Brandenburg',
+        'HB': 'Bremen',
+        'HH': 'Hamburg',
+        'HE': 'Hesse',
+        'MV': 'Mecklenburg-Vorpommern',
+        'NI': 'Lower-Saxony',
+        'NW': 'North Rhine-Westphalia',
+        'RP': 'Rhineland-Palatinate',
+        'SL': 'Saarland',
+        'SN': 'Saxony',
+        'ST': 'Saxony-Anhalt',
+        'SH': 'Schleswig-Holstein',
+        'TH': 'Thuringia'
+    };
+
+    const color = d3.scaleOrdinal().range(["rgba(60, 27, 24, 0.5)", "#03045E"]); // Car, PT
 
     const calculatePercentageChange = (data: CarYearlyData | TransportYearlyData, state: string, metric: keyof CarData | keyof TransportData) => {
         const startYearData = data[startYear].find(d => d.state === state);
@@ -35,13 +63,48 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
         }
     };
 
+    // Store the original fill color before applying hover pattern
+    const storeOriginalColor = (event: React.MouseEvent<SVGRectElement, MouseEvent>) => {
+        const originalColor = d3.select(event.currentTarget).style('fill') ?? 'initial';
+        event.currentTarget.setAttribute('data-original-color', originalColor);
+    };
+
+    // Handling the mouse hover for bars
+    const handleMouseOverBar = (event: React.MouseEvent<SVGRectElement, MouseEvent>, d: any, dataset: 'carData' | 'transportData') => {
+        const isPT = dataset === 'transportData' ? true : false;
+
+        const [x, y] = d3.pointer(event);
+        // @ts-ignore
+        const stateFullName = GERMAN_STATES[d.state] || d.state; // Use full name if available, else use the abbreviation
+
+        setTooltipState(stateFullName);
+        setTooltipPosition({ x, y });
+        setTooltipContent(`${isPT ? '🚈' : '🚗'} ${isPT ? d.transportChange.toFixed(2) : d.carChange.toFixed(2)}% change`);
+        setTooltipVisible(true);
+
+        d3.select(event.currentTarget).style('fill', 'url(#stripes-pattern)');
+    };
+
+    // Handling the mouse exit for bars
+    const handleMouseOutBar = (event: React.MouseEvent<SVGRectElement, MouseEvent>) => {
+        setTooltipVisible(false);
+        // Restore the original fill color
+        const originalColor = event.currentTarget.getAttribute('data-original-color');
+        // @ts-ignore
+        d3.select(event.currentTarget).style('fill', originalColor);
+
+        event.currentTarget.removeAttribute('data-original-color');
+    };
+
+
+    // @ts-ignore
     useEffect(() => {
         if (carData && transportData && d3Container.current) {
             d3.select(d3Container.current).selectAll("*").remove();
 
-            const margin = { top: 20, right: 30, bottom: 40, left: 30 };
-            const width = 500 - margin.left - margin.right;
-            const height = 300 - margin.top - margin.bottom;
+            const margin = { top: 5, right: 30, bottom: 10, left: 30 };
+            const width = 800 - margin.left - margin.right;
+            const height = 250 - margin.top - margin.bottom;
 
             const svg = d3.select(d3Container.current)
                 .attr("width", width + margin.left + margin.right)
@@ -83,10 +146,9 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
 
             const x1 = d3.scaleBand()
                 .padding(0.05)
-                .domain(['carData', 'transportData'])
+                .domain(['transportData', 'carData'])
                 .rangeRound([0, x0.bandwidth()]);
 
-            const color = d3.scaleOrdinal(d3.schemeCategory10);
 
             // Find the maximum absolute percentage change for both datasets
             const maxCarChange = d3.max(combinedPercentageChanges, d => Math.abs(d.carChange)) as number;
@@ -94,16 +156,17 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
             const maxChange = Math.max(maxCarChange, maxTransportChange);
 
 
-            // Define the y-scales with the same domain extent to align the zero points
+            // Define the y-scales with fixed domain extent
             const yCar = d3.scaleLinear()
                 .range([height, 0])
-                .domain([-maxChange, maxChange])
+                .domain([-50, 50])
                 .nice();
 
             const yTransport = d3.scaleLinear()
                 .range([height, 0])
-                .domain([-maxChange, maxChange])
+                .domain([-50, 50])
                 .nice();
+
 
             // Create the axes
             const yAxisLeft = d3.axisLeft(yCar);
@@ -112,7 +175,33 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
             // Append the axes to the SVG
             svg.append("g")
                 .attr("class", "y axis left")
-                .call(yAxisLeft);
+                .call(yAxisLeft)
+                .selectAll("text") // Selecting all text elements within the axis
+                .style("font-size", "13px"); // Set the font size
+
+            // Draw horizontal lines at specified values
+            const referenceLines = [-40, -20, 20, 40];
+
+
+            svg.selectAll(".reference-line")
+                .data(referenceLines)
+                .enter().append("line")
+                .attr("class", "reference-line")
+                .attr("x1", 0)
+                .attr("x2", width)
+                .attr("y1", d => yCar(d))
+                .attr("y2", d => yCar(d))
+                .attr("stroke", "#ddd") // Light grey color
+                // @ts-ignore
+                .attr("stroke-width", 2.5)
+                .attr("stroke-dasharray", "3,3"); // Dashed line style
+
+            // Append the axes to the SVG
+            svg.append("g")
+                .attr("class", "y axis left")
+                .call(yAxisLeft)
+                .selectAll("text") // Selecting all text elements within the axis
+                .style("font-size", "13px"); // Set the font size
 
 
             // Draw the bars for CarData
@@ -125,7 +214,13 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
                 .attr("width", x1.bandwidth())
                 .attr("y", d => yCar(Math.max(0, d.carChange)))
                 .attr("height", d => Math.abs(yCar(d.carChange) - yCar(0)))
-                .attr("fill", color('carData'));
+                // @ts-ignore
+                .attr("fill", color('carData'))
+                .on("mouseover", (event, d) => {
+                    storeOriginalColor(event);
+                    handleMouseOverBar(event, d, 'carData');
+                })
+                .on("mouseout", handleMouseOutBar);
 
             // Draw the bars for TransportData
             svg.selectAll(".bar.transport")
@@ -137,24 +232,30 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
                 .attr("width", x1.bandwidth())
                 .attr("y", d => yTransport(Math.max(0, d.transportChange)))
                 .attr("height", d => Math.abs(yTransport(d.transportChange) - yTransport(0)))
-                .attr("fill", color('transportData'));
+                // @ts-ignore
+                .attr("fill", color('transportData'))
+                .on("mouseover", (event, d) => {
+                    storeOriginalColor(event);
+                    handleMouseOverBar(event, d, 'transportData');
+                })
+                .on("mouseout", handleMouseOutBar);
 
             // Add the x-axis
             svg.append("g")
                 .attr("class", "x axis")
                 .attr("transform", `translate(0,${yCar(0)})`)
                 .call(d3.axisBottom(x0));
-
         }
     }, [carData, transportData, startYear, endYear, selectedCarMetric, selectedTransportMetric]);
 
     return (
         <div>
+            {/*
             <Stack direction={"row"}>
                 <Stack gap={"5px"} ml={3}>
                     <Stack direction={"row"} gap={"5px"}>
                         <Typography pt={"5px"}>Car Dataset:</Typography>
-                        {/* @ts-ignore */}
+                        // @ts-ignore
                         <Badge color="cars">
                             <Select defaultValue="passenger_km" sx={{ minWidth: "250px", maxHeight: "30px", marginLeft: "10px" }}>
                                 <Option value="passenger_km" onClick={() => setSelectedCarMetric('passenger_km')}>Total Passenger KMs</Option>
@@ -166,9 +267,9 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
                     </Stack>
                     <Stack direction={"row"} gap={"5px"}>
                         <Typography pt={"5px"}>Public Transport Dataset:</Typography>
-                        {/* @ts-ignore */}
+                        // @ts-ignore
                         <Badge color="pT">
-                            <Select defaultValue="total_local_passengers" sx={{ minWidth: "250px", maxHeight: "30px", marginLeft: "10px" }}>
+                            <Select defaultValue="total_local_passenger_km" sx={{ minWidth: "250px", maxHeight: "30px", marginLeft: "10px" }}>
                                 <Option value="total_local_passengers" onClick={() => setSelectedTransportMetric('total_local_passengers')}>Total Local Passengers</Option>
                                 <Option value="total_local_passenger_km" onClick={() => setSelectedTransportMetric('total_local_passenger_km')}>Total Local Passenger Km</Option>
                             </Select>
@@ -176,7 +277,11 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
                     </Stack>
                 </Stack>
             </Stack>
+            */}
+            <Typography sx={{ marginTop: '10px', marginBottom: '30px', fontWeight: 'lg' }}>Change of usage from 2013 across all federal states</Typography>
             <svg ref={d3Container} />
+            <GroupedBarChartLegend></GroupedBarChartLegend>
+            {tooltipVisible && (<Tooltip tooltipPosition={tooltipPosition} tooltipState={tooltipState} tooltipContent={tooltipContent}></Tooltip>)}
         </div>
     );
 };

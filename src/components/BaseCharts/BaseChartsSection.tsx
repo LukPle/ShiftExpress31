@@ -3,6 +3,7 @@ import { Typography, Stack, Card, AccordionGroup, Accordion, AccordionSummary, A
 import { Train, DirectionsCar, MergeType } from "@mui/icons-material";
 import MapChart from '../MapComponents/Map';
 import TimeLineChart from './TimeLineChart';
+import LineChartTim from './LineChartTim';  
 import BarChartPT from './ChartsPT/BarChartPT';
 import BarChartPTDev from './ChartsPT/BarChartPTDevelopment';
 import BarChartCar from './ChartsCars/BarChartCar';
@@ -34,7 +35,8 @@ const BaseChartsSection: React.FC<BaseChartsSectionProps> = () => {
                 <Stack direction={"row"} mt={2}>
                   <MapChart />
                 </Stack>
-                <TimeLineChart />
+                <LineChartTim carData={carData} transportData={pTData} startYear='2013' endYear='2019' />
+                <TimeLineChart startYearProp="2013" endYearProp="2022" />
               </Stack>
             </AccordionDetails>
           </Accordion>
