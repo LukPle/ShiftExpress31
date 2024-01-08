@@ -321,7 +321,7 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
                 </Stack>
             </Stack>
             */}
-            <Typography sx={{ marginTop: '10px', marginBottom: '30px', fontWeight: 'lg' }}>Change of usage from 2013 to {endYear} across all federal states</Typography>
+            <Typography sx={{ marginTop: '5px', marginBottom: '30px', fontWeight: 'lg' }}>Change of usage from 2013 to {endYear} across all federal states</Typography>
             <svg ref={d3Container} />
             <GroupedBarChartLegend currentSorting={currentSorting}></GroupedBarChartLegend>
             {tooltipVisible && (<Tooltip tooltipPosition={tooltipPosition} tooltipState={tooltipState} tooltipContent={tooltipContent}></Tooltip>)}
