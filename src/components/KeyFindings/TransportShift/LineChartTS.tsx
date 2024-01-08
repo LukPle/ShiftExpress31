@@ -4,7 +4,7 @@ import * as d3 from 'd3';
 import { motion, useAnimation } from 'framer-motion';
 import { YearlyData as CarYearlyData, CarData } from '@/data/carDataInterface';
 import { YearlyData as TransportYearlyData, TransportData } from '@/data/pTDataInterface';
-import { Card } from "@mui/joy";
+import { Card, Typography } from "@mui/joy";
 import styles from "@/styles/charts.module.css";
 
 interface LineChartCombinedProps {
@@ -308,6 +308,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
 
     return (
         <Card>
+            <Typography sx={{ marginTop: '10px', marginBottom: '15px', fontWeight: 'lg' }}>Cumulative change of usage in Germany from {startYear}</Typography>
             <div style={{ position: 'relative' }}>
                 <svg
                     className="d3-component"
