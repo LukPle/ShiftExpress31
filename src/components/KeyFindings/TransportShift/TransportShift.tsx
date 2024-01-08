@@ -30,7 +30,7 @@ const TransportShift: React.FC = () => {
         } else {
           setIsPlaying(false);
         }
-      }, 1000);
+      }, 2000);
     }
 
     return () => {

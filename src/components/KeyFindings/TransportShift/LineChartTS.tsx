@@ -1,6 +1,7 @@
 // LineChartCombined.tsx
 import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
+import { motion, useAnimation } from 'framer-motion';
 import { YearlyData as CarYearlyData, CarData } from '@/data/carDataInterface';
 import { YearlyData as TransportYearlyData, TransportData } from '@/data/pTDataInterface';
 import { Card } from "@mui/joy";
@@ -22,6 +23,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
     const height = 120 - margin.top - margin.bottom;
 
     const markerRef = useRef(null);
+    const controls = useAnimation(); // Create animation controls
 
     useEffect(() => {
         if ((carData && transportData) && d3Container.current) {
@@ -256,11 +258,20 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
             // Update the marker position
             if (currentYear && markerRef.current) {
                 const markerXPosition = x(parseInt(currentYear));
-                d3.select(markerRef.current).style('left', `${margin.left + markerXPosition - 4}px`);
+                //d3.select(markerRef.current).style('left', `${margin.left + markerXPosition - 4}px`);
+                const targetLeft = margin.left + markerXPosition - 4;
+                const animation = {
+                    left: targetLeft,
+                    transition: { type: 'tween', duration: 2 },
+                };
+                console.log('Animation triggered with:', animation);
+
+                controls.start(animation);
+
             }
 
         }
-    }, [carData, transportData, startYear, endYear, currentYear]);
+    }, [carData, transportData, startYear, endYear, currentYear, controls]);
 
     const calculatePercentageChange = (
         data: CarYearlyData | TransportYearlyData,
@@ -306,15 +317,17 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                     ref={d3Container}
                 />
                 {currentYear && (
-                    <div
+                    <motion.div
                         ref={markerRef}
                         style={{
                             position: 'absolute',
                             top: `${margin.top}px`,
                             height: `${height}px`,
                         }}
+                        animate={controls}
                         className={styles.timeLineMarker}
-                    />
+                    >
+                    </motion.div>
                 )}
             </div>
         </Card>
