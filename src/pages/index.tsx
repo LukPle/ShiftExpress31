@@ -52,13 +52,13 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
   return (
     <div className={styles.snappingContainer}>
       <Stack direction={"column"} mx={12} my={7}>
-        <Section title="">
+        <Section title="" onInViewChange={inView => {if (inView) {setSection(0)}}}>
           <IntroSection />
         </Section>
-        <Section title="Introduction">
+        <Section title="Introduction" onInViewChange={inView => {if (inView) {setSection(1)}}}>
           <ProjectArea />
         </Section>
-        <Section title="What do you want to research?">
+        <Section title="What do you want to research?" onInViewChange={inView => {if (inView) {setSection(2)}}}>
           <KeyFindingsSection keyFinding={currentKeyFinding} onUpdateKeyFinding={updateKeyFinding} />
         </Section>
 
@@ -77,11 +77,11 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
         )}
         </div>
 
-        <Section title="Who are we?" halfAcrossLine={true}>
+        <Section title="Who are we?" halfAcrossLine={true} onInViewChange={inView => {if (inView) {setSection(3)}}}>
           <TeamSection />
         </Section>
 
-        <Section title="🛠️ Legacy Components">
+        <Section title="🛠️ Legacy Components" onInViewChange={inView => {if (inView) {setSection(4)}}}>
           <BaseChartsSection />
         </Section>
 
