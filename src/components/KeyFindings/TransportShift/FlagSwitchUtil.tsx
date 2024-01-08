@@ -2,6 +2,9 @@ export const getFlagProperty = (stateName: string) => {
     let flagUrl: string;
     
     switch (stateName) {
+        case 'Germany':
+            flagUrl = '/state-flags/flag_germany.png';
+            break;
         case 'Baden-Württemberg':
             flagUrl = '/state-flags/flag_baden-wuerttemberg.png';
             break;
