@@ -262,12 +262,9 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                 const targetLeft = margin.left + markerXPosition - 4;
                 const animation = {
                     left: targetLeft,
-                    transition: { type: 'tween', duration: 2 },
+                    transition: { type: 'tween', duration: 2.5 },
                 };
-                console.log('Animation triggered with:', animation);
-
                 controls.start(animation);
-
             }
 
         }
