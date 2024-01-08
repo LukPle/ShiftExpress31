@@ -21,7 +21,7 @@ const Section: React.FC<SectionProps> = ({ title, children, onInViewChange }) =>
 
   return (
     <div ref={ref} style={{minHeight: "90vh"}} className={styles.snappingSection}>
-      <Typography level="h2" style={inView ? {color: "var(--joy-palette-text-tertiary)"} : {color: "var(--joy-palette-primary-500)"}} paddingTop={"20px"}>{title}</Typography>
+      <Typography level="h2" style={inView ? {color: "var(--joy-palette-primary-500)"} : {color: "var(--joy-palette-text-tertiary)"}} paddingTop={"20px"}>{title}</Typography>
       {children}
     </div>
   );

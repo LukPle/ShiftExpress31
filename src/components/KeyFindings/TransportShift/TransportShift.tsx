@@ -9,6 +9,7 @@ import {
   Stack,
   IconButton,
   Typography,
+  Button,
 } from "@mui/joy";
 import {
   PlayArrow,
@@ -16,9 +17,14 @@ import {
   FastRewind,
 } from "@mui/icons-material";
 
+export enum FilterOptions {
+  Comparison, FocusPublicTransport, FocusCars
+}
+
 const TransportShift: React.FC = () => {
   const [endYear, setEndYear] = useState<number>(2013);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [currentFilter, setCurrentFilter] = useState<FilterOptions>(FilterOptions.Comparison);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -30,7 +36,7 @@ const TransportShift: React.FC = () => {
         } else {
           setIsPlaying(false);
         }
-      }, 1000);
+      }, 1500);
     }
 
     return () => {
@@ -47,27 +53,36 @@ const TransportShift: React.FC = () => {
   };
 
   return (
-    <Stack direction={"column"} minWidth={"100%"}>
-      <Stack direction={"row"} gap={2} sx={{}} pt={3}>
+    <Stack direction={"column"} minWidth={"100%"} gap={2} pt={2}>
+      <Card>
+          <Stack direction={"row"} spacing={2}>
+            <Button variant={currentFilter === FilterOptions.Comparison ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.Comparison)}>Comparison</Button>
+            <Button variant={currentFilter === FilterOptions.FocusPublicTransport ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.FocusPublicTransport)}>Focus Public Transport</Button>
+            <Button variant={currentFilter === FilterOptions.FocusCars ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.FocusCars)}>Focus Cars</Button>
+          </Stack>
+        </Card>
+      <Stack direction={"row"} gap={2} sx={{}} >
         <Stack direction={"column"} gap={2} sx={{ flex: 2 }}>
           <Card>
-            <CombinedDevTS carData={carData} transportData={pTData} endYear={endYear.toString()} />
+            <CombinedDevTS carData={carData} transportData={pTData} endYear={endYear.toString()} currentFilter={currentFilter} />
           </Card>
-          <LineChartTS carData={carData} transportData={pTData} startYear='2013' endYear='2019' currentYear={endYear.toString()} setCurrentYear={setCurrentYear}/>
+          <Card>
+            <LineChartTS carData={carData} transportData={pTData} startYear='2013' endYear='2019' currentYear={endYear.toString()} setCurrentYear={setCurrentYear} currentFilter={currentFilter}/>
+            <Stack direction={"row"} gap={1} sx={{}} pt={2} alignItems={"center"} justifyContent={"flex-start"} minWidth={"100%"}>
+              <IconButton variant="solid" onClick={(endYear === 2019) ? () => {} : handlePlayPause} size="lg" sx={{ backgroundColor: (endYear === 2019) ? 'grey' : "#03045A" }}>
+                {isPlaying ? <Pause /> : <PlayArrow />}
+              </IconButton>
+              <IconButton variant="solid" onClick={() => setEndYear(2013)} size="lg" sx={{ backgroundColor: "#03045A" }}>
+                <FastRewind />
+              </IconButton>
+              <Typography pt={2} marginLeft={'15px'}><i>Current Year: {endYear}</i></Typography>
+          </Stack>
+          </Card>
         </Stack>
         <Card sx={{ flex: 1 }}>
-          <MapTS transportData={pTData} carData={carData} endYear={endYear.toString()} />
+          <MapTS transportData={pTData} carData={carData} endYear={endYear.toString()} currentFilter={currentFilter} />
         </Card>
       </Stack>
-      <Stack direction={"row"} gap={1} sx={{}} pt={2} alignItems={"center"} justifyContent={"flex-start"} minWidth={"100%"}>
-        <IconButton variant="solid" onClick={handlePlayPause} size="lg" sx={{ backgroundColor: "#03045A" }}>
-          {isPlaying ? <Pause /> : <PlayArrow />}
-        </IconButton>
-        <IconButton variant="solid" onClick={() => setEndYear(2013)} size="lg" sx={{ backgroundColor: "#03045A" }}>
-          <FastRewind />
-        </IconButton>
-      </Stack>
-      <Typography pt={2}><i>End Year: {endYear}</i></Typography>
     </Stack>
   );
 };

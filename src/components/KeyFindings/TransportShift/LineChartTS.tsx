@@ -1,10 +1,11 @@
-// LineChartCombined.tsx
 import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { YearlyData as CarYearlyData, CarData } from '@/data/carDataInterface';
 import { YearlyData as TransportYearlyData, TransportData } from '@/data/pTDataInterface';
-import { Card } from "@mui/joy";
 import styles from "@/styles/charts.module.css";
+import { FilterOptions } from './TransportShift';
+import Tooltip from './Tooltip';
+
 
 interface LineChartCombinedProps {
     carData: CarYearlyData;
@@ -13,15 +14,23 @@ interface LineChartCombinedProps {
     endYear: string;
     currentYear: string;
     setCurrentYear: (year: string) => void;
+    currentFilter: FilterOptions;
 }
 
-const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData, startYear, endYear, currentYear, setCurrentYear}) => {
+const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData, startYear, endYear, currentYear, setCurrentYear, currentFilter }) => {
     const d3Container = useRef(null);
     const margin = { top: 10, right: 30, bottom: 20, left: 30 };
     const width = 800 - margin.left - margin.right;
     const height = 120 - margin.top - margin.bottom;
 
     const markerRef = useRef(null);
+
+    const [tooltip, setTooltip] = useState({
+        visible: false,
+        position: { x: 0, y: 0 },
+        state: '',
+        content: <></>,
+    });
 
     useEffect(() => {
         if ((carData && transportData) && d3Container.current) {
@@ -86,7 +95,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                 .append('path')
                 .datum(carPercentageChangeData)
                 .attr('fill', 'none')
-                .attr('stroke', '#9B8D8C')
+                .attr('stroke', (currentFilter !== FilterOptions.FocusPublicTransport) ? '#9B8D8C' : '#E8E8E8')
                 .attr('stroke-width', 5)
                 .attr(
                     'd',
@@ -101,7 +110,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                 .append('path')
                 .datum(transportPercentageChangeData)
                 .attr('fill', 'none')
-                .attr('stroke', '#03045A')
+                .attr('stroke', (currentFilter !== FilterOptions.FocusCars) ? '#03045A' : '#E8E8E8')
                 .attr('stroke-width', 5)
                 .attr(
                     'd',
@@ -110,7 +119,6 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                         .x((d) => x(d.year))
                         .y((d) => y(d.percentageChange))
                 );
-
 
             // Add an overlay to capture mouse events on the canvas for the dots and the marker
             const overlay = svg.append('rect')
@@ -123,28 +131,15 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
             // Add circles for the data points
             const focusCar = svg.append('g')
                 .append('circle')
-                .style('fill', '#9B8D8C')
+                .style('fill', (currentFilter !== FilterOptions.FocusPublicTransport) ? '#9B8D8C' : '#E8E8E8')
                 .attr('r', 7)
                 .style('display', 'none');
 
             const focusTransport = svg.append('g')
                 .append('circle')
-                .style('fill', '#03045A')
+                .style('fill', (currentFilter !== FilterOptions.FocusCars) ? '#03045A' : '#E8E8E8')
                 .attr('r', 7)
                 .style('display', 'none');
-
-            // Add text to show the data point values
-            const focusTextCar = svg.append('g')
-                .append('text')
-                .style('opacity', 0)
-                .attr('text-anchor', 'left')
-                .attr('alignment-baseline', 'middle');
-
-            const focusTextPT = svg.append('g')
-                .append('text')
-                .style('opacity', 0)
-                .attr('text-anchor', 'left')
-                .attr('alignment-baseline', 'middle');
 
             // Function to find the closest data point for tooltip
             //@ts-ignore
@@ -167,17 +162,18 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                     .attr('cy', y(selectedDataTransport.percentageChange))
                     .style('display', null);
 
-                focusTextCar
-                    .html(`Car: ${selectedDataCar.percentageChange.toFixed(2)}%`)
-                    .attr('x', x(selectedDataCar.year) + 15)
-                    .attr('y', y(selectedDataCar.percentageChange))
-                    .style('opacity', 1);
-
-                focusTextPT
-                    .html(`Transport: ${selectedDataTransport.percentageChange.toFixed(2)}%`)
-                    .attr('x', x(selectedDataCar.year) + 15)
-                    .attr('y', y(selectedDataTransport.percentageChange))
-                    .style('opacity', 1);
+                setTooltip({
+                    visible: true,
+                    position: { x: x(selectedDataCar.year) + margin.left + 20, y: y(selectedDataCar.percentageChange) + margin.top - 35 },
+                    state: "Germany",
+                    content: (
+                        <>
+                            🚗 {selectedDataCar.percentageChange.toFixed(2)}% change
+                            <br />
+                            🚈 {selectedDataTransport.percentageChange.toFixed(2)}% change
+                        </>
+                    ),
+                });
             };
 
             // Event listeners for the overlay for tooltip
@@ -185,14 +181,15 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                 .on('mouseover', () => {
                     focusCar.style('display', null);
                     focusTransport.style('display', null);
-                    focusTextCar.style('opacity', 1);
-                    focusTextPT.style('opacity', 1);
                 })
                 .on('mouseout', () => {
                     focusCar.style('display', 'none');
                     focusTransport.style('display', 'none');
-                    focusTextCar.style('opacity', 0);
-                    focusTextPT.style('opacity', 0);
+
+                    setTooltip((prevTooltip) => ({
+                        ...prevTooltip,
+                        visible: false,
+                    }));
                 })
                 .on('mousemove', mousemove);
 
@@ -218,7 +215,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
             }
 
         }
-    }, [carData, transportData, startYear, endYear, currentYear]);
+    }, [carData, transportData, startYear, endYear, currentYear, currentFilter]);
 
     const calculatePercentageChange = (
         data: CarYearlyData | TransportYearlyData,
@@ -257,25 +254,32 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
 
 
     return (
-        <Card>
-            <div style={{ position: 'relative' }}>
-                <svg
-                    className="d3-component"
-                    ref={d3Container}
+        <div style={{ position: 'relative' }}>
+            <svg
+                className="d3-component"
+                ref={d3Container}
+            />
+            {currentYear && (
+                <div
+                    ref={markerRef}
+                    style={{
+                        position: 'absolute',
+                        top: `${margin.top}px`,
+                        height: `${height}px`,
+                    }}
+                    className={styles.timeLineMarker}
                 />
-                {currentYear && (
-                    <div
-                        ref={markerRef}
-                        style={{
-                            position: 'absolute',
-                            top: `${margin.top}px`,
-                            height: `${height}px`,
-                        }}
-                        className={styles.timeLineMarker}
-                    />
-                )}
-            </div>
-        </Card>
+            )}
+    
+            {/* Display Tooltip */}
+            {tooltip.visible && (
+                <Tooltip
+                    tooltipPosition={tooltip.position}
+                    tooltipState={tooltip.state}
+                    tooltipContent={tooltip.content}
+                />
+            )}
+        </div>
     );
 };
 
