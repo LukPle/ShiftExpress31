@@ -96,6 +96,23 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                 .selectAll('text')
                 .style('font-size', '13px');
 
+
+            // Draw horizontal lines at specified values
+            //TODO: Build reference lines based on max / min values of dataset props
+            const referenceLines = [2, 4, 6, 8];
+            svg.selectAll(".reference-line")
+                .data(referenceLines)
+                .enter().append("line")
+                .attr("class", "reference-line")
+                .attr("x1", 0)
+                .attr("x2", width)
+                .attr("y1", d => y(d))
+                .attr("y2", d => y(d))
+                .attr("stroke", "#ddd") // Light grey color
+                // @ts-ignore
+                .attr("stroke-width", 2)
+                .attr("stroke-dasharray", "3,4"); // Dashed line style
+
             // Car Data Line
             svg
                 .append('path')
@@ -134,7 +151,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
             .attr("cx", d => x(d.year))
             .attr("cy", d => y(d.percentageChange))
             .attr("r", 5) // Adjust the radius as needed
-            .attr("fill", "#9B8D8C");
+            .style('fill', (currentFilter !== FilterOptions.FocusPublicTransport) ? '#9B8D8C' : '#E8E8E8');
 
             // Transport Data Circles
             svg.selectAll(".transport-circle")
@@ -144,25 +161,8 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
             .attr("cx", d => x(d.year))
             .attr("cy", d => y(d.percentageChange))
             .attr("r", 5) // Adjust the radius as needed
-            .attr("fill", "#03045A");
+            .style('fill', (currentFilter !== FilterOptions.FocusCars) ? '#03045A' : '#E8E8E8');
 
-
-                
-            // Draw horizontal lines at specified values
-            //TODO: Build reference lines based on max / min values of dataset props
-            const referenceLines = [2, 4, 6, 8];
-            svg.selectAll(".reference-line")
-                .data(referenceLines)
-                .enter().append("line")
-                .attr("class", "reference-line")
-                .attr("x1", 0)
-                .attr("x2", width)
-                .attr("y1", d => y(d))
-                .attr("y2", d => y(d))
-                .attr("stroke", "#ddd") // Light grey color
-                // @ts-ignore
-                .attr("stroke-width", 2)
-                .attr("stroke-dasharray", "3,4"); // Dashed line style
             // Add an overlay to capture mouse events on the canvas for the dots and the marker
             const overlay = svg.append('rect')
                 .attr('class', 'overlay')
@@ -303,7 +303,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
 
 
     return (
-        <Card>
+        <div>
             <Typography sx={{ marginTop: '5px', marginBottom: '15px', fontWeight: 'lg' }}>Cumulative change of usage in Germany from {startYear}</Typography>
             <div style={{ position: 'relative' }}>
                 <svg
@@ -332,7 +332,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                     />
                 )}
             </div>
-        </Card>
+        </div>
 
     );
 };
