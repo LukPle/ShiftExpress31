@@ -15,9 +15,10 @@ const Tooltip: React.FC<TooltipProps> = ({ tooltipPosition, tooltipState, toolti
         top: `${tooltipPosition.y}px`,
         backgroundColor: 'white',
         padding: '7.5px',
-        border: '1px solid black',
+        border: '1px solid #CFD7E0',
         borderRadius: '10px',
-        pointerEvents: 'none' // Important to not interfere with map interaction
+        pointerEvents: 'none', // Important to not interfere with map interaction
+        zIndex: 1000,
     };
 
     const getUpperRowStyle: React.CSSProperties = {
