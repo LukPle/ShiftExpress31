@@ -46,9 +46,9 @@ const KeyFindingsSection: React.FC<KeyFindingsSectionProps> = ({keyFinding, onUp
         <Card sx={{ width: "30%" }}>
           <CardCover></CardCover>
           <CardContent>
-            <Typography level="h3">🚉 Transportaion Shift</Typography>
+            <Typography level="h3">🚉 Transportation Shift</Typography>
             <Typography>
-              See how transportation has evolved in resent years. Take a
+              See how transportation has evolved in recent years. Take a
               deeper look at how public transportaion and cars compete.
             </Typography>
             <div style={{ height: "100%" }}></div>
