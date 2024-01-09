@@ -27,8 +27,8 @@ export enum FilterOptions {
 }
 
 const TransportShift: React.FC = () => {
-  const [endYear, setEndYear] = useState<number>(2014);
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [endYear, setEndYear] = useState<number>(2013);
+  const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [currentFilter, setCurrentFilter] = useState<FilterOptions>(FilterOptions.Comparison);
 
   useEffect(() => {
@@ -89,13 +89,22 @@ const TransportShift: React.FC = () => {
                   <Typography startDecorator={<InfoOutlined />}>Cumulative change of usage in Germany from 2013 to {endYear.toString()}</Typography>
                 </Stack>
                 <Divider orientation="vertical" />
-                  <MiniLegend />
+                  <MiniLegend currentOption={currentFilter} />
               </CardContent>
             </CardOverflow>
           </Card>
           <Card>
           <CombinedDevTS carData={carData} transportData={pTData} endYear={endYear.toString()} currentFilter={currentFilter} />
-            <Typography pt={2} marginLeft={'15px'}><i>Current Year: {endYear}</i></Typography>
+          <CardOverflow>
+            <Divider inset="context" />
+              <CardContent orientation="horizontal">
+                <Stack direction={"row"} sx={{ flex: 1 }} alignItems={"center"} justifyContent={"flex-start"}>
+                  <Typography startDecorator={<InfoOutlined />}>Change of usage from 2013 to {endYear} across all federal states</Typography>
+                </Stack>
+                <Divider orientation="vertical" />
+                  <MiniLegend currentOption={currentFilter}/>
+              </CardContent>
+            </CardOverflow>
           </Card>
         </Stack>
         <Card sx={{ flex: 1 }}>

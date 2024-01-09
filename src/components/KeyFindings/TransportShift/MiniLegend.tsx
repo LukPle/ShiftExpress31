@@ -1,9 +1,13 @@
 import theme from '@/utils/theme';
 import { Stack, Typography, Divider } from '@mui/joy';
 import React, { ReactNode } from 'react';
-import { ChartSorting } from './CombinedDevTS';
+import { FilterOptions } from './TransportShift';
 
-const GroupedBarChartLegend: React.FC = () => {
+interface GroupedBarChartLegendProps {
+    currentOption: FilterOptions,
+}
+
+const GroupedBarChartLegend: React.FC<GroupedBarChartLegendProps> = ({ currentOption }) => {
     const ptColor = theme.palette.primary[500];
     const carColor = 'rgba(60, 27, 24, 0.5)';
     const unfocusedColor = '#E8E8E8';
@@ -21,10 +25,10 @@ const GroupedBarChartLegend: React.FC = () => {
 
     return (
         <Stack direction="row" >
-            <div style={getRectangleStyle(ptColor)}></div>
+            <div style={getRectangleStyle(currentOption === FilterOptions.FocusCars ? unfocusedColor : ptColor)}></div>
             <Typography>🚈</Typography>
             <Divider orientation="vertical" sx={{mx:2}}/>
-            <div style={getRectangleStyle(carColor)}></div>
+            <div style={getRectangleStyle(currentOption === FilterOptions.FocusPublicTransport ? unfocusedColor : carColor)}></div>
             <Typography>🚗</Typography>
         </Stack>
     );
