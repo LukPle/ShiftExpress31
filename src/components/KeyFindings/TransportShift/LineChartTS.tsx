@@ -304,7 +304,6 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
 
     return (
         <div>
-            <Typography sx={{ marginTop: '5px', marginBottom: '15px', fontWeight: 'lg' }}>Cumulative change of usage in Germany from {startYear}</Typography>
             <div style={{ position: 'relative' }}>
                 <svg
                     className="d3-component"
