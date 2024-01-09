@@ -16,11 +16,16 @@ const ProjectArea: React.FC = () => {
   return (
     <Stack direction="column">
       <Stack direction="row" divider={<Divider orientation="vertical" />} justifyContent="space-between" alignItems="flex-start" className={projectSectionStyles.projectRow} sx={{minWidth: "100%"}}>
-        <TextColumn title='Background' description={backgroundDescription} icon={backgroundIcon} isBig={false}></TextColumn>
-        <TextColumn title='Relevance' description={relevanceDescription} icon={relevanceIcon} isBig={true}></TextColumn>
-        <TextColumn title='Objectives' description={objectivesDescription} icon={objectivesIcon} isBig={false}></TextColumn>
+        <TextColumn title='Background' description={backgroundDescription} icon={backgroundIcon} isBig={false}>
+          <img src='/work.jpeg' className={`${projectSectionStyles.impressionImage}`}/>
+          </TextColumn>
+        <TextColumn title='Relevance' description={relevanceDescription} icon={relevanceIcon} isBig={true}>
+          <img src='/group.jpeg' className={projectSectionStyles.impressionImage}/>
+        </TextColumn>
+        <TextColumn title='Objectives' description={objectivesDescription} icon={objectivesIcon} isBig={false}>
+          <img src='/presentation.jpg' className={`${projectSectionStyles.impressionImage}`}/>
+        </TextColumn>
       </Stack>
-        <ProjectImpressions></ProjectImpressions>
     </Stack>
   );
 };
