@@ -9,17 +9,19 @@ import { CarData, YearlyData as CarYearlyData } from '../../../data/carDataInter
 import MapLegend from "@/components/MapComponents/MapLegend";
 import SegmentedControlsFilter from "./SegmentedControlsFilter";
 import Tooltip from "./Tooltip";
+import { FilterOptions } from "./TransportShift";
 
 
 interface Props {
     transportData: TransportYearlyData;
     carData: CarYearlyData;
     endYear: string;
+    currentFilter: FilterOptions;
 }
 
 const mapData: FeatureCollection = germanyGeoJSON as FeatureCollection;
 
-const MapChart: React.FC<Props> = ({ transportData, carData, endYear}) => {
+const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFilter }) => {
     const [startYear, setStartYear] = useState<string>('2013');
     const [selectedMetricPT, setSelectedMetricPT] = useState<keyof TransportData>('total_local_passenger_km');
     const [selectedMetricCar, setSelectedMetricCar] = useState<keyof CarData>('passenger_km');
@@ -29,6 +31,24 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear}) => {
 
     // Controlls which dataset is active
     const [isPT, setPT] = useState(true);
+    
+    switch(currentFilter) {
+        case FilterOptions.Comparison:
+            // No Action
+            break;
+        case FilterOptions.FocusPublicTransport:
+            if(isPT === false) {
+                setPT(true);
+            }
+            break;  
+        case FilterOptions.FocusCars:
+            if(isPT === true) {
+                setPT(false);
+            }
+            break;
+        default:
+            console.log(`Got ${currentFilter} but expected Comparison, FocusPublicTransport or FocusCars`);
+    }
 
 
     // New state for tooltip position and content
@@ -77,7 +97,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear}) => {
                             : ['#DD0606','rgba(221, 6, 6, 0.5)', '#FFFFFF','rgba(60, 27, 24, 0.5)', '#3C1B18'];
 
     const colorScale = d3.scaleLinear<string>()
-        .domain([-40, -20, 0, 20, 40])
+        .domain(isPT ? [-40, -20, 0, 20, 40] : [-10, -5, 0, 5, 10])
         .range(colorRange);
 
     const width = 300;
@@ -148,7 +168,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear}) => {
             .attr('d', d => pathGenerator(d) as string)
             // @ts-ignore
             .style('fill', d => colorScale(isPT ? calculatePercentageChangePT(d.properties.id, selectedMetricPT) : calculatePercentageChangeCar(d.properties.id, selectedMetricCar)))
-            .style('stroke', '#9c9cb4')
+            .style('stroke', '#727272')
             .style('stroke-width', 0.75)
             .on('mouseover', handleMouseOver)
             .on('mouseout', handleMouseOut);
@@ -159,7 +179,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear}) => {
 
     return (
         <>
-        <SegmentedControlsFilter items={["Show Public Transport", "Show Cars"]} onChange={(index, item) => {setPT(index == 0); console.log(index, item);}}></SegmentedControlsFilter>
+        {currentFilter === FilterOptions.Comparison ? <SegmentedControlsFilter items={["Show Public Transport", "Show Cars"]} onChange={(index, item) => {setPT(index == 0); console.log(index, item);}}></SegmentedControlsFilter> : null}
             {/*
             <Stack direction={"row"}>
                 <Select defaultValue="total_local_passenger_km"

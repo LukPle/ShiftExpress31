@@ -5,18 +5,52 @@ import { CarData, YearlyData as CarYearlyData } from '../../../data/carDataInter
 import { TransportData, YearlyData as TransportYearlyData } from '../../../data/pTDataInterface';
 import GroupedBarChartLegend from "./GroupedBarChartLegend";
 import Tooltip from "./Tooltip";
+import { FilterOptions } from "./TransportShift";
+
+export enum ChartSorting {
+    None, SortPublicTransport, SortCars
+}
 
 interface Props {
     carData: CarYearlyData;
     transportData: TransportYearlyData;
     endYear: string;
+    currentFilter: FilterOptions;
 }
 
-const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => {
+const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, currentFilter }) => {
     const [startYear, setStartYear] = useState<string>('2013');
     const [selectedCarMetric, setSelectedCarMetric] = useState<keyof CarData>('passenger_km');
     const [selectedTransportMetric, setSelectedTransportMetric] = useState<keyof TransportData>('total_local_passenger_km');
     const d3Container = useRef<SVGSVGElement | null>(null);
+
+    const [currentSorting, setCurrentSorting] = useState<ChartSorting>(ChartSorting.None);
+    var color = d3.scaleOrdinal().range(["grey", "grey"]); // Car, PT
+
+    switch(currentFilter) {
+        case FilterOptions.Comparison:
+            if(currentSorting != ChartSorting.None) {
+                setCurrentSorting(ChartSorting.None);
+            }
+            color = d3.scaleOrdinal().range(["rgba(60, 27, 24, 0.5)", "#03045E"]); // Car, PT
+            break;
+        case FilterOptions.FocusPublicTransport:
+            if(currentSorting != ChartSorting.SortPublicTransport) {
+                setCurrentSorting(ChartSorting.SortPublicTransport);
+            }
+            color = d3.scaleOrdinal().range(["#E8E8E8", "#03045E"]); // Car, PT
+            break;  
+        case FilterOptions.FocusCars:
+            if(currentSorting != ChartSorting.SortCars) {
+                setCurrentSorting(ChartSorting.SortCars);
+            }
+            color = d3.scaleOrdinal().range(["rgba(60, 27, 24, 0.5)", "#E8E8E8"]); // Car, PT
+            break;
+        default:
+            color = d3.scaleOrdinal().range(["rgba(60, 27, 24, 0.5)", "#03045E"]); // Car, PT
+            console.log(`Got ${currentFilter} but expected Comparison, FocusPublicTransport or FocusCars`);
+    }
+
 
     // Tooltip
     const [tooltipVisible, setTooltipVisible] = useState(false);
@@ -41,8 +75,6 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
         'SH': 'Schleswig-Holstein',
         'TH': 'Thuringia'
     };
-
-    const color = d3.scaleOrdinal().range(["rgba(60, 27, 24, 0.5)", "#03045E"]); // Car, PT
 
     const calculatePercentageChange = (data: CarYearlyData | TransportYearlyData, state: string, metric: keyof CarData | keyof TransportData) => {
         const startYearData = data[startYear].find(d => d.state === state);
@@ -139,24 +171,38 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
             // Filter out 'federal' data
             combinedPercentageChanges = combinedPercentageChanges.filter(d => d.state !== 'FEDERAL');
 
-            const x0 = d3.scaleBand()
+            // Sorting logic
+            let sortedData = combinedPercentageChanges;
+
+            switch (currentSorting) {
+                case ChartSorting.SortPublicTransport:
+                    sortedData = combinedPercentageChanges.sort((a, b) => b.transportChange - a.transportChange);
+                    break;
+                case ChartSorting.SortCars:
+                    sortedData = combinedPercentageChanges.sort((a, b) => b.carChange - a.carChange);
+                    break;
+                default:
+                    // No sorting or default sorting logic
+                    break;
+            }
+
+            // Define x0 and x1 scales with the sorted data
+            const x0Sorted = d3.scaleBand()
                 .range([0, width])
                 .paddingInner(0.1)
-                .domain(allStates);
+                .domain(sortedData.map(d => d.state));
 
-            const x1 = d3.scaleBand()
+            const x1Sorted = d3.scaleBand()
                 .padding(0.05)
                 .domain(['transportData', 'carData'])
-                .rangeRound([0, x0.bandwidth()]);
-
+                .rangeRound([0, x0Sorted.bandwidth()]);
 
             // Find the maximum absolute percentage change for both datasets
             const maxCarChange = d3.max(combinedPercentageChanges, d => Math.abs(d.carChange)) as number;
             const maxTransportChange = d3.max(combinedPercentageChanges, d => Math.abs(d.transportChange)) as number;
             const maxChange = Math.max(maxCarChange, maxTransportChange);
 
-
-            // Define the y-scales with fixed domain extent
+            // Define y-scales with fixed domain extent
             const yCar = d3.scaleLinear()
                 .range([height, 0])
                 .domain([-50, 50])
@@ -167,7 +213,6 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
                 .domain([-50, 50])
                 .nice();
 
-
             // Create the axes
             const yAxisLeft = d3.axisLeft(yCar);
             const yAxisRight = d3.axisRight(yTransport);
@@ -177,11 +222,10 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
                 .attr("class", "y axis left")
                 .call(yAxisLeft)
                 .selectAll("text") // Selecting all text elements within the axis
-                .style("font-size", "13px"); // Set the font size
+                .style("font-size", "11px"); // Set the font size
 
             // Draw horizontal lines at specified values
             const referenceLines = [-40, -20, 20, 40];
-
 
             svg.selectAll(".reference-line")
                 .data(referenceLines)
@@ -192,7 +236,6 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
                 .attr("y1", d => yCar(d))
                 .attr("y2", d => yCar(d))
                 .attr("stroke", "#ddd") // Light grey color
-                // @ts-ignore
                 .attr("stroke-width", 2.5)
                 .attr("stroke-dasharray", "3,3"); // Dashed line style
 
@@ -201,17 +244,16 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
                 .attr("class", "y axis left")
                 .call(yAxisLeft)
                 .selectAll("text") // Selecting all text elements within the axis
-                .style("font-size", "13px"); // Set the font size
-
+                .style("font-size", "11px"); // Set the font size
 
             // Draw the bars for CarData
             svg.selectAll(".bar.car")
-                .data(combinedPercentageChanges)
+                .data(sortedData)
                 .enter().append("rect")
                 .attr("class", "bar car")
                 // @ts-ignore
-                .attr("x", d => x0(d.state))
-                .attr("width", x1.bandwidth())
+                .attr("x", d => x0Sorted(d.state))
+                .attr("width", x1Sorted.bandwidth())
                 .attr("y", d => yCar(Math.max(0, d.carChange)))
                 .attr("height", d => Math.abs(yCar(d.carChange) - yCar(0)))
                 // @ts-ignore
@@ -224,12 +266,12 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
 
             // Draw the bars for TransportData
             svg.selectAll(".bar.transport")
-                .data(combinedPercentageChanges)
+                .data(sortedData)
                 .enter().append("rect")
                 .attr("class", "bar transport")
                 // @ts-ignore
-                .attr("x", d => x0(d.state) + x1.bandwidth())
-                .attr("width", x1.bandwidth())
+                .attr("x", d => x0Sorted(d.state) + x1Sorted.bandwidth())
+                .attr("width", x1Sorted.bandwidth())
                 .attr("y", d => yTransport(Math.max(0, d.transportChange)))
                 .attr("height", d => Math.abs(yTransport(d.transportChange) - yTransport(0)))
                 // @ts-ignore
@@ -240,13 +282,14 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
                 })
                 .on("mouseout", handleMouseOutBar);
 
-            // Add the x-axis
+            // Add the x-axis using the sorted x0 scale
             svg.append("g")
                 .attr("class", "x axis")
                 .attr("transform", `translate(0,${yCar(0)})`)
-                .call(d3.axisBottom(x0));
+                .call(d3.axisBottom(x0Sorted));
         }
-    }, [carData, transportData, startYear, endYear, selectedCarMetric, selectedTransportMetric]);
+    }, [carData, transportData, startYear, endYear, selectedCarMetric, selectedTransportMetric, currentSorting]);
+
 
     return (
         <div>
@@ -278,9 +321,9 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear }) => 
                 </Stack>
             </Stack>
             */}
-            <Typography sx={{ marginTop: '10px', marginBottom: '30px', fontWeight: 'lg' }}>Change of usage from 2013 across all federal states</Typography>
+            <Typography sx={{ marginTop: '10px', marginBottom: '30px', fontWeight: 'lg' }}>Change of usage from 2013 to {endYear} across all federal states</Typography>
             <svg ref={d3Container} />
-            <GroupedBarChartLegend></GroupedBarChartLegend>
+            <GroupedBarChartLegend currentSorting={currentSorting}></GroupedBarChartLegend>
             {tooltipVisible && (<Tooltip tooltipPosition={tooltipPosition} tooltipState={tooltipState} tooltipContent={tooltipContent}></Tooltip>)}
         </div>
     );
