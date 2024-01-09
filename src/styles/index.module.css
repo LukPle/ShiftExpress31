@@ -97,38 +97,41 @@
 }
 
 .heading {
- position: relative; 
- color: var(--joy-palette-primary-500);
+  position: relative; 
+  color: var(--joy-palette-text-tertiary);
 }
 
 .headingActive {
-  position: relative; 
-  color: var(--joy-palette-text-tertiary);
+  color: var(--joy-palette-primary-500);
  }
 
 .heading::before {
   content: '';
   position: absolute;
   left: -70px;
-  top: -5px;;
-  display: block;
-  height: 20px;
-  width: 20px;
-  background-color: var(--joy-palette-primary-50);
-  border: 15px solid var(--joy-palette-primary-500);
-  border-radius: 50%;
-}
-
-.headingActive::before {
-  content: '';
-  position: absolute;
-  left: -70px;
-  top: -5px;;
+  top: -5px;
   display: block;
   height: 20px;
   width: 20px;
   background-color: var(--joy-palette-primary-50);
   border: 15px solid var(--joy-palette-text-tertiary);
+  border-radius: 50%;
+}
+
+.headingActive::before {
+  border: 15px solid var(--joy-palette-primary-500);
+}
+
+.headingIntroSection::before {
+  content: '';
+  position: absolute;
+  left: -75px;
+  top: 50px;
+  display: block;
+  height: 30px;
+  width: 30px;
+  background-color: var(--joy-palette-primary-50);
+  border: 15px solid var(--joy-palette-primary-500);
   border-radius: 50%;
 }
 
@@ -172,6 +175,11 @@
 .snappingSection {
   scroll-snap-align: start;
   height: 90vh;
+  min-height: 90vh;
+}
+
+.snappingSectionKeyFinding {
+  scroll-snap-align: start;
 }
 
 .scrollableContainer {
