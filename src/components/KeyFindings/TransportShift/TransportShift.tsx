@@ -62,7 +62,7 @@ const TransportShift: React.FC = () => {
       <Stack direction={"row"} gap={2} sx={{}} >
         <Stack direction={"column"} gap={2} sx={{ flex: 2 }}>
           <Card>
-            <CardOverflow variant="soft" sx={{ bgcolor: 'background.level1' }}>
+            <CardOverflow>
               <CardContent orientation="horizontal">
                 <Stack direction={"row"} gap={1} sx={{}} alignItems={"center"} justifyContent={"flex-start"}>
                   <IconButton variant="solid" onClick={(endYear === 2019) ? () => { } : handlePlayPause} size="lg" sx={{ backgroundColor: (endYear === 2019) ? 'grey' : "#03045A" }}>
@@ -107,9 +107,20 @@ const TransportShift: React.FC = () => {
             </CardOverflow>
           </Card>
         </Stack>
+        <Stack direction={"column"} gap={2} >
+        <Card>
+        <CardContent orientation="horizontal">
+                <Stack direction={"row"} sx={{ flex: 1 }} alignItems={"center"} justifyContent={"flex-start"}>
+                  <Typography>Placeholder</Typography>
+                </Stack>
+                <Divider orientation="vertical" />
+                <Typography level='h4'>{endYear}</Typography>
+              </CardContent>
+        </Card>
         <Card sx={{ flex: 1 }}>
           <MapTS transportData={pTData} carData={carData} endYear={endYear.toString()} currentFilter={currentFilter} />
         </Card>
+        </Stack>
       </Stack>
     </Stack>
   );
