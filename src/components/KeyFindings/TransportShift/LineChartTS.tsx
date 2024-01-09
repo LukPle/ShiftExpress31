@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
+import { motion, useAnimation } from 'framer-motion';
 import { YearlyData as CarYearlyData, CarData } from '@/data/carDataInterface';
 import { YearlyData as TransportYearlyData, TransportData } from '@/data/pTDataInterface';
+import { Card, Typography } from "@mui/joy";
 import styles from "@/styles/charts.module.css";
 import { FilterOptions } from './TransportShift';
 import Tooltip from './Tooltip';
@@ -24,6 +26,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
     const height = 120 - margin.top - margin.bottom;
 
     const markerRef = useRef(null);
+    const controls = useAnimation(); // Create animation controls
 
     const [tooltip, setTooltip] = useState({
         visible: false,
@@ -73,7 +76,9 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
             // Append the y-axis to your chart
             svg.append("g")
                 .attr("class", "y-axis")
-                .call(yAxis);
+                .call(yAxis)
+                .selectAll('text')
+                .style('font-size', '13px');
 
             // Scales
             const x = d3
@@ -87,8 +92,26 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                 .attr('transform', `translate(0,${height})`)
                 .call(d3.axisBottom(x)
                     .tickValues(allYears) // Set the tick values to the years from your data
-                    .tickFormat(d3.format('d'))); // Format ticks as integers without comma separators
+                    .tickFormat(d3.format('d'))) // Format ticks as integers without comma separators
+                .selectAll('text')
+                .style('font-size', '13px');
 
+
+            // Draw horizontal lines at specified values
+            //TODO: Build reference lines based on max / min values of dataset props
+            const referenceLines = [2, 4, 6, 8];
+            svg.selectAll(".reference-line")
+                .data(referenceLines)
+                .enter().append("line")
+                .attr("class", "reference-line")
+                .attr("x1", 0)
+                .attr("x2", width)
+                .attr("y1", d => y(d))
+                .attr("y2", d => y(d))
+                .attr("stroke", "#ddd") // Light grey color
+                // @ts-ignore
+                .attr("stroke-width", 2)
+                .attr("stroke-dasharray", "3,4"); // Dashed line style
 
             // Car Data Line
             svg
@@ -119,6 +142,26 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                         .x((d) => x(d.year))
                         .y((d) => y(d.percentageChange))
                 );
+
+            // Car Data Circles
+            svg.selectAll(".car-circle")
+            .data(carPercentageChangeData)
+            .enter().append("circle")
+            .attr("class", "car-circle")
+            .attr("cx", d => x(d.year))
+            .attr("cy", d => y(d.percentageChange))
+            .attr("r", 5) // Adjust the radius as needed
+            .style('fill', (currentFilter !== FilterOptions.FocusPublicTransport) ? '#9B8D8C' : '#E8E8E8');
+
+            // Transport Data Circles
+            svg.selectAll(".transport-circle")
+            .data(transportPercentageChangeData)
+            .enter().append("circle")
+            .attr("class", "transport-circle")
+            .attr("cx", d => x(d.year))
+            .attr("cy", d => y(d.percentageChange))
+            .attr("r", 5) // Adjust the radius as needed
+            .style('fill', (currentFilter !== FilterOptions.FocusCars) ? '#03045A' : '#E8E8E8');
 
             // Add an overlay to capture mouse events on the canvas for the dots and the marker
             const overlay = svg.append('rect')
@@ -211,11 +254,17 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
             // Update the marker position
             if (currentYear && markerRef.current) {
                 const markerXPosition = x(parseInt(currentYear));
-                d3.select(markerRef.current).style('left', `${margin.left + markerXPosition - 4}px`);
+                //d3.select(markerRef.current).style('left', `${margin.left + markerXPosition - 4}px`);
+                const targetLeft = margin.left + markerXPosition - 4;
+                const animation = {
+                    left: targetLeft,
+                    transition: { type: 'tween', duration: 2 },
+                };
+                controls.start(animation);
             }
 
         }
-    }, [carData, transportData, startYear, endYear, currentYear, currentFilter]);
+    }, [carData, transportData, startYear, endYear, currentYear, controls, currentFilter]);
 
     const calculatePercentageChange = (
         data: CarYearlyData | TransportYearlyData,
@@ -254,32 +303,37 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
 
 
     return (
-        <div style={{ position: 'relative' }}>
-            <svg
-                className="d3-component"
-                ref={d3Container}
-            />
-            {currentYear && (
-                <div
-                    ref={markerRef}
-                    style={{
-                        position: 'absolute',
-                        top: `${margin.top}px`,
-                        height: `${height}px`,
-                    }}
-                    className={styles.timeLineMarker}
+        <div>
+            <Typography sx={{ marginTop: '5px', marginBottom: '15px', fontWeight: 'lg' }}>Cumulative change of usage in Germany from {startYear}</Typography>
+            <div style={{ position: 'relative' }}>
+                <svg
+                    className="d3-component"
+                    ref={d3Container}
                 />
-            )}
-    
-            {/* Display Tooltip */}
-            {tooltip.visible && (
-                <Tooltip
-                    tooltipPosition={tooltip.position}
-                    tooltipState={tooltip.state}
-                    tooltipContent={tooltip.content}
-                />
-            )}
+                {currentYear && (
+                    <motion.div
+                        ref={markerRef}
+                        style={{
+                            position: 'absolute',
+                            top: `${margin.top}px`,
+                            height: `${height}px`,
+                        }}
+                            animate={controls}
+                        className={styles.timeLineMarker}
+                    >
+                    </motion.div>
+                )}
+                {/* Display Tooltip */}
+                {tooltip.visible && (
+                    <Tooltip
+                        tooltipPosition={tooltip.position}
+                        tooltipState={tooltip.state}
+                        tooltipContent={tooltip.content}
+                    />
+                )}
+            </div>
         </div>
+
     );
 };
 
