@@ -71,7 +71,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
         )}
         </div>
 
-        <Section title="Who are we?" id="team" halfAcrossLine={true} onInViewChange={inView => {if (inView) {setSection(3)}}}>
+        <Section title="Who are we?" id="team" teamSection={true} onInViewChange={inView => {if (inView) {setSection(3)}}}>
           <TeamSection />
         </Section>
 

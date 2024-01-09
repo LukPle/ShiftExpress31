@@ -50,7 +50,8 @@
   height: 100vh;
 }
 
-.lineLeftHalfAcrossStack {
+.introSection,
+.footerSection {
   position: relative;
   background-image: linear-gradient(0deg,
     transparent 0%,
@@ -73,7 +74,30 @@
   height: 100%;
 }
 
-.lineLeftHalfAcrossStack::before {
+.introSection::before {
+  content: '';
+  position: absolute;
+  left: -50px;
+  bottom: 0;
+  display: block;
+  width: 10px;
+  background-color: var(--joy-palette-primary-500);
+  height: calc(50% - 43px);
+}
+
+.introSection::after {
+  content: '';
+  position: absolute;
+  left: -27px;
+  bottom: calc(50% - 58px);
+  display: block;
+  width: 9.5px;
+  background-color: var(--joy-palette-primary-500);
+  height: 70px;
+  transform: rotate(45deg);
+}
+
+.footerSection::before {
   content: '';
   position: absolute;
   left: -50px;
@@ -84,7 +108,7 @@
   height: calc(50% - 43px);
 }
 
-.lineLeftHalfAcrossStack::after {
+.footerSection::after {
   content: '';
   position: absolute;
   left: -27px;
@@ -194,3 +218,31 @@
   width: 200px;
   height: 150px;
 } 
+
+.introTrainImage {
+  position: absolute;
+  top: calc(50% - 30px);
+  right: 50px;
+  height: 30px;
+}
+
+.introStationDot {
+  position: absolute;
+  right: -30px;
+  top: calc(50% - 30px);
+  display: block;
+  height: 30px;
+  width: 30px;
+  background-color: var(--joy-palette-primary-50);
+  border: 15px solid var(--joy-palette-primary-500);
+  border-radius: 50%;
+}
+
+@media screen and (min-width: 1500px) {
+  .introTrainImage {
+    position: absolute;
+    top: calc(50% - 50px);
+    right: 50px;
+    height: 50px;
+  }
+}
