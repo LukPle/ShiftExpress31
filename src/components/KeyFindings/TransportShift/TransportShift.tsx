@@ -64,62 +64,64 @@ const TransportShift: React.FC = () => {
           <Card>
             <CardOverflow>
               <CardContent orientation="horizontal">
-                <Stack direction={"row"} gap={1} sx={{}} alignItems={"center"} justifyContent={"flex-start"}>
-                  <IconButton variant="solid" onClick={(endYear === 2019) ? () => { } : handlePlayPause} size="lg" sx={{ backgroundColor: (endYear === 2019) ? 'grey' : "#03045A" }}>
-                    {isPlaying ? <Pause /> : <PlayArrow />}
-                  </IconButton>
-                  <IconButton variant="solid" onClick={() => setEndYear(2013)} size="lg" sx={{ backgroundColor: "#03045A" }}>
-                    <FastRewind />
-                  </IconButton>
-                </Stack>
-                <Divider orientation="vertical" />
-                <Stack direction={"row"} spacing={2}>
-                  <Button variant={currentFilter === FilterOptions.Comparison ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.Comparison)} sx={{maxHeight: "30px"}}>Comparison</Button>
-                  <Button variant={currentFilter === FilterOptions.FocusPublicTransport ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.FocusPublicTransport)} sx={{maxHeight: "30px"}}>Focus Public Transport</Button>
-                  <Button variant={currentFilter === FilterOptions.FocusCars ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.FocusCars)} sx={{maxHeight: "30px"}}>Focus Cars</Button>
+                <Stack direction={"row"} gap={2} alignItems={"center"} justifyContent={"flex-start"}>
+                  <Stack direction={"row"} gap={1} sx={{}} alignItems={"center"} justifyContent={"flex-start"}>
+                    <IconButton variant="solid" onClick={(endYear === 2019) ? () => { } : handlePlayPause} size="lg" sx={{ backgroundColor: (endYear === 2019) ? 'grey' : "#03045A" }}>
+                      {isPlaying ? <Pause /> : <PlayArrow />}
+                    </IconButton>
+                    <IconButton variant="solid" onClick={() => setEndYear(2013)} size="lg" sx={{ backgroundColor: "#03045A" }}>
+                      <FastRewind />
+                    </IconButton>
+                  </Stack>
+                  <Divider orientation="vertical" />
+                  <Stack direction={"row"} spacing={2}>
+                    <Button variant={currentFilter === FilterOptions.Comparison ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.Comparison)} sx={{ maxHeight: "30px" }}>Comparison</Button>
+                    <Button variant={currentFilter === FilterOptions.FocusPublicTransport ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.FocusPublicTransport)} sx={{ maxHeight: "30px" }}>Focus Public Transport</Button>
+                    <Button variant={currentFilter === FilterOptions.FocusCars ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.FocusCars)} sx={{ maxHeight: "30px" }}>Focus Cars</Button>
+                  </Stack>
                 </Stack>
               </CardContent>
               <Divider inset="context" />
             </CardOverflow>
             <LineChartTS carData={carData} transportData={pTData} startYear='2013' endYear='2019' currentYear={endYear.toString()} setCurrentYear={setCurrentYear} currentFilter={currentFilter} />
             <CardOverflow>
-            <Divider inset="context" />
+              <Divider inset="context" />
               <CardContent orientation="horizontal">
                 <Stack direction={"row"} sx={{ flex: 1 }} alignItems={"center"} justifyContent={"flex-start"}>
                   <Typography startDecorator={<InfoOutlined />}>Cumulative change of usage in Germany from 2013 to {endYear.toString()}</Typography>
                 </Stack>
                 <Divider orientation="vertical" />
-                  <MiniLegend currentOption={currentFilter} />
+                <MiniLegend currentOption={currentFilter} />
               </CardContent>
             </CardOverflow>
           </Card>
           <Card>
-          <CombinedDevTS carData={carData} transportData={pTData} endYear={endYear.toString()} currentFilter={currentFilter} />
-          <CardOverflow>
-            <Divider inset="context" />
+            <CombinedDevTS carData={carData} transportData={pTData} endYear={endYear.toString()} currentFilter={currentFilter} />
+            <CardOverflow>
+              <Divider inset="context" />
               <CardContent orientation="horizontal">
                 <Stack direction={"row"} sx={{ flex: 1 }} alignItems={"center"} justifyContent={"flex-start"}>
                   <Typography startDecorator={<InfoOutlined />}>Change of usage from 2013 to {endYear} across all federal states</Typography>
                 </Stack>
                 <Divider orientation="vertical" />
-                  <MiniLegend currentOption={currentFilter}/>
+                <MiniLegend currentOption={currentFilter} />
               </CardContent>
             </CardOverflow>
           </Card>
         </Stack>
         <Stack direction={"column"} gap={2} >
-        <Card>
-        <CardContent orientation="horizontal">
-                <Stack direction={"row"} sx={{ flex: 1 }} alignItems={"center"} justifyContent={"flex-start"}>
-                  <Typography>Placeholder</Typography>
-                </Stack>
-                <Divider orientation="vertical" />
-                <Typography level='h4'>{endYear}</Typography>
-              </CardContent>
-        </Card>
-        <Card sx={{ flex: 1 }}>
-          <MapTS transportData={pTData} carData={carData} endYear={endYear.toString()} currentFilter={currentFilter} />
-        </Card>
+          <Card>
+            <CardContent orientation="horizontal">
+              <Stack direction={"row"} sx={{ flex: 1 }} alignItems={"center"} justifyContent={"flex-start"}>
+                <Typography>Placeholder</Typography>
+              </Stack>
+              <Divider orientation="vertical" />
+              <Typography level='h4'>{endYear}</Typography>
+            </CardContent>
+          </Card>
+          <Card sx={{ flex: 1 }}>
+            <MapTS transportData={pTData} carData={carData} endYear={endYear.toString()} currentFilter={currentFilter} />
+          </Card>
         </Stack>
       </Stack>
     </Stack>
