@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Stack } from "@mui/joy";
+import { Button, Stack } from "@mui/joy";
 import ProjectArea from "@/components/ProjectSection/ProjectArea";
 import ToolBar from "@/components/KeyFindings/ToolBar";
 import TransportShift from "@/components/KeyFindings/TransportShift/TransportShift";
@@ -10,6 +10,9 @@ import TeamSection from "@/components/TeamSection";
 import BaseChartsSection from "@/components/BaseCharts/BaseChartsSection";
 import Section from "@/components/Section";
 import styles from "@/styles/index.module.css";
+import {
+  ArrowUpward
+} from "@mui/icons-material";
 
 
 type HomeProps = {
@@ -34,14 +37,43 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
     setCurrentKeyFinding(keyFinding);
   };
 
+  //@ts-ignore
+  const scrollToSection = (sectionId) => {
+    // Get the scroll container, adjust selector as needed
+    const scrollContainer = document.querySelector(`.${styles.snappingContainer}`);
+  
+    // Temporarily disable scroll snapping
+    if (scrollContainer) {
+      //@ts-ignore
+      scrollContainer.style.scrollSnapType = 'none';
+    }
+  
+    // Find the section and perform smooth scroll
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  
+      // Wait for the scroll to finish, then re-enable scroll snapping
+      // Estimate time for the scroll to finish (e.g., 1000 milliseconds)
+      setTimeout(() => {
+        if (scrollContainer) {
+          //@ts-ignore
+          scrollContainer.style.scrollSnapType = 'y mandatory';
+        }
+      }, 1000); // Adjust the time as needed
+    }
+  }
+
   const renderKeyFinding = () => {
     switch (currentKeyFinding) {
       case KeyFinding.Shift:
         return <Section title="🚉 Transportation Shift" onInViewChange={setIsKeyFindingSectionInView} style={{display: "flow-root"}}>
+          <Button className={styles.backToKeyfindingBtn} onClick={() => scrollToSection('insights')} endDecorator={<ArrowUpward/>}>Back to Keyfindings</Button>
           <TransportShift />
         </Section>;
       case KeyFinding.Covid:
         return <Section title="🦠 Covid" onInViewChange={setIsKeyFindingSectionInView} style={{display: "flow-root"}}>
+          <Button className={styles.backToKeyfindingBtn} onClick={() => scrollToSection('insights')} endDecorator={<ArrowUpward/>}>Back to Keyfindings</Button>
           <Covid />
         </Section>;
       case KeyFinding.None:
