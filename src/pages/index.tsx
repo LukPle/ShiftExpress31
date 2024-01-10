@@ -84,7 +84,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
 
   return (
     <div className={styles.snappingContainer}>
-      <Stack direction={"column"} mx={12} my={7}>
+      <Stack direction={"column"} ml={12} my={7} mr={6}>
         <Section title="" id="intro" onInViewChange={inView => {if (inView) {setSection(0)}}} introSection={true}>
           <IntroSection />
         </Section>
