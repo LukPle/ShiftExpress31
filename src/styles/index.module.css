@@ -169,7 +169,7 @@
 .snappingContainer {
   scroll-snap-type: y mandatory;
   overflow-y: scroll;
-  height: 90vh;
+  height: 91vh;
 }
 
 .snappingSection {

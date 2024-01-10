@@ -1,4 +1,4 @@
-import { Select, Option, Stack, Typography, Badge } from "@mui/joy";
+import { Select, Option, Stack, Typography, Badge, Card, CardOverflow, Divider, CardContent } from "@mui/joy";
 import React, { useState, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import { CarData, YearlyData as CarYearlyData } from '../../../data/carDataInterface';
@@ -27,27 +27,27 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
     const [currentSorting, setCurrentSorting] = useState<ChartSorting>(ChartSorting.None);
     var color = d3.scaleOrdinal().range(["grey", "grey"]); // Car, PT
 
-    switch(currentFilter) {
+    switch (currentFilter) {
         case FilterOptions.Comparison:
-            if(currentSorting != ChartSorting.None) {
+            if (currentSorting != ChartSorting.None) {
                 setCurrentSorting(ChartSorting.None);
             }
-            color = d3.scaleOrdinal().range(["rgba(60, 27, 24, 0.5)", "#03045E"]); // Car, PT
+            color = d3.scaleOrdinal().range(["#FFA500", "#03045E"]); // Car, PT
             break;
         case FilterOptions.FocusPublicTransport:
-            if(currentSorting != ChartSorting.SortPublicTransport) {
+            if (currentSorting != ChartSorting.SortPublicTransport) {
                 setCurrentSorting(ChartSorting.SortPublicTransport);
             }
             color = d3.scaleOrdinal().range(["#E8E8E8", "#03045E"]); // Car, PT
-            break;  
+            break;
         case FilterOptions.FocusCars:
-            if(currentSorting != ChartSorting.SortCars) {
+            if (currentSorting != ChartSorting.SortCars) {
                 setCurrentSorting(ChartSorting.SortCars);
             }
-            color = d3.scaleOrdinal().range(["rgba(60, 27, 24, 0.5)", "#E8E8E8"]); // Car, PT
+            color = d3.scaleOrdinal().range(["#FFA500", "#E8E8E8"]); // Car, PT
             break;
         default:
-            color = d3.scaleOrdinal().range(["rgba(60, 27, 24, 0.5)", "#03045E"]); // Car, PT
+            color = d3.scaleOrdinal().range(["#FFA500", "#03045E"]); // Car, PT
             console.log(`Got ${currentFilter} but expected Comparison, FocusPublicTransport or FocusCars`);
     }
 
@@ -321,9 +321,7 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
                 </Stack>
             </Stack>
             */}
-            <Typography sx={{ marginTop: '5px', marginBottom: '30px', fontWeight: 'lg' }}>Change of usage from 2013 to {endYear} across all federal states</Typography>
             <svg ref={d3Container} />
-            <GroupedBarChartLegend currentSorting={currentSorting}></GroupedBarChartLegend>
             {tooltipVisible && (<Tooltip tooltipPosition={tooltipPosition} tooltipState={tooltipState} tooltipContent={tooltipContent}></Tooltip>)}
         </div>
     );
