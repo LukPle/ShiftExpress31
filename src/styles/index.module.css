@@ -194,3 +194,9 @@
   width: 200px;
   height: 150px;
 } 
+
+.backToKeyfindingBtn {
+  position: absolute;
+  right: 0;
+  top: 25px;
+}
