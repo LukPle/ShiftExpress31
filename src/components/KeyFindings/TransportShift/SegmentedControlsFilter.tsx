@@ -6,14 +6,18 @@ import { motion } from 'framer-motion';
 interface SegmentedControlsFilterProps {
     items: string[];
     onChange: (index: number, item: string) => void;
+    index?: number;
 }
 
-const SegmentedControlsFilter: React.FC<SegmentedControlsFilterProps> = React.memo(({ items, onChange }) => {
+const SegmentedControlsFilter: React.FC<SegmentedControlsFilterProps> = React.memo(({ items, onChange, index }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     useEffect(() => {
         onChange(currentIndex, items[currentIndex]);
-    }, [currentIndex]);
+        if (index !== undefined) {
+            setCurrentIndex(index);
+        }
+    }, [currentIndex, index]);
 
     const getControlContainerSytle: React.CSSProperties = {
         backgroundColor: 'EFEFF0',
