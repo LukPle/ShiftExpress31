@@ -8,9 +8,13 @@ interface SectionProps {
   title: string;
   children: React.ReactNode;
   onInViewChange?: (inView: boolean) => void;
+  halfAcrossLine?: Boolean;
+  id?: string;
+  style?: React.CSSProperties;
+  introSection?: Boolean;
 }
 
-const Section: React.FC<SectionProps> = ({ title, children, onInViewChange }) => {
+const Section: React.FC<SectionProps> = ({ title, children, onInViewChange, halfAcrossLine, id, style, introSection }) => {
   const { ref, inView } = useInView({
     threshold: 0.5,
   });
@@ -20,8 +24,8 @@ const Section: React.FC<SectionProps> = ({ title, children, onInViewChange }) =>
   }, [inView, onInViewChange]);
 
   return (
-    <div ref={ref} style={{minHeight: "90vh"}} className={styles.snappingSection}>
-      <Typography level="h2" style={inView ? {color: "var(--joy-palette-primary-500)"} : {color: "var(--joy-palette-text-tertiary)"}} paddingTop={"20px"}>{title}</Typography>
+    <div ref={ref} style={style} className={`${styles.snappingSection} ${halfAcrossLine ? styles.lineLeftHalfAcrossStack : styles.lineLeftStack}`} id={id ? id : ""}>
+      <Typography level="h2" className={`${styles.heading} ${inView ? styles.headingActive : ""} ${introSection ? styles.headingIntroSection : ""}`} marginTop={"20px"}>{title}</Typography>
       {children}
     </div>
   );

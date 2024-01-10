@@ -46,14 +46,11 @@
 
 .lineLeftStack {
   margin: 0;
-  padding: 20px 100px 80px 50px;
   position: relative;
   height: 100vh;
 }
 
 .lineLeftHalfAcrossStack {
-  margin: 0 0 0 25px;
-  padding: 20px 100px 80px 25px;
   position: relative;
   background-image: linear-gradient(0deg,
     transparent 0%,
@@ -68,7 +65,7 @@
 .lineLeftStack::before {
   content: '';
   position: absolute;
-  left: 0;
+  left: -50px;
   top: 0;
   display: block;
   width: 10px;
@@ -79,59 +76,62 @@
 .lineLeftHalfAcrossStack::before {
   content: '';
   position: absolute;
-  left: -25px;
+  left: -50px;
   top: 0;
   display: block;
   width: 10px;
   background-color: var(--joy-palette-primary-500);
-  height: calc(50% - 20px);
+  height: calc(50% - 43px);
 }
 
 .lineLeftHalfAcrossStack::after {
   content: '';
   position: absolute;
-  left: -14px;
-  top: calc(50% - 29px);
+  left: -27px;
+  top: calc(50% - 58px);
   display: block;
   width: 9.5px;
   background-color: var(--joy-palette-primary-500);
-  height: 36px;
+  height: 70px;
   transform: rotate(-45deg);
 }
 
-.markerLeftHeading {
- position: relative; 
- color: var(--joy-palette-primary-500);
-}
-
-.markerLeftHeadingActive {
+.heading {
   position: relative; 
   color: var(--joy-palette-text-tertiary);
- }
-
-.markerLeftHeading::before {
-  content: '';
-  position: absolute;
-  left: -70px;
-  top: -5px;;
-  display: block;
-  height: 20px;
-  width: 20px;
-  background-color: var(--joy-palette-primary-50);
-  border: 15px solid var(--joy-palette-primary-500);
-  border-radius: 50%;
 }
 
-.markerLeftHeadingActive::before {
+.headingActive {
+  color: var(--joy-palette-primary-500);
+ }
+
+.heading::before {
   content: '';
   position: absolute;
   left: -70px;
-  top: -5px;;
+  top: -5px;
   display: block;
   height: 20px;
   width: 20px;
   background-color: var(--joy-palette-primary-50);
   border: 15px solid var(--joy-palette-text-tertiary);
+  border-radius: 50%;
+}
+
+.headingActive::before {
+  border: 15px solid var(--joy-palette-primary-500);
+}
+
+.headingIntroSection::before {
+  content: '';
+  position: absolute;
+  left: -75px;
+  top: 50px;
+  display: block;
+  height: 30px;
+  width: 30px;
+  background-color: var(--joy-palette-primary-50);
+  border: 15px solid var(--joy-palette-primary-500);
   border-radius: 50%;
 }
 
@@ -162,6 +162,10 @@
   background-color: var(--joy-palette-primary-500);
 }
 
+.teamSection {
+  height: calc(100% - 100px);
+}
+
 .snappingContainer {
   scroll-snap-type: y mandatory;
   overflow-y: scroll;
@@ -171,6 +175,11 @@
 .snappingSection {
   scroll-snap-align: start;
   height: 90vh;
+  min-height: 90vh;
+}
+
+.snappingSectionKeyFinding {
+  scroll-snap-align: start;
 }
 
 .scrollableContainer {

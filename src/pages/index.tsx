@@ -37,11 +37,11 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
   const renderKeyFinding = () => {
     switch (currentKeyFinding) {
       case KeyFinding.Shift:
-        return <Section title="🚉 Transportation Shift" onInViewChange={setIsKeyFindingSectionInView}>
+        return <Section title="🚉 Transportation Shift" onInViewChange={setIsKeyFindingSectionInView} style={{display: "flow-root"}}>
           <TransportShift />
         </Section>;
       case KeyFinding.Covid:
-        return <Section title="🦠 Covid" onInViewChange={setIsKeyFindingSectionInView}>
+        return <Section title="🦠 Covid" onInViewChange={setIsKeyFindingSectionInView} style={{display: "flow-root"}}>
           <Covid />
         </Section>;
       case KeyFinding.None:
@@ -53,36 +53,29 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
   return (
     <div className={styles.snappingContainer}>
       <Stack direction={"column"} mx={12} my={7}>
-        <Section title="">
+        <Section title="" id="intro" onInViewChange={inView => {if (inView) {setSection(0)}}} introSection={true}>
           <IntroSection />
         </Section>
-        <Section title="Introduction">
+        <Section title="Introduction" id="project" onInViewChange={inView => {if (inView) {setSection(1)}}}>
           <ProjectArea />
         </Section>
-        <Section title="What do you want to research?">
+        <Section title="What do you want to research?" id="insights" onInViewChange={inView => {if (inView) {setSection(2)}}}>
           <KeyFindingsSection keyFinding={currentKeyFinding} onUpdateKeyFinding={updateKeyFinding} />
         </Section>
 
-        <div id='keyFinding'>
+        <div id='keyFinding' className={styles.snappingSectionKeyFinding}>
         {currentKeyFinding == KeyFinding.None ? (
           <></>
         ) : (
-          <div>
-            {/*<ToolBar
-              isSpecificSectionInView={isKeyFindingSectionInView}
-              keyFinding={currentKeyFinding}
-              onUpdateKeyFinding={updateKeyFinding}
-            />*/}
-            {renderKeyFinding()}
-          </div>
+          renderKeyFinding()
         )}
         </div>
 
-        <Section title="Who are we?">
+        <Section title="Who are we?" id="team" halfAcrossLine={true} onInViewChange={inView => {if (inView) {setSection(3)}}}>
           <TeamSection />
         </Section>
 
-        <Section title="🛠️ Legacy Components">
+        <Section title="🛠️ Legacy Components" onInViewChange={inView => {if (inView) {setSection(4)}}}>
           <BaseChartsSection />
         </Section>
 
