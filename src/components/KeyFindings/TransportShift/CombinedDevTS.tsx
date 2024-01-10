@@ -135,7 +135,7 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
             d3.select(d3Container.current).selectAll("*").remove();
 
             const margin = { top: 5, right: 30, bottom: 10, left: 30 };
-            const width = 800 - margin.left - margin.right;
+            const width = 780 - margin.left - margin.right;
             const height = 250 - margin.top - margin.bottom;
 
             const svg = d3.select(d3Container.current)

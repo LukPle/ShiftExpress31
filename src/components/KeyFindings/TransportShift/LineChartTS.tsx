@@ -22,7 +22,7 @@ interface LineChartCombinedProps {
 const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData, startYear, endYear, currentYear, setCurrentYear, currentFilter }) => {
     const d3Container = useRef(null);
     const margin = { top: 10, right: 30, bottom: 20, left: 30 };
-    const width = 800 - margin.left - margin.right;
+    const width = 780 - margin.left - margin.right;
     const height = 120 - margin.top - margin.bottom;
 
     const markerRef = useRef(null);
