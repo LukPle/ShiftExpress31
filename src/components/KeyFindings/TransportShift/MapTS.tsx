@@ -94,7 +94,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
     };
 
     const colorRange = isPT ? ['#DD0606','rgba(221, 6, 6, 0.5)', '#FFFFFF','rgba(3, 4, 94, 0.5)', '#03045E']
-                            : ['#DD0606','rgba(221, 6, 6, 0.5)', '#FFFFFF','rgba(60, 27, 24, 0.5)', '#3C1B18'];
+                            : ['#DD0606','rgba(221, 6, 6, 0.5)', '#FFFFFF','rgba(255, 165, 0, 0.5)', '#FFA500'];
 
     const colorScale = d3.scaleLinear<string>()
         .domain(isPT ? [-40, -20, 0, 20, 40] : [-10, -5, 0, 5, 10])
@@ -192,7 +192,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
             </Stack>
             */}
             <CardOverflow>
-                <SegmentedControlsFilter items={["Show Public Transport", "Show Cars"]} onChange={(index, item) => {setPT(index == 0); console.log(index, item);}} index={currentFilter === FilterOptions.FocusCars ? 1 : 0}></SegmentedControlsFilter>
+                <SegmentedControlsFilter items={["Show Public Transport", "Show Cars"]} onChange={(index, item) => {setPT(index === 0);}} index={currentFilter === FilterOptions.FocusCars ? 1 : 0}></SegmentedControlsFilter>
                 <Divider inset="context" />
             </CardOverflow>
             <Stack direction="row">

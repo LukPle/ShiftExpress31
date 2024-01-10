@@ -32,7 +32,7 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
             if (currentSorting != ChartSorting.None) {
                 setCurrentSorting(ChartSorting.None);
             }
-            color = d3.scaleOrdinal().range(["rgba(60, 27, 24, 0.5)", "#03045E"]); // Car, PT
+            color = d3.scaleOrdinal().range(["#FFA500", "#03045E"]); // Car, PT
             break;
         case FilterOptions.FocusPublicTransport:
             if (currentSorting != ChartSorting.SortPublicTransport) {
@@ -44,10 +44,10 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
             if (currentSorting != ChartSorting.SortCars) {
                 setCurrentSorting(ChartSorting.SortCars);
             }
-            color = d3.scaleOrdinal().range(["rgba(60, 27, 24, 0.5)", "#E8E8E8"]); // Car, PT
+            color = d3.scaleOrdinal().range(["#FFA500", "#E8E8E8"]); // Car, PT
             break;
         default:
-            color = d3.scaleOrdinal().range(["rgba(60, 27, 24, 0.5)", "#03045E"]); // Car, PT
+            color = d3.scaleOrdinal().range(["#FFA500", "#03045E"]); // Car, PT
             console.log(`Got ${currentFilter} but expected Comparison, FocusPublicTransport or FocusCars`);
     }
 

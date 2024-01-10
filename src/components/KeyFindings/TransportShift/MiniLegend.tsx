@@ -9,7 +9,7 @@ interface GroupedBarChartLegendProps {
 
 const GroupedBarChartLegend: React.FC<GroupedBarChartLegendProps> = ({ currentOption }) => {
     const ptColor = theme.palette.primary[500];
-    const carColor = 'rgba(60, 27, 24, 0.5)';
+    const carColor = '#FFA500';
     const unfocusedColor = '#E8E8E8';
 
     const getRectangleStyle = (color: string): React.CSSProperties => {

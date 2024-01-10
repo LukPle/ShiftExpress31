@@ -10,14 +10,15 @@ interface SegmentedControlsFilterProps {
 }
 
 const SegmentedControlsFilter: React.FC<SegmentedControlsFilterProps> = React.memo(({ items, onChange, index }) => {
-    const [currentIndex, setCurrentIndex] = useState(0);
+    const [currentIndex, setCurrentIndex] = useState(index ?? 0);
+
+    useEffect(() => {
+        setCurrentIndex(index ?? 0);
+    }, [index]);
 
     useEffect(() => {
         onChange(currentIndex, items[currentIndex]);
-        if (index !== undefined) {
-            setCurrentIndex(index);
-        }
-    }, [currentIndex, index]);
+    }, [currentIndex, items, onChange]);
 
     const getControlContainerSytle: React.CSSProperties = {
         backgroundColor: 'EFEFF0',
@@ -57,14 +58,25 @@ const SegmentedControlsFilter: React.FC<SegmentedControlsFilterProps> = React.me
         transition: 'background-color 0.1s ease',
     };
 
+    const handleItemClick = (itemIndex: number) => {
+        setCurrentIndex(itemIndex);
+        onChange(itemIndex, items[itemIndex]);
+    };
 
     return (
-        <Stack direction={'row'} justifyContent={'space-evenly'} divider={<Divider orientation='vertical'/>} style={getControlContainerSytle}>
-            {items.map((item, index) => {
+        <Stack direction={'row'} justifyContent={'space-evenly'} divider={<Divider orientation='vertical' />} style={getControlContainerSytle}>
+            {items.map((item, itemIndex) => {
                 return (
-                    <div key={index} style={getControlItemStyle} onClick={() => setCurrentIndex(index)}>
-                        {currentIndex === index ? <motion.div layoutId={'1'} style={getItemBackgroundStyle}></motion.div> : null}
-                        <Typography position={'relative'} zIndex={1} textColor={currentIndex === index ? 'white' : '#03045e'} fontWeight={currentIndex === index ? 'lg' : 'sm'}>{item}</Typography>
+                    <div key={itemIndex} style={getControlItemStyle} onClick={() => handleItemClick(itemIndex)}>
+                        {currentIndex === itemIndex ? <motion.div layoutId={'1'} style={getItemBackgroundStyle}></motion.div> : null}
+                        <Typography
+                            position={'relative'}
+                            zIndex={1}
+                            textColor={currentIndex === itemIndex ? 'white' : '#03045e'}
+                            fontWeight={currentIndex === itemIndex ? 'lg' : 'sm'}
+                        >
+                            {item}
+                        </Typography>
                     </div>
                 );
             })}
