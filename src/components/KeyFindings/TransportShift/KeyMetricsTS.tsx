@@ -19,8 +19,8 @@ const KeyMetricsTS: React.FC<KeyMetricsProps> = ({ carData, transportData, start
     const [transportPercentageChange, setTransportPercentageChange] = useState<number>(0);
 
     useEffect(() => {
-            setCarPercentageChange(calculatePercentageChange(carData, 'passenger_km', startYear, endYear));
-            setTransportPercentageChange(calculatePercentageChange(transportData, 'total_local_passenger_km', startYear, endYear));
+        setCarPercentageChange(calculatePercentageChange(carData, 'passenger_km', startYear, endYear));
+        setTransportPercentageChange(calculatePercentageChange(transportData, 'total_local_passenger_km', startYear, endYear));
 
     }, [carData, transportData, startYear, endYear, currentFilter]);
 
@@ -60,20 +60,23 @@ const KeyMetricsTS: React.FC<KeyMetricsProps> = ({ carData, transportData, start
     const carColor = '#FFA500';
     const unfocusedColor = '#E8E8E8';
 
-    const getPercentStyle = (color: string): React.CSSProperties => {
+    const getPercentStyle = (color: string, notHiglighted: boolean): React.CSSProperties => {
         return {
             color: color,
+            opacity: notHiglighted ? 0.5 : 1,
         };
     };
 
     return (
         <>
-             <Stack direction={"row"} sx={{ flex: 1 }} alignItems={"center"} justifyContent={"flex-start"} gap={2}>
-                <Typography sx={getPercentStyle(currentFilter === FilterOptions.FocusPublicTransport ? unfocusedColor : carColor)} level='h4'>{Math.sign(carPecentageChange) === -1 ? "-" : "+"+carPecentageChange.toFixed(2)+"%"}</Typography>
-                <Typography sx={getPercentStyle(currentFilter === FilterOptions.FocusCars ? unfocusedColor : ptColor)} level='h4'>{Math.sign(transportPercentageChange) === -1 ? "-" : "+"+transportPercentageChange.toFixed(2)+"%"}</Typography>
-              </Stack>
-              <Divider orientation="vertical" />
-              <Typography level='h4'>{endYear}</Typography>
+            <Stack direction={"row"} sx={{ flex: 1 }} alignItems={"end"} justifyContent={"flex-start"} gap={2}>
+                <Typography sx={getPercentStyle(ptColor, currentFilter === FilterOptions.FocusCars)} level='h4'>{Math.sign(transportPercentageChange) === -1 ? "-" : "+" + transportPercentageChange.toFixed(2) + "% 🚈"}</Typography>
+                <Divider orientation="vertical" />
+                <Typography sx={getPercentStyle(carColor, currentFilter === FilterOptions.FocusPublicTransport)} level='h4'>{Math.sign(carPecentageChange) === -1 ? "-" : "+" + carPecentageChange.toFixed(2) + "%" + " 🚗"}</Typography>
+                <Typography sx={{color: "#646B73"}} level="body-xs">*since {startYear}</Typography>
+            </Stack>
+            <Divider orientation="vertical" />
+            <Typography level='h4'>{endYear}</Typography>
         </>
     );
 };
