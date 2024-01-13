@@ -5,6 +5,7 @@ import LineChartTS from './LineChartTS';
 import pTData from "../../../data/pT.json";
 import carData from "../../../data/car.json";
 import MiniLegend from './MiniLegend';
+import KeyMetricsTS from './KeyMetricsTS';
 import {
   Card,
   Stack,
@@ -112,11 +113,7 @@ const TransportShift: React.FC = () => {
         <Stack direction={"column"} gap={2} >
           <Card>
             <CardContent orientation="horizontal">
-              <Stack direction={"row"} sx={{ flex: 1 }} alignItems={"center"} justifyContent={"flex-start"}>
-                <Typography>Placeholder</Typography>
-              </Stack>
-              <Divider orientation="vertical" />
-              <Typography level='h4'>{endYear}</Typography>
+              <KeyMetricsTS carData={carData} transportData={pTData} startYear='2013' endYear={endYear.toString()} currentFilter={currentFilter} />
             </CardContent>
           </Card>
           <Card sx={{ flex: 1 }}>
