@@ -192,8 +192,8 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
             </Stack>
             */}
             <CardOverflow>
-                <SegmentedControlsFilter items={["Show Public Transport", "Show Cars"]} onChange={(index, item) => {setPT(index === 0);}} index={currentFilter === FilterOptions.FocusCars ? 1 : 0}></SegmentedControlsFilter>
-                <Divider inset="context" />
+                {(currentFilter === FilterOptions.Comparison) ? <SegmentedControlsFilter items={["Show Public Transport", "Show Cars"]} onChange={(index, item) => setPT(index === 0)}></SegmentedControlsFilter> : <div style={{ height: '60px' }}></div>}
+                {(currentFilter === FilterOptions.Comparison) ? <Divider inset="context" /> : null}
             </CardOverflow>
             <Stack direction="row">
                 <Stack direction="column" paddingRight="35px">

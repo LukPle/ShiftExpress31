@@ -23,7 +23,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
     const d3Container = useRef(null);
     const margin = { top: 10, right: 20, bottom: 20, left: 30 };
     const width = 820 - margin.left - margin.right;
-    const height = 120 - margin.top - margin.bottom;
+    const height = 125 - margin.top - margin.bottom;
 
     const markerRef = useRef(null);
     const controls = useAnimation(); // Create animation controls
