@@ -1,9 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { YearlyData as CarYearlyData, CarData } from '@/data/carDataInterface';
 import { YearlyData as TransportYearlyData, TransportData } from '@/data/pTDataInterface';
 import { Stack, Typography, Divider } from "@mui/joy";
 import { FilterOptions } from './TransportShift';
 import theme from '@/utils/theme';
+import { animate } from "framer-motion";
+
+// Counter component
+//@ts-ignore
+function Counter({ from, to, prefix = "", suffix = "" }) {
+    const nodeRef = useRef();
+
+    useEffect(() => {
+        const node = nodeRef.current;
+
+        const controls = animate(from, to, {
+            duration: 1,
+            onUpdate(value) {
+                //@ts-ignore
+                node.textContent = prefix + value.toFixed(2) + suffix;
+            },
+        });
+
+        return () => controls.stop();
+    }, [from, to, prefix, suffix]);
+    //@ts-ignore
+    return <span ref={nodeRef} />;
+}
 
 
 interface KeyMetricsProps {
@@ -15,13 +38,16 @@ interface KeyMetricsProps {
 }
 
 const KeyMetricsTS: React.FC<KeyMetricsProps> = ({ carData, transportData, startYear, endYear, currentFilter }) => {
-    const [carPecentageChange, setCarPercentageChange] = useState<number>(0);
+    const [carPercentageChange, setCarPercentageChange] = useState<number>(0);
     const [transportPercentageChange, setTransportPercentageChange] = useState<number>(0);
+    const [previousCarPercentageChange, setPreviousCarPercentageChange] = useState<number>(0);
+    const [previousTransportPercentageChange, setPreviousTransportPercentageChange] = useState<number>(0);
 
     useEffect(() => {
+        setPreviousCarPercentageChange(carPercentageChange);
+        setPreviousTransportPercentageChange(transportPercentageChange);
         setCarPercentageChange(calculatePercentageChange(carData, 'passenger_km', startYear, endYear));
         setTransportPercentageChange(calculatePercentageChange(transportData, 'total_local_passenger_km', startYear, endYear));
-
     }, [carData, transportData, startYear, endYear, currentFilter]);
 
     const calculatePercentageChange = (
@@ -64,16 +90,31 @@ const KeyMetricsTS: React.FC<KeyMetricsProps> = ({ carData, transportData, start
         return {
             color: color,
             opacity: notHiglighted ? 0.5 : 1,
+            fontVariantNumeric: "tabular-nums"
         };
     };
 
     return (
         <>
             <Stack direction={"row"} sx={{ flex: 1 }} alignItems={"end"} justifyContent={"flex-start"} gap={2}>
-                <Typography sx={getPercentStyle(ptColor, currentFilter === FilterOptions.FocusCars)} level='h4'>{(Math.sign(transportPercentageChange) === -1 ? "" : "+") + transportPercentageChange.toFixed(2) + "% 🚈"}</Typography>
+                <Typography sx={getPercentStyle(ptColor, currentFilter === FilterOptions.FocusCars)} level='h4'>
+                    <Counter
+                        from={previousTransportPercentageChange}
+                        to={transportPercentageChange}
+                        prefix={Math.sign(transportPercentageChange) >= 0 ? "+" : ""}
+                        suffix="% 🚈"
+                    />
+                </Typography>
                 <Divider orientation="vertical" />
-                <Typography sx={getPercentStyle(carColor, currentFilter === FilterOptions.FocusPublicTransport)} level='h4'>{(Math.sign(transportPercentageChange) === -1 ? "" : "+") + carPecentageChange.toFixed(2) + "%" + " 🚗"}</Typography>
-                <Typography sx={{color: "#646B73"}} level="body-xs">*since {startYear}</Typography>
+                <Typography sx={getPercentStyle(carColor, currentFilter === FilterOptions.FocusPublicTransport)} level='h4'>
+                    <Counter
+                        from={previousCarPercentageChange}
+                        to={carPercentageChange}
+                        prefix={Math.sign(carPercentageChange) >= 0 ? "+" : ""}
+                        suffix="% 🚗"
+                    />
+                </Typography>
+                <Typography sx={{ color: "#646B73" }} level="body-xs">*since {startYear}</Typography>
             </Stack>
             <Divider orientation="vertical" />
             <Typography level='h4'>{endYear}</Typography>
