@@ -1,4 +1,4 @@
-import { Select, Option, Stack, CardOverflow, CardContent, Divider} from "@mui/joy";
+import { Select, Option, Stack, CardOverflow, CardContent, Divider, Typography} from "@mui/joy";
 import * as d3 from "d3";
 import germanyGeoJSON from "../../../data/germany-states.json";
 import React, { useEffect, useRef, useState } from 'react';
@@ -10,6 +10,7 @@ import MapLegend from "@/components/MapComponents/MapLegend";
 import SegmentedControlsFilter from "./SegmentedControlsFilter";
 import Tooltip from "./Tooltip";
 import { FilterOptions } from "./TransportShift";
+import { motion } from "framer-motion";
 
 
 interface Props {
@@ -93,6 +94,46 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
         }
     };
 
+    const calculatePercentageChange = (stateId: string, metric: keyof TransportData | keyof CarData, data: TransportYearlyData | CarYearlyData) => {
+        const startYearData = data[startYear].find(d => d.state === stateId);
+        const endYearData = data[endYear].find(d => d.state === stateId);
+    
+        if (!startYearData || !endYearData) {
+            return 0;
+        }
+    
+        // @ts-ignore
+        const startValue = startYearData[metric];
+        // @ts-ignore
+        const endValue = endYearData[metric];
+    
+        if (typeof startValue === 'number' && typeof endValue === 'number') {
+            return ((endValue - startValue) / startValue) * 100;
+        } else {
+            return 0;
+        }
+    };
+    
+    // Function to get the top 3 states based on percentage change
+    const getTop3States = (metric: keyof TransportData | keyof CarData, data: TransportYearlyData | CarYearlyData) => {
+        const statePercentageChanges = mapData.features.map((feature) => {
+            // @ts-ignore
+            const stateId = feature.properties.id;
+            // @ts-ignore
+            const stateName = feature.properties.name;
+            const percentageChange = calculatePercentageChange(stateId, metric, data);
+            return { stateName, percentageChange };
+        });
+    
+        // Sort states based on percentage change in descending order
+        const sortedStates = statePercentageChanges.sort((a, b) => b.percentageChange - a.percentageChange);
+    
+        // Get the top 3 states
+        const top3States = sortedStates.slice(0, 3);
+    
+        return top3States;
+    };    
+
     const colorRange = isPT ? ['#DD0606','rgba(221, 6, 6, 0.5)', '#FFFFFF','rgba(3, 4, 94, 0.5)', '#03045E']
                             : ['#DD0606','rgba(221, 6, 6, 0.5)', '#FFFFFF','rgba(255, 165, 0, 0.5)', '#FFA500'];
 
@@ -175,6 +216,10 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
 
 
     }, [startYear, endYear, selectedMetricPT, selectedMetricCar, isPT]);
+
+
+    const top3StatesPT = getTop3States(selectedMetricPT, transportData);
+    const top3StatesCar = getTop3States(selectedMetricCar, carData);
     
 
     return (
@@ -192,10 +237,43 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
             </Stack>
             */}
             <CardOverflow>
-                <SegmentedControlsFilter items={["Show Public Transport", "Show Cars"]} onChange={(index, item) => {setPT(index === 0);}} index={currentFilter === FilterOptions.FocusCars ? 1 : 0}></SegmentedControlsFilter>
-                <Divider inset="context" />
+                {(currentFilter === FilterOptions.Comparison) ? (
+                    <SegmentedControlsFilter items={["Show Public Transport", "Show Cars"]} onChange={(index, item) => setPT(index === 0)} />
+                ) : (
+                    <div style={{ height: '60px' }}>
+                        <Stack direction={'column'} divider={<Divider orientation='horizontal' />} gap={0.2}>
+                            {currentFilter === FilterOptions.FocusPublicTransport ?
+                                top3StatesPT.map((stateData, index) => (
+                                    <motion.div
+                                        key={index}
+                                        initial={{ opacity: 0, y: -10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                                    >
+                                        <Typography>
+                                            {index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'} {stateData.stateName} - {stateData.percentageChange.toFixed(2)}%
+                                        </Typography>
+                                    </motion.div>
+                                )) :
+                                top3StatesCar.map((stateData, index) => (
+                                    <motion.div
+                                        key={index}
+                                        initial={{ opacity: 0, y: -10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                                    >
+                                        <Typography>
+                                            {index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'} {stateData.stateName} - {stateData.percentageChange.toFixed(2)}%
+                                        </Typography>
+                                    </motion.div>
+                                ))
+                            }
+                        </Stack>
+                    </div>
+                )}
+                {(currentFilter === FilterOptions.Comparison) ? <Divider inset="context" /> : null}
             </CardOverflow>
-            <Stack direction="row">
+            <Stack direction="row" marginTop="20px">
                 <Stack direction="column" paddingRight="35px">
                     <svg ref={svgRef} width={width} height={height}></svg>
                     {selectedState && (
