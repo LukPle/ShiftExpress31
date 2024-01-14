@@ -10,6 +10,7 @@ import MapLegend from "@/components/MapComponents/MapLegend";
 import SegmentedControlsFilter from "./SegmentedControlsFilter";
 import Tooltip from "./Tooltip";
 import { FilterOptions } from "./TransportShift";
+import { motion } from "framer-motion";
 
 
 interface Props {
@@ -240,20 +241,34 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
                     <SegmentedControlsFilter items={["Show Public Transport", "Show Cars"]} onChange={(index, item) => setPT(index === 0)} />
                 ) : (
                     <div style={{ height: '60px' }}>
-                    <Stack direction={'column'} divider={<Divider orientation='horizontal'/>} gap={0.2}>
-                        {currentFilter === FilterOptions.FocusPublicTransport ?
-                        top3StatesPT.map((stateData, index) => (
-                            <Typography key={index}>
-                            {index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'} {stateData.stateName} - {stateData.percentageChange.toFixed(2)}%
-                            </Typography>
-                        )) :
-                        top3StatesCar.map((stateData, index) => (
-                            <Typography key={index}>
-                            {index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'} {stateData.stateName} - {stateData.percentageChange.toFixed(2)}%
-                            </Typography>
-                        ))
-                        }
-                    </Stack>
+                        <Stack direction={'column'} divider={<Divider orientation='horizontal' />} gap={0.2}>
+                            {currentFilter === FilterOptions.FocusPublicTransport ?
+                                top3StatesPT.map((stateData, index) => (
+                                    <motion.div
+                                        key={index}
+                                        initial={{ opacity: 0, y: -10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                                    >
+                                        <Typography>
+                                            {index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'} {stateData.stateName} - {stateData.percentageChange.toFixed(2)}%
+                                        </Typography>
+                                    </motion.div>
+                                )) :
+                                top3StatesCar.map((stateData, index) => (
+                                    <motion.div
+                                        key={index}
+                                        initial={{ opacity: 0, y: -10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                                    >
+                                        <Typography>
+                                            {index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'} {stateData.stateName} - {stateData.percentageChange.toFixed(2)}%
+                                        </Typography>
+                                    </motion.div>
+                                ))
+                            }
+                        </Stack>
                     </div>
                 )}
                 {(currentFilter === FilterOptions.Comparison) ? <Divider inset="context" /> : null}
