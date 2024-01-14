@@ -70,9 +70,9 @@ const KeyMetricsTS: React.FC<KeyMetricsProps> = ({ carData, transportData, start
     return (
         <>
             <Stack direction={"row"} sx={{ flex: 1 }} alignItems={"end"} justifyContent={"flex-start"} gap={2}>
-                <Typography sx={getPercentStyle(ptColor, currentFilter === FilterOptions.FocusCars)} level='h4'>{Math.sign(transportPercentageChange) === -1 ? "-" : "+" + transportPercentageChange.toFixed(2) + "% 🚈"}</Typography>
+                <Typography sx={getPercentStyle(ptColor, currentFilter === FilterOptions.FocusCars)} level='h4'>{(Math.sign(transportPercentageChange) === -1 ? "" : "+") + transportPercentageChange.toFixed(2) + "% 🚈"}</Typography>
                 <Divider orientation="vertical" />
-                <Typography sx={getPercentStyle(carColor, currentFilter === FilterOptions.FocusPublicTransport)} level='h4'>{Math.sign(carPecentageChange) === -1 ? "-" : "+" + carPecentageChange.toFixed(2) + "%" + " 🚗"}</Typography>
+                <Typography sx={getPercentStyle(carColor, currentFilter === FilterOptions.FocusPublicTransport)} level='h4'>{(Math.sign(transportPercentageChange) === -1 ? "" : "+") + carPecentageChange.toFixed(2) + "%" + " 🚗"}</Typography>
                 <Typography sx={{color: "#646B73"}} level="body-xs">*since {startYear}</Typography>
             </Stack>
             <Divider orientation="vertical" />
