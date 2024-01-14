@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Stack, Card, CardCover, CardContent, Button } from "@mui/joy";
+import { Typography, Stack, Card, CardCover, CardContent, Button, CardOverflow, AspectRatio } from "@mui/joy";
 import { KeyFinding } from '../../pages/index';
 import styles from '../../styles/index.module.css'; // Need this for scrolling
 
@@ -35,7 +35,7 @@ const scrollToSection = (sectionId) => {
   }
 }
 
-const KeyFindingsSection: React.FC<KeyFindingsSectionProps> = ({keyFinding, onUpdateKeyFinding}) => {
+const KeyFindingsSection: React.FC<KeyFindingsSectionProps> = ({ keyFinding, onUpdateKeyFinding }) => {
   return (
     <div>
       <Typography mt={2}>
@@ -44,7 +44,15 @@ const KeyFindingsSection: React.FC<KeyFindingsSectionProps> = ({keyFinding, onUp
       </Typography>
       <Stack direction={"row"} mt={2} spacing={2}>
         <Card sx={{ width: "30%" }}>
-          <CardCover></CardCover>
+          <CardOverflow>
+            <AspectRatio ratio="4">
+              <img
+                src="/teaserTS.jpg"
+                loading="lazy"
+                alt=""
+              />
+            </AspectRatio>
+          </CardOverflow>
           <CardContent>
             <Typography level="h3">🚉 Transportation Shift</Typography>
             <Typography>
@@ -68,7 +76,15 @@ const KeyFindingsSection: React.FC<KeyFindingsSectionProps> = ({keyFinding, onUp
           </CardContent>
         </Card>
         <Card sx={{ width: "30%" }}>
-          <CardCover></CardCover>
+        <CardOverflow>
+            <AspectRatio ratio="4">
+              <img
+                src="/teaserCovid.jpg"
+                loading="lazy"
+                alt=""
+              />
+            </AspectRatio>
+          </CardOverflow>
           <CardContent>
             <Typography level="h3">🦠 COVID</Typography>
             <Typography>
@@ -93,7 +109,15 @@ const KeyFindingsSection: React.FC<KeyFindingsSectionProps> = ({keyFinding, onUp
           </CardContent>
         </Card>
         <Card sx={{ width: "30%" }}>
-          <CardCover></CardCover>
+        <CardOverflow>
+            <AspectRatio ratio="4">
+              <img
+                src="/teaserCars.jpg"
+                loading="lazy"
+                alt=""
+              />
+            </AspectRatio>
+          </CardOverflow>
           <CardContent>
             <Typography level="h3">🚗 Cars in Germany</Typography>
             <Typography>
