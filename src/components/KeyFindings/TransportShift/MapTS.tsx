@@ -157,70 +157,74 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
         setTooltipPosition({ x, y });
         setTooltipContent(tooltipContent);
         setTooltipVisible(true); // Show the tooltip
-        d3.select(event.currentTarget as Element).style('fill', 'url(#stripes-pattern)');
+        d3.select(event.currentTarget).attr('mask', 'url(#mask)');
         onStateHover(d.properties.id);
     };
 
     // Handling the mouse exit
     const handleMouseOut = (event: React.MouseEvent<SVGPathElement, MouseEvent>, d: any) => {
         setTooltipVisible(false); // Hide the tooltip
+
+        // Remove the mask on mouse out
+        d3.select(event.currentTarget)
+            .attr('mask', null);
+
+        // Reset the fill color to its original state based on the data
         // @ts-ignore
-        isPT ? d3.select(event.currentTarget as Element).style('fill', d => colorScale(calculatePercentageChangePT(d.properties.id, selectedMetricPT))) : d3.select(event.currentTarget as Element).style('fill', d => colorScale(calculatePercentageChangeCar(d.properties.id, selectedMetricCar)));
+        d3.select(event.currentTarget).style('fill', d => colorScale(isPT ? calculatePercentageChangePT(d.properties.id, selectedMetricPT) : calculatePercentageChangeCar(d.properties.id, selectedMetricCar)));
+
         onStateHover(null);
     };
-    
+
 
     useEffect(() => {
         if (!svgRef.current) return;
 
         const svg = d3.select(svgRef.current);
 
-        // Define projection
+        // Define the projection
         const projection = d3.geoMercator().fitSize([width, height], mapData);
 
         // Create a path generator
         const pathGenerator = d3.geoPath().projection(projection);
 
-        // Define the SVG pattern [OnHover]
-        const pattern = svg
-            .append('defs')
+        // Define the SVG pattern for stripes
+        svg.append('defs')
             .append('pattern')
-            .attr('id', 'stripes-pattern')
-            .attr('width', 8) // Adjust the width to control the density of stripes
-            .attr('height', 8) // Adjust the height to control the density of stripes
+            .attr('id', 'stripe')
+            .attr('width', 5)
+            .attr('height', 10)
             .attr('patternUnits', 'userSpaceOnUse')
-            .attr('patternTransform', 'rotate(45)');
-
-
-        // Add alternating diagonal lines and transparent rectangles to the pattern
-        pattern
-            .selectAll('rect')
-            .data([
-                { x: 0, y: 0, width: 2, height: 8, fill: 'grey' },
-            ])
-            .enter()
+            .attr('patternTransform', 'rotate(45)')
             .append('rect')
-            .attr('x', d => d.x)
-            .attr('y', d => d.y)
-            .attr('width', d => d.width)
-            .attr('height', d => d.height)
-            .attr('fill', d => d.fill);
+            .attr('width', 4)
+            .attr('height', 10)
+            .attr('fill', 'white');
 
+        // Define the mask using the stripe pattern
+        svg.select('defs')
+            .append('mask')
+            .attr('id', 'mask')
+            .append('rect')
+            .attr('height', 1000)
+            .attr('width', 1000)
+            .style('fill', 'url(#stripe)');
 
         // Render the map
         svg.selectAll('path')
             .data(mapData.features)
             .join('path')
             .attr('d', d => pathGenerator(d) as string)
+            // Apply the initial fill color
             // @ts-ignore
-            .style('fill', d => {if (selectedState === d.properties.id) {return 'url(#stripes-pattern)'; } return colorScale(isPT ? calculatePercentageChangePT(d.properties.id, selectedMetricPT) : calculatePercentageChangeCar(d.properties.id, selectedMetricCar)); })
+            .style('fill', d => colorScale(isPT ? calculatePercentageChangePT(d.properties.id, selectedMetricPT) : calculatePercentageChangeCar(d.properties.id, selectedMetricCar)))
             .style('stroke', '#727272')
             .style('stroke-width', 0.75)
             .on('mouseover', handleMouseOver)
             .on('mouseout', handleMouseOut);
 
+    }, [startYear, endYear, selectedMetricPT, selectedMetricCar, isPT, selectedState]);
 
-    }, [startYear, endYear, selectedMetricPT, selectedMetricCar, isPT,selectedState]);
 
 
     const top3StatesPT = getTop3States(selectedMetricPT, transportData);
