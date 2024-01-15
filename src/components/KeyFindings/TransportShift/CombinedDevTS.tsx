@@ -270,10 +270,23 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
                 .attr("height", d => Math.abs(yCar(d.carChange) - yCar(0)))
                 // @ts-ignore
                 .attr("fill", d => {
-                    return selectedState === d.state ? 'url(#stripes-pattern)' : color('carData');
+                    if (currentFilter === FilterOptions.Comparison || currentFilter === FilterOptions.FocusCars) {
+                        return selectedState === d.state ? 'url(#stripes-pattern)' : color('carData');
+                    }
+                    return color('carData');
                 })
+                //Highlight and Stroke
+                .attr("opacity", d =>
+                    currentFilter === FilterOptions.Comparison || currentFilter === FilterOptions.FocusCars ?
+                        (selectedState === null || selectedState === d.state ? 1 : 0.6) : 1)
+                .style('stroke', d =>
+                    currentFilter === FilterOptions.Comparison || currentFilter === FilterOptions.FocusCars ?
+                        (selectedState === d.state ? '#FFFF00' : 'none') : 'none')
+                .style('stroke-width', d =>
+                    currentFilter === FilterOptions.Comparison || currentFilter === FilterOptions.FocusCars ?
+                        (selectedState === d.state ? 5 : 0) : 0)
                 .on("mouseover", (event, d) => {
-                    //storeOriginalColor(event);
+                    storeOriginalColor(event);
                     handleMouseOverBar(event, d, 'carData');
                 })
                 .on("mouseout", handleMouseOutBar);
@@ -291,11 +304,21 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
                 .attr("height", d => Math.abs(yTransport(d.transportChange) - yTransport(0)))
                 // @ts-ignore
                 .attr("fill", d => {
-                    if (selectedState === d.state) {
-                        return 'url(#stripes-pattern)';
+                    if (currentFilter === FilterOptions.Comparison || currentFilter === FilterOptions.FocusPublicTransport) {
+                        return selectedState === d.state ? 'url(#stripes-pattern)' : color('transportData');
                     }
                     return color('transportData');
                 })
+                //Highlight and Stroke
+                .attr("opacity", d =>
+                    currentFilter === FilterOptions.Comparison || currentFilter === FilterOptions.FocusPublicTransport ?
+                        (selectedState === null || selectedState === d.state ? 1 : 0.6) : 1)
+                .style('stroke', d =>
+                    currentFilter === FilterOptions.Comparison || currentFilter === FilterOptions.FocusPublicTransport ?
+                        (selectedState === d.state ? '#FFFF00' : 'none') : 'none')
+                .style('stroke-width', d =>
+                    currentFilter === FilterOptions.Comparison || currentFilter === FilterOptions.FocusPublicTransport ?
+                        (selectedState === d.state ? 5 : 0) : 0)
                 .on("mouseover", (event, d) => {
                     storeOriginalColor(event);
                     handleMouseOverBar(event, d, 'transportData');
