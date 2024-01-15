@@ -193,7 +193,7 @@
 .snappingContainer {
   scroll-snap-type: y mandatory;
   overflow-y: scroll;
-  height: 90vh;
+  height: 91vh;
 }
 
 .snappingSection {
@@ -236,6 +236,12 @@
   background-color: var(--joy-palette-primary-50);
   border: 15px solid var(--joy-palette-primary-500);
   border-radius: 50%;
+}
+
+.backToKeyfindingBtn {
+  position: absolute;
+  right: 0;
+  top: 25px;
 }
 
 @media screen and (min-width: 1500px) {

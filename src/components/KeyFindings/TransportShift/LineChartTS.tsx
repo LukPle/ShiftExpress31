@@ -21,9 +21,9 @@ interface LineChartCombinedProps {
 
 const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData, startYear, endYear, currentYear, setCurrentYear, currentFilter }) => {
     const d3Container = useRef(null);
-    const margin = { top: 10, right: 30, bottom: 20, left: 30 };
-    const width = 800 - margin.left - margin.right;
-    const height = 120 - margin.top - margin.bottom;
+    const margin = { top: 10, right: 20, bottom: 20, left: 30 };
+    const width = 820 - margin.left - margin.right;
+    const height = 125 - margin.top - margin.bottom;
 
     const markerRef = useRef(null);
     const controls = useAnimation(); // Create animation controls
@@ -118,7 +118,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                 .append('path')
                 .datum(carPercentageChangeData)
                 .attr('fill', 'none')
-                .attr('stroke', (currentFilter !== FilterOptions.FocusPublicTransport) ? '#9B8D8C' : '#E8E8E8')
+                .attr('stroke', (currentFilter !== FilterOptions.FocusPublicTransport) ? '#FFA500' : '#E8E8E8')
                 .attr('stroke-width', 5)
                 .attr(
                     'd',
@@ -151,7 +151,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
             .attr("cx", d => x(d.year))
             .attr("cy", d => y(d.percentageChange))
             .attr("r", 5) // Adjust the radius as needed
-            .style('fill', (currentFilter !== FilterOptions.FocusPublicTransport) ? '#9B8D8C' : '#E8E8E8');
+            .style('fill', (currentFilter !== FilterOptions.FocusPublicTransport) ? '#FFA500' : '#E8E8E8');
 
             // Transport Data Circles
             svg.selectAll(".transport-circle")
@@ -174,7 +174,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
             // Add circles for the data points
             const focusCar = svg.append('g')
                 .append('circle')
-                .style('fill', (currentFilter !== FilterOptions.FocusPublicTransport) ? '#9B8D8C' : '#E8E8E8')
+                .style('fill', (currentFilter !== FilterOptions.FocusPublicTransport) ? '#FFA500' : '#E8E8E8')
                 .attr('r', 7)
                 .style('display', 'none');
 
@@ -304,7 +304,6 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
 
     return (
         <div>
-            <Typography sx={{ marginTop: '5px', marginBottom: '15px', fontWeight: 'lg' }}>Cumulative change of usage in Germany from {startYear}</Typography>
             <div style={{ position: 'relative' }}>
                 <svg
                     className="d3-component"
