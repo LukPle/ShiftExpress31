@@ -8,13 +8,13 @@ interface SectionProps {
   title: string;
   children: React.ReactNode;
   onInViewChange?: (inView: boolean) => void;
-  halfAcrossLine?: Boolean;
   id?: string;
   style?: React.CSSProperties;
   introSection?: Boolean;
+  teamSection?: Boolean;
 }
 
-const Section: React.FC<SectionProps> = ({ title, children, onInViewChange, halfAcrossLine, id, style, introSection }) => {
+const Section: React.FC<SectionProps> = ({ title, children, onInViewChange, id, style, introSection, teamSection }) => {
   const { ref, inView } = useInView({
     threshold: 0.5,
   });
@@ -24,8 +24,13 @@ const Section: React.FC<SectionProps> = ({ title, children, onInViewChange, half
   }, [inView, onInViewChange]);
 
   return (
-    <div ref={ref} style={style} className={`${styles.snappingSection} ${halfAcrossLine ? styles.lineLeftHalfAcrossStack : styles.lineLeftStack}`} id={id ? id : ""}>
-      <Typography level="h2" className={`${styles.heading} ${inView ? styles.headingActive : ""} ${introSection ? styles.headingIntroSection : ""}`} marginTop={"20px"}>{title}</Typography>
+    <div ref={ref} style={style} className={`${styles.snappingSection} ${!teamSection && ! introSection ? styles.lineLeftStack : (introSection ? styles.introSection : styles.footerSection)}`} id={id ? id : ""}>
+      {introSection ? (
+        <></>
+        ) : (
+        <Typography level="h2" className={`${styles.heading} ${inView ? styles.headingActive : ""}`} marginTop={"20px"}>{title}</Typography>
+      )
+      }
       {children}
     </div>
   );
