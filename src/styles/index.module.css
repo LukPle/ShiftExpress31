@@ -204,7 +204,7 @@
 .snappingContainer {
   scroll-snap-type: y mandatory;
   overflow-y: scroll;
-  height: 91vh;
+  height: 90vh;
 }
 
 .snappingSection {
@@ -248,6 +248,37 @@
   background-color: var(--joy-palette-primary-50);
   border: 15px solid var(--joy-palette-primary-500);
   border-radius: 50%;
+  z-index: 3;
+}
+
+.tunnelHelper {
+  position: absolute;
+  right: -48px;
+  top: calc(75% - 85px);
+  display: block;
+  height: 80px;
+  width: 190px;
+  background-color: #F3F3F3;
+  z-index: 2;
+}
+.tunnelHelper2 {
+  position: absolute;
+  right: -48px;
+  top: calc(75% - 70px);
+  display: block;
+  height: 150px;
+  width: 30px;
+  background-color: #F3F3F3;
+  z-index: 2;
+}
+
+.tunnel {
+  position: absolute;
+  right: 130px;
+  top: calc(75% - 85px);
+  display: block;
+  height: 80px;
+  z-index: 3;
 }
 
 .footerStationDot {
