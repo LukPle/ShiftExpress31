@@ -217,6 +217,8 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                         </>
                     ),
                 });
+
+                overlay.style('cursor', 'pointer');
             };
 
             // Event listeners for the overlay for tooltip
@@ -228,6 +230,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                 .on('mouseout', () => {
                     focusCar.style('display', 'none');
                     focusTransport.style('display', 'none');
+                    overlay.style('cursor', 'default');
 
                     setTooltip((prevTooltip) => ({
                         ...prevTooltip,
