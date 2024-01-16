@@ -1,5 +1,7 @@
 import React from 'react';
 import { Typography, Stack } from "@mui/joy";
+import { motion, useAnimation } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 import styles from "@/styles/index.module.css";
 
 interface IntroSectionProps {
@@ -7,8 +9,22 @@ interface IntroSectionProps {
 }
 
 const IntroSection: React.FC<IntroSectionProps> = () => {
+    const controls = useAnimation();
+    const [ref, inView] = useInView();
+
+    React.useEffect(() => {
+        if (inView) {
+            controls.start("visible");
+        }
+    }, [controls, inView]);
+
+    const variants = {
+        visible: { x: -500, opacity: 1, transition: { duration: 1 } },
+        hidden: { x: 500, opacity: 0 },
+    };
+
     return (
-        <Stack style={{height: "100%", paddingTop: "65px", paddingBottom: "65px", boxSizing: "border-box"}}>
+        <Stack ref={ref} style={{height: "100%", paddingTop: "65px", paddingBottom: "65px", boxSizing: "border-box"}}>
             <Typography level="h1" sx={{ fontSize: '5rem' }} >
                 Visualizing the transportation <br /> shift in Germany
             </Typography>
@@ -18,7 +34,13 @@ const IntroSection: React.FC<IntroSectionProps> = () => {
                 years from 2013 to 2022 across all federal states.
             </Typography>
 
-            <img src='/train.svg' className={styles.introTrainImage}/>
+            <motion.img 
+                src='/train.svg' 
+                className={styles.introTrainImage}
+                initial="hidden"
+                animate={controls}
+                variants={variants}
+            />
             <div className={styles.introStationDot}></div>
         </Stack>
     );
