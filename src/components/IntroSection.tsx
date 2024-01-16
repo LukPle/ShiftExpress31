@@ -3,9 +3,7 @@ import { Typography, Stack } from "@mui/joy";
 import { delay, motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import styles from "@/styles/index.module.css";
-import {
-    Copyright
-} from "@mui/icons-material";
+import {Copyright} from "@mui/icons-material";
 
 interface IntroSectionProps {
     // Add any props here
@@ -15,24 +13,32 @@ const IntroSection: React.FC<IntroSectionProps> = () => {
     const controls = useAnimation();
     const [ref, inView] = useInView();
     const [animationTriggered, setAnimationTriggered] = useState(false);
+    const [isAnimating, setIsAnimating] = useState(false);
 
     React.useEffect(() => {
         if (inView) {
             controls.start("visible");
         }
-        console.log("triggered: " + animationTriggered);
+        
         if (animationTriggered) {
-            controls.start("hidden");
+            setIsAnimating(true);
+            controls.start("hidden").then(() => {
+                controls.start("visible");
+                setAnimationTriggered(false);
+                setIsAnimating(false);
+            });
         }
-        setTimeout(() => {
-            controls.start("visible");
-            setAnimationTriggered(false);
-        }, 2000);
     }, [controls, inView, animationTriggered]);
 
     const variants = {
         visible: { x: -500, opacity: 1, transition: { duration: 1 } },
         hidden: { x: 500, opacity: 0, transition: { duration: 1 } },
+    };
+
+    const handleTrainClick = () => {
+        if (!isAnimating) {
+            setAnimationTriggered(true);
+        }
     };
 
     return (
@@ -57,11 +63,12 @@ const IntroSection: React.FC<IntroSectionProps> = () => {
                 initial="hidden"
                 animate={controls}
                 variants={variants}
-                onClick={() => { setAnimationTriggered(true) }}
+                onClick={() => handleTrainClick()}
             />
-            <div className={styles.introStationDot}></div>
+            
+            {/**<div className={styles.introStationDot}></div>/** */}
 
-            <Typography level="body-sm" mt="320px" startDecorator={<Copyright />}><span style={{ color: "#030456" }}>LMU &#x2022; Course: Information-Visualisaton &#x2022; Team 31: </span>&nbsp;@LukasPlenk @MalekJarraya @AmiinNouri @MaximillianWiegand</Typography>
+            <Typography level="body-sm" mt="auto" startDecorator={<Copyright />}><span style={{ color: "#030456" }}>LMU &#x2022; Course: Information-Visualizaton &#x2022; Team 31: </span>&nbsp;@LukasPlenk @MalekJarraya @AmiinNajjar @TimothySummers @MaximillianWiegand</Typography>
 
         </Stack>
     );

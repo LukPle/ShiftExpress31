@@ -54,10 +54,10 @@
   position: relative;
   background-image: linear-gradient(0deg,
     transparent 0%,
-    transparent calc(25% - 5.1px),
-    var(--joy-palette-primary-500) calc(25% - 5px),
-    var(--joy-palette-primary-500) calc(25% + 5px),
-    transparent calc(25% + 5.1px),
+    transparent calc(30% - 5.1px),
+    var(--joy-palette-primary-500) calc(30% - 5px),
+    var(--joy-palette-primary-500) calc(30% + 5px),
+    transparent calc(30% + 5.1px),
     transparent 100%
   );
 }
@@ -93,14 +93,14 @@
   display: block;
   width: 10px;
   background-color: var(--joy-palette-primary-500);
-  height: calc(25% - 43px);
+  height: calc(30% - 43px);
 }
 
 .introSection::after {
   content: '';
   position: absolute;
   left: -27px;
-  bottom: calc(25% - 58px);
+  bottom: calc(30% - 58px);
   display: block;
   width: 9.5px;
   background-color: var(--joy-palette-primary-500);
@@ -232,16 +232,17 @@
 
 .introTrainImage {
   position: absolute;
-  top: calc(75% - 52.5px);
-  left: 50%;
-  transform: translateX(-50%);
+  cursor: pointer;
+  top: calc(70% - 52.5px);
+  left: 60%;
+  transform: translateX(-40%);
   height: 50px;
 }
 
 .introStationDot {
   position: absolute;
   right: -30px;
-  top: calc(75% - 30px);
+  top: calc(70% - 30px);
   display: block;
   height: 30px;
   width: 30px;
@@ -253,29 +254,29 @@
 
 .tunnelHelper {
   position: absolute;
-  right: -48px;
-  top: calc(75% - 85px);
+  right: -62.5px;
+  top: calc(70% - 80px);
   display: block;
-  height: 80px;
-  width: 190px;
+  height: 85px;
+  width: 65px;
   background-color: #F3F3F3;
   z-index: 2;
 }
 .tunnelHelper2 {
   position: absolute;
   right: -48px;
-  top: calc(75% - 70px);
+  top: calc(70% - 70px);
   display: block;
   height: 150px;
-  width: 30px;
+  width: 35px;
   background-color: #F3F3F3;
   z-index: 2;
 }
 
 .tunnel {
   position: absolute;
-  right: 130px;
-  top: calc(75% - 85px);
+  right: 1.5px;
+  top: calc(70% - 85px);
   display: block;
   height: 80px;
   z-index: 3;
@@ -302,9 +303,10 @@
 @media screen and (min-width: 1500px) {
   .introTrainImage {
     position: absolute;
-    top: calc(75% - 75px);
-    left: 50%;
-    transform: translateX(-50%);
+    cursor: pointer;
+    top: calc(70% - 75px);
+    left: 47.5%;
+    transform: translateX(-52.5%);
     height: 75px;
   }
 }
