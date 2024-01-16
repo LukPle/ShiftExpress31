@@ -8,7 +8,7 @@ interface IntroSectionProps {
 
 const IntroSection: React.FC<IntroSectionProps> = () => {
     return (
-        <Stack style={{height: "100%", padding: "5%", boxSizing: "border-box"}} justifyContent="space-between">
+        <Stack style={{height: "100%", paddingTop: "65px", paddingBottom: "65px", boxSizing: "border-box"}} justifyContent="space-between">
             <Typography level="h1" sx={{ fontSize: '5rem' }} >
                 Visualizing the transportation <br /> shift in Germany
             </Typography>
