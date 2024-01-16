@@ -253,21 +253,21 @@
 
 .tunnelHelper {
   position: absolute;
-  right: -60px;
+  right: -48px;
   top: calc(75% - 85px);
   display: block;
   height: 80px;
-  width: 200px;
+  width: 190px;
   background-color: #F3F3F3;
   z-index: 2;
 }
 .tunnelHelper2 {
   position: absolute;
-  right: -50px;
+  right: -48px;
   top: calc(75% - 70px);
   display: block;
   height: 150px;
-  width: 50px;
+  width: 30px;
   background-color: #F3F3F3;
   z-index: 2;
 }
