@@ -88,7 +88,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
         <Section title="" id="intro" onInViewChange={inView => {if (inView) {setSection(0)}}} introSection={true}>
           <IntroSection />
         </Section>
-        <Section title="Introduction" id="project" onInViewChange={inView => {if (inView) {setSection(1)}}}>
+        <Section title="What is this project about?" id="project" onInViewChange={inView => {if (inView) {setSection(1)}}}>
           <ProjectArea />
         </Section>
         <Section title="What do you want to research?" id="insights" onInViewChange={inView => {if (inView) {setSection(2)}}}>
@@ -103,7 +103,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
         )}
         </div>
 
-        <Section title="Who are we?" id="team" teamSection={true} onInViewChange={inView => {if (inView) {setSection(3)}}}>
+        <Section title="Who is the team?" id="team" teamSection={true} onInViewChange={inView => {if (inView) {setSection(3)}}}>
           <TeamSection />
         </Section>
 

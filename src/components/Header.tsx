@@ -20,7 +20,7 @@ export default function Header({currentSection, setSection}: {currentSection: nu
           </Typography>
           <Typography level="h3">
             <Link href="#insights" underline={currentSection === 2 ? "always" : "none"}>
-              Insights and Map
+              Key Insights
             </Link>
           </Typography>
           <Typography level="h3">
