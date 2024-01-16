@@ -34,6 +34,11 @@ const IntroSection: React.FC<IntroSectionProps> = () => {
                 years from 2013 to 2022 across all federal states.
             </Typography>
 
+            <img src='/tunnel.svg' className={styles.tunnel} />
+
+            <div className={styles.tunnelHelper}></div>
+            <div className={styles.tunnelHelper2}></div>
+
             <motion.img 
                 src='/train.svg' 
                 className={styles.introTrainImage}

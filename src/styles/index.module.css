@@ -248,6 +248,37 @@
   background-color: var(--joy-palette-primary-50);
   border: 15px solid var(--joy-palette-primary-500);
   border-radius: 50%;
+  z-index: 3;
+}
+
+.tunnelHelper {
+  position: absolute;
+  right: -60px;
+  top: calc(75% - 85px);
+  display: block;
+  height: 80px;
+  width: 200px;
+  background-color: #F3F3F3;
+  z-index: 2;
+}
+.tunnelHelper2 {
+  position: absolute;
+  right: -50px;
+  top: calc(75% - 70px);
+  display: block;
+  height: 150px;
+  width: 50px;
+  background-color: #F3F3F3;
+  z-index: 2;
+}
+
+.tunnel {
+  position: absolute;
+  right: 130px;
+  top: calc(75% - 85px);
+  display: block;
+  height: 80px;
+  z-index: 3;
 }
 
 .footerStationDot {
