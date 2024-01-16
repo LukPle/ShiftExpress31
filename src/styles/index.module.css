@@ -50,7 +50,18 @@
   height: 100vh;
 }
 
-.introSection,
+.introSection {
+  position: relative;
+  background-image: linear-gradient(0deg,
+    transparent 0%,
+    transparent calc(25% - 5.1px),
+    var(--joy-palette-primary-500) calc(25% - 5px),
+    var(--joy-palette-primary-500) calc(25% + 5px),
+    transparent calc(25% + 5.1px),
+    transparent 100%
+  );
+}
+
 .footerSection {
   position: relative;
   background-image: linear-gradient(0deg,
@@ -82,14 +93,14 @@
   display: block;
   width: 10px;
   background-color: var(--joy-palette-primary-500);
-  height: calc(50% - 43px);
+  height: calc(25% - 43px);
 }
 
 .introSection::after {
   content: '';
   position: absolute;
   left: -27px;
-  bottom: calc(50% - 58px);
+  bottom: calc(25% - 58px);
   display: block;
   width: 9.5px;
   background-color: var(--joy-palette-primary-500);
@@ -221,12 +232,25 @@
 
 .introTrainImage {
   position: absolute;
-  top: calc(50% - 30px);
-  right: 50px;
-  height: 30px;
+  top: calc(75% - 52.5px);
+  left: 50%;
+  transform: translateX(-50%);
+  height: 50px;
 }
 
 .introStationDot {
+  position: absolute;
+  right: -30px;
+  top: calc(75% - 30px);
+  display: block;
+  height: 30px;
+  width: 30px;
+  background-color: var(--joy-palette-primary-50);
+  border: 15px solid var(--joy-palette-primary-500);
+  border-radius: 50%;
+}
+
+.footerStationDot {
   position: absolute;
   right: -30px;
   top: calc(50% - 30px);
@@ -247,8 +271,9 @@
 @media screen and (min-width: 1500px) {
   .introTrainImage {
     position: absolute;
-    top: calc(50% - 50px);
-    right: 50px;
-    height: 50px;
+    top: calc(75% - 75px);
+    left: 50%;
+    transform: translateX(-50%);
+    height: 75px;
   }
 }

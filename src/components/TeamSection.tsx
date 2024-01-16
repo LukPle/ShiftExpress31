@@ -51,7 +51,7 @@ const TeamSection: React.FC<TeamSectionProps> = () => {
                 />
             </Grid>
             
-            <div className={styles.introStationDot}></div>
+            <div className={styles.footerStationDot}></div>
         </Grid>
     );
 };

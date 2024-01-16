@@ -16,7 +16,7 @@ interface SectionProps {
 
 const Section: React.FC<SectionProps> = ({ title, children, onInViewChange, id, style, introSection, teamSection }) => {
   const { ref, inView } = useInView({
-    threshold: 0.5,
+    threshold: 0.9,
   });
 
   useEffect(() => {
