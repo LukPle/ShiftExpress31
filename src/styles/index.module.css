@@ -294,12 +294,6 @@
   border-radius: 50%;
 }
 
-.backToKeyfindingBtn {
-  position: absolute;
-  right: 0;
-  top: 25px;
-}
-
 @media screen and (min-width: 1500px) {
   .introTrainImage {
     position: absolute;
