@@ -15,7 +15,6 @@
 }
 
 .description {
-    padding-top: 15%;
     text-align: justify;
 }
 
@@ -55,14 +54,13 @@
   }
 
 .impressionRow {
-    padding-top: 10%;
+    padding-top: 12.5%;
     position: relative;
 }
 
 .impressionImage {
-    width: 310px;
-    height: 215px;
-    border-radius: 5%;
+    width: 70%;
+    border-radius: 20px;
     padding-left: 15px;
     padding-right: 15px;
 }

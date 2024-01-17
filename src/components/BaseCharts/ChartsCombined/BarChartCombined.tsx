@@ -4,8 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import { CarData, YearlyData as CarYearlyData } from '../../../data/carDataInterface';
 import { TransportData, YearlyData as TransportYearlyData } from '../../../data/pTDataInterface';
-import { PopulationData } from '@/data/populationInterface';
-
+import { PopulationData, YearlyData as PopulationYearlyData } from '@/data/populationInterface';
 interface CombinedData {
     state: string;
     carValue: number;
@@ -15,7 +14,7 @@ interface CombinedData {
 interface Props {
     carData: CarYearlyData;
     transportData: TransportYearlyData;
-    populationData: PopulationData[];
+    populationData: PopulationYearlyData;
 }
 
 const CombinedVisualization: React.FC<Props> = ({ carData, transportData, populationData }) => {
@@ -54,12 +53,12 @@ const CombinedVisualization: React.FC<Props> = ({ carData, transportData, popula
             const yRight = d3.scaleLinear()
                 .rangeRound([height, 0]);
 
-            const color = d3.scaleOrdinal().range(["#1f77b4", "#ff7f0e"]);
+            const color = d3.scaleOrdinal().range(["#1f77b4", "#8A760A"]);
 
             // Function to update the chart
             const updateChart = () => {
                 // Combine car and transport data for the given year and state
-                let combinedData: CombinedData[] = populationData.map(p => {
+                let combinedData: CombinedData[] = populationData[selectedYear].map(p => {
                     const carDatum = carData[selectedYear].find(d => d.state === p.state) || { [selectedCarMetric]: 0 };
                     const transportDatum = transportData[selectedYear].find(d => d.state === p.state) || { [selectedTransportMetric]: 0 };
                     return {
@@ -71,12 +70,12 @@ const CombinedVisualization: React.FC<Props> = ({ carData, transportData, popula
 
                 // Apply sorting and relation to population if needed
                 if (sortByPopulation) {
-                    const populationMap = new Map(populationData.map(d => [d.state, d.population]));
+                    const populationMap = new Map(populationData[selectedYear].map(d => [d.state, d.population]));
                     combinedData.sort((a, b) => (populationMap.get(b.state) || 0) - (populationMap.get(a.state) || 0));
                 }
 
                 if (inRelationToPopulation) {
-                    const populationMap = new Map(populationData.map(d => [d.state, d.population]));
+                    const populationMap = new Map(populationData[selectedYear].map(d => [d.state, d.population]));
                     combinedData.forEach(d => {
                         const population = populationMap.get(d.state) || 1;
                         d.carValue = d.carValue / population;
@@ -104,21 +103,21 @@ const CombinedVisualization: React.FC<Props> = ({ carData, transportData, popula
                     .data(d => [{ key: 'carData', value: d.carValue }])
                     .enter().append("rect")
                     .attr("class", "bar car")
-                    .attr("x", d => x1(d.key))
+                    .attr("x", (d: { key: string; value: number; }) => String(x1(d.key)))
                     .attr("y", d => yLeft(d.value))
                     .attr("width", x1.bandwidth())
                     .attr("height", d => height - yLeft(d.value))
-                    .attr("fill", color('carData'));
+                    .attr("fill", color('carData') as string);
 
                 stateGroups.selectAll(".bar.transport")
                     .data(d => [{ key: 'transportData', value: d.transportValue }])
                     .enter().append("rect")
                     .attr("class", "bar transport")
-                    .attr("x", d => x1(d.key))
+                    .attr("x",(d: { key: string; value: number; }) => String(x1(d.key)))
                     .attr("y", d => yRight(d.value))
                     .attr("width", x1.bandwidth())
                     .attr("height", d => height - yRight(d.value))
-                    .attr("fill", color('transportData'));
+                    .attr("fill", color('transportData') as string); //Please review
 
                 svg.append("g")
                     .attr("class", "x-axis")
