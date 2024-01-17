@@ -84,7 +84,9 @@ const TransportShift: React.FC = () => {
               </CardContent>
               <Divider inset="context" />
             </CardOverflow>
-            <LineChartTS carData={carData} transportData={pTData} startYear='2013' endYear='2019' currentYear={endYear.toString()} setCurrentYear={setCurrentYear} currentFilter={currentFilter} />
+            <Stack alignItems={"center"}>
+              <LineChartTS carData={carData} transportData={pTData} startYear='2013' endYear='2019' currentYear={endYear.toString()} setCurrentYear={setCurrentYear} currentFilter={currentFilter} />
+            </Stack>
             <CardOverflow>
               <Divider inset="context" />
               <CardContent orientation="horizontal">
@@ -97,7 +99,9 @@ const TransportShift: React.FC = () => {
             </CardOverflow>
           </Card>
           <Card>
-            <CombinedDevTS carData={carData} transportData={pTData} endYear={endYear.toString()} currentFilter={currentFilter} />
+            <Stack alignItems={"center"}>
+              <CombinedDevTS carData={carData} transportData={pTData} endYear={endYear.toString()} currentFilter={currentFilter} />
+            </Stack>
             <CardOverflow>
               <Divider inset="context" />
               <CardContent orientation="horizontal">

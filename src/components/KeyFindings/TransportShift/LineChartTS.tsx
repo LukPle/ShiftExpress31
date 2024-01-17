@@ -3,7 +3,6 @@ import * as d3 from 'd3';
 import { motion, useAnimation } from 'framer-motion';
 import { YearlyData as CarYearlyData, CarData } from '@/data/carDataInterface';
 import { YearlyData as TransportYearlyData, TransportData } from '@/data/pTDataInterface';
-import { Card, Typography } from "@mui/joy";
 import styles from "@/styles/charts.module.css";
 import { FilterOptions } from './TransportShift';
 import Tooltip from './Tooltip';
