@@ -6,9 +6,8 @@ This is the main repository for Team 31's InfoVis web application built with Nex
 You can visit the current version of the website through this link: https://team-31-iv2324-projects-9267fe386ec9af87e7d6c214ab1ee355db087ee.pages.gitlab.lrz.de
 
 ## Roadmap
-Currently, we visualized most of our data in basic bar/line charts to continuously gain insights and ideas about how to better organize them as we develop our product.
-In addition to this, we've set the ground work for our key findings philosophy. The architecture has been developed and the first charts for the key finding "transportation shift" have been impemented in basic form.
-Next steps are to clean up the existing architecture, fix bugs, adapt the styling and finalize the other key findings. 🚀
+Currently, we've develoepd an MVP version of our desired visualisation. All key functionalities have been implemented. This includes: various charts to visualize both car and public transportation data, the mein site structure, our KeyFinding functionality, and the first fully developed KeyFinding.
+Next steps are to add the remaining KeyFindings and to clean up the site - making it ready to ship 🚀
 
 ## Prerequisites
 
@@ -44,6 +43,12 @@ Open http://localhost:3000 with your browser to see the result.
 
 ### Content
 
-One of our visualization components is a map of Germany's federal states. To implement the map using d3 js, we needed a GeoJSON file
-containing geographical information about these states. For this purpose, we used a json file found on a Github repository: https://github.com/isellsoap/deutschlandGeoJSON/blob/main/2_bundeslaender/1_sehr_hoch.geo.json. Following the structure of our project, this
-file can be found in src/data/germany-states.json.
+Feature List:
+- A Header to navigate to various sections
+- Our launch page using a framer motion animation
+- Our Project Section - providing some general information
+- Our KeyFindings Section - Here Users can choose on what excatly they want to research and find out more about
+- Selecting a KeyFinding navigates to the KeyFinding itself. Here we've built intercative timeline, map and bar charts. The timeline controls the timeframe where as map and bar chart can be used to select individual states. A Key Finding also has various filters that focus on specific aspects of these charts.
+- Currently only the Transportation Shift KeyFinding is fully built
+- Our Team Section presenting us
+- And currently a repository of all the charts we have built for later use in the remaining KeyFindings

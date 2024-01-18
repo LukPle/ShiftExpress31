@@ -9,7 +9,7 @@ interface TeamSectionProps {
 
 const TeamSection: React.FC<TeamSectionProps> = () => {
     return (
-        <Grid container columns={6} rowSpacing={15} marginTop={-1} className={styles.teamSection}>
+        <Grid container columns={6} rowSpacing={15} marginTop={-5} className={styles.teamSection}>
             <Grid xs={2} display="flex" justifyContent="center" alignItems="end">
                 <TeamTile
                     className={styles.teamTileTop}
@@ -51,7 +51,7 @@ const TeamSection: React.FC<TeamSectionProps> = () => {
                 />
             </Grid>
             
-            <div className={styles.introStationDot}></div>
+            <div className={styles.footerStationDot}></div>
         </Grid>
     );
 };

@@ -39,7 +39,7 @@ const KeyFindingsSection: React.FC<KeyFindingsSectionProps> = ({ keyFinding, onU
   return (
     <div>
       <Typography mt={2}>
-        To continue select a specific key finding in order to take a
+        To continue, select a specific key finding in order to take a
         deeper dive into our data!
       </Typography>
       <Stack direction={"row"} mt={2} spacing={2}>
@@ -53,11 +53,13 @@ const KeyFindingsSection: React.FC<KeyFindingsSectionProps> = ({ keyFinding, onU
               />
             </AspectRatio>
           </CardOverflow>
-          <CardContent>
-            <Typography level="h3">🚉 Transportation Shift</Typography>
-            <Typography>
-              See how transportation has evolved in recent years. Take a
-              deeper look at how public transportaion and cars compete.
+          <CardContent sx={{ padding: 0.5 }}>
+            <Typography level="h3" mt="0.5">🚉 Transportation Shift</Typography>
+            <Typography mt={1.5} mb={1.5}>
+              See how transportation has evolved from 2013 to 2019. Take a
+              deeper look at how public transportation and cars compete and
+              examine which states were successfull in their strategy for
+              transportation shift and which not.
             </Typography>
             <div style={{ height: "100%" }}></div>
             <Button
@@ -85,11 +87,13 @@ const KeyFindingsSection: React.FC<KeyFindingsSectionProps> = ({ keyFinding, onU
               />
             </AspectRatio>
           </CardOverflow>
-          <CardContent>
-            <Typography level="h3">🦠 COVID</Typography>
-            <Typography>
-              Due to the COVID-19 pandemic, the usage of public
-              transportation has decreased significantly.
+          <CardContent sx={{ padding: 0.5 }}>
+            <Typography level="h3" mt="0.5">🦠 Covid</Typography>
+            <Typography mt={1.5} mb={1.5}>
+              Due to the Covid-19 pandemic, the usage of public
+              transportation has decreased significantly. Explore
+              the impact of the pandemic on transportation in
+              Germany between the years from 2019 to 2022.
             </Typography>
             <div style={{ height: "100%" }}></div>
             <Button
@@ -118,12 +122,13 @@ const KeyFindingsSection: React.FC<KeyFindingsSectionProps> = ({ keyFinding, onU
               />
             </AspectRatio>
           </CardOverflow>
-          <CardContent>
-            <Typography level="h3">🚗 Cars in Germany</Typography>
-            <Typography>
-              Germany is known for its car industry. But how many cars are
-              actually on the road? How many people own a car? How many
-              people use public transportation?
+          <CardContent sx={{ padding: 0.5 }}>
+            <Typography level="h3" mt="0.5">🚗 Cars in Germany</Typography>
+            <Typography mt={1.5} mb={1.5}>
+              Germany is well known for its car industry. But how
+              many cars are actually on the road? How many people
+              own a car? Check how these numbers have evolved from
+              2013 to 2022 and examine which states are dominated by cars.
             </Typography>
             <div style={{ height: "100%" }}></div>
             <Button sx={{ width: "115px", mt: 2 }}>Take a look!</Button>
