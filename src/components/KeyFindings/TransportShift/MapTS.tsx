@@ -281,11 +281,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
             <Stack direction="row" marginTop="20px">
                 <Stack direction="column" paddingRight="35px">
                     <svg ref={svgRef} width={width} height={height}></svg>
-                    {selectedState && (
-                        <div style={{ position: 'absolute', pointerEvents: 'none' }}>
-                            {selectedState}
-                        </div>
-                    )}
+
                 </Stack>
                 <Stack direction="column" width={"100px"}>
                     <MapLegend isPT={isPT} paddingEnd={40}></MapLegend>

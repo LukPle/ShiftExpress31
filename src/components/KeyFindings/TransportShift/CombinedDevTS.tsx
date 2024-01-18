@@ -119,7 +119,7 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
         setTooltipContent(`${isPT ? '🚈' : '🚗'} ${isPT ? d.transportChange.toFixed(2) : d.carChange.toFixed(2)}% change`);
         setTooltipVisible(true);
 
-        d3.select(event.currentTarget).style('fill', 'url(#stripes-pattern)');
+        //d3.select(event.currentTarget).style('fill', 'url(#stripe)');
         onStateHover(d.state);
     };
 
@@ -133,8 +133,6 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
         event.currentTarget.removeAttribute('data-original-color');
         onStateHover(null);
     };
-
-
 
 
     // @ts-ignore
@@ -269,19 +267,14 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
                 .attr("y", d => yCar(Math.max(0, d.carChange)))
                 .attr("height", d => Math.abs(yCar(d.carChange) - yCar(0)))
                 // @ts-ignore
-                .attr("fill", d => {
-                    if (currentFilter === FilterOptions.Comparison || currentFilter === FilterOptions.FocusCars) {
-                        return selectedState === d.state ? 'url(#stripes-pattern)' : color('carData');
-                    }
-                    return color('carData');
-                })
+                .attr("fill",d=>{return color('carData')})
                 //Highlight and Stroke
                 .attr("opacity", d =>
                     currentFilter === FilterOptions.Comparison || currentFilter === FilterOptions.FocusCars ?
-                        (selectedState === null || selectedState === d.state ? 1 : 0.6) : 1)
+                        (selectedState === null || selectedState === d.state ? 1 : 0.3) : 1)
                 .style('stroke', d =>
                     currentFilter === FilterOptions.Comparison || currentFilter === FilterOptions.FocusCars ?
-                        (selectedState === d.state ? '#FFFF00' : 'none') : 'none')
+                        (selectedState === d.state ? '#ff7419' : 'none') : 'none')
                 .style('stroke-width', d =>
                     currentFilter === FilterOptions.Comparison || currentFilter === FilterOptions.FocusCars ?
                         (selectedState === d.state ? 5 : 0) : 0)
@@ -303,19 +296,14 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
                 .attr("y", d => yTransport(Math.max(0, d.transportChange)))
                 .attr("height", d => Math.abs(yTransport(d.transportChange) - yTransport(0)))
                 // @ts-ignore
-                .attr("fill", d => {
-                    if (currentFilter === FilterOptions.Comparison || currentFilter === FilterOptions.FocusPublicTransport) {
-                        return selectedState === d.state ? 'url(#stripes-pattern)' : color('transportData');
-                    }
-                    return color('transportData');
-                })
+                .attr("fill",d=>{return color('transportData')})
                 //Highlight and Stroke
                 .attr("opacity", d =>
                     currentFilter === FilterOptions.Comparison || currentFilter === FilterOptions.FocusPublicTransport ?
-                        (selectedState === null || selectedState === d.state ? 1 : 0.6) : 1)
+                        (selectedState === null || selectedState === d.state ? 1 : 0.3) : 1)
                 .style('stroke', d =>
                     currentFilter === FilterOptions.Comparison || currentFilter === FilterOptions.FocusPublicTransport ?
-                        (selectedState === d.state ? '#FFFF00' : 'none') : 'none')
+                        (selectedState === d.state ? '#ff7419' : 'none') : 'none')
                 .style('stroke-width', d =>
                     currentFilter === FilterOptions.Comparison || currentFilter === FilterOptions.FocusPublicTransport ?
                         (selectedState === d.state ? 5 : 0) : 0)
