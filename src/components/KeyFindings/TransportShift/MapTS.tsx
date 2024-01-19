@@ -204,8 +204,8 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
             .attr('y', d => d.y)
             .attr('width', d => d.width)
             .attr('height', d => d.height)
-            .attr('fill', d => d.fill);
-
+            .attr('fill','#ff7419')
+            .attr('width',3);
 
         // Render the map
         svg.selectAll('path')
