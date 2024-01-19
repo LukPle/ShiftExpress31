@@ -5,7 +5,7 @@ import { YearlyData as CarYearlyData, CarData } from '@/data/carDataInterface';
 import { YearlyData as TransportYearlyData, TransportData } from '@/data/pTDataInterface';
 import styles from "@/styles/charts.module.css";
 import { FilterOptions } from './TransportShift';
-import Tooltip from './Tooltip';
+import ChartTooltip from './ChartTooltip';
 
 
 interface LineChartCombinedProps {
@@ -326,7 +326,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                 )}
                 {/* Display Tooltip */}
                 {tooltip.visible && (
-                    <Tooltip
+                    <ChartTooltip
                         tooltipPosition={tooltip.position}
                         tooltipState={tooltip.state}
                         tooltipContent={tooltip.content}
