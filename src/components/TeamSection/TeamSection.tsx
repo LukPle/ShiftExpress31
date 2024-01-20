@@ -16,7 +16,7 @@ const TeamSection: React.FC<TeamSectionProps> = () => {
                     imageSrc={"/lukas.png"}
                     name="Lukas Plenk"
                     desc="I’m a Human-Computer-Interaction student at LMU Munich interested in digital media, culture, and traveling. Just like public transport, I’m always out for the next destination ahead."
-                    badges={["Subway Surfer", "Cyclist"]}
+                    badges={["Subway Surfer", "E-Scooter", "Cyclist"]}
                 />
             </Grid>
             <Grid xs={2} className={styles.teamTileGridTop}>
@@ -51,7 +51,7 @@ const TeamSection: React.FC<TeamSectionProps> = () => {
                     className={styles.teamTileBottom}
                     imageSrc={"/maxi.png"}
                     name="Maximilian Wiegand"
-                    desc="Hey, I'm a media computer science student at LMU Munich. I love to design, develop and explore. Some ideas even came up in delayed and overcrowded public transport…"
+                    desc="Hey, I'm a media computer science student at LMU Munich. I love to design, develop and explore. Some ideas even came up in delayed and overcrowded public transport …"
                     badges={["Public-transport approved"]}
                 />
             </Grid>
