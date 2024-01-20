@@ -26,10 +26,10 @@ const GroupedBarChartLegend: React.FC<GroupedBarChartLegendProps> = ({ currentOp
 
     return (
         <Stack direction="row" >
-            <InteractionTooltip tooltipText={'Color for Public Transport'} delay={0}><div style={getRectangleStyle(currentOption === FilterOptions.FocusCars ? unfocusedColor : ptColor)}></div></InteractionTooltip>
+            <InteractionTooltip tooltipText={'Public Transport'} delay={0}><div style={getRectangleStyle(currentOption === FilterOptions.FocusCars ? unfocusedColor : ptColor)}></div></InteractionTooltip>
             <Typography>🚈</Typography>
             <Divider orientation="vertical" sx={{mx:2}}/>
-            <InteractionTooltip tooltipText={'Color for Cars'} delay={0}><div style={getRectangleStyle(currentOption === FilterOptions.FocusPublicTransport ? unfocusedColor : carColor)}></div></InteractionTooltip>
+            <InteractionTooltip tooltipText={'Cars'} delay={0}><div style={getRectangleStyle(currentOption === FilterOptions.FocusPublicTransport ? unfocusedColor : carColor)}></div></InteractionTooltip>
             <Typography>🚗</Typography>
         </Stack>
     );
