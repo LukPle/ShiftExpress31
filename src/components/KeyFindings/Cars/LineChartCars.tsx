@@ -4,7 +4,7 @@ import { motion, useAnimation } from 'framer-motion';
 import { YearlyData as CarYearlyData, CarData } from '@/data/carDataInterface';
 import { YearlyData as TransportYearlyData, TransportData } from '@/data/pTDataInterface';
 import styles from "@/styles/charts.module.css";
-import { FilterOptions } from '../TransportShift/TransportShift';
+import { FilterOptions } from './Cars';
 import ChartTooltip from '../ChartLegendsAndTooltip/ChartTooltip';
 
 
