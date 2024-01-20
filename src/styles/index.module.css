@@ -66,10 +66,10 @@
   position: relative;
   background-image: linear-gradient(0deg,
     transparent 0%,
-    transparent calc(50% - 25.1px),
-    var(--joy-palette-primary-500) calc(50% - 25px),
-    var(--joy-palette-primary-500) calc(50% - 15px),
-    transparent calc(50% - 14.9px),
+    transparent calc(50% - 5.1px),
+    var(--joy-palette-primary-500) calc(50% - 5px),
+    var(--joy-palette-primary-500) calc(50% + 5px),
+    transparent calc(50% + 5.1px),
     transparent 100%
   );
 }
@@ -124,14 +124,14 @@
   display: block;
   width: 10px;
   background-color: var(--joy-palette-primary-500);
-  height: calc(50% - 23px);
+  height: calc(50% - 43px);
 }
 
 .footerSection::after {
   content: '';
   position: absolute;
   left: -27px;
-  top: calc(50% - 38px);
+  top: calc(50% - 58px);
   display: block;
   width: 9.5px;
   background-color: var(--joy-palette-primary-500);
@@ -141,28 +141,32 @@
 
 .heading {
   position: relative; 
-  color: var(--joy-palette-text-tertiary);
+  color: var(--joy-palette-primary-500);
+  padding: 5px 10px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  margin-top: 20px;
+  background: linear-gradient(var(--joy-palette-primary-500) 0 0) calc(100% - var(--pad, 0%)) / var(--pad, 0%) no-repeat;
+  transition: 0.5s, background-position 0s;
+  background-repeat: no-repeat;
 }
 
 .headingActive {
-  color: var(--joy-palette-primary-500);
+  color: white;
+  --pad: 100%;
  }
 
 .heading::before {
   content: '';
   position: absolute;
   left: -70px;
-  top: -5px;
+  top: 0px;
   display: block;
   height: 20px;
   width: 20px;
   background-color: var(--joy-palette-primary-50);
-  border: 15px solid var(--joy-palette-text-tertiary);
-  border-radius: 50%;
-}
-
-.headingActive::before {
   border: 15px solid var(--joy-palette-primary-500);
+  border-radius: 50%;
 }
 
 .headingIntroSection::before {
@@ -206,7 +210,11 @@
 }
 
 .teamSection {
+  position: absolute;
+  top: 0;
   height: 100%;
+  width: 100%;
+  margin: 0;
 }
 
 .snappingContainer {
@@ -293,7 +301,7 @@
 .footerStationDot {
   position: absolute;
   right: -30px;
-  top: calc(50% - 10px);
+  top: calc(50% - 30px);
   display: block;
   height: 30px;
   width: 30px;
