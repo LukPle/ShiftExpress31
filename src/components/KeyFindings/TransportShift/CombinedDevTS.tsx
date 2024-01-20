@@ -134,7 +134,7 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
         if (carData && transportData && d3Container.current) {
             d3.select(d3Container.current).selectAll("*").remove();
 
-            const margin = { top: 5, right: 10, bottom: 10, left: 30 };
+            const margin = { top: 15, right: 10, bottom: 10, left: 30 };
             const width = 820 - margin.left - margin.right;
             const height = 270 - margin.top - margin.bottom;
 
@@ -223,7 +223,7 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
                 .call(yAxisLeft)
                 .selectAll("text") // Selecting all text elements within the axis
                 .style("font-size", "14px") // Set the font size
-                .style("font-weight", "600");
+                .style("font-weight", "300");
 
             // Draw horizontal lines at specified values
             const referenceLines = [-40, -20, 20, 40];
@@ -246,7 +246,7 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
                 .call(yAxisLeft)
                 .selectAll("text") // Selecting all text elements within the axis
                 .style("font-size", "14px") // Set the font size
-                .style("font-weight", "600");
+                .style("font-weight", "300");
 
             // Draw the bars for CarData
             svg.selectAll(".bar.car")

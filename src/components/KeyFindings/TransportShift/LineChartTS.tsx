@@ -78,7 +78,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                 .call(yAxis)
                 .selectAll('text')
                 .style('font-size', '15px')
-                .style("font-weight", "600");
+                .style("font-weight", "300");
 
             // Scales
             const x = d3
