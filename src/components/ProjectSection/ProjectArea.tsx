@@ -21,11 +21,11 @@ const ProjectArea: React.FC = () => {
         </Card>
         <Card sx={{ height: "100%" }}>
           <Typography level='h3'>✨ Relevance</Typography>
-          <Typography level='body-sm' sx={{ color: "#000" }}>{backgroundDescription}</Typography>
+          <Typography level='body-sm' sx={{ color: "#000" }}>{relevanceDescription}</Typography>
         </Card>
         <Card sx={{ height: "100%" }}>
           <Typography level='h3'>🎯 Objectives</Typography>
-          <Typography level='body-sm' sx={{ color: "#000" }}>{backgroundDescription}</Typography>
+          <Typography level='body-sm' sx={{ color: "#000" }}>{objectivesDescription}</Typography>
         </Card>
       </Stack>
       <Card sx={{ minWidth: "40%" }}>
