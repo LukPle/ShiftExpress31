@@ -77,7 +77,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                 .attr("class", "y-axis")
                 .call(yAxis)
                 .selectAll('text')
-                .style('font-size', '13px');
+                .style('font-size', '15px');
 
             // Scales
             const x = d3
@@ -93,7 +93,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                     .tickValues(allYears) // Set the tick values to the years from your data
                     .tickFormat(d3.format('d'))) // Format ticks as integers without comma separators
                 .selectAll('text')
-                .style('font-size', '13px');
+                .style('font-size', '15px');
 
 
             // Draw horizontal lines at specified values
