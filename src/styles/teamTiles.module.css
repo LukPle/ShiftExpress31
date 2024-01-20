@@ -4,3 +4,10 @@
   border: 2px solid var(--joy-palette-primary-500);
   border-radius: 10px;
 }
+
+.teamTileBadge {
+  background-color: var(--joy-palette-text-tertiary);
+  color: white;
+  padding: 2px 5px;
+  border-radius: 5px;
+}
