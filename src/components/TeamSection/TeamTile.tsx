@@ -25,8 +25,8 @@ export default function TeamTile({ className, name, imageSrc, desc, badges }: Te
             <Stack direction={"column"} gap={1}>
               <Typography level="h2" className={teamTileStyles.teamTileTitle}>{name}</Typography>
               <Stack direction={"row"} gap={1}>
-                {badges?.map(badge => (
-                  <div className={teamTileStyles.teamTileBadge}>{badge}</div>
+              {badges?.map((badge, index) => (
+                  <div key={index} className={teamTileStyles.teamTileBadge}>{badge}</div>
                 )) ?? ""}
               </Stack>
             </Stack>

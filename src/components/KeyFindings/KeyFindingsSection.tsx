@@ -88,7 +88,7 @@ const KeyFindingsSection: React.FC<KeyFindingsSectionProps> = ({ keyFinding, onU
             </AspectRatio>
           </CardOverflow>
           <CardContent sx={{ padding: 0.5 }}>
-            <Typography level="h3" mt="0.5">🦠 Covid</Typography>
+            <Typography level="h3" mt="0.5">🦠 Covid Impact</Typography>
             <Typography mt={1.5} mb={1.5}>
               Due to the Covid-19 pandemic, the usage of public
               transportation has decreased significantly. Explore
