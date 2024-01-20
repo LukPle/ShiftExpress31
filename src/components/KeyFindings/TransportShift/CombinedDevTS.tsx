@@ -4,7 +4,7 @@ import * as d3 from 'd3';
 import { CarData, YearlyData as CarYearlyData } from '../../../data/carDataInterface';
 import { TransportData, YearlyData as TransportYearlyData } from '../../../data/pTDataInterface';
 import GroupedBarChartLegend from "./GroupedBarChartLegend";
-import Tooltip from "./Tooltip";
+import ChartTooltip from "./ChartTooltip";
 import { FilterOptions } from "./TransportShift";
 
 export enum ChartSorting {
@@ -322,7 +322,7 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
             </Stack>
             */}
             <svg ref={d3Container} />
-            {tooltipVisible && (<Tooltip tooltipPosition={tooltipPosition} tooltipState={tooltipState} tooltipContent={tooltipContent}></Tooltip>)}
+            {tooltipVisible && (<ChartTooltip tooltipPosition={tooltipPosition} tooltipState={tooltipState} tooltipContent={tooltipContent}></ChartTooltip>)}
         </div>
     );
 };

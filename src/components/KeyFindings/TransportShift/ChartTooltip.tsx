@@ -1,13 +1,13 @@
 import React, {} from 'react';
 import { getFlagProperty } from './FlagSwitchUtil';
 
-interface TooltipProps {
+interface ChartTooltipProps {
     tooltipPosition: {x: number; y: number;}
     tooltipState: string;
     tooltipContent: any;
 }
 
-const Tooltip: React.FC<TooltipProps> = ({ tooltipPosition, tooltipState, tooltipContent }) => {
+const ChartTooltip: React.FC<ChartTooltipProps> = ({ tooltipPosition, tooltipState, tooltipContent }) => {
 
     const getTooltipContainerStyle: React.CSSProperties = {
         position: 'absolute',
@@ -42,4 +42,4 @@ const Tooltip: React.FC<TooltipProps> = ({ tooltipPosition, tooltipState, toolti
     );
 };
 
-export default Tooltip;
+export default ChartTooltip;

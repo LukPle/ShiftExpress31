@@ -1,6 +1,7 @@
 import theme from '@/utils/theme';
 import { Divider, Stack, Typography } from '@mui/joy';
 import React, { ReactNode } from 'react';
+import InteractionTooltip from '../InteractionTooltip';
 
 interface MapLegendProps {
     isPT: boolean;
@@ -44,13 +45,15 @@ const MapLegend: React.FC<MapLegendProps> = ({ isPT, paddingEnd }) => {
                     <Typography>{isPT ? '-20' : '-5'}</Typography>
                     <Typography>{isPT ? '-40' : '-10'}</Typography>
                 </Stack>
-                <Stack direction="column" divider={<Divider orientation="horizontal"/>} style={getColorColumnStyle}>
-                    <div style={getRectangleStyle(legendColor, false, true, false)}></div>
-                    <div style={getRectangleStyle(legendColor, true, false, false)}></div>
-                    <div style={getRectangleStyle('#fff', false, false, false)}></div>
-                    <div style={getRectangleStyle('#DD0606', true, false, false)}></div>
-                    <div style={getRectangleStyle('#DD0606', false, false, true)}></div>
-                </Stack>
+                <InteractionTooltip tooltipText={`Color Scale for ${isPT ? 'Public Transport' : 'Cars'}`} delay={0} position={'bottom-start'}>
+                    <Stack direction="column" divider={<Divider orientation="horizontal"/>} style={getColorColumnStyle}>
+                        <div style={getRectangleStyle(legendColor, false, true, false)}></div>
+                        <div style={getRectangleStyle(legendColor, true, false, false)}></div>
+                        <div style={getRectangleStyle('#fff', false, false, false)}></div>
+                        <div style={getRectangleStyle('#DD0606', true, false, false)}></div>
+                        <div style={getRectangleStyle('#DD0606', false, false, true)}></div>
+                    </Stack>
+                </InteractionTooltip>
             </Stack>
         </Stack>
     );
