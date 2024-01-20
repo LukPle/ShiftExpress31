@@ -1,14 +1,15 @@
 import theme from '@/utils/theme';
 import { Stack, Typography, Divider } from '@mui/joy';
-import React, { ReactNode } from 'react';
-import { FilterOptions } from './TransportShift';
+import React from 'react';
+import { FilterOptions } from '../TransportShift/TransportShift';
+import InteractionTooltip from '@/components/InteractionTooltip';
 
 interface GroupedBarChartLegendProps {
     currentOption: FilterOptions,
 }
 
 const GroupedBarChartLegend: React.FC<GroupedBarChartLegendProps> = ({ currentOption }) => {
-    const ptColor = theme.palette.primary[500];
+    const ptColor = "#9BC4FD";
     const carColor = '#FFA500';
     const unfocusedColor = '#E8E8E8';
 
@@ -25,10 +26,10 @@ const GroupedBarChartLegend: React.FC<GroupedBarChartLegendProps> = ({ currentOp
 
     return (
         <Stack direction="row" >
-            <div style={getRectangleStyle(currentOption === FilterOptions.FocusCars ? unfocusedColor : ptColor)}></div>
+            <InteractionTooltip tooltipText={'Public Transport'} delay={0}><div style={getRectangleStyle(currentOption === FilterOptions.FocusCars ? unfocusedColor : ptColor)}></div></InteractionTooltip>
             <Typography>🚈</Typography>
             <Divider orientation="vertical" sx={{mx:2}}/>
-            <div style={getRectangleStyle(currentOption === FilterOptions.FocusPublicTransport ? unfocusedColor : carColor)}></div>
+            <InteractionTooltip tooltipText={'Cars'} delay={0}><div style={getRectangleStyle(currentOption === FilterOptions.FocusPublicTransport ? unfocusedColor : carColor)}></div></InteractionTooltip>
             <Typography>🚗</Typography>
         </Stack>
     );
