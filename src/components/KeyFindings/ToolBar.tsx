@@ -23,7 +23,7 @@ const ToolPanel: React.FC<ToolProps> = ({ isSpecificSectionInView, keyFinding, o
             <div className={`${styles.toolPanel} ${isPanelOpen ? styles.open : ''}`}>
                 <Stack direction={"row"} gap={2} sx={{ transform: "rotate(90deg)" }}>
                     <Button variant={keyFinding===KeyFinding.Shift ? "solid" : "outlined"} sx={{ minWidth: "190px", maxHeight: "40px" }} onClick={() => onUpdateKeyFinding(KeyFinding.Shift)}>
-                        🚉 &nbsp;Transportaion Shift
+                        🚉 &nbsp;Transportation Shift
                     </Button>
                     <Button variant={keyFinding===KeyFinding.Covid ? "solid" : "outlined"} sx={{ minWidth: "110px", maxHeight: "40px" }} onClick={() => onUpdateKeyFinding(KeyFinding.Covid)}>
                         🦠 &nbsp;COVID

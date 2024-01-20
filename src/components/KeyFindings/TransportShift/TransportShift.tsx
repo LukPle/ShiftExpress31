@@ -84,9 +84,9 @@ const TransportShift: React.FC = () => {
                   </Stack>
                   <Divider orientation="vertical" />
                   <Stack direction={"row"} spacing={2}>
-                    <Button variant={currentFilter === FilterOptions.Comparison ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.Comparison)} sx={{ maxHeight: "30px" }}>🚈 vs 🚗 Comparison</Button>
-                    <Button variant={currentFilter === FilterOptions.FocusPublicTransport ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.FocusPublicTransport)} sx={{ maxHeight: "30px" }}>🚈 Focus Public Transport</Button>
-                    <Button variant={currentFilter === FilterOptions.FocusCars ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.FocusCars)} sx={{ maxHeight: "30px" }}>🚗 Focus Cars</Button>
+                    <Button variant={currentFilter === FilterOptions.Comparison ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.Comparison)} sx={{ maxHeight: "30px" }}>🚊 vs 🚗 Comparison</Button>
+                    <Button variant={currentFilter === FilterOptions.FocusPublicTransport ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.FocusPublicTransport)} sx={{ maxHeight: "30px" }}>Focus: 🚊 Public Transport</Button>
+                    <Button variant={currentFilter === FilterOptions.FocusCars ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.FocusCars)} sx={{ maxHeight: "30px" }}>Focus: 🚗 Cars</Button>
                   </Stack>
                 </Stack>
               </CardContent>
@@ -99,7 +99,7 @@ const TransportShift: React.FC = () => {
               <Divider inset="context" />
               <CardContent orientation="horizontal">
                 <Stack direction={"row"} sx={{ flex: 1 }} alignItems={"center"} justifyContent={"flex-start"}>
-                  <Typography startDecorator={<InteractionTooltip tooltipText={`Adjust the charts by selecting a year in the timeline - you can also play and rewind`} delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Cumulative change of usage in Germany from 2013 to {endYear.toString()}</Typography>
+                  <Typography startDecorator={<InteractionTooltip tooltipText={`Explore detailed usage changes by hovering over or selecting specific data points on the chart.`} delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Cumulative percentual change of usage from 2013 to {endYear.toString()} in Germany</Typography>
                 </Stack>
                 <Divider orientation="vertical" />
                 <MiniLegend currentOption={currentFilter} />
@@ -114,7 +114,7 @@ const TransportShift: React.FC = () => {
               <Divider inset="context" />
               <CardContent orientation="horizontal">
                 <Stack direction={"row"} sx={{ flex: 1 }} alignItems={"center"} justifyContent={"flex-start"}>
-                  <Typography startDecorator={<InteractionTooltip tooltipText={`Hover over the states to get more details about the change of usage`} delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Change of usage from 2013 to {endYear} across all federal states</Typography>
+                  <Typography startDecorator={<InteractionTooltip tooltipText={`Explore detailed usage changes by hovering a state.`} delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Percentual change of usage from 2013 to {endYear} across each federal state</Typography>
                 </Stack>
                 <Divider orientation="vertical" />
                 <MiniLegend currentOption={currentFilter} />

@@ -140,7 +140,7 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
         if (carData && transportData && d3Container.current) {
             d3.select(d3Container.current).selectAll("*").remove();
 
-            const margin = { top: 5, right: 10, bottom: 10, left: 30 };
+            const margin = { top: 15, right: 10, bottom: 10, left: 30 };
             const width = 820 - margin.left - margin.right;
             const height = 270 - margin.top - margin.bottom;
 
@@ -232,7 +232,8 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
                 .attr("class", "y axis left")
                 .call(yAxisLeft)
                 .selectAll("text") // Selecting all text elements within the axis
-                .style("font-size", "11px"); // Set the font size
+                .style("font-size", "14px") // Set the font size
+                .style("font-weight", "300");
 
             // Draw horizontal lines at specified values
             const referenceLines = [-40, -20, 20, 40];
@@ -254,7 +255,8 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
                 .attr("class", "y axis left")
                 .call(yAxisLeft)
                 .selectAll("text") // Selecting all text elements within the axis
-                .style("font-size", "11px"); // Set the font size
+                .style("font-size", "14px") // Set the font size
+                .style("font-weight", "300");
 
             // Draw the bars for CarData
             svg.selectAll(".bar.car")
@@ -304,9 +306,13 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
 
             // Add the x-axis using the sorted x0 scale
             svg.append("g")
-                .attr("class", "x axis")
+                .attr("class", "xAxis")
                 .attr("transform", `translate(0,${yCar(0)})`)
-                .call(d3.axisBottom(x0Sorted));
+                .call(d3.axisBottom(x0Sorted))
+                .selectAll("text") // Selecting all text elements within the axis
+                .attr("class", "x-text")
+                .style("font-size", "14px") // Set the font size
+                .style("font-weight", "550");
         }
     }, [carData, transportData, startYear, endYear, selectedCarMetric, selectedTransportMetric, currentSorting,selectedState]);
 
