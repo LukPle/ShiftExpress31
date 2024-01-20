@@ -8,7 +8,7 @@ import { PopulationData, YearlyData as PopulationYearlyData } from '@/data/popul
 import { CarData, YearlyData as CarYearlyData } from '../../../data/carDataInterface';
 import MapLegend from "@/components/MapComponents/MapLegend";
 import SegmentedControlsFilter from "./SegmentedControlsFilter";
-import Tooltip from "./Tooltip";
+import ChartTooltip from "./ChartTooltip";
 import { FilterOptions } from "./TransportShift";
 import { motion } from "framer-motion";
 
@@ -287,7 +287,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
                 </Stack>
             </Stack>
             {tooltipVisible && (
-                <Tooltip tooltipPosition={tooltipPosition} tooltipState={tooltipState} tooltipContent={tooltipContent}></Tooltip>
+                <ChartTooltip tooltipPosition={tooltipPosition} tooltipState={tooltipState} tooltipContent={tooltipContent}></ChartTooltip>
             )}
         </>
     );

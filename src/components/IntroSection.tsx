@@ -4,6 +4,7 @@ import { delay, motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import styles from "@/styles/index.module.css";
 import {Copyright} from "@mui/icons-material";
+import InteractionTooltip from './InteractionTooltip';
 
 interface IntroSectionProps {
     // Add any props here
@@ -57,14 +58,14 @@ const IntroSection: React.FC<IntroSectionProps> = () => {
             <div className={styles.tunnelHelper}></div>
             <div className={styles.tunnelHelper2}></div>
 
-            <motion.img
+            <InteractionTooltip tooltipText={'Let Me Drive!'} delay={1000}><motion.img
                 src='/train.svg'
                 className={styles.introTrainImage}
                 initial="hidden"
                 animate={controls}
                 variants={variants}
                 onClick={() => handleTrainClick()}
-            />
+            /></InteractionTooltip>
             
             {/**<div className={styles.introStationDot}></div>/** */}
 
