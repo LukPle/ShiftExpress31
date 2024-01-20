@@ -3,8 +3,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import { CarData, YearlyData as CarYearlyData } from '../../../data/carDataInterface';
 import { TransportData, YearlyData as TransportYearlyData } from '../../../data/pTDataInterface';
-import GroupedBarChartLegend from "./GroupedBarChartLegend";
-import ChartTooltip from "./ChartTooltip";
+import GroupedBarChartLegend from "../ChartLegendsAndTooltip/GroupedBarChartLegend";
+import ChartTooltip from "../ChartLegendsAndTooltip/ChartTooltip";
 import { FilterOptions } from "./TransportShift";
 
 export enum ChartSorting {
@@ -32,13 +32,13 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
             if (currentSorting != ChartSorting.None) {
                 setCurrentSorting(ChartSorting.None);
             }
-            color = d3.scaleOrdinal().range(["#FFA500", "#03045E"]); // Car, PT
+            color = d3.scaleOrdinal().range(["#FFA500", "#9BC4FD"]); // Car, PT
             break;
         case FilterOptions.FocusPublicTransport:
             if (currentSorting != ChartSorting.SortPublicTransport) {
                 setCurrentSorting(ChartSorting.SortPublicTransport);
             }
-            color = d3.scaleOrdinal().range(["#E8E8E8", "#03045E"]); // Car, PT
+            color = d3.scaleOrdinal().range(["#E8E8E8", "#9BC4FD"]); // Car, PT
             break;
         case FilterOptions.FocusCars:
             if (currentSorting != ChartSorting.SortCars) {
@@ -47,7 +47,7 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
             color = d3.scaleOrdinal().range(["#FFA500", "#E8E8E8"]); // Car, PT
             break;
         default:
-            color = d3.scaleOrdinal().range(["#FFA500", "#03045E"]); // Car, PT
+            color = d3.scaleOrdinal().range(["#FFA500", "#9BC4FD"]); // Car, PT
             console.log(`Got ${currentFilter} but expected Comparison, FocusPublicTransport or FocusCars`);
     }
 

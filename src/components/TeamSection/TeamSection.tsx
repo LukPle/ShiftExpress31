@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid,  } from "@mui/joy";
 import TeamTile from './TeamTile';
-import styles from '../styles/index.module.css';
+import styles from 'src/styles/index.module.css';
 
 interface TeamSectionProps {
     // Add any props you need for the component here;
