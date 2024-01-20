@@ -36,7 +36,7 @@ const MapLegend: React.FC<MapLegendProps> = ({ isPT, paddingEnd }) => {
 
     return (
         <Stack direction="column" maxWidth="100px" paddingBottom={paddingEnd + "px"}>
-            <Typography marginTop="15px" paddingBottom="30px">{isPT ? ptHeadline : carHeadline}</Typography>
+            <Typography marginTop="15px" paddingBottom="20px">{isPT ? ptHeadline : carHeadline}</Typography>
             <Stack direction="row" alignItems={'center'}>
                 <Stack direction="column" justifyContent="space-evenly" alignItems="center" paddingRight="15px">
                     <Typography sx={{fontVariantNumeric: "tabular-nums"}}>^</Typography>
