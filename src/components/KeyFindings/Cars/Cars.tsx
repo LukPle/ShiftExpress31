@@ -107,7 +107,7 @@ const Cars: React.FC = () => {
           </Card>
           <Card>
             <Stack alignItems={"center"}>
-              <AbsoluteDataBarChart carData={carData} transportData={pTData} populationData={popData} />
+              <AbsoluteDataBarChart carData={carData} transportData={pTData} populationData={popData} currentFilter={currentFilter} />
             </Stack>
             <CardOverflow>
               <Divider inset="context" />

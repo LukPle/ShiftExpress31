@@ -5,6 +5,7 @@ import * as d3 from 'd3';
 import { CarData, YearlyData as CarYearlyData } from '../../../data/carDataInterface';
 import { TransportData, YearlyData as TransportYearlyData } from '../../../data/pTDataInterface';
 import { PopulationData, YearlyData as PopulationYearlyData } from '@/data/populationInterface';
+import { FilterOptions } from './Cars';
 interface CombinedData {
     state: string;
     carValue: number;
@@ -15,15 +16,29 @@ interface Props {
     carData: CarYearlyData;
     transportData: TransportYearlyData;
     populationData: PopulationYearlyData;
+    currentFilter: FilterOptions;
 }
 
-const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populationData }) => {
+const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populationData, currentFilter }) => {
     const [selectedYear, setSelectedYear] = useState<string>('2013');
     const [selectedCarMetric, setSelectedCarMetric] = useState<keyof CarData>('passenger_km');
     const [selectedTransportMetric, setSelectedTransportMetric] = useState<keyof TransportData>('total_local_passengers');
     const [sortByPopulation, setSortByPopulation] = useState<boolean>(false);
     const [inRelationToPopulation, setInRelationToPopulation] = useState<boolean>(false);
     const d3Container = useRef<SVGSVGElement | null>(null);
+
+    var color = d3.scaleOrdinal().range(["grey", "grey"]); // Car, PT
+
+    switch (currentFilter) {
+        case FilterOptions.CarsAbs:
+            color = d3.scaleOrdinal().range(["#9BC4FD", "#E8E8E8"]); // Car, PT
+            break;
+        case FilterOptions.Comparison:
+            color = d3.scaleOrdinal().range(["#9BC4FD", "#FFA500"]); // Car, PT
+            break;
+        default:
+            break;
+    }
 
     useEffect(() => {
         if (d3Container.current) {
@@ -52,8 +67,6 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
 
             const yRight = d3.scaleLinear()
                 .rangeRound([height, 0]);
-
-            const color = d3.scaleOrdinal().range(["#9BC4FD", "#E8E8E8"]);
 
             // Function to update the chart
             const updateChart = () => {
@@ -137,7 +150,7 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
             // Initial chart render
             updateChart();
         }
-    }, [carData, transportData, selectedYear, selectedCarMetric, selectedTransportMetric, sortByPopulation, inRelationToPopulation, populationData]);
+    }, [carData, transportData, selectedYear, selectedCarMetric, selectedTransportMetric, sortByPopulation, inRelationToPopulation, populationData, color]);
 
     return (
         <div>
