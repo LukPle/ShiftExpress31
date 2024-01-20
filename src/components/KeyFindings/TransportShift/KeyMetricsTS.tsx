@@ -82,7 +82,7 @@ const KeyMetricsTS: React.FC<KeyMetricsProps> = ({ carData, transportData, start
         return baseYearTotal ? ((filteredData[filteredData.length - 1].totalMetric - baseYearTotal) / baseYearTotal) * 100 : 0;
     };
 
-    const ptColor = theme.palette.primary[500];
+    const ptColor = "#9BC4FD";
     const carColor = '#FFA500';
     const unfocusedColor = '#E8E8E8';
 

@@ -6,7 +6,7 @@ import TransportShift from "@/components/KeyFindings/TransportShift/TransportShi
 import Covid from "@/components/KeyFindings/Covid/Covid";
 import IntroSection from "@/components/IntroSection";
 import KeyFindingsSection from "@/components/KeyFindings/KeyFindingsSection";
-import TeamSection from "@/components/TeamSection";
+import TeamSection from "@/components/TeamSection/TeamSection";
 import BaseChartsSection from "@/components/BaseCharts/BaseChartsSection";
 import Section from "@/components/Section";
 import styles from "@/styles/index.module.css";

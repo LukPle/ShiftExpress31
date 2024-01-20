@@ -4,7 +4,7 @@ import germanyGeoJSON from "../../data/germany-states.json";
 import React, { useEffect, useRef, useState } from 'react';
 import { FeatureCollection } from 'geojson';
 import { TransportData, YearlyData } from '../../data/pTDataInterface';
-import MapLegend from "./MapLegend";
+import MapLegend from "../KeyFindings/ChartLegendsAndTooltip/MapLegend";
 
 interface Props {
     transportData: YearlyData;
