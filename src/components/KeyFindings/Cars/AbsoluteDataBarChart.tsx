@@ -66,7 +66,7 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
         }
         else if (num >= 1e9) { return (num / 1e9).toFixed(2) + ' bil'; }
         else if (num >= 1e6) { return (num / 1e6).toFixed(2) + ' mil'; }
-        else if (num >= 1e3) { return (num / 1e3).toFixed(2) + ' thousand'; }
+        else if (num >= 1e3) { return (num / 1e3).toFixed(2) + ' thsd'; }
         else { return num.toString(); }
     };
 
@@ -75,7 +75,7 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
             // Clear the existing SVG content
             d3.select(d3Container.current).selectAll("*").remove();
 
-            const margin = { top: 15, right: 60, bottom: 20, left: 70 };
+            const margin = { top: 15, right: 75, bottom: 20, left: 80 };
             const width = 820 - margin.left - margin.right;
             const height = 235 - margin.top - margin.bottom;
 
@@ -93,7 +93,7 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
                 .padding(0.05);
 
             const yLeft = d3.scaleLinear()
-                .rangeRound([height, 0]);
+                .rangeRound([height, 0])
 
             const yRight = d3.scaleLinear()
                 .rangeRound([height, 0]);
@@ -166,22 +166,31 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
                     .attr("height", d => height - yRight(d.value))
                     .attr("fill", color('transportData') as string); //Please review
 
-                const yAxisLeft = d3.axisLeft(yLeft).tickFormat((d) => formatLargeNumber(String(d)));
-                const yAxisRight = d3.axisRight(yRight).tickFormat((d) => formatLargeNumber(String(d)));
+                const yAxisLeft = d3.axisLeft(yLeft).tickFormat((d) => formatLargeNumber(String(d))).ticks(5);
+                const yAxisRight = d3.axisRight(yRight).tickFormat((d) => formatLargeNumber(String(d))).ticks(5);
 
                 svg.append("g")
                     .attr("class", "x-axis")
                     .attr("transform", `translate(0,${height})`)
-                    .call(d3.axisBottom(x0));
+                    .call(d3.axisBottom(x0))
+                    .selectAll('text')
+                    .style('font-size', '15px')
+                    .style("font-weight", "600");
 
                 svg.append("g")
                     .attr("class", "y-axis-left")
-                    .call(yAxisLeft);
+                    .call(yAxisLeft)
+                    .selectAll('text')
+                    .style('font-size', '15px')
+                    .style("font-weight", "300");
 
                 svg.append("g")
                     .attr("class", "y-axis-right")
                     .attr("transform", `translate(${width},0)`)
-                    .call(yAxisRight);
+                    .call(yAxisRight)
+                    .selectAll('text')
+                    .style('font-size', '15px')
+                    .style("font-weight", "300");
             };
 
             // Initial chart render
