@@ -1,5 +1,5 @@
 import { Card, Stack, Typography } from "@mui/joy";
-import teamTileStyles from '../styles/teamTiles.module.css';
+import teamTileStyles from 'src/styles/teamTiles.module.css';
 
 // Define a type for the props
 type TeamTileProps = {

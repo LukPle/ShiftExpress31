@@ -6,9 +6,9 @@ import { FeatureCollection } from 'geojson';
 import { TransportData, YearlyData as TransportYearlyData } from '../../../data/pTDataInterface';
 import { PopulationData, YearlyData as PopulationYearlyData } from '@/data/populationInterface';
 import { CarData, YearlyData as CarYearlyData } from '../../../data/carDataInterface';
-import MapLegend from "@/components/MapComponents/MapLegend";
-import SegmentedControlsFilter from "./SegmentedControlsFilter";
-import Tooltip from "./Tooltip";
+import MapLegend from "@/components/KeyFindings/ChartLegendsAndTooltip/MapLegend";
+import SegmentedControlsFilter from "../SegmentedControlsFilter";
+import ChartTooltip from "../ChartLegendsAndTooltip/ChartTooltip";
 import { FilterOptions } from "./TransportShift";
 import { motion } from "framer-motion";
 
@@ -136,7 +136,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
         return top3States;
     };    
 
-    const colorRange = isPT ? ['#DD0606','rgba(221, 6, 6, 0.5)', '#FFFFFF','rgba(3, 4, 94, 0.5)', '#03045E']
+    const colorRange = isPT ? ['#DD0606','rgba(221, 6, 6, 0.5)', '#FFFFFF','rgba(155, 196, 253, 0.5)', '#9BC4FD']
                             : ['#DD0606','rgba(221, 6, 6, 0.5)', '#FFFFFF','rgba(255, 165, 0, 0.5)', '#FFA500'];
 
     const colorScale = d3.scaleLinear<string>()
@@ -288,7 +288,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
                 </Stack>
             </Stack>
             {tooltipVisible && (
-                <Tooltip tooltipPosition={tooltipPosition} tooltipState={tooltipState} tooltipContent={tooltipContent}></Tooltip>
+                <ChartTooltip tooltipPosition={tooltipPosition} tooltipState={tooltipState} tooltipContent={tooltipContent}></ChartTooltip>
             )}
         </>
     );

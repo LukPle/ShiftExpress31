@@ -3,10 +3,9 @@ import * as d3 from 'd3';
 import { motion, useAnimation } from 'framer-motion';
 import { YearlyData as CarYearlyData, CarData } from '@/data/carDataInterface';
 import { YearlyData as TransportYearlyData, TransportData } from '@/data/pTDataInterface';
-import { Card, Typography } from "@mui/joy";
 import styles from "@/styles/charts.module.css";
 import { FilterOptions } from './TransportShift';
-import Tooltip from './Tooltip';
+import ChartTooltip from '../ChartLegendsAndTooltip/ChartTooltip';
 
 
 interface LineChartCombinedProps {
@@ -133,7 +132,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                 .append('path')
                 .datum(transportPercentageChangeData)
                 .attr('fill', 'none')
-                .attr('stroke', (currentFilter !== FilterOptions.FocusCars) ? '#03045A' : '#E8E8E8')
+                .attr('stroke', (currentFilter !== FilterOptions.FocusCars) ? '#9BC4FD' : '#E8E8E8')
                 .attr('stroke-width', 5)
                 .attr(
                     'd',
@@ -161,7 +160,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
             .attr("cx", d => x(d.year))
             .attr("cy", d => y(d.percentageChange))
             .attr("r", 5) // Adjust the radius as needed
-            .style('fill', (currentFilter !== FilterOptions.FocusCars) ? '#03045A' : '#E8E8E8');
+            .style('fill', (currentFilter !== FilterOptions.FocusCars) ? '#9BC4FD' : '#E8E8E8');
 
             // Add an overlay to capture mouse events on the canvas for the dots and the marker
             const overlay = svg.append('rect')
@@ -180,7 +179,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
 
             const focusTransport = svg.append('g')
                 .append('circle')
-                .style('fill', (currentFilter !== FilterOptions.FocusCars) ? '#03045A' : '#E8E8E8')
+                .style('fill', (currentFilter !== FilterOptions.FocusCars) ? '#9BC4FD' : '#E8E8E8')
                 .attr('r', 7)
                 .style('display', 'none');
 
@@ -327,7 +326,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                 )}
                 {/* Display Tooltip */}
                 {tooltip.visible && (
-                    <Tooltip
+                    <ChartTooltip
                         tooltipPosition={tooltip.position}
                         tooltipState={tooltip.state}
                         tooltipContent={tooltip.content}
