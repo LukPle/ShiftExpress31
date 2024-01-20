@@ -77,8 +77,8 @@ const TransportShift: React.FC = () => {
                   </Stack>
                   <Divider orientation="vertical" />
                   <Stack direction={"row"} spacing={2}>
-                    <Button variant={currentFilter === FilterOptions.Comparison ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.Comparison)} sx={{ maxHeight: "30px" }}>🚈 vs 🚗 Comparison</Button>
-                    <Button variant={currentFilter === FilterOptions.FocusPublicTransport ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.FocusPublicTransport)} sx={{ maxHeight: "30px" }}>🚈 Focus Public Transport</Button>
+                    <Button variant={currentFilter === FilterOptions.Comparison ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.Comparison)} sx={{ maxHeight: "30px" }}>🚊 vs 🚗 Comparison</Button>
+                    <Button variant={currentFilter === FilterOptions.FocusPublicTransport ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.FocusPublicTransport)} sx={{ maxHeight: "30px" }}>🚊 Focus Public Transport</Button>
                     <Button variant={currentFilter === FilterOptions.FocusCars ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.FocusCars)} sx={{ maxHeight: "30px" }}>🚗 Focus Cars</Button>
                   </Stack>
                 </Stack>

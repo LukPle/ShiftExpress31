@@ -10,7 +10,7 @@ interface MapLegendProps {
 
 const MapLegend: React.FC<MapLegendProps> = ({ isPT, paddingEnd }) => {
     const legendColor = isPT ? theme.palette.primary[500] : "#FFA500";
-    const ptHeadline = "🚈 Change of usage in %";
+    const ptHeadline = "🚊 Change of usage in %";
     const carHeadline = "🚗 Change of usage in %";
     const radius = 7.5;
 

@@ -212,7 +212,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                         <>
                             🚗 {selectedDataCar.percentageChange.toFixed(2)}% change
                             <br />
-                            🚈 {selectedDataTransport.percentageChange.toFixed(2)}% change
+                            🚊 {selectedDataTransport.percentageChange.toFixed(2)}% change
                         </>
                     ),
                 });

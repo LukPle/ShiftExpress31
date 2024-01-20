@@ -111,7 +111,7 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
 
         setTooltipState(stateFullName);
         setTooltipPosition({ x, y });
-        setTooltipContent(`${isPT ? '🚈' : '🚗'} ${isPT ? d.transportChange.toFixed(2) : d.carChange.toFixed(2)}% change`);
+        setTooltipContent(`${isPT ? '🚊' : '🚗'} ${isPT ? d.transportChange.toFixed(2) : d.carChange.toFixed(2)}% change`);
         setTooltipVisible(true);
 
         d3.select(event.currentTarget).style('fill', 'url(#stripes-pattern)');
@@ -284,11 +284,15 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
 
             // Add the x-axis using the sorted x0 scale
             svg.append("g")
-                .attr("class", "x axis")
+                .attr("class", "xAxis")
                 .attr("transform", `translate(0,${yCar(0)})`)
                 .call(d3.axisBottom(x0Sorted))
                 .selectAll("text") // Selecting all text elements within the axis
-                .style("font-size", "15px"); // Set the font size
+                .attr("class", "x-text")
+                .style("font-size", "15px") // Set the font size
+                .style("background-color", "#f0f0f0")
+                .style("border-radius", "5px")
+                .style("z-index", "100");
         }
     }, [carData, transportData, startYear, endYear, selectedCarMetric, selectedTransportMetric, currentSorting]);
 
