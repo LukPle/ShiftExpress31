@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { Link, Stack, Typography, Button, Divider } from "@mui/joy"
 import headerStyles from '../styles/header.module.css';
 import { motion } from 'framer-motion';
@@ -27,7 +27,7 @@ export default function Header({currentSection, setSection}: {currentSection: nu
 
   const [underlineProps, setUnderlineProps] = useState({ left: 1100, width: 0 });
 
-  useEffect(() => {
+  const updateUnderlinePosition = useCallback(() => {
     let activeLinkRef;
     switch (currentSection) {
       case 0: activeLinkRef = introRef; break;
@@ -42,6 +42,22 @@ export default function Header({currentSection, setSection}: {currentSection: nu
       setUnderlineProps({ left: offsetLeft, width: clientWidth });
     }
   }, [currentSection]);
+
+  useEffect(() => {
+    updateUnderlinePosition();
+  }, [updateUnderlinePosition, currentSection]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      updateUnderlinePosition();
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [updateUnderlinePosition]);
 
   return (
     <div className={headerStyles.stickyHeader}>
