@@ -1,7 +1,6 @@
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import { CssVarsProvider } from '@mui/joy/styles';
-import '@fontsource/inter';
 import theme from '../utils/theme';
 import Header from '../components/Header';
 import Footer from '../components/Footer';

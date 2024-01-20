@@ -50,7 +50,19 @@
   height: 100vh;
 }
 
-.lineLeftHalfAcrossStack {
+.introSection {
+  position: relative;
+  background-image: linear-gradient(0deg,
+    transparent 0%,
+    transparent calc(30% - 5.1px),
+    var(--joy-palette-primary-500) calc(30% - 5px),
+    var(--joy-palette-primary-500) calc(30% + 5px),
+    transparent calc(30% + 5.1px),
+    transparent 100%
+  );
+}
+
+.footerSection {
   position: relative;
   background-image: linear-gradient(0deg,
     transparent 0%,
@@ -73,7 +85,30 @@
   height: 100%;
 }
 
-.lineLeftHalfAcrossStack::before {
+.introSection::before {
+  content: '';
+  position: absolute;
+  left: -50px;
+  bottom: 0;
+  display: block;
+  width: 10px;
+  background-color: var(--joy-palette-primary-500);
+  height: calc(30% - 43px);
+}
+
+.introSection::after {
+  content: '';
+  position: absolute;
+  left: -27px;
+  bottom: calc(30% - 58px);
+  display: block;
+  width: 9.5px;
+  background-color: var(--joy-palette-primary-500);
+  height: 70px;
+  transform: rotate(45deg);
+}
+
+.footerSection::before {
   content: '';
   position: absolute;
   left: -50px;
@@ -84,7 +119,7 @@
   height: calc(50% - 43px);
 }
 
-.lineLeftHalfAcrossStack::after {
+.footerSection::after {
   content: '';
   position: absolute;
   left: -27px;
@@ -169,7 +204,7 @@
 .snappingContainer {
   scroll-snap-type: y mandatory;
   overflow-y: scroll;
-  height: 91vh;
+  height: 90vh;
 }
 
 .snappingSection {
@@ -195,8 +230,77 @@
   height: 150px;
 } 
 
-.backToKeyfindingBtn {
+.introTrainImage {
   position: absolute;
-  right: 0;
-  top: 25px;
+  cursor: pointer;
+  top: calc(70% - 52.5px);
+  left: 60%;
+  transform: translateX(-40%);
+  height: 50px;
+}
+
+.introStationDot {
+  position: absolute;
+  right: -30px;
+  top: calc(70% - 30px);
+  display: block;
+  height: 30px;
+  width: 30px;
+  background-color: var(--joy-palette-primary-50);
+  border: 15px solid var(--joy-palette-primary-500);
+  border-radius: 50%;
+  z-index: 3;
+}
+
+.tunnelHelper {
+  position: absolute;
+  right: -62.5px;
+  top: calc(70% - 80px);
+  display: block;
+  height: 85px;
+  width: 65px;
+  background-color: #F3F3F3;
+  z-index: 2;
+}
+.tunnelHelper2 {
+  position: absolute;
+  right: -48px;
+  top: calc(70% - 70px);
+  display: block;
+  height: 150px;
+  width: 35px;
+  background-color: #F3F3F3;
+  z-index: 2;
+}
+
+.tunnel {
+  position: absolute;
+  right: 1.5px;
+  top: calc(70% - 85px);
+  display: block;
+  height: 80px;
+  z-index: 3;
+}
+
+.footerStationDot {
+  position: absolute;
+  right: -30px;
+  top: calc(50% - 30px);
+  display: block;
+  height: 30px;
+  width: 30px;
+  background-color: var(--joy-palette-primary-50);
+  border: 15px solid var(--joy-palette-primary-500);
+  border-radius: 50%;
+}
+
+@media screen and (min-width: 1500px) {
+  .introTrainImage {
+    position: absolute;
+    cursor: pointer;
+    top: calc(70% - 75px);
+    left: 47.5%;
+    transform: translateX(-52.5%);
+    height: 75px;
+  }
 }

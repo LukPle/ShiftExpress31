@@ -14,7 +14,7 @@ import {
   Button,
   CardOverflow,
   CardContent,
-  Divider
+  Divider,
 } from "@mui/joy";
 import {
   PlayArrow,
@@ -22,6 +22,7 @@ import {
   FastRewind,
   InfoOutlined
 } from "@mui/icons-material";
+import InteractionTooltip from '@/components/InteractionTooltip';
 
 export enum FilterOptions {
   Comparison, FocusPublicTransport, FocusCars
@@ -84,12 +85,14 @@ const TransportShift: React.FC = () => {
               </CardContent>
               <Divider inset="context" />
             </CardOverflow>
-            <LineChartTS carData={carData} transportData={pTData} startYear='2013' endYear='2019' currentYear={endYear.toString()} setCurrentYear={setCurrentYear} currentFilter={currentFilter} />
+            <Stack alignItems={"center"}>
+              <LineChartTS carData={carData} transportData={pTData} startYear='2013' endYear='2019' currentYear={endYear.toString()} setCurrentYear={setCurrentYear} currentFilter={currentFilter} />
+            </Stack>
             <CardOverflow>
               <Divider inset="context" />
               <CardContent orientation="horizontal">
                 <Stack direction={"row"} sx={{ flex: 1 }} alignItems={"center"} justifyContent={"flex-start"}>
-                  <Typography startDecorator={<InfoOutlined />}>Cumulative change of usage in Germany from 2013 to {endYear.toString()}</Typography>
+                  <Typography startDecorator={<InteractionTooltip tooltipText={`Overview of the cumulated percental change across Germany from 2013 to ${endYear} measured at each year`} delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Cumulative change of usage in Germany from 2013 to {endYear.toString()}</Typography>
                 </Stack>
                 <Divider orientation="vertical" />
                 <MiniLegend currentOption={currentFilter} />
@@ -97,12 +100,14 @@ const TransportShift: React.FC = () => {
             </CardOverflow>
           </Card>
           <Card>
-            <CombinedDevTS carData={carData} transportData={pTData} endYear={endYear.toString()} currentFilter={currentFilter} />
+            <Stack alignItems={"center"}>
+              <CombinedDevTS carData={carData} transportData={pTData} endYear={endYear.toString()} currentFilter={currentFilter} />
+            </Stack>
             <CardOverflow>
               <Divider inset="context" />
               <CardContent orientation="horizontal">
                 <Stack direction={"row"} sx={{ flex: 1 }} alignItems={"center"} justifyContent={"flex-start"}>
-                  <Typography startDecorator={<InfoOutlined />}>Change of usage from 2013 to {endYear} across all federal states</Typography>
+                  <Typography startDecorator={<InteractionTooltip tooltipText={`The percental change is calculated from the usage measured in ${endYear} in relation to the usage in 2013`} delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Change of usage from 2013 to {endYear} across all federal states</Typography>
                 </Stack>
                 <Divider orientation="vertical" />
                 <MiniLegend currentOption={currentFilter} />

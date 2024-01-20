@@ -1,7 +1,8 @@
 import theme from '@/utils/theme';
 import { Stack, Typography, Divider } from '@mui/joy';
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { FilterOptions } from './TransportShift';
+import InteractionTooltip from '@/components/InteractionTooltip';
 
 interface GroupedBarChartLegendProps {
     currentOption: FilterOptions,
@@ -25,10 +26,10 @@ const GroupedBarChartLegend: React.FC<GroupedBarChartLegendProps> = ({ currentOp
 
     return (
         <Stack direction="row" >
-            <div style={getRectangleStyle(currentOption === FilterOptions.FocusCars ? unfocusedColor : ptColor)}></div>
+            <InteractionTooltip tooltipText={'Color for Public Transport'} delay={0}><div style={getRectangleStyle(currentOption === FilterOptions.FocusCars ? unfocusedColor : ptColor)}></div></InteractionTooltip>
             <Typography>🚈</Typography>
             <Divider orientation="vertical" sx={{mx:2}}/>
-            <div style={getRectangleStyle(currentOption === FilterOptions.FocusPublicTransport ? unfocusedColor : carColor)}></div>
+            <InteractionTooltip tooltipText={'Color for Cars'} delay={0}><div style={getRectangleStyle(currentOption === FilterOptions.FocusPublicTransport ? unfocusedColor : carColor)}></div></InteractionTooltip>
             <Typography>🚗</Typography>
         </Stack>
     );

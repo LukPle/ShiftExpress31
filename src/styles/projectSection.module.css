@@ -15,7 +15,6 @@
 }
 
 .description {
-    padding-top: 15%;
     text-align: justify;
 }
 
@@ -60,7 +59,7 @@
 }
 
 .impressionImage {
-    height: 180px;
+    width: 70%;
     border-radius: 20px;
     padding-left: 15px;
     padding-right: 15px;
@@ -70,4 +69,9 @@
     top: -30px;
     position: relative;
 }
-  
+
+.teamImage {
+    position: absolute;
+    border-radius: 10px;
+    border: 2px solid #FFF;
+}

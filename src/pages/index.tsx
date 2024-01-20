@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Button, Stack } from "@mui/joy";
+import { Stack } from "@mui/joy";
 import ProjectArea from "@/components/ProjectSection/ProjectArea";
 import ToolBar from "@/components/KeyFindings/ToolBar";
 import TransportShift from "@/components/KeyFindings/TransportShift/TransportShift";
@@ -10,9 +10,6 @@ import TeamSection from "@/components/TeamSection";
 import BaseChartsSection from "@/components/BaseCharts/BaseChartsSection";
 import Section from "@/components/Section";
 import styles from "@/styles/index.module.css";
-import {
-  ArrowUpward
-} from "@mui/icons-material";
 
 
 type HomeProps = {
@@ -67,13 +64,11 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
   const renderKeyFinding = () => {
     switch (currentKeyFinding) {
       case KeyFinding.Shift:
-        return <Section title="🚉 Transportation Shift" onInViewChange={setIsKeyFindingSectionInView} style={{display: "flow-root"}}>
-          <Button className={styles.backToKeyfindingBtn} onClick={() => scrollToSection('insights')} endDecorator={<ArrowUpward/>}>Back to Keyfindings</Button>
+        return <Section title="🚉 Transportation Shift" onInViewChange={setIsKeyFindingSectionInView} style={{display: "flow-root"}} scrollToSection={scrollToSection} keyFindingSection={true}>
           <TransportShift />
         </Section>;
       case KeyFinding.Covid:
-        return <Section title="🦠 Covid" onInViewChange={setIsKeyFindingSectionInView} style={{display: "flow-root"}}>
-          <Button className={styles.backToKeyfindingBtn} onClick={() => scrollToSection('insights')} endDecorator={<ArrowUpward/>}>Back to Keyfindings</Button>
+        return <Section title="🦠 Covid" onInViewChange={setIsKeyFindingSectionInView} style={{display: "flow-root"}} scrollToSection={scrollToSection} keyFindingSection={true}>
           <Covid />
         </Section>;
       case KeyFinding.None:
@@ -88,7 +83,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
         <Section title="" id="intro" onInViewChange={inView => {if (inView) {setSection(0)}}} introSection={true}>
           <IntroSection />
         </Section>
-        <Section title="Introduction" id="project" onInViewChange={inView => {if (inView) {setSection(1)}}}>
+        <Section title="What is this project about?" id="project" onInViewChange={inView => {if (inView) {setSection(1)}}}>
           <ProjectArea />
         </Section>
         <Section title="What do you want to research?" id="insights" onInViewChange={inView => {if (inView) {setSection(2)}}}>
@@ -103,7 +98,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
         )}
         </div>
 
-        <Section title="Who are we?" id="team" halfAcrossLine={true} onInViewChange={inView => {if (inView) {setSection(3)}}}>
+        <Section title="Who is the team?" id="team" teamSection={true} onInViewChange={inView => {if (inView) {setSection(3)}}}>
           <TeamSection />
         </Section>
 

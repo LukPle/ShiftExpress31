@@ -3,10 +3,9 @@ import * as d3 from 'd3';
 import { motion, useAnimation } from 'framer-motion';
 import { YearlyData as CarYearlyData, CarData } from '@/data/carDataInterface';
 import { YearlyData as TransportYearlyData, TransportData } from '@/data/pTDataInterface';
-import { Card, Typography } from "@mui/joy";
 import styles from "@/styles/charts.module.css";
 import { FilterOptions } from './TransportShift';
-import Tooltip from './Tooltip';
+import ChartTooltip from './ChartTooltip';
 
 
 interface LineChartCombinedProps {
@@ -23,7 +22,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
     const d3Container = useRef(null);
     const margin = { top: 10, right: 20, bottom: 20, left: 30 };
     const width = 820 - margin.left - margin.right;
-    const height = 120 - margin.top - margin.bottom;
+    const height = 125 - margin.top - margin.bottom;
 
     const markerRef = useRef(null);
     const controls = useAnimation(); // Create animation controls
@@ -217,6 +216,8 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                         </>
                     ),
                 });
+
+                overlay.style('cursor', 'pointer');
             };
 
             // Event listeners for the overlay for tooltip
@@ -228,6 +229,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                 .on('mouseout', () => {
                     focusCar.style('display', 'none');
                     focusTransport.style('display', 'none');
+                    overlay.style('cursor', 'default');
 
                     setTooltip((prevTooltip) => ({
                         ...prevTooltip,
@@ -324,7 +326,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                 )}
                 {/* Display Tooltip */}
                 {tooltip.visible && (
-                    <Tooltip
+                    <ChartTooltip
                         tooltipPosition={tooltip.position}
                         tooltipState={tooltip.state}
                         tooltipContent={tooltip.content}
