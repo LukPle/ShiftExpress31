@@ -131,7 +131,20 @@ const KeyFindingsSection: React.FC<KeyFindingsSectionProps> = ({ keyFinding, onU
               2013 to 2022 and examine which states are dominated by cars.
             </Typography>
             <div style={{ height: "100%" }}></div>
-            <Button sx={{ width: "115px", mt: 2 }}>Take a look!</Button>
+            <Button
+              sx={{ width: "115px", mt: 2 }}
+              onClick={() => {
+                onUpdateKeyFinding(KeyFinding.CarCountry)
+                scrollToSection('keyFinding')
+              }}
+            >
+              <a
+                href="#keyFindingDetail"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                Take a look!
+              </a>
+            </Button>
           </CardContent>
         </Card>
       </Stack>
