@@ -17,7 +17,7 @@ import {
 } from "@mui/icons-material";
 import CombinedDevTS from '../TransportShift/CombinedDevTS';
 import MapTS from '../TransportShift/MapTS';
-import LineChartTS from '../TransportShift/LineChartTS';
+import LineChartCars from './LineChartCars';
 import pTData from "../../../data/pT.json";
 import carData from "../../../data/car.json";
 import MiniLegend from '../ChartLegendsAndTooltip/MiniLegend';
@@ -39,7 +39,7 @@ const Cars: React.FC = () => {
 
     if (isPlaying) {
       interval = setInterval(() => {
-        if (endYear < 2019) {
+        if (endYear < 2022) {
           setEndYear((prevYear) => prevYear + 1);
         } else {
           setIsPlaying(false);
@@ -87,7 +87,7 @@ const Cars: React.FC = () => {
               <Divider inset="context" />
             </CardOverflow>
             <Stack alignItems={"center"}>
-              <LineChartTS carData={carData} transportData={pTData} startYear='2013' endYear='2019' currentYear={endYear.toString()} setCurrentYear={setCurrentYear} currentFilter={currentFilter} />
+              <LineChartCars carData={carData} transportData={pTData} startYear='2013' endYear='2022' currentYear={endYear.toString()} setCurrentYear={setCurrentYear} currentFilter={currentFilter} />
             </Stack>
             <CardOverflow>
               <Divider inset="context" />
