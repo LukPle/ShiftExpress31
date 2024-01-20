@@ -17,12 +17,12 @@ interface Props {
     transportData: TransportYearlyData;
     populationData: PopulationYearlyData;
     currentFilter: FilterOptions;
+    selectedYear: string;
 }
 
-const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populationData, currentFilter }) => {
-    const [selectedYear, setSelectedYear] = useState<string>('2013');
+const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populationData, currentFilter, selectedYear }) => {
     const [selectedCarMetric, setSelectedCarMetric] = useState<keyof CarData>('passenger_km');
-    const [selectedTransportMetric, setSelectedTransportMetric] = useState<keyof TransportData>('total_local_passengers');
+    const [selectedTransportMetric, setSelectedTransportMetric] = useState<keyof TransportData>('total_local_passenger_km');
     const [sortByPopulation, setSortByPopulation] = useState<boolean>(false);
     const [inRelationToPopulation, setInRelationToPopulation] = useState<boolean>(false);
     const d3Container = useRef<SVGSVGElement | null>(null);
@@ -80,6 +80,9 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
                         transportValue: transportDatum[selectedTransportMetric] as number,
                     };
                 });
+
+                // Sort by car value
+                combinedData.sort((a, b) => b.carValue - a.carValue);
 
                 // Apply sorting and relation to population if needed
                 if (sortByPopulation) {
