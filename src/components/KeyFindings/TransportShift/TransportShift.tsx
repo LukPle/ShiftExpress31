@@ -4,7 +4,7 @@ import MapTS from './MapTS';
 import LineChartTS from './LineChartTS';
 import pTData from "../../../data/pT.json";
 import carData from "../../../data/car.json";
-import MiniLegend from './MiniLegend';
+import MiniLegend from '../ChartLegendsAndTooltip/MiniLegend';
 import KeyMetricsTS from './KeyMetricsTS';
 import {
   Card,
@@ -14,7 +14,7 @@ import {
   Button,
   CardOverflow,
   CardContent,
-  Divider
+  Divider,
 } from "@mui/joy";
 import {
   PlayArrow,
@@ -22,6 +22,7 @@ import {
   FastRewind,
   InfoOutlined
 } from "@mui/icons-material";
+import InteractionTooltip from '@/components/InteractionTooltip';
 
 export enum FilterOptions {
   Comparison, FocusPublicTransport, FocusCars
@@ -31,6 +32,13 @@ const TransportShift: React.FC = () => {
   const [endYear, setEndYear] = useState<number>(2013);
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [currentFilter, setCurrentFilter] = useState<FilterOptions>(FilterOptions.Comparison);
+
+  const [selectedState, setSelectedState] = useState<string | null>(null);
+  const handleStateHover = (stateId: string | null) => {
+    setSelectedState(stateId);
+  };
+
+
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -84,12 +92,14 @@ const TransportShift: React.FC = () => {
               </CardContent>
               <Divider inset="context" />
             </CardOverflow>
-            <LineChartTS carData={carData} transportData={pTData} startYear='2013' endYear='2019' currentYear={endYear.toString()} setCurrentYear={setCurrentYear} currentFilter={currentFilter} />
+            <Stack alignItems={"center"}>
+              <LineChartTS carData={carData} transportData={pTData} startYear='2013' endYear='2019' currentYear={endYear.toString()} setCurrentYear={setCurrentYear} currentFilter={currentFilter} />
+            </Stack>
             <CardOverflow>
               <Divider inset="context" />
               <CardContent orientation="horizontal">
                 <Stack direction={"row"} sx={{ flex: 1 }} alignItems={"center"} justifyContent={"flex-start"}>
-                  <Typography startDecorator={<InfoOutlined />}>Cumulative change of usage in Germany from 2013 to {endYear.toString()}</Typography>
+                  <Typography startDecorator={<InteractionTooltip tooltipText={`Adjust the charts by selecting a year in the timeline - you can also play and rewind`} delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Cumulative change of usage in Germany from 2013 to {endYear.toString()}</Typography>
                 </Stack>
                 <Divider orientation="vertical" />
                 <MiniLegend currentOption={currentFilter} />
@@ -97,12 +107,14 @@ const TransportShift: React.FC = () => {
             </CardOverflow>
           </Card>
           <Card>
-            <CombinedDevTS carData={carData} transportData={pTData} endYear={endYear.toString()} currentFilter={currentFilter} />
+            <Stack alignItems={"center"}>
+                        <CombinedDevTS carData={carData} transportData={pTData} endYear={endYear.toString()} currentFilter={currentFilter} onStateHover={handleStateHover} selectedState={selectedState}/>
+            </Stack>
             <CardOverflow>
               <Divider inset="context" />
               <CardContent orientation="horizontal">
                 <Stack direction={"row"} sx={{ flex: 1 }} alignItems={"center"} justifyContent={"flex-start"}>
-                  <Typography startDecorator={<InfoOutlined />}>Change of usage from 2013 to {endYear} across all federal states</Typography>
+                  <Typography startDecorator={<InteractionTooltip tooltipText={`Hover over the states to get more details about the change of usage`} delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Change of usage from 2013 to {endYear} across all federal states</Typography>
                 </Stack>
                 <Divider orientation="vertical" />
                 <MiniLegend currentOption={currentFilter} />
@@ -117,7 +129,7 @@ const TransportShift: React.FC = () => {
             </CardContent>
           </Card>
           <Card sx={{ flex: 1 }}>
-            <MapTS transportData={pTData} carData={carData} endYear={endYear.toString()} currentFilter={currentFilter} />
+            <MapTS transportData={pTData} carData={carData} endYear={endYear.toString()} currentFilter={currentFilter} onStateHover={handleStateHover} selectedState={selectedState}/>
           </Card>
         </Stack>
       </Stack>
