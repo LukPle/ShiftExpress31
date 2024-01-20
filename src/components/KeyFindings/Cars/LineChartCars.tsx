@@ -20,7 +20,7 @@ interface LineChartCombinedProps {
 
 const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData, startYear, endYear, currentYear, setCurrentYear, currentFilter }) => {
     const d3Container = useRef(null);
-    const margin = { top: 10, right: 20, bottom: 20, left: 30 };
+    const margin = { top: 15, right: 50, bottom: 15, left: 30 };
     const width = 820 - margin.left - margin.right;
     const height = 125 - margin.top - margin.bottom;
 
@@ -61,7 +61,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                 .range([height, 0]);
 
             // Specify the tick values you want (2, 4, 6, 8 in this case)
-            const tickValues = [2, 4, 6, 8];
+            const tickValues = [-32, -24, -16, 8];
 
             // Create a custom tick format function to add "%" symbol
             //@ts-ignore
@@ -89,7 +89,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
             // X axis
             const allYears = carPercentageChangeData.map(d => d.year); // Assuming this is an array of all years you have data for.
             svg.append('g')
-                .attr('transform', `translate(0,${height})`)
+                .attr('transform', `translate(0, ${y(0)})`)
                 .call(d3.axisBottom(x)
                     .tickValues(allYears) // Set the tick values to the years from your data
                     .tickFormat(d3.format('d'))) // Format ticks as integers without comma separators
@@ -99,8 +99,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
 
 
             // Draw horizontal lines at specified values
-            //TODO: Build reference lines based on max / min values of dataset props
-            const referenceLines = [2, 4, 6, 8];
+            const referenceLines = [-32, -24, -16, 8];
             svg.selectAll(".reference-line")
                 .data(referenceLines)
                 .enter().append("line")
