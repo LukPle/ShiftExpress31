@@ -61,7 +61,7 @@ const LineChartCovid: React.FC<LineChartCombinedProps> = ({ carData, transportDa
                 .range([height, 0]);
 
             // Specify the tick values you want (2, 4, 6, 8 in this case)
-            const tickValues = [2, 4, 6, 8];
+            const tickValues = [0, -10, -20, -30];
 
             // Create a custom tick format function to add "%" symbol
             //@ts-ignore

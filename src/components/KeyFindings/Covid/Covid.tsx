@@ -99,7 +99,7 @@ const Covid: React.FC = () => {
               <Divider inset="context" />
               <CardContent orientation="horizontal">
                 <Stack direction={"row"} sx={{ flex: 1 }} alignItems={"center"} justifyContent={"flex-start"}>
-                  <Typography startDecorator={<InteractionTooltip tooltipText={`Explore detailed usage changes by hovering over or selecting specific data points on the chart.`} delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Cumulative percentual change of usage from 2013 to {endYear.toString()} in Germany</Typography>
+                  <Typography startDecorator={<InteractionTooltip tooltipText={`Explore detailed usage changes by hovering over specific data points on the chart`} delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Cumulative percentual change of usage from 2019 to {endYear.toString()} in Germany</Typography>
                 </Stack>
                 <Divider orientation="vertical" />
                 <MiniLegend currentOption={currentFilter} />
@@ -114,7 +114,7 @@ const Covid: React.FC = () => {
               <Divider inset="context" />
               <CardContent orientation="horizontal">
                 <Stack direction={"row"} sx={{ flex: 1 }} alignItems={"center"} justifyContent={"flex-start"}>
-                  <Typography startDecorator={<InteractionTooltip tooltipText={`Explore detailed usage changes by hovering a state.`} delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Percentual change of usage from 2013 to {endYear} across each federal state</Typography>
+                  <Typography startDecorator={<InteractionTooltip tooltipText={`Explore detailed usage changes by hovering over a state`} delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Percentual change of usage from 2019 to {endYear} across each federal state</Typography>
                 </Stack>
                 <Divider orientation="vertical" />
                 <MiniLegend currentOption={currentFilter} />

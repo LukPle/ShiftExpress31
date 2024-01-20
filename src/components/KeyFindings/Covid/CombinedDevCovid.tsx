@@ -21,7 +21,7 @@ interface Props {
 }
 
 const CombinedDevCovid: React.FC<Props> = ({ carData, transportData, endYear, currentFilter, onStateHover, selectedState  }) => {
-    const [startYear, setStartYear] = useState<string>('2013');
+    const [startYear, setStartYear] = useState<string>('2019');
     const [selectedCarMetric, setSelectedCarMetric] = useState<keyof CarData>('passenger_km');
     const [selectedTransportMetric, setSelectedTransportMetric] = useState<keyof TransportData>('total_local_passenger_km');
     const d3Container = useRef<SVGSVGElement | null>(null);
@@ -144,10 +144,6 @@ const CombinedDevCovid: React.FC<Props> = ({ carData, transportData, endYear, cu
             const width = 820 - margin.left - margin.right;
             const height = 270 - margin.top - margin.bottom;
 
-
-
-
-
             const svg = d3.select(d3Container.current)
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)
@@ -213,19 +209,19 @@ const CombinedDevCovid: React.FC<Props> = ({ carData, transportData, endYear, cu
             const maxChange = Math.max(maxCarChange, maxTransportChange);
 
             // Define y-scales with fixed domain extent
-            const yCar = d3.scaleLinear()
+            const yAxis = d3.scaleLinear()
                 .range([height, 0])
-                .domain([-50, 50])
+                .domain([-60, 60])
                 .nice();
 
-            const yTransport = d3.scaleLinear()
-                .range([height, 0])
-                .domain([-50, 50])
-                .nice();
+            const numberOfTicks = 6;
 
-            // Create the axes
-            const yAxisLeft = d3.axisLeft(yCar);
-            const yAxisRight = d3.axisRight(yTransport);
+            // Set the tick values based on the range and number of ticks
+            const tickValues = d3.ticks(yAxis.domain()[0], yAxis.domain()[1], numberOfTicks);
+            
+            // Create the axis
+            const yAxisLeft = d3.axisLeft(yAxis)
+                .tickValues(tickValues);
 
             // Append the axes to the SVG
             svg.append("g")
@@ -236,7 +232,7 @@ const CombinedDevCovid: React.FC<Props> = ({ carData, transportData, endYear, cu
                 .style("font-weight", "300");
 
             // Draw horizontal lines at specified values
-            const referenceLines = [-40, -20, 20, 40];
+            const referenceLines = [-60, -40, -20, 20, 40, 60];
 
             svg.selectAll(".reference-line")
                 .data(referenceLines)
@@ -244,8 +240,8 @@ const CombinedDevCovid: React.FC<Props> = ({ carData, transportData, endYear, cu
                 .attr("class", "reference-line")
                 .attr("x1", 0)
                 .attr("x2", width)
-                .attr("y1", d => yCar(d))
-                .attr("y2", d => yCar(d))
+                .attr("y1", d => yAxis(d))
+                .attr("y2", d => yAxis(d))
                 .attr("stroke", "#ddd") // Light grey color
                 .attr("stroke-width", 2.5)
                 .attr("stroke-dasharray", "3,3"); // Dashed line style
@@ -266,8 +262,8 @@ const CombinedDevCovid: React.FC<Props> = ({ carData, transportData, endYear, cu
                 // @ts-ignore
                 .attr("x", d => x0Sorted(d.state))
                 .attr("width", x1Sorted.bandwidth())
-                .attr("y", d => yCar(Math.max(0, d.carChange)))
-                .attr("height", d => Math.abs(yCar(d.carChange) - yCar(0)))
+                .attr("y", d => yAxis(Math.max(0, d.carChange)))
+                .attr("height", d => Math.abs(yAxis(d.carChange) - yAxis(0)))
                 // @ts-ignore
                 .attr("fill",d=>{return color('carData')})
                 //Highlight and Stroke
@@ -289,8 +285,8 @@ const CombinedDevCovid: React.FC<Props> = ({ carData, transportData, endYear, cu
                 // @ts-ignore
                 .attr("x", d => x0Sorted(d.state) + x1Sorted.bandwidth())
                 .attr("width", x1Sorted.bandwidth())
-                .attr("y", d => yTransport(Math.max(0, d.transportChange)))
-                .attr("height", d => Math.abs(yTransport(d.transportChange) - yTransport(0)))
+                .attr("y", d => yAxis(Math.max(0, d.transportChange)))
+                .attr("height", d => Math.abs(yAxis(d.transportChange) - yAxis(0)))
                 // @ts-ignore
                 .attr("fill",d=>{return color('transportData')})
                 //Highlight and Stroke
@@ -307,7 +303,7 @@ const CombinedDevCovid: React.FC<Props> = ({ carData, transportData, endYear, cu
             // Add the x-axis using the sorted x0 scale
             svg.append("g")
                 .attr("class", "xAxis")
-                .attr("transform", `translate(0,${yCar(0)})`)
+                .attr("transform", `translate(0,${yAxis(0)})`)
                 .call(d3.axisBottom(x0Sorted))
                 .selectAll("text") // Selecting all text elements within the axis
                 .attr("class", "x-text")

@@ -25,7 +25,7 @@ interface Props {
 const mapData: FeatureCollection = germanyGeoJSON as FeatureCollection;
 
 const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFilter,  onStateHover, selectedState  }) => {
-    const [startYear, setStartYear] = useState<string>('2013');
+    const [startYear, setStartYear] = useState<string>('2019');
     const [selectedMetricPT, setSelectedMetricPT] = useState<keyof TransportData>('total_local_passenger_km');
     const [selectedMetricCar, setSelectedMetricCar] = useState<keyof CarData>('passenger_km');
     const svgRef = useRef<SVGSVGElement | null>(null);
@@ -256,7 +256,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
                                         transition={{ duration: 0.5, delay: index * 0.1 }}
                                     >
                                         <Typography>
-                                            {index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'} {stateData.stateName} - {stateData.percentageChange.toFixed(2)}%
+                                            {index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'} {stateData.stateName} &#x2022; {stateData.percentageChange.toFixed(2)}%
                                         </Typography>
                                     </motion.div>
                                 )) :
@@ -268,7 +268,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
                                         transition={{ duration: 0.5, delay: index * 0.1 }}
                                     >
                                         <Typography>
-                                            {index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'} {stateData.stateName} - {stateData.percentageChange.toFixed(2)}%
+                                            {index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'} {stateData.stateName} &#x2022; {stateData.percentageChange.toFixed(2)}%
                                         </Typography>
                                     </motion.div>
                                 ))
