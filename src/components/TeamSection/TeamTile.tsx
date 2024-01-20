@@ -7,25 +7,31 @@ type TeamTileProps = {
   name: string;
   imageSrc: string;
   desc: string;
+  badges?: string[]
 };
 
 // Use the type for the component's props
-export default function TeamTile({ className, name, imageSrc, desc }: TeamTileProps) {
+export default function TeamTile({ className, name, imageSrc, desc, badges }: TeamTileProps) {
     return (
       <Card
           className={teamTileStyles.teamTile + ' ' + className} 
           sx={{
-            width: 350,
-            height: '80%'
+            width: 380,
           }}
       >
         <Stack direction={"column"} gap={2}>
           <Stack direction={"row"} gap={1}>
             <img src={imageSrc} alt={name} className={teamTileStyles.teamTileImage}/>
-            <Typography level="h2" className={teamTileStyles.teamTileTitle}>{name}</Typography>
+            <Stack direction={"column"} gap={1}>
+              <Typography level="h2" className={teamTileStyles.teamTileTitle}>{name}</Typography>
+              <Stack direction={"row"} gap={1}>
+                {badges?.map(badge => (
+                  <div className={teamTileStyles.teamTileBadge}>{badge}</div>
+                )) ?? ""}
+              </Stack>
+            </Stack>
           </Stack>
-          <Typography mt={1} className={teamTileStyles.teamTileDesc}>{desc}</Typography>
-          <div style={{ height: "100%" }}></div>
+          <Typography className={teamTileStyles.teamTileDesc}>{desc}</Typography>
         </Stack>  
       </Card>
     );

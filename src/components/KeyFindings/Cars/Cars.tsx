@@ -34,6 +34,11 @@ const Cars: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [currentFilter, setCurrentFilter] = useState<FilterOptions>(FilterOptions.CarsAbs);
 
+  const [selectedState, setSelectedState] = useState<string | null>(null);
+  const handleStateHover = (stateId: string | null) => {
+    setSelectedState(stateId);
+  };
+
   useEffect(() => {
     let interval: NodeJS.Timeout;
 
@@ -101,7 +106,7 @@ const Cars: React.FC = () => {
           </Card>
           <Card>
             <Stack alignItems={"center"}>
-              <CombinedDevTS carData={carData} transportData={pTData} endYear={endYear.toString()} currentFilter={currentFilter} />
+            <CombinedDevTS carData={carData} transportData={pTData} endYear={endYear.toString()} currentFilter={currentFilter} onStateHover={handleStateHover} selectedState={selectedState}/>
             </Stack>
             <CardOverflow>
               <Divider inset="context" />
@@ -121,7 +126,7 @@ const Cars: React.FC = () => {
             </CardContent>
           </Card>
           <Card sx={{ flex: 1 }}>
-            <MapTS transportData={pTData} carData={carData} endYear={endYear.toString()} currentFilter={currentFilter} />
+          <MapTS transportData={pTData} carData={carData} endYear={endYear.toString()} currentFilter={currentFilter} onStateHover={handleStateHover} selectedState={selectedState}/>
           </Card>
         </Stack>
       </Stack>

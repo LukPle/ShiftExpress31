@@ -102,7 +102,7 @@ const KeyMetricsTS: React.FC<KeyMetricsProps> = ({ carData, transportData, start
                         from={previousTransportPercentageChange}
                         to={transportPercentageChange}
                         prefix={Math.sign(transportPercentageChange) >= 0 ? "+" : ""}
-                        suffix="% 🚈"
+                        suffix="% 🚊"
                     />
                 </Typography>
                 <Divider orientation="vertical" />
