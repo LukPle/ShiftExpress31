@@ -77,22 +77,22 @@ export default function Header({currentSection, setSection}: {currentSection: nu
           <img src={'/logo.svg'} alt="Shift Express 31 Logo" className={headerStyles.logoSVG} />
           <div style={{ flexGrow: 1 }} />
           <Typography level="h3" ref={introRef}>
-            <a href="#" style={{textDecoration: "none", color: "#030456"}} onClick={() => scrollToSection("intro")}>
+            <a href="#" className={headerStyles.link} onClick={() => scrollToSection("intro")}>
               Intro
             </a>
           </Typography>
           <Typography level="h3" ref={projectRef}>
-            <a href="#" style={{textDecoration: "none", color: "#030456"}} onClick={() => scrollToSection("project")}>
+            <a href="#" className={headerStyles.link} onClick={() => scrollToSection("project")}>
               Project
             </a>
           </Typography>
           <Typography level="h3" ref={insightsRef}>
-            <a href="#" style={{textDecoration: "none", color: "#030456"}} onClick={() => scrollToSection("insights")}>
+            <a href="#" className={headerStyles.link} onClick={() => scrollToSection("insights")}>
               Key Insights
             </a>
           </Typography>
           <Typography level="h3" ref={teamRef}>
-            <a href="#" style={{textDecoration: "none", color: "#030456"}} onClick={() => scrollToSection("team")}>
+            <a href="#" className={headerStyles.link} onClick={() => scrollToSection("team")}>
               Team
             </a>
           </Typography>

@@ -1,21 +1,30 @@
 .stickyHeader {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    background-color: white;
-    width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: white;
+  width: 100%;
+  overflow: hidden;
 }
 
 .logoSVG {
-    height: 55px;
-    width: auto;
-    margin-left:3px
+  height: 55px;
+  width: auto;
+  margin-left:3px
+}
+
+.link {
+  text-decoration: none;
+  color: var(--joy-palette-primary-500);
+  display: block;
+  transform: scale(1);
+  transition: 0.3s;
 }
 
 .link:hover {
-    text-decoration: none;
+  transform: scale(1.05);  
 }

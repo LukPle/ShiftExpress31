@@ -110,8 +110,8 @@
 
 .introSectionContainer { 
   height: 100%;
-  padding: 65px auto;
-  box-sizing: "border-box"; 
+  padding: 65px 0;
+  box-sizing: border-box; 
   position: relative;
   overflow: hidden;
 }
@@ -182,11 +182,23 @@
   border-radius: 50%;
 }
 
+.teamTileGridTop {
+  display: "flex";
+  justify-content: center;
+  align-items: end;
+  padding: 0;
+}
+.teamTileGridTBottom {
+  display: "flex";
+  justify-content: center;
+  align-items: start;
+  padding: 0;
+}
+
 .teamTileTop {
   position: relative;
   margin-bottom: 60px;
 }
-
 .teamTileBottom {
   position: relative;
   margin-top: 60px;
