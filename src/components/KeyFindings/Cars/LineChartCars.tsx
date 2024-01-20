@@ -65,7 +65,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
 
             // Create a custom tick format function to add "%" symbol
             //@ts-ignore
-            const tickFormat = (d) => d + "%";
+            const tickFormat = (d) => d;
 
             // Apply the custom tick values and format to the y-axis
             const yAxis = d3.axisLeft(y)
@@ -77,7 +77,8 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                 .attr("class", "y-axis")
                 .call(yAxis)
                 .selectAll('text')
-                .style('font-size', '13px');
+                .style('font-size', '15px')
+                .style("font-weight", "300");
 
             // Scales
             const x = d3
@@ -93,7 +94,8 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                     .tickValues(allYears) // Set the tick values to the years from your data
                     .tickFormat(d3.format('d'))) // Format ticks as integers without comma separators
                 .selectAll('text')
-                .style('font-size', '13px');
+                .style('font-size', '15px')
+                .style("font-weight", "550");
 
 
             // Draw horizontal lines at specified values
@@ -212,7 +214,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                         <>
                             🚗 {selectedDataCar.percentageChange.toFixed(2)}% change
                             <br />
-                            🚈 {selectedDataTransport.percentageChange.toFixed(2)}% change
+                            🚊 {selectedDataTransport.percentageChange.toFixed(2)}% change
                         </>
                     ),
                 });
