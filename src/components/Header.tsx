@@ -19,7 +19,7 @@ const MotionUnderline = ({ left, width }) => (
 );
 
 
-export default function Header({currentSection, setSection}: {currentSection: number, setSection: (section: number) => void}) {
+export default function Header({ currentSection, setSection }: { currentSection: number, setSection: (section: number) => void }) {
   const introRef = useRef(null);
   const projectRef = useRef(null);
   const insightsRef = useRef(null);
@@ -63,25 +63,27 @@ export default function Header({currentSection, setSection}: {currentSection: nu
     <div className={headerStyles.stickyHeader}>
       <Stack direction="column" sx={{ mt: "10px", width: "100%" }} alignContent={"flex-start"}>
         <Stack direction="row" alignItems={"center"} alignContent={"flex-start"} sx={{ mb: "10px", paddingX: "21px" }} gap={3}>
-          <img src={'/logo.svg'} alt="Shift Express 31 Logo" className={headerStyles.logoSVG} />
+          <a href="#intro">
+            <img src={'/logo.svg'} alt="Shift Express 31 Logo" className={headerStyles.logoSVG} />
+          </a>
           <div style={{ flexGrow: 1 }} />
           <Typography level="h3" ref={introRef}>
-            <a href="#intro" style={{textDecoration: "none", color: "#030456"}}>
+            <a href="#intro" style={{ textDecoration: "none", color: "#030456" }}>
               Intro
             </a>
           </Typography>
           <Typography level="h3" ref={projectRef}>
-            <a href="#project" style={{textDecoration: "none", color: "#030456"}}>
+            <a href="#project" style={{ textDecoration: "none", color: "#030456" }}>
               Project
             </a>
           </Typography>
           <Typography level="h3" ref={insightsRef}>
-            <a href="#insights" style={{textDecoration: "none", color: "#030456"}}>
+            <a href="#insights" style={{ textDecoration: "none", color: "#030456" }}>
               Key Insights
             </a>
           </Typography>
           <Typography level="h3" ref={teamRef}>
-            <a href="#team" style={{textDecoration: "none", color: "#030456"}}>
+            <a href="#team" style={{ textDecoration: "none", color: "#030456" }}>
               Team
             </a>
           </Typography>
