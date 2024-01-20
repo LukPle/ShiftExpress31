@@ -272,12 +272,6 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
                 .attr("opacity", d =>
                     currentFilter === FilterOptions.Comparison || currentFilter === FilterOptions.FocusCars ?
                         (selectedState === null || selectedState === d.state ? 1 : 0.3) : 1)
-                .style('stroke', d =>
-                    currentFilter === FilterOptions.Comparison || currentFilter === FilterOptions.FocusCars ?
-                        (selectedState === d.state ? '#ff7419' : 'none') : 'none')
-                .style('stroke-width', d =>
-                    currentFilter === FilterOptions.Comparison || currentFilter === FilterOptions.FocusCars ?
-                        (selectedState === d.state ? 5 : 0) : 0)
                 .on("mouseover", (event, d) => {
                     storeOriginalColor(event);
                     handleMouseOverBar(event, d, 'carData');
@@ -301,12 +295,6 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
                 .attr("opacity", d =>
                     currentFilter === FilterOptions.Comparison || currentFilter === FilterOptions.FocusPublicTransport ?
                         (selectedState === null || selectedState === d.state ? 1 : 0.3) : 1)
-                .style('stroke', d =>
-                    currentFilter === FilterOptions.Comparison || currentFilter === FilterOptions.FocusPublicTransport ?
-                        (selectedState === d.state ? '#ff7419' : 'none') : 'none')
-                .style('stroke-width', d =>
-                    currentFilter === FilterOptions.Comparison || currentFilter === FilterOptions.FocusPublicTransport ?
-                        (selectedState === d.state ? 5 : 0) : 0)
                 .on("mouseover", (event, d) => {
                     storeOriginalColor(event);
                     handleMouseOverBar(event, d, 'transportData');
