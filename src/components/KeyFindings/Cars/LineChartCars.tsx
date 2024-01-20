@@ -119,7 +119,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                 .append('path')
                 .datum(carPercentageChangeData)
                 .attr('fill', 'none')
-                .attr('stroke', (currentFilter !== FilterOptions.FocusPublicTransport) ? '#FFA500' : '#E8E8E8')
+                .attr('stroke', '#FFA500')
                 .attr('stroke-width', 5)
                 .attr(
                     'd',
@@ -134,7 +134,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                 .append('path')
                 .datum(transportPercentageChangeData)
                 .attr('fill', 'none')
-                .attr('stroke', (currentFilter !== FilterOptions.FocusCars) ? '#9BC4FD' : '#E8E8E8')
+                .attr('stroke', (currentFilter !== FilterOptions.CarsAbs && currentFilter !== FilterOptions.CarsDev) ? '#9BC4FD' : '#E8E8E8')
                 .attr('stroke-width', 5)
                 .attr(
                     'd',
@@ -152,7 +152,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
             .attr("cx", d => x(d.year))
             .attr("cy", d => y(d.percentageChange))
             .attr("r", 5) // Adjust the radius as needed
-            .style('fill', (currentFilter !== FilterOptions.FocusPublicTransport) ? '#FFA500' : '#E8E8E8');
+            .style('fill', '#FFA500');
 
             // Transport Data Circles
             svg.selectAll(".transport-circle")
@@ -162,7 +162,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
             .attr("cx", d => x(d.year))
             .attr("cy", d => y(d.percentageChange))
             .attr("r", 5) // Adjust the radius as needed
-            .style('fill', (currentFilter !== FilterOptions.FocusCars) ? '#9BC4FD' : '#E8E8E8');
+            .style('fill', (currentFilter !== FilterOptions.CarsAbs && currentFilter !== FilterOptions.CarsDev) ? '#9BC4FD' : '#E8E8E8');
 
             // Add an overlay to capture mouse events on the canvas for the dots and the marker
             const overlay = svg.append('rect')
@@ -175,13 +175,13 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
             // Add circles for the data points
             const focusCar = svg.append('g')
                 .append('circle')
-                .style('fill', (currentFilter !== FilterOptions.FocusPublicTransport) ? '#FFA500' : '#E8E8E8')
+                .style('fill', '#FFA500')
                 .attr('r', 7)
                 .style('display', 'none');
 
             const focusTransport = svg.append('g')
                 .append('circle')
-                .style('fill', (currentFilter !== FilterOptions.FocusCars) ? '#9BC4FD' : '#E8E8E8')
+                .style('fill', (currentFilter !== FilterOptions.CarsAbs && currentFilter !== FilterOptions.CarsDev) ? '#9BC4FD' : '#E8E8E8')
                 .attr('r', 7)
                 .style('display', 'none');
 
