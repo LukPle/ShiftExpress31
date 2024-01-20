@@ -16,9 +16,11 @@ interface Props {
     transportData: TransportYearlyData;
     endYear: string;
     currentFilter: FilterOptions;
+    onStateHover: (stateId: string | null) => void;
+    selectedState: string | null;
 }
 
-const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, currentFilter }) => {
+const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, currentFilter, onStateHover, selectedState  }) => {
     const [startYear, setStartYear] = useState<string>('2013');
     const [selectedCarMetric, setSelectedCarMetric] = useState<keyof CarData>('passenger_km');
     const [selectedTransportMetric, setSelectedTransportMetric] = useState<keyof TransportData>('total_local_passenger_km');
@@ -109,12 +111,16 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
         // @ts-ignore
         const stateFullName = GERMAN_STATES[d.state] || d.state; // Use full name if available, else use the abbreviation
 
+        const offset = 90; // Adjust this value to move the tooltip up by desired amount
+        const adjustedY = y - offset; // Shift the tooltip up
+
         setTooltipState(stateFullName);
-        setTooltipPosition({ x, y });
+        setTooltipPosition({ x, y :adjustedY});
         setTooltipContent(`${isPT ? '🚈' : '🚗'} ${isPT ? d.transportChange.toFixed(2) : d.carChange.toFixed(2)}% change`);
         setTooltipVisible(true);
 
-        d3.select(event.currentTarget).style('fill', 'url(#stripes-pattern)');
+        //d3.select(event.currentTarget).style('fill', 'url(#stripe)');
+        onStateHover(d.state);
     };
 
     // Handling the mouse exit for bars
@@ -124,8 +130,8 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
         const originalColor = event.currentTarget.getAttribute('data-original-color');
         // @ts-ignore
         d3.select(event.currentTarget).style('fill', originalColor);
-
         event.currentTarget.removeAttribute('data-original-color');
+        onStateHover(null);
     };
 
 
@@ -134,9 +140,13 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
         if (carData && transportData && d3Container.current) {
             d3.select(d3Container.current).selectAll("*").remove();
 
-            const margin = { top: 5, right: 10, bottom: 10, left: 30 };
+            const margin = { top: 15, right: 10, bottom: 10, left: 30 };
             const width = 820 - margin.left - margin.right;
             const height = 270 - margin.top - margin.bottom;
+
+
+
+
 
             const svg = d3.select(d3Container.current)
                 .attr("width", width + margin.left + margin.right)
@@ -222,7 +232,8 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
                 .attr("class", "y axis left")
                 .call(yAxisLeft)
                 .selectAll("text") // Selecting all text elements within the axis
-                .style("font-size", "11px"); // Set the font size
+                .style("font-size", "14px") // Set the font size
+                .style("font-weight", "300");
 
             // Draw horizontal lines at specified values
             const referenceLines = [-40, -20, 20, 40];
@@ -244,7 +255,8 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
                 .attr("class", "y axis left")
                 .call(yAxisLeft)
                 .selectAll("text") // Selecting all text elements within the axis
-                .style("font-size", "11px"); // Set the font size
+                .style("font-size", "14px") // Set the font size
+                .style("font-weight", "300");
 
             // Draw the bars for CarData
             svg.selectAll(".bar.car")
@@ -257,12 +269,17 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
                 .attr("y", d => yCar(Math.max(0, d.carChange)))
                 .attr("height", d => Math.abs(yCar(d.carChange) - yCar(0)))
                 // @ts-ignore
-                .attr("fill", color('carData'))
+                .attr("fill",d=>{return color('carData')})
+                //Highlight and Stroke
+                .attr("opacity", d =>
+                    currentFilter === FilterOptions.Comparison || currentFilter === FilterOptions.FocusCars ?
+                        (selectedState === null || selectedState === d.state ? 1 : 0.3) : 1)
                 .on("mouseover", (event, d) => {
                     storeOriginalColor(event);
                     handleMouseOverBar(event, d, 'carData');
                 })
                 .on("mouseout", handleMouseOutBar);
+
 
             // Draw the bars for TransportData
             svg.selectAll(".bar.transport")
@@ -275,20 +292,29 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
                 .attr("y", d => yTransport(Math.max(0, d.transportChange)))
                 .attr("height", d => Math.abs(yTransport(d.transportChange) - yTransport(0)))
                 // @ts-ignore
-                .attr("fill", color('transportData'))
+                .attr("fill",d=>{return color('transportData')})
+                //Highlight and Stroke
+                .attr("opacity", d =>
+                    currentFilter === FilterOptions.Comparison || currentFilter === FilterOptions.FocusPublicTransport ?
+                        (selectedState === null || selectedState === d.state ? 1 : 0.3) : 1)
                 .on("mouseover", (event, d) => {
                     storeOriginalColor(event);
                     handleMouseOverBar(event, d, 'transportData');
                 })
                 .on("mouseout", handleMouseOutBar);
 
+
             // Add the x-axis using the sorted x0 scale
             svg.append("g")
-                .attr("class", "x axis")
+                .attr("class", "xAxis")
                 .attr("transform", `translate(0,${yCar(0)})`)
-                .call(d3.axisBottom(x0Sorted));
+                .call(d3.axisBottom(x0Sorted))
+                .selectAll("text") // Selecting all text elements within the axis
+                .attr("class", "x-text")
+                .style("font-size", "14px") // Set the font size
+                .style("font-weight", "550");
         }
-    }, [carData, transportData, startYear, endYear, selectedCarMetric, selectedTransportMetric, currentSorting]);
+    }, [carData, transportData, startYear, endYear, selectedCarMetric, selectedTransportMetric, currentSorting,selectedState]);
 
 
     return (

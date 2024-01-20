@@ -42,11 +42,6 @@ const MapChart: React.FC = () => {
             d3.select(event.currentTarget as Element).style('fill', 'rgba(3,4,94,0.92)');
         };
 
-        // Sort Data
-
-
-
-
         // Render the map
         svg
             .selectAll('path')
