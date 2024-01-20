@@ -15,11 +15,12 @@ import {
   FastRewind,
   InfoOutlined
 } from "@mui/icons-material";
-import CombinedDevTS from '../TransportShift/CombinedDevTS';
+import AbsoluteDataBarChart from './AbsoluteDataBarChart';
 import MapTS from '../TransportShift/MapTS';
 import LineChartTS from '../TransportShift/LineChartTS';
 import pTData from "../../../data/pT.json";
 import carData from "../../../data/car.json";
+import popData from "../../../data/population.json";
 import MiniLegend from '../ChartLegendsAndTooltip/MiniLegend';
 import KeyMetricsTS from '../TransportShift/KeyMetricsTS';
 import InteractionTooltip from '@/components/InteractionTooltip';
@@ -106,7 +107,7 @@ const Cars: React.FC = () => {
           </Card>
           <Card>
             <Stack alignItems={"center"}>
-            <CombinedDevTS carData={carData} transportData={pTData} endYear={endYear.toString()} currentFilter={currentFilter} onStateHover={handleStateHover} selectedState={selectedState}/>
+              <AbsoluteDataBarChart carData={carData} transportData={pTData} populationData={popData} />
             </Stack>
             <CardOverflow>
               <Divider inset="context" />
