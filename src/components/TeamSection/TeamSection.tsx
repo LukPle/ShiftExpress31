@@ -43,7 +43,7 @@ const TeamSection: React.FC<TeamSectionProps> = () => {
                     imageSrc={"/malek.png"}
                     name="Malek Jarraya"
                     desc="I’m a Media Informatics student at LMU Munich. I love colors, the sun, and the sea. I didn't know much about public transportation in the past, but our project definitely changed that."
-                    badges={[]}
+                    badges={['"CycLíSt"🤪', 'Monolink Fan']}
                 />
             </Grid>
             <Grid xs={3} className={styles.teamTileGridBottom}>
