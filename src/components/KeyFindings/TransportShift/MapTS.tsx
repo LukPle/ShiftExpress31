@@ -18,16 +18,18 @@ interface Props {
     carData: CarYearlyData;
     endYear: string;
     currentFilter: FilterOptions;
+    onStateHover: (stateId: string | null) => void;
+    selectedState: string | null;
 }
 
 const mapData: FeatureCollection = germanyGeoJSON as FeatureCollection;
 
-const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFilter }) => {
+const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFilter,  onStateHover, selectedState  }) => {
     const [startYear, setStartYear] = useState<string>('2013');
     const [selectedMetricPT, setSelectedMetricPT] = useState<keyof TransportData>('total_local_passenger_km');
     const [selectedMetricCar, setSelectedMetricCar] = useState<keyof CarData>('passenger_km');
     const svgRef = useRef<SVGSVGElement | null>(null);
-    const [selectedState, setSelectedState] = useState(null);
+    //const [selectedState, setSelectedState] = useState(null);
     const [tooltipVisible, setTooltipVisible] = useState(false);
 
     // Controlls which dataset is active
@@ -151,10 +153,12 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
         setTooltipState(stateName);
         const percentageChange = isPT ? calculatePercentageChangePT(d.properties.id, selectedMetricPT) : calculatePercentageChangeCar(d.properties.id, selectedMetricCar);
         const tooltipContent = `${percentageChange.toFixed(2)}% change`; // Formatting the tooltip content
+
         setTooltipPosition({ x, y });
         setTooltipContent(tooltipContent);
         setTooltipVisible(true); // Show the tooltip
         d3.select(event.currentTarget as Element).style('fill', 'url(#stripes-pattern)');
+        onStateHover(d.properties.id);
     };
 
     // Handling the mouse exit
@@ -162,6 +166,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
         setTooltipVisible(false); // Hide the tooltip
         // @ts-ignore
         isPT ? d3.select(event.currentTarget as Element).style('fill', d => colorScale(calculatePercentageChangePT(d.properties.id, selectedMetricPT))) : d3.select(event.currentTarget as Element).style('fill', d => colorScale(calculatePercentageChangeCar(d.properties.id, selectedMetricCar)));
+        onStateHover(null);
     };
     
 
@@ -199,8 +204,8 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
             .attr('y', d => d.y)
             .attr('width', d => d.width)
             .attr('height', d => d.height)
-            .attr('fill', d => d.fill);
-
+            .attr('fill','#727272')
+            .attr('width',3);
 
         // Render the map
         svg.selectAll('path')
@@ -208,14 +213,14 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
             .join('path')
             .attr('d', d => pathGenerator(d) as string)
             // @ts-ignore
-            .style('fill', d => colorScale(isPT ? calculatePercentageChangePT(d.properties.id, selectedMetricPT) : calculatePercentageChangeCar(d.properties.id, selectedMetricCar)))
+            .style('fill', d => {if (selectedState === d.properties.id) {return 'url(#stripes-pattern)'; } return colorScale(isPT ? calculatePercentageChangePT(d.properties.id, selectedMetricPT) : calculatePercentageChangeCar(d.properties.id, selectedMetricCar)); })
             .style('stroke', '#727272')
             .style('stroke-width', 0.75)
             .on('mouseover', handleMouseOver)
             .on('mouseout', handleMouseOut);
 
 
-    }, [startYear, endYear, selectedMetricPT, selectedMetricCar, isPT]);
+    }, [startYear, endYear, selectedMetricPT, selectedMetricCar, isPT,selectedState]);
 
 
     const top3StatesPT = getTop3States(selectedMetricPT, transportData);
@@ -276,11 +281,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
             <Stack direction="row" marginTop="20px">
                 <Stack direction="column" paddingRight="35px">
                     <svg ref={svgRef} width={width} height={height}></svg>
-                    {selectedState && (
-                        <div style={{ position: 'absolute', pointerEvents: 'none' }}>
-                            {selectedState}
-                        </div>
-                    )}
+
                 </Stack>
                 <Stack direction="column" width={"100px"}>
                     <MapLegend isPT={isPT} paddingEnd={40}></MapLegend>
