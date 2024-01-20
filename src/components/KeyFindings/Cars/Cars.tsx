@@ -102,6 +102,7 @@ const Cars: React.FC = () => {
                   <Typography startDecorator={<InteractionTooltip tooltipText={`Adjust the charts by selecting a year in the timeline - you can also play and rewind`} delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Cumulative change of usage in Germany from 2013 to {endYear.toString()}</Typography>
                 </Stack>
                 <Divider orientation="vertical" />
+                <MiniLegend currentOption={currentFilter}/>
               </CardContent>
             </CardOverflow>
           </Card>
@@ -116,6 +117,7 @@ const Cars: React.FC = () => {
                   <Typography startDecorator={<InteractionTooltip tooltipText={`Hover over the states to get more details about the change of usage`} delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Change of usage from 2013 to {endYear} across all federal states</Typography>
                 </Stack>
                 <Divider orientation="vertical" />
+                <MiniLegend currentOption={currentFilter}/>
               </CardContent>
             </CardOverflow>
           </Card>

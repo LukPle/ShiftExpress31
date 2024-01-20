@@ -6,6 +6,8 @@ import { CarData, YearlyData as CarYearlyData } from '../../../data/carDataInter
 import { TransportData, YearlyData as TransportYearlyData } from '../../../data/pTDataInterface';
 import { PopulationData, YearlyData as PopulationYearlyData } from '@/data/populationInterface';
 import { FilterOptions } from './Cars';
+import { FilterOptions as FilterOptionsTS } from '../TransportShift/TransportShift';
+import CombinedDevTS from "../TransportShift/CombinedDevTS";
 interface CombinedData {
     state: string;
     carValue: number;
@@ -45,7 +47,7 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
             // Clear the existing SVG content
             d3.select(d3Container.current).selectAll("*").remove();
 
-            const margin = { top: 20, right: 80, bottom: 40, left: 90 };
+            const margin = { top: 15, right: 80, bottom: 20, left: 90 };
             const width = 820 - margin.left - margin.right;
             const height = 270 - margin.top - margin.bottom;
 
@@ -129,7 +131,7 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
                     .data(d => [{ key: 'transportData', value: d.transportValue }])
                     .enter().append("rect")
                     .attr("class", "bar transport")
-                    .attr("x",(d: { key: string; value: number; }) => String(x1(d.key)))
+                    .attr("x", (d: { key: string; value: number; }) => String(x1(d.key)))
                     .attr("y", d => yRight(d.value))
                     .attr("width", x1.bandwidth())
                     .attr("height", d => height - yRight(d.value))
@@ -157,7 +159,14 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
 
     return (
         <div>
-            <svg ref={d3Container} />
+            {currentFilter === FilterOptions.CarsDev ? (
+                <>
+                    <CombinedDevTS carData={carData} transportData={transportData} endYear={selectedYear} currentFilter={FilterOptionsTS.FocusCars}/>
+                </>
+            ) : (
+                <svg ref={d3Container} />
+            )
+            }
         </div>
     );
 };
