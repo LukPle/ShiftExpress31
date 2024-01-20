@@ -183,13 +183,13 @@
 }
 
 .teamTileGridTop {
-  display: "flex";
+  display: flex;
   justify-content: center;
   align-items: end;
   padding: 0;
 }
-.teamTileGridTBottom {
-  display: "flex";
+.teamTileGridBottom {
+  display: flex;
   justify-content: center;
   align-items: start;
   padding: 0;
