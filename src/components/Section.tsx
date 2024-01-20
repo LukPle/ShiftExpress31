@@ -31,7 +31,7 @@ const Section: React.FC<SectionProps> = ({ title, children, onInViewChange, id, 
       {introSection ? (
         <></>
         ) : (
-        <Stack direction="row" justifyContent="space-between">
+        <Stack direction="row" justifyContent="space-between" alignItems="center">
           <Typography level="h2" className={`${styles.heading} ${inView ? styles.headingActive : ""}`}>{title}</Typography>
           {keyFindingSection ? <Button onClick={() => scrollToSection!('insights')} sx={{ mt: "20px" }} endDecorator={<ArrowUpward/>} style={{maxHeight: "36px"}}>Back to Keyfindings</Button> : null}
         </Stack>
