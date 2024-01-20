@@ -1,5 +1,5 @@
-import { Select, Option, Stack, Button, Typography, Badge } from "@mui/joy";
-import { Sort, Calculate } from '@mui/icons-material';
+import { Stack, Button, Typography, CardOverflow, CardContent, Divider, Card } from "@mui/joy";
+import { Sort, Calculate, InfoOutlined } from '@mui/icons-material';
 import React, { useState, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import { CarData, YearlyData as CarYearlyData } from '../../../data/carDataInterface';
@@ -8,6 +8,8 @@ import { PopulationData, YearlyData as PopulationYearlyData } from '@/data/popul
 import { FilterOptions } from './Cars';
 import { FilterOptions as FilterOptionsTS } from '../TransportShift/TransportShift';
 import CombinedDevTS from "../TransportShift/CombinedDevTS";
+import MiniLegend from '../ChartLegendsAndTooltip/MiniLegend';
+import InteractionTooltip from "@/components/InteractionTooltip";
 interface CombinedData {
     state: string;
     carValue: number;
@@ -22,6 +24,21 @@ interface Props {
     selectedYear: string;
 }
 
+const ptColor = "#9BC4FD";
+const carColor = '#FFA500';
+const unfocusedColor = '#E8E8E8';
+
+const getRectangleStyle = (color: string): React.CSSProperties => {
+    return {
+        width: '30px',
+        height: '20px',
+        backgroundColor: color,
+        borderRadius: '10%',
+        marginRight: '10px',
+        border: '1px solid #BFBFBF',
+    };
+};
+
 const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populationData, currentFilter, selectedYear }) => {
     const [selectedCarMetric, setSelectedCarMetric] = useState<keyof CarData>('passenger_km');
     const [selectedTransportMetric, setSelectedTransportMetric] = useState<keyof TransportData>('total_local_passenger_km');
@@ -33,23 +50,34 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
 
     switch (currentFilter) {
         case FilterOptions.CarsAbs:
-            color = d3.scaleOrdinal().range(["#9BC4FD", "#E8E8E8"]); // Car, PT
+            color = d3.scaleOrdinal().range(["#FFA500", "#E8E8E8"]); // Car, PT
             break;
         case FilterOptions.Comparison:
-            color = d3.scaleOrdinal().range(["#9BC4FD", "#FFA500"]); // Car, PT
+            color = d3.scaleOrdinal().range(["#FFA500", "#9BC4FD"]); // Car, PT
             break;
         default:
             break;
     }
+
+    const formatLargeNumber = (numStr: string): string => {
+        const num = parseFloat(numStr);
+        if (num >= 1e12) {
+            return (num / 1e12).toFixed(2) + ' tri';
+        }
+        else if (num >= 1e9) { return (num / 1e9).toFixed(2) + ' bil'; }
+        else if (num >= 1e6) { return (num / 1e6).toFixed(2) + ' mil'; }
+        else if (num >= 1e3) { return (num / 1e3).toFixed(2) + ' thousand'; }
+        else { return num.toString(); }
+    };
 
     useEffect(() => {
         if (d3Container.current) {
             // Clear the existing SVG content
             d3.select(d3Container.current).selectAll("*").remove();
 
-            const margin = { top: 15, right: 80, bottom: 20, left: 90 };
+            const margin = { top: 15, right: 60, bottom: 20, left: 70 };
             const width = 820 - margin.left - margin.right;
-            const height = 270 - margin.top - margin.bottom;
+            const height = 235 - margin.top - margin.bottom;
 
             const svg = d3.select(d3Container.current)
                 .attr("width", width + margin.left + margin.right)
@@ -99,6 +127,7 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
                         d.carValue = d.carValue / population;
                         d.transportValue = d.transportValue / population;
                     });
+                    combinedData.sort((a, b) => b.carValue - a.carValue);
                 }
 
                 x0.domain(combinedData.map(d => d.state));
@@ -137,6 +166,9 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
                     .attr("height", d => height - yRight(d.value))
                     .attr("fill", color('transportData') as string); //Please review
 
+                const yAxisLeft = d3.axisLeft(yLeft).tickFormat((d) => formatLargeNumber(String(d)));
+                const yAxisRight = d3.axisRight(yRight).tickFormat((d) => formatLargeNumber(String(d)));
+
                 svg.append("g")
                     .attr("class", "x-axis")
                     .attr("transform", `translate(0,${height})`)
@@ -144,12 +176,12 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
 
                 svg.append("g")
                     .attr("class", "y-axis-left")
-                    .call(d3.axisLeft(yLeft));
+                    .call(yAxisLeft);
 
                 svg.append("g")
                     .attr("class", "y-axis-right")
                     .attr("transform", `translate(${width},0)`)
-                    .call(d3.axisRight(yRight));
+                    .call(yAxisRight);
             };
 
             // Initial chart render
@@ -161,10 +193,46 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
         <div>
             {currentFilter === FilterOptions.CarsDev ? (
                 <>
-                    <CombinedDevTS carData={carData} transportData={transportData} endYear={selectedYear} currentFilter={FilterOptionsTS.FocusCars}/>
+                    <Card>
+                    <Stack alignItems={"center"}>
+                        <CombinedDevTS carData={carData} transportData={transportData} endYear={selectedYear} currentFilter={FilterOptionsTS.FocusCars} />
+                    </Stack>
+                        <CardOverflow>
+                            <Divider inset="context" />
+                            <CardContent orientation="horizontal">
+                                <Stack direction={"row"} sx={{ flex: 1 }} alignItems={"center"} justifyContent={"flex-start"}>
+                                    <Typography startDecorator={<InteractionTooltip tooltipText={`Explore detailed usage changes by hovering a state.`} delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Percentual change of usage from 2013 to {selectedYear} across each federal state</Typography>
+                                </Stack>
+                                <Divider orientation="vertical" />
+                                <MiniLegend currentOption={currentFilter} />
+                            </CardContent>
+                        </CardOverflow>
+                    </Card>
                 </>
             ) : (
-                <svg ref={d3Container} />
+                <Card>
+                    <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
+                        <Stack direction={"row"}><div style={getRectangleStyle(carColor)}></div><Typography>🚗</Typography>            <Divider orientation="vertical" sx={{ mx: 2 }} />
+                        </Stack>
+                        <Stack direction={"row"}>            <Divider orientation="vertical" sx={{ mx: 2 }} />
+                            <div style={getRectangleStyle(currentFilter === FilterOptions.Comparison ? ptColor : unfocusedColor)}></div><Typography>🚊</Typography></Stack>
+                    </Stack>
+                    <Stack alignItems={"center"}>
+                        <svg ref={d3Container} />
+                    </Stack>
+                    <CardOverflow>
+                        <Divider inset="context" />
+                        <CardContent orientation="horizontal">
+                            <Stack direction={"row"} sx={{ flex: 1 }} alignItems={"center"} justifyContent={"flex-start"}>
+                                <Typography startDecorator={<InteractionTooltip tooltipText={`Hover over the states to get more details about the change of usage`} delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Total passenger kms per state in {selectedYear}.</Typography>
+                            </Stack>
+                            <Divider orientation="vertical" />
+                            <Button variant="outlined" onClick={() => setInRelationToPopulation(!inRelationToPopulation)} sx={{ marginTop: "-5px", marginBottom: "-5px" }} startDecorator={<Calculate />}>
+                                {inRelationToPopulation ? 'Show Absolute Values' : 'Show Values in Relation to Population'}
+                            </Button>
+                        </CardContent>
+                    </CardOverflow>
+                </Card>
             )
             }
         </div>

@@ -32,7 +32,7 @@ export enum FilterOptions {
 
 const Cars: React.FC = () => {
   const [endYear, setEndYear] = useState<number>(2013);
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [currentFilter, setCurrentFilter] = useState<FilterOptions>(FilterOptions.CarsAbs);
 
   const [selectedState, setSelectedState] = useState<string | null>(null);
@@ -106,21 +106,7 @@ const Cars: React.FC = () => {
               </CardContent>
             </CardOverflow>
           </Card>
-          <Card>
-            <Stack alignItems={"center"}>
               <AbsoluteDataBarChart carData={carData} transportData={pTData} populationData={popData} currentFilter={currentFilter} selectedYear={endYear.toString()} />
-            </Stack>
-            <CardOverflow>
-              <Divider inset="context" />
-              <CardContent orientation="horizontal">
-                <Stack direction={"row"} sx={{ flex: 1 }} alignItems={"center"} justifyContent={"flex-start"}>
-                  <Typography startDecorator={<InteractionTooltip tooltipText={`Hover over the states to get more details about the change of usage`} delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Change of usage from 2013 to {endYear} across all federal states</Typography>
-                </Stack>
-                <Divider orientation="vertical" />
-                <MiniLegend currentOption={currentFilter}/>
-              </CardContent>
-            </CardOverflow>
-          </Card>
         </Stack>
         <Stack direction={"column"} gap={2} >
           <Card>
