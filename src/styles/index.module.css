@@ -108,6 +108,14 @@
   transform: rotate(45deg);
 }
 
+.introSectionContainer { 
+  height: 100%;
+  padding: 65px auto;
+  box-sizing: "border-box"; 
+  position: relative;
+  overflow: hidden;
+}
+
 .footerSection::before {
   content: '';
   position: absolute;

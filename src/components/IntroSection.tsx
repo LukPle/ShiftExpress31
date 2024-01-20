@@ -42,7 +42,7 @@ const IntroSection: React.FC<IntroSectionProps> = () => {
     };
 
     return (
-        <Stack ref={ref} style={{ height: "100%", paddingTop: "65px", paddingBottom: "65px", boxSizing: "border-box" }}>
+        <Stack ref={ref} className={styles.introSectionContainer}>
             <Typography level="h1" sx={{ fontSize: '5rem' }} >
                 Visualizing the transportation <br /> shift in Germany
             </Typography>
