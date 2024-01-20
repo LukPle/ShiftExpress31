@@ -24,7 +24,7 @@ const TeamSection: React.FC<TeamSectionProps> = () => {
                     className={styles.teamTileTop}
                     imageSrc={"/amiin.png"}
                     name="Amiin Najjar"
-                    desc="HCI student with a passion for sport and cooking, I've swapped public transportation for pedaling my bike, blending tech insights with a dash of culinary creativity and a healthy dose of physical activity."
+                    desc="HCI student with a passion for sport and cooking, swapped public transportation for pedaling my bike, blending tech with a dash of culinary creativity and a healthy dose of physical activity."
                     badges={["Cyclist", "Long-sleeper"]}
                 />
             </Grid>
@@ -51,7 +51,7 @@ const TeamSection: React.FC<TeamSectionProps> = () => {
                     className={styles.teamTileBottom}
                     imageSrc={"/maxi.png"}
                     name="Maximilian Wiegand"
-                    desc="Hey, I'm a media computer science student at LMU Munich. I love to design, develop and explore - not only for computers. Some ideas even came up in delayed and overcrowded public transport…"
+                    desc="Hey, I'm a media computer science student at LMU Munich. I love to design, develop and explore. Some ideas even came up in delayed and overcrowded public transport…"
                     badges={["Public-transport approved"]}
                 />
             </Grid>

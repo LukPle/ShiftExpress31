@@ -31,7 +31,7 @@ export default function TeamTile({ className, name, imageSrc, desc, badges }: Te
               </Stack>
             </Stack>
           </Stack>
-          <Typography mt={1} className={teamTileStyles.teamTileDesc}>{desc}</Typography>
+          <Typography className={teamTileStyles.teamTileDesc}>{desc}</Typography>
         </Stack>  
       </Card>
     );
