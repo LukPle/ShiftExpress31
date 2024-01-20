@@ -3,6 +3,13 @@
   height: 75px;
   border: 2px solid var(--joy-palette-primary-500);
   border-radius: 10px;
+  cursor: default;
+  transform: scale(1);
+  transition: transform .3s ease;
+}
+
+.teamTileImage:hover {
+  transform: scale(1.05);
 }
 
 .teamTileBadge {
@@ -10,4 +17,11 @@
   color: white;
   padding: 2px 5px;
   border-radius: 5px;
+  cursor: default;
+  transform: scale(1);
+  transition: transform .3s ease;
+}
+
+.teamTileBadge:hover {
+  transform: scale(1.05);
 }
