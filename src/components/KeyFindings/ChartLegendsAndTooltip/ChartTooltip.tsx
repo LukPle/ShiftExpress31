@@ -1,5 +1,5 @@
 import React, {} from 'react';
-import { getFlagProperty } from './FlagSwitchUtil';
+import { getFlagProperty } from '../FlagSwitchUtil';
 
 interface ChartTooltipProps {
     tooltipPosition: {x: number; y: number;}

@@ -4,7 +4,7 @@ import MapTS from './MapTS';
 import LineChartTS from './LineChartTS';
 import pTData from "../../../data/pT.json";
 import carData from "../../../data/car.json";
-import MiniLegend from './MiniLegend';
+import MiniLegend from '../ChartLegendsAndTooltip/MiniLegend';
 import KeyMetricsTS from './KeyMetricsTS';
 import {
   Card,

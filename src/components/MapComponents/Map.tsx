@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { FeatureCollection } from 'geojson';
 import { TransportData, YearlyData } from '@/data/pTDataInterface';
 import { PopulationData, YearlyData as PopulationYearlyData } from '@/data/populationInterface';
-import MapLegend from "./MapLegend";
+import MapLegend from "../KeyFindings/ChartLegendsAndTooltip/MapLegend";
 import TextColumn from "../ProjectSection/TextColumn";
 
 interface Props {

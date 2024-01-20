@@ -1,7 +1,7 @@
 import theme from '@/utils/theme';
 import { Stack, Typography, Divider } from '@mui/joy';
 import React from 'react';
-import { FilterOptions } from './TransportShift';
+import { FilterOptions } from '../TransportShift/TransportShift';
 import InteractionTooltip from '@/components/InteractionTooltip';
 
 interface GroupedBarChartLegendProps {
@@ -9,7 +9,7 @@ interface GroupedBarChartLegendProps {
 }
 
 const GroupedBarChartLegend: React.FC<GroupedBarChartLegendProps> = ({ currentOption }) => {
-    const ptColor = theme.palette.primary[500];
+    const ptColor = "#9BC4FD";
     const carColor = '#FFA500';
     const unfocusedColor = '#E8E8E8';
 

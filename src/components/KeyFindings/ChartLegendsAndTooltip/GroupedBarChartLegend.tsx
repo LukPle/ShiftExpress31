@@ -1,7 +1,7 @@
 import theme from '@/utils/theme';
 import { Stack, Typography } from '@mui/joy';
 import React, { ReactNode } from 'react';
-import { ChartSorting } from './CombinedDevTS';
+import { ChartSorting } from '../TransportShift/CombinedDevTS';
 
 interface GroupedBarChartLegendProps {
     currentSorting: ChartSorting,
