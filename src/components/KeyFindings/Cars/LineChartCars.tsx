@@ -20,7 +20,7 @@ interface LineChartCombinedProps {
 
 const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData, startYear, endYear, currentYear, setCurrentYear, currentFilter }) => {
     const d3Container = useRef(null);
-    const margin = { top: 15, right: 50, bottom: 15, left: 30 };
+    const margin = { top: 15, right: 50, bottom: 20, left: 30 };
     const width = 820 - margin.left - margin.right;
     const height = 125 - margin.top - margin.bottom;
 
@@ -55,13 +55,13 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
             const y = d3
                 .scaleLinear()
                 .domain([
-                    Math.min(d3.min(carPercentageChangeData, (d) => d.percentageChange) as number, d3.min(transportPercentageChangeData, (d) => d.percentageChange) as number),
-                    Math.max(d3.max(carPercentageChangeData, (d) => d.percentageChange) as number, d3.max(transportPercentageChangeData, (d) => d.percentageChange) as number)
+                    -32,
+                    11
                 ])
                 .range([height, 0]);
 
             // Specify the tick values you want (2, 4, 6, 8 in this case)
-            const tickValues = [-32, -24, -16, 8];
+            const tickValues = [-32, -21, -11, 0, 11];
 
             // Create a custom tick format function to add "%" symbol
             //@ts-ignore
@@ -89,7 +89,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
             // X axis
             const allYears = carPercentageChangeData.map(d => d.year); // Assuming this is an array of all years you have data for.
             svg.append('g')
-                .attr('transform', `translate(0, ${y(0)})`)
+                .attr('transform', `translate(0,${height})`)
                 .call(d3.axisBottom(x)
                     .tickValues(allYears) // Set the tick values to the years from your data
                     .tickFormat(d3.format('d'))) // Format ticks as integers without comma separators
@@ -99,7 +99,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
 
 
             // Draw horizontal lines at specified values
-            const referenceLines = [-32, -24, -16, 8];
+            const referenceLines = [-21, -11, 0, 11];
             svg.selectAll(".reference-line")
                 .data(referenceLines)
                 .enter().append("line")
