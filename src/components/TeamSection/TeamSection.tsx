@@ -13,19 +13,19 @@ const TeamSection: React.FC<TeamSectionProps> = () => {
             <Grid xs={2} className={styles.teamTileGridTop}>
                 <TeamTile
                     className={styles.teamTileTop}
-                    imageSrc={"/amiin.png"}
-                    name="Amiin Najjar"
-                    desc="HCI student with a passion for sport and cooking, I've swapped public transportation for pedaling my bike, blending tech insights with a dash of culinary creativity and a healthy dose of physical activity."
-                    badges={["Cyclist", "Long-sleeper"]}
+                    imageSrc={"/lukas.png"}
+                    name="Lukas Plenk"
+                    desc="I’m a Human-Computer-Interaction student at LMU Munich interested in digital media, culture, and traveling. Just like public transport, I’m always out for the next destination ahead."
+                    badges={[]}
                 />
             </Grid>
             <Grid xs={2} className={styles.teamTileGridTop}>
                 <TeamTile
                     className={styles.teamTileTop}
-                    imageSrc={"/lukas.png"}
-                    name="Lukas Plenk"
-                    desc="I’m a Human-Computer-Interaction student at LMU Munich interested in digital media, culture, and traveling. Just like public transport, I’m always out for the next destination ahead."
-                    badges={[]}
+                    imageSrc={"/amiin.png"}
+                    name="Amiin Najjar"
+                    desc="HCI student with a passion for sport and cooking, I've swapped public transportation for pedaling my bike, blending tech insights with a dash of culinary creativity and a healthy dose of physical activity."
+                    badges={["Cyclist", "Long-sleeper"]}
                 />
             </Grid>
             <Grid xs={2} className={styles.teamTileGridTop}>

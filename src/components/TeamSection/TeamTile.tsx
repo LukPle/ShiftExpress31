@@ -17,7 +17,6 @@ export default function TeamTile({ className, name, imageSrc, desc, badges }: Te
           className={teamTileStyles.teamTile + ' ' + className} 
           sx={{
             width: 380,
-            height: '80%'
           }}
       >
         <Stack direction={"column"} gap={2}>
@@ -33,7 +32,6 @@ export default function TeamTile({ className, name, imageSrc, desc, badges }: Te
             </Stack>
           </Stack>
           <Typography mt={1} className={teamTileStyles.teamTileDesc}>{desc}</Typography>
-          <div style={{ height: "100%" }}></div>
         </Stack>  
       </Card>
     );
