@@ -68,7 +68,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
           <TransportShift />
         </Section>;
       case KeyFinding.Covid:
-        return <Section title="🦠 Covid" onInViewChange={setIsKeyFindingSectionInView} style={{display: "flow-root"}} scrollToSection={scrollToSection} keyFindingSection={true}>
+        return <Section title="🦠 Covid Impact" onInViewChange={setIsKeyFindingSectionInView} style={{display: "flow-root"}} scrollToSection={scrollToSection} keyFindingSection={true}>
           <Covid />
         </Section>;
       case KeyFinding.None:
@@ -98,7 +98,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
         )}
         </div>
 
-        <Section title="Who is the team?" id="team" teamSection={true} onInViewChange={inView => {if (inView) {setSection(3)}}}>
+        <Section title="Who are we?" id="team" teamSection={true} onInViewChange={inView => {if (inView) {setSection(3)}}}>
           <TeamSection />
         </Section>
 
