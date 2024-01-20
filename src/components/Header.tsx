@@ -27,6 +27,33 @@ export default function Header({currentSection, setSection}: {currentSection: nu
 
   const [underlineProps, setUnderlineProps] = useState({ left: 1100, width: 0 });
 
+  //@ts-ignore
+  const scrollToSection = (sectionId) => {
+    // Get the scroll container, adjust selector as needed
+    const scrollContainer = document.querySelector('.snappingContainer');
+
+    // Temporarily disable scroll snapping
+    if (scrollContainer) {
+      //@ts-ignore
+      scrollContainer.style.scrollSnapType = 'none';
+    }
+
+    // Find the section and perform smooth scroll
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      // Wait for the scroll to finish, then re-enable scroll snapping
+      // Estimate time for the scroll to finish (e.g., 1000 milliseconds)
+      setTimeout(() => {
+        if (scrollContainer) {
+          //@ts-ignore
+          scrollContainer.style.scrollSnapType = 'y mandatory';
+        }
+      }, 1000); // Adjust the time as needed
+    }
+  }
+
   useEffect(() => {
     let activeLinkRef;
     switch (currentSection) {
@@ -50,22 +77,22 @@ export default function Header({currentSection, setSection}: {currentSection: nu
           <img src={'/logo.svg'} alt="Shift Express 31 Logo" className={headerStyles.logoSVG} />
           <div style={{ flexGrow: 1 }} />
           <Typography level="h3" ref={introRef}>
-            <a href="#intro" style={{textDecoration: "none", color: "#030456"}}>
+            <a href="#" style={{textDecoration: "none", color: "#030456"}} onClick={() => scrollToSection("intro")}>
               Intro
             </a>
           </Typography>
           <Typography level="h3" ref={projectRef}>
-            <a href="#project" style={{textDecoration: "none", color: "#030456"}}>
+            <a href="#" style={{textDecoration: "none", color: "#030456"}} onClick={() => scrollToSection("project")}>
               Project
             </a>
           </Typography>
           <Typography level="h3" ref={insightsRef}>
-            <a href="#insights" style={{textDecoration: "none", color: "#030456"}}>
+            <a href="#" style={{textDecoration: "none", color: "#030456"}} onClick={() => scrollToSection("insights")}>
               Key Insights
             </a>
           </Typography>
           <Typography level="h3" ref={teamRef}>
-            <a href="#team" style={{textDecoration: "none", color: "#030456"}}>
+            <a href="#" style={{textDecoration: "none", color: "#030456"}} onClick={() => scrollToSection("team")}>
               Team
             </a>
           </Typography>
