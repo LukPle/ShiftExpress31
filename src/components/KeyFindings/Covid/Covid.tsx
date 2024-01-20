@@ -85,8 +85,8 @@ const Covid: React.FC = () => {
                   <Divider orientation="vertical" />
                   <Stack direction={"row"} spacing={2}>
                     <Button variant={currentFilter === FilterOptions.Comparison ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.Comparison)} sx={{ maxHeight: "30px" }}>🚊 vs 🚗 Comparison</Button>
-                    <Button variant={currentFilter === FilterOptions.FocusPublicTransport ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.FocusPublicTransport)} sx={{ maxHeight: "30px" }}>Focus: 🚊 Public Transport</Button>
-                    <Button variant={currentFilter === FilterOptions.FocusCars ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.FocusCars)} sx={{ maxHeight: "30px" }}>Focus: 🚗 Cars</Button>
+                    <Button variant={currentFilter === FilterOptions.FocusPublicTransport ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.FocusPublicTransport)} sx={{ maxHeight: "30px" }}>🚊 Focus Public Transport</Button>
+                    <Button variant={currentFilter === FilterOptions.FocusCars ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.FocusCars)} sx={{ maxHeight: "30px" }}>🚗 Focus Cars</Button>
                   </Stack>
                 </Stack>
               </CardContent>
@@ -99,7 +99,7 @@ const Covid: React.FC = () => {
               <Divider inset="context" />
               <CardContent orientation="horizontal">
                 <Stack direction={"row"} sx={{ flex: 1 }} alignItems={"center"} justifyContent={"flex-start"}>
-                  <Typography startDecorator={<InteractionTooltip tooltipText={`Explore detailed usage changes by hovering over specific data points on the chart`} delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Cumulative percentual change of usage from 2019 to {endYear.toString()} in Germany</Typography>
+                  <Typography startDecorator={<InteractionTooltip tooltipText={`Explore detailed changes of usage by hovering over specific data points on the chart`} delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Cumulative percentual change of usage from 2019 to {endYear.toString()} in Germany</Typography>
                 </Stack>
                 <Divider orientation="vertical" />
                 <MiniLegend currentOption={currentFilter} />
