@@ -10,7 +10,7 @@ interface TeamSectionProps {
 const TeamSection: React.FC<TeamSectionProps> = () => {
     return (
         <Grid container columns={6} rowSpacing={15} marginTop={-5} className={styles.teamSection}>
-            <Grid xs={2} display="flex" justifyContent="center" alignItems="end">
+            <Grid xs={2} display="flex" justifyContent="center" alignItems="end" p={0}>
                 <TeamTile
                     className={styles.teamTileTop}
                     imageSrc={"/amiin.png"}
@@ -19,7 +19,7 @@ const TeamSection: React.FC<TeamSectionProps> = () => {
                     badges={["Cyclist", "Long-sleeper"]}
                 />
             </Grid>
-            <Grid xs={2} display="flex" justifyContent="center" alignItems="end">
+            <Grid xs={2} display="flex" justifyContent="center" alignItems="end" p={0}>
                 <TeamTile
                     className={styles.teamTileTop}
                     imageSrc={"/lukas.png"}
@@ -28,7 +28,7 @@ const TeamSection: React.FC<TeamSectionProps> = () => {
                     badges={[]}
                 />
             </Grid>
-            <Grid xs={2} display="flex" justifyContent="center" alignItems="end">
+            <Grid xs={2} display="flex" justifyContent="center" alignItems="end" p={0}>
                 <TeamTile
                     className={styles.teamTileTop}
                     imageSrc={"/tim.png"}
@@ -37,7 +37,7 @@ const TeamSection: React.FC<TeamSectionProps> = () => {
                     badges={["Hoverboard"]}
                 />
             </Grid>
-            <Grid xs={3} display="flex" justifyContent="center" alignItems="start">
+            <Grid xs={3} display="flex" justifyContent="center" alignItems="start" p={0}>
                 <TeamTile
                     className={styles.teamTileBottom}
                     imageSrc={"/malek.png"}
@@ -46,7 +46,7 @@ const TeamSection: React.FC<TeamSectionProps> = () => {
                     badges={[]}
                 />
             </Grid>
-            <Grid xs={3} display="flex" justifyContent="center" alignItems="start">
+            <Grid xs={3} display="flex" justifyContent="center" alignItems="start" p={0}>
                 <TeamTile
                     className={styles.teamTileBottom}
                     imageSrc={"/maxi.png"}

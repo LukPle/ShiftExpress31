@@ -182,9 +182,14 @@
   border-radius: 50%;
 }
 
-.teamTileTop,
 .teamTileTop {
   position: relative;
+  margin-bottom: 60px;
+}
+
+.teamTileBottom {
+  position: relative;
+  margin-top: 60px;
 }
 
 .teamTileTop::before {
@@ -215,6 +220,7 @@
   height: 100%;
   width: 100%;
   margin: 0;
+  align-content: center;
 }
 
 .snappingContainer {
