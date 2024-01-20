@@ -16,10 +16,11 @@ import {
   InfoOutlined
 } from "@mui/icons-material";
 import CombinedDevTS from '../TransportShift/CombinedDevTS';
-import MapTS from '../TransportShift/MapTS';
+import MapCar from '../Cars/MapCar';
 import LineChartTS from '../TransportShift/LineChartTS';
 import pTData from "../../../data/pT.json";
 import carData from "../../../data/car.json";
+import popData from "../../../data/population.json";
 import MiniLegend from '../ChartLegendsAndTooltip/MiniLegend';
 import KeyMetricsTS from '../TransportShift/KeyMetricsTS';
 import InteractionTooltip from '@/components/InteractionTooltip';
@@ -121,7 +122,7 @@ const Cars: React.FC = () => {
             </CardContent>
           </Card>
           <Card sx={{ flex: 1 }}>
-            <MapTS transportData={pTData} carData={carData} endYear={endYear.toString()} currentFilter={currentFilter} />
+            <MapCar transportData={pTData} carData={carData} endYear={endYear.toString()} currentFilter={currentFilter} populationData={popData}/>
           </Card>
         </Stack>
       </Stack>
