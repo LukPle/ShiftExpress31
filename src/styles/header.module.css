@@ -15,3 +15,7 @@
     width: auto;
     margin-left:3px
 }
+
+.link:hover {
+    text-decoration: none;
+}
