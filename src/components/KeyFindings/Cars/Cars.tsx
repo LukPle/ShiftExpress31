@@ -15,11 +15,12 @@ import {
   FastRewind,
   InfoOutlined
 } from "@mui/icons-material";
-import CombinedDevTS from '../TransportShift/CombinedDevTS';
+import AbsoluteDataBarChart from './AbsoluteDataBarChart';
 import MapTS from '../TransportShift/MapTS';
 import LineChartCars from './LineChartCars';
 import pTData from "../../../data/pT.json";
 import carData from "../../../data/car.json";
+import popData from "../../../data/population.json";
 import MiniLegend from '../ChartLegendsAndTooltip/MiniLegend';
 import KeyMetricsTS from '../TransportShift/KeyMetricsTS';
 import InteractionTooltip from '@/components/InteractionTooltip';
@@ -31,7 +32,7 @@ export enum FilterOptions {
 
 const Cars: React.FC = () => {
   const [endYear, setEndYear] = useState<number>(2013);
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [currentFilter, setCurrentFilter] = useState<FilterOptions>(FilterOptions.CarsAbs);
 
   const [selectedState, setSelectedState] = useState<string | null>(null);
@@ -101,23 +102,11 @@ const Cars: React.FC = () => {
                   <Typography startDecorator={<InteractionTooltip tooltipText={`Adjust the charts by selecting a year in the timeline - you can also play and rewind`} delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Cumulative change of usage in Germany from 2013 to {endYear.toString()}</Typography>
                 </Stack>
                 <Divider orientation="vertical" />
+                <MiniLegend currentOption={currentFilter}/>
               </CardContent>
             </CardOverflow>
           </Card>
-          <Card>
-            <Stack alignItems={"center"}>
-            <CombinedDevTS carData={carData} transportData={pTData} endYear={endYear.toString()} currentFilter={currentFilter} onStateHover={handleStateHover} selectedState={selectedState}/>
-            </Stack>
-            <CardOverflow>
-              <Divider inset="context" />
-              <CardContent orientation="horizontal">
-                <Stack direction={"row"} sx={{ flex: 1 }} alignItems={"center"} justifyContent={"flex-start"}>
-                  <Typography startDecorator={<InteractionTooltip tooltipText={`Hover over the states to get more details about the change of usage`} delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Change of usage from 2013 to {endYear} across all federal states</Typography>
-                </Stack>
-                <Divider orientation="vertical" />
-              </CardContent>
-            </CardOverflow>
-          </Card>
+              <AbsoluteDataBarChart carData={carData} transportData={pTData} populationData={popData} currentFilter={currentFilter} selectedYear={endYear.toString()} />
         </Stack>
         <Stack direction={"column"} gap={2} >
           <Card>
