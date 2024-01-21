@@ -22,9 +22,8 @@ import pTData from "../../../data/pT.json";
 import carData from "../../../data/car.json";
 import popData from "../../../data/population.json";
 import MiniLegend from '../ChartLegendsAndTooltip/MiniLegend';
-import KeyMetricsTS from '../TransportShift/KeyMetricsTS';
 import InteractionTooltip from '@/components/InteractionTooltip';
-
+import KeyMetricsCars from "@/components/KeyFindings/Cars/KeyMetricsCars";
 
 export enum FilterOptions {
   CarsAbs, Comparison, CarsDev
@@ -111,7 +110,7 @@ const Cars: React.FC = () => {
         <Stack direction={"column"} gap={2} >
           <Card>
             <CardContent orientation="horizontal">
-              <KeyMetricsTS carData={carData} transportData={pTData} startYear='2013' endYear={endYear.toString()} currentFilter={currentFilter} />
+              <KeyMetricsCars carData={carData} transportData={pTData} startYear='2013' endYear={endYear.toString()} currentFilter={currentFilter} />
             </CardContent>
           </Card>
           <Card sx={{ flex: 1 }}>
