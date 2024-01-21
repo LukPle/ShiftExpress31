@@ -56,10 +56,10 @@ const KeyFindingsSection: React.FC<KeyFindingsSectionProps> = ({ keyFinding, onU
           <CardContent sx={{ padding: 0.5 }}>
             <Typography level="h3" mt="0.5">🚉 Transportation Shift</Typography>
             <Typography mt={1.5} mb={1.5}>
-              See how transportation has evolved from 2013 to 2019. Take a
-              deeper look at how public transportation and cars compete and
-              examine which states were successfull in their strategy for
-              transportation shift and which not.
+            See how transportation has evolved from 2013 to 2019.
+            Take a deeper look at how public transportation and cars
+            compete and examine which states were successful in
+            their strategy for transportation shift and which not.
             </Typography>
             <div style={{ height: "100%" }}></div>
             <Button
@@ -88,7 +88,7 @@ const KeyFindingsSection: React.FC<KeyFindingsSectionProps> = ({ keyFinding, onU
             </AspectRatio>
           </CardOverflow>
           <CardContent sx={{ padding: 0.5 }}>
-            <Typography level="h3" mt="0.5">🦠 Covid</Typography>
+            <Typography level="h3" mt="0.5">🦠 Covid Impact</Typography>
             <Typography mt={1.5} mb={1.5}>
               Due to the Covid-19 pandemic, the usage of public
               transportation has decreased significantly. Explore

@@ -31,7 +31,7 @@ const GroupedBarChartLegend: React.FC<GroupedBarChartLegendProps> = ({ currentSo
     return (
         <Stack direction="row" style={getLegendRowStyle}>
             <div style={getRectangleStyle(currentSorting != ChartSorting.SortCars ? ptColor : unfocusedColor, false)}></div>
-            <Typography>🚈 Change of usage in %</Typography>
+            <Typography>🚊 Change of usage in %</Typography>
             <div style={getRectangleStyle(currentSorting != ChartSorting.SortPublicTransport ? carColor : unfocusedColor, true)}></div>
             <Typography>🚗 Change of usage in %</Typography>
         </Stack>
