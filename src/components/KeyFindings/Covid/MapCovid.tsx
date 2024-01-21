@@ -284,7 +284,14 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
 
                 </Stack>
                 <Stack direction="column" width={"100px"}>
-                    <MapLegend isPT={isPT} paddingEnd={40}></MapLegend>
+                    <MapLegend 
+                      paddingEnd={40}
+                      tooltip={`Color Scale for ${isPT ? 'Public Transport' : 'Cars'}`} 
+                      headline={isPT ? "🚊 Change of usage in %" : "🚗 Change of usage in %"}
+                      scale={isPT 
+                        ? [{text: "40", color: "#9BC4FD"}, {text: "20", color: "rgba(155, 196, 253, 0.5)"}, {text: "0", color: "#FFFFFF"}, {text: "-20", color: "rgba(221, 6, 6, 0.5)"}, {text: "-40", color: "#DD0606"}] 
+                        : [{text: "10", color: "#FFA500"}, {text: "5", color: "rgba(255, 165, 0, 0.5)"}, {text: "0", color: "#FFFFFF"}, {text: "-5", color: "rgba(221, 6, 6, 0.5)"}, {text: "-10", color: "#DD0606"}]}
+                    ></MapLegend>
                 </Stack>
             </Stack>
             {tooltipVisible && (
