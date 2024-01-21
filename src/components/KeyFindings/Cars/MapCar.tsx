@@ -129,7 +129,6 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
 
     const calculatePercentageChange = (stateId: string, metric: keyof TransportData | keyof CarData, data: TransportYearlyData | CarYearlyData) => {
         const startYearData = data[startYear].find(d => d.state === stateId);
-        console.log(startYearData)
         const endYearData = data[endYear].find(d => d.state === stateId);
     
         if (!startYearData || !endYearData) {
@@ -214,6 +213,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
 
         switch(currentFilter) {
           case FilterOptions.CarsAbs:
+          default:
             tooltipContent = isPC ? `${calculateCarAbsMrd(d.properties.id, selectedMetricCar).toFixed(0)} km pc` : `${calculateCarAbsMrd(d.properties.id, selectedMetricCar).toFixed(2)} bil. km`;
             break;
           case FilterOptions.Comparison:
@@ -222,8 +222,6 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
           case FilterOptions.CarsDev:
             tooltipContent = `${calculatePercentageChangeCar(d.properties.id, selectedMetricCar).toFixed(2)} % change`;
             break;
-          default:
-            console.log('Error while rendering tooltip');
         }
 
         setTooltipPosition({ x, y });
@@ -238,6 +236,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
         
         switch(currentFilter) {
           case FilterOptions.CarsAbs:
+          default:
             // @ts-ignore
             d3.select(event.currentTarget as Element).style('fill', d => colorScaleAbs(calculateCarAbsMrd(d.properties.id, selectedMetricCar)));
             break;
@@ -249,8 +248,6 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
             // @ts-ignore
             d3.select(event.currentTarget as Element).style('fill', d => colorScale(calculatePercentageChangeCar(d.properties.id, selectedMetricCar)));
             break;
-          default:
-            console.log('Error while rendering map');
         }
     };
     
@@ -295,6 +292,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
         // Render the map
         switch(currentFilter) {
           case FilterOptions.CarsAbs:
+          default:
             svg.selectAll('path')
                 .data(mapData.features)
                 .join('path')
@@ -327,8 +325,6 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
                 .on('mouseover', handleMouseOver)
                 .on('mouseout', handleMouseOut);
             break;
-          default:
-            console.log('Error while rendering map');
         }
 
     }, [startYear, endYear, selectedMetricPT, selectedMetricCar, isPT, isPC]);
@@ -401,8 +397,6 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
                   <MapLegend isPT={isPT} paddingEnd={40}></MapLegend>
                 ) : <></>}
               </Stack>
-
-              <Stack style={{position: "absolute", bottom: 0}}>isPC: {isPC ? "true" : "false"} | isPT: {isPT ? "true" : "false"} | currentFilter: {currentFilter}</Stack>
             </Stack>
 
             {tooltipVisible && (
