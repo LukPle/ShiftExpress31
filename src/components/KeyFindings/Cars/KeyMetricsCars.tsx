@@ -54,9 +54,17 @@ const KeyMetricsCars: React.FC<KeyMetricsProps> = ({ carData, transportData, sta
     const [transportPercentageChange, setTransportPercentageChange] = useState<number>(0);
     const [previousCarPercentageChange, setPreviousCarPercentageChange] = useState<number>(0);
     const [previousTransportPercentageChange, setPreviousTransportPercentageChange] = useState<number>(0);
-
+    // Total Passenger_km
     const [totalPassengerKm, setTotalPassengerKm] = useState<number>(0);
     const [previousTotalPassengerKm, setPreviousTotalPassengerKm] = useState<number>(0);
+    //Total Local_Passenger_KM
+    const [totalLocalPassengerKm, setTotalLocalPassengerKm] = useState<number>(0);
+    const [previousTotalLocalPassengerKm, setPreviousTotalLocalPassengerKm] = useState<number>(0);
+    //Total Number of Cars
+    const [numberOfCars, setNumberOfCars] = useState<number>(0);
+    const [previousNumberOfCars, setPreviousNumberOfCars] = useState<number>(0);
+
+
 
     useEffect(() => {
         setPreviousCarPercentageChange(carPercentageChange);
@@ -66,6 +74,12 @@ const KeyMetricsCars: React.FC<KeyMetricsProps> = ({ carData, transportData, sta
 
         setPreviousTotalPassengerKm(totalPassengerKm);
         setTotalPassengerKm(calculateTotalPassengerKm(carData, startYear, endYear));
+
+        setPreviousTotalLocalPassengerKm(totalLocalPassengerKm);
+        setTotalLocalPassengerKm(calculateTotalLocalPassengerKm(transportData, startYear, endYear));
+
+        setPreviousNumberOfCars(numberOfCars);
+        setNumberOfCars(calculateNumberOfCars(carData, startYear, endYear));
 
     }, [carData, transportData, startYear, endYear, currentFilter]);
 
@@ -83,6 +97,31 @@ const KeyMetricsCars: React.FC<KeyMetricsProps> = ({ carData, transportData, sta
             }, 0);
     };
 
+    const calculateTotalLocalPassengerKm = (
+        data: TransportYearlyData,
+        startYear: string,
+        endYear: string
+    ) => {
+        return Object.entries(data)
+            .filter(([year]) => parseInt(year) >= parseInt(startYear) && parseInt(year) <= parseInt(endYear))
+            .reduce((total, [year, dataArray]) => {
+                const yearTotal = dataArray.reduce((acc, cur) => acc + cur.total_local_passenger_km, 0);
+                return yearTotal;
+            }, 0);
+    };
+
+    const calculateNumberOfCars = (
+        data: CarYearlyData,
+        startYear: string,
+        endYear: string
+    ) => {
+        return Object.entries(data)
+            .filter(([year]) => parseInt(year) >= parseInt(startYear) && parseInt(year) <= parseInt(endYear))
+            .reduce((total, [year, dataArray]) => {
+                const federalData = dataArray.find(d => d.state === 'FEDERAL');
+                return  (federalData ? federalData.cars : 0);
+            }, 0);
+    };
 
 
     const calculatePercentageChange = (
@@ -132,24 +171,61 @@ const KeyMetricsCars: React.FC<KeyMetricsProps> = ({ carData, transportData, sta
     return (
         <>
             <Stack direction={"row"} sx={{ flex: 1 }} alignItems={"end"} justifyContent={"flex-start"} gap={2}>
-                <Typography sx={getPercentStyle(carColor, currentFilter === FilterOptions.FocusPublicTransport)} level='h4'>
-                    <Counter
-                        from={previousTotalPassengerKm}
-                        to={totalPassengerKm}
-                        prefix=""
-                        suffix=" km 🚗"
-                    />
-                </Typography>
-                <Divider orientation="vertical" />
-                <Typography sx={getPercentStyle(carColor, currentFilter === FilterOptions.FocusPublicTransport)} level='h4'>
-                    <Counter
-                        from={previousCarPercentageChange}
-                        to={carPercentageChange}
-                        prefix={Math.sign(carPercentageChange) >= 0 ? "+" : ""}
-                        suffix="% 🚗"
-                    />
-                </Typography>
-                <Typography sx={{ color: "#646B73" }} level="body-xs">*since {startYear}</Typography>
+                {currentFilter === FilterOptions.CarsAbs && (
+                    <>
+                        <Typography sx={getPercentStyle(carColor, currentFilter === FilterOptions.FocusPublicTransport)} level='h4'>
+                            <Counter
+                                from={previousTotalPassengerKm}
+                                to={totalPassengerKm}
+                                prefix=""
+                                suffix=" km 🚗"
+                            />
+                        </Typography>
+                        <Divider orientation="vertical" />
+                        <Typography sx={getPercentStyle(carColor, currentFilter === FilterOptions.FocusPublicTransport)} level='h4'>
+                            <Counter
+                                from={previousCarPercentageChange}
+                                to={carPercentageChange}
+                                prefix={Math.sign(carPercentageChange) >= 0 ? "+" : ""}
+                                suffix="% 🚗"
+                            />
+                        </Typography>
+                    </>
+                )}
+                {currentFilter === FilterOptions.Comparison && (
+                    <>
+                        <Typography sx={getPercentStyle(carColor, currentFilter === FilterOptions.FocusPublicTransport)} level='h4'>
+                            <Counter
+                                from={previousTotalPassengerKm}
+                                to={totalPassengerKm}
+                                prefix=""
+                                suffix=" km 🚗"
+                            />
+                        </Typography>
+                        <Divider orientation="vertical" />
+                        <Typography sx={getPercentStyle(ptColor, currentFilter === FilterOptions.FocusCars)} level='h4'>
+                            <Counter
+                                from={previousTotalLocalPassengerKm}
+                                to={totalLocalPassengerKm}
+                                prefix=""
+                                suffix=" km 🚊"
+                            />
+                        </Typography>
+                    </>
+                )}
+                {currentFilter === FilterOptions.CarsDev && (
+                    <>
+                        <Typography sx={getPercentStyle(carColor, currentFilter === FilterOptions.FocusPublicTransport)} level='h4'>
+                            <Counter
+                                from={previousNumberOfCars}
+                                to={numberOfCars}
+                                prefix=""
+                                suffix=" cars 🚗"
+                            />
+                        </Typography>
+                        <Typography sx={{ color: "#646B73" }} level="body-xs">*since {startYear}</Typography>
+                    </>
+                )}
             </Stack>
             <Divider orientation="vertical" />
             <Typography level='h4'>{endYear}</Typography>
