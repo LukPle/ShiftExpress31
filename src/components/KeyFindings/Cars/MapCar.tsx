@@ -40,16 +40,18 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
 
     switch(currentFilter) {
         case FilterOptions.CarsAbs:
-            // No Action
+            if(isPT === true) {
+              setPT(false);
+            }
             break;
         case FilterOptions.Comparison:
-            if(isPT === false) {
-                setPT(true);
+            if(isPC === true) {
+              setPC(false);
             }
             break;  
         case FilterOptions.CarsDev:
             if(isPT === true) {
-                setPT(false);
+              setPT(false);
             }
             break;
         default:
@@ -66,6 +68,18 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
 
     const calculateCarAbsMrd = (state: string, metric: keyof CarData) => {
       const yearData = carData[endYear].find(d => d.state === state);
+      const yearDataMetric = yearData?.[metric] ?? 0;
+
+      if (isPC) {
+        const yearPopData = populationData[endYear].find(d => d.state === state)?.population ?? 0;
+        return typeof yearDataMetric === 'number' ?  yearDataMetric / yearPopData : 0;
+      } else {
+        return typeof yearDataMetric === 'number' ?  yearDataMetric / 1000000000 : 0;
+      }
+    }
+
+    const calculatePTAbsMrd = (state: string, metric: keyof TransportData) => {
+      const yearData = transportData[endYear].find(d => d.state === state);
       const yearDataMetric = yearData?.[metric] ?? 0;
 
       if (isPC) {
@@ -115,6 +129,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
 
     const calculatePercentageChange = (stateId: string, metric: keyof TransportData | keyof CarData, data: TransportYearlyData | CarYearlyData) => {
         const startYearData = data[startYear].find(d => d.state === stateId);
+        console.log(startYearData)
         const endYearData = data[endYear].find(d => d.state === stateId);
     
         if (!startYearData || !endYearData) {
@@ -182,7 +197,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
 
                             
     const colorScaleAbs = d3.scaleLinear<string>()
-      .domain(isPC ? [-3000, 500, 4000, 7500, 11000] : [-200, -100, 0, 100, 200])
+      .domain(isPC ? [-3000, 500, 4000, 7500, 11000] : (isPT ? [-40, -20, 0, 20, 40] : [-200, -100, 0, 100, 200]))
       .range(colorRangeAbs);    
     
     const colorScale = d3.scaleLinear<string>()
@@ -199,13 +214,13 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
 
         switch(currentFilter) {
           case FilterOptions.CarsAbs:
-            tooltipContent = isPC ? `${calculateCarAbsMrd(d.properties.id, selectedMetricCar).toFixed(0)} km pc` : `${calculateCarAbsMrd(d.properties.id, selectedMetricCar).toFixed(2)} billion km`;
+            tooltipContent = isPC ? `${calculateCarAbsMrd(d.properties.id, selectedMetricCar).toFixed(0)} km pc` : `${calculateCarAbsMrd(d.properties.id, selectedMetricCar).toFixed(2)} bil. km`;
             break;
           case FilterOptions.Comparison:
-            // tooltipContent = isPT ? calculatePercentageChangePT(d.properties.id, selectedMetricPT) : calculatePercentageChangeCar(d.properties.id, selectedMetricCar);
+            tooltipContent = isPT ? `${calculatePTAbsMrd(d.properties.id, selectedMetricPT).toFixed(2)} bil. km` : `${calculateCarAbsMrd(d.properties.id, selectedMetricCar).toFixed(2)} bil. km`;
             break;  
           case FilterOptions.CarsDev:
-            // tooltipContent = isPT ? calculatePercentageChangePT(d.properties.id, selectedMetricPT) : calculatePercentageChangeCar(d.properties.id, selectedMetricCar);
+            tooltipContent = `${calculatePercentageChangeCar(d.properties.id, selectedMetricCar).toFixed(2)} % change`;
             break;
           default:
             console.log('Error while rendering tooltip');
@@ -227,10 +242,12 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
             d3.select(event.currentTarget as Element).style('fill', d => colorScaleAbs(calculateCarAbsMrd(d.properties.id, selectedMetricCar)));
             break;
           case FilterOptions.Comparison:
-            // isPT ? d3.select(event.currentTarget as Element).style('fill', d => colorScale(calculatePercentageChangePT(d.properties.id, selectedMetricPT))) : d3.select(event.currentTarget as Element).style('fill', d => colorScale(calculatePercentageChangeCar(d.properties.id, selectedMetricCar)));
+            // @ts-ignore
+            d3.select(event.currentTarget as Element).style('fill', d => colorScaleAbs(isPT ? calculatePTAbsMrd(d.properties.id, selectedMetricPT) : calculateCarAbsMrd(d.properties.id, selectedMetricCar)));
             break;  
           case FilterOptions.CarsDev:
-            // isPT ? d3.select(event.currentTarget as Element).style('fill', d => colorScale(calculatePercentageChangePT(d.properties.id, selectedMetricPT))) : d3.select(event.currentTarget as Element).style('fill', d => colorScale(calculatePercentageChangeCar(d.properties.id, selectedMetricCar)));
+            // @ts-ignore
+            d3.select(event.currentTarget as Element).style('fill', d => colorScale(calculatePercentageChangeCar(d.properties.id, selectedMetricCar)));
             break;
           default:
             console.log('Error while rendering map');
@@ -278,40 +295,38 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
         // Render the map
         switch(currentFilter) {
           case FilterOptions.CarsAbs:
-              svg.selectAll('path')
-                  .data(mapData.features)
-                  .join('path')
-                  .attr('d', d => pathGenerator(d) as string)
-                  .style('fill', d => colorScaleAbs(calculateCarAbsMrd(d.properties?.id, selectedMetricCar)))
-                  .style('stroke', '#727272')
-                  .style('stroke-width', 0.75)
-                  .on('mouseover', handleMouseOver)
-                  .on('mouseout', handleMouseOut);
-              break;
+            svg.selectAll('path')
+                .data(mapData.features)
+                .join('path')
+                .attr('d', d => pathGenerator(d) as string)
+                .style('fill', d => colorScaleAbs(calculateCarAbsMrd(d.properties?.id, selectedMetricCar)))
+                .style('stroke', '#727272')
+                .style('stroke-width', 0.75)
+                .on('mouseover', handleMouseOver)
+                .on('mouseout', handleMouseOut);
+            break;
           case FilterOptions.Comparison:
-              // svg.selectAll('path')
-              //     .data(mapData.features)
-              //     .join('path')
-              //     .attr('d', d => pathGenerator(d) as string)
-              //     // @ts-ignore
-              //     .style('fill', d => colorScale(isPT ? calculatePercentageChangePT(d.properties.id, selectedMetricPT) : calculatePercentageChangeCar(d.properties.id, selectedMetricCar)))
-              //     .style('stroke', '#727272')
-              //     .style('stroke-width', 0.75)
-              //     .on('mouseover', handleMouseOver)
-              //     .on('mouseout', handleMouseOut);
-              break;  
+            svg.selectAll('path')
+                .data(mapData.features)
+                .join('path')
+                .attr('d', d => pathGenerator(d) as string)
+                .style('fill', d => colorScaleAbs(isPT ? calculatePTAbsMrd(d.properties?.id, selectedMetricPT) : calculateCarAbsMrd(d.properties?.id, selectedMetricCar)))
+                .style('stroke', '#727272')
+                .style('stroke-width', 0.75)
+                .on('mouseover', handleMouseOver)
+                .on('mouseout', handleMouseOut);
+            break;  
           case FilterOptions.CarsDev:
-              // svg.selectAll('path')
-              //     .data(mapData.features)
-              //     .join('path')
-              //     .attr('d', d => pathGenerator(d) as string)
-              //     // @ts-ignore
-              //     .style('fill', d => colorScale(isPT ? calculatePercentageChangePT(d.properties.id, selectedMetricPT) : calculatePercentageChangeCar(d.properties.id, selectedMetricCar)))
-              //     .style('stroke', '#727272')
-              //     .style('stroke-width', 0.75)
-              //     .on('mouseover', handleMouseOver)
-              //     .on('mouseout', handleMouseOut);
-              break;
+            svg.selectAll('path')
+                .data(mapData.features)
+                .join('path')
+                .attr('d', d => pathGenerator(d) as string)
+                .style('fill', d => colorScale(calculatePercentageChangeCar(d.properties?.id, selectedMetricCar)))
+                .style('stroke', '#727272')
+                .style('stroke-width', 0.75)
+                .on('mouseover', handleMouseOver)
+                .on('mouseout', handleMouseOut);
+            break;
           default:
             console.log('Error while rendering map');
         }
@@ -328,10 +343,13 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
         <>
             <CardOverflow>
                 {(currentFilter === FilterOptions.Comparison) ? (
+                  <>
                     <SegmentedControlsFilter items={["Show Public Transport", "Show Cars"]} onChange={(index, item) => setPT(index === 0)} />
+                    <Divider inset="context" />
+                  </>
                 ) : (
                   (currentFilter === FilterOptions.CarsAbs) ? (
-                    <div style={{ height: '100px' }}>
+                    <div style={{ height: '120px' }}>
                         <Stack direction={'column'} divider={<Divider orientation='horizontal' />} gap={0.2}>
                         <SegmentedControlsFilter items={["Absolute data", "Per capita"]} onChange={(index, item) => setPC(index === 1)} />
                             {top3StatesCarAbs.map((stateData, index) => (
@@ -342,7 +360,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
                                   transition={{ duration: 0.5, delay: index * 0.1 }}
                               >
                                   <Typography>
-                                      {index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'} {stateData.stateName} - {isPC ? stateData.value.toFixed(0) : stateData.value.toFixed(2)} {isPC ? "km pc." : "billion km"}
+                                      {index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'} {stateData.stateName} - {isPC ? stateData.value.toFixed(0) : stateData.value.toFixed(2)} {isPC ? "km pc." : "bil. km"}
                                   </Typography>
                               </motion.div>
                             ))}
@@ -367,23 +385,26 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
                     </div>
                   )
                 )}
-                {(currentFilter === FilterOptions.Comparison) ? <Divider inset="context" /> : null}
             </CardOverflow>
+
             <Stack direction="row" marginTop="20px">
-                <Stack direction="column" paddingRight="35px">
-                    <svg ref={svgRef} width={width} height={height}></svg>
-                    {selectedState && (
-                        <div style={{ position: 'absolute', pointerEvents: 'none' }}>
-                            {selectedState}
-                        </div>
-                    )}
-                </Stack>
-                <Stack direction="column" width={"100px"}>
-                  {(currentFilter === FilterOptions.CarsDev) ? (
-                    <MapLegend isPT={isPT} paddingEnd={40}></MapLegend>
-                  ) : <></>}
-                </Stack>
+              <Stack direction="column" paddingRight="35px">
+                  <svg ref={svgRef} width={width} height={height}></svg>
+                  {selectedState && (
+                      <div style={{ position: 'absolute', pointerEvents: 'none' }}>
+                          {selectedState}
+                      </div>
+                  )}
+              </Stack>
+              <Stack direction="column" width={"100px"}>
+                {(currentFilter === FilterOptions.CarsDev) ? (
+                  <MapLegend isPT={isPT} paddingEnd={40}></MapLegend>
+                ) : <></>}
+              </Stack>
+
+              <Stack style={{position: "absolute", bottom: 0}}>isPC: {isPC ? "true" : "false"} | isPT: {isPT ? "true" : "false"} | currentFilter: {currentFilter}</Stack>
             </Stack>
+
             {tooltipVisible && (
                 <ChartTooltip tooltipPosition={tooltipPosition} tooltipState={tooltipState} tooltipContent={tooltipContent}></ChartTooltip>
             )}
