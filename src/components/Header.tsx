@@ -90,7 +90,7 @@ export default function Header({ currentSection, setSection }: { currentSection:
     <div className={headerStyles.stickyHeader}>
       <Stack direction="column" sx={{ mt: "10px", width: "100%" }} alignContent={"flex-start"}>
         <Stack direction="row" alignItems={"center"} alignContent={"flex-start"} sx={{ mb: "10px", paddingX: "21px" }} gap={3}>
-          <a href="#intro">
+          <a href="#" onClick={() => scrollToSection("intro")}>
             <img src={'/logo.svg'} alt="Shift Express 31 Logo" className={headerStyles.logoSVG} />
           </a>
           <div style={{ flexGrow: 1 }} />

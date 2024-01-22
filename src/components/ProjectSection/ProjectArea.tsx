@@ -7,6 +7,8 @@ const ProjectArea: React.FC = () => {
   const presentationImage = '/presentation.jpg';
   const workImage = '/work.jpeg';
   const groupImage = '/group.jpeg';
+  const teamImage = '/team.jpeg';
+  const amiinSmoker = '/amiinSmoker.jpg';
 
   const backgroundDescription = 'Our project visualizes the ongoing transportation shift in Germany, focusing on the development of public transportation and car usage over the past years, using data from the Federal Statistical Office of Germany combined with a dataset from an Insurance Platform. The main research question is whether a shift has occurred and when significant changes took place. The graphics also cover which federal states were successful in extending their public transportation offerings and which were not.';
   const relevanceDescription = 'In a time when environmental sustainability and the transition in transportation are hot topics, this project addresses a subject frequently debated in news and politics. With a focus on providing transparent and detailed insights, the project aims to cut through the rhetoric, offering a clear understanding of how the shift in transportation has unfolded over recent years and where significant changes have occurred.';
@@ -30,9 +32,11 @@ const ProjectArea: React.FC = () => {
       </Stack>
       <Card sx={{ minWidth: "40%" }}>
         <div style={{position: "relative"}}>
-          <img src={presentationImage} className={projectSectionStyles.teamImage} style={{top: "120px", right:"30px", width:"300px"}}/>
-          <img src={workImage} className={projectSectionStyles.teamImage} style={{top: "30px", left:"30px", width:"200px"}}/>
-          <img src={groupImage} className={projectSectionStyles.teamImage} style={{top: "320px", left:"50px", width:"250px"}}/>
+          <img src={presentationImage} className={projectSectionStyles.teamImage} style={{top: "150px", right:"110px", width:"280px"}}/>
+          <img src={workImage} className={projectSectionStyles.teamImage} style={{top: "10px", left:"10px", width:"200px"}}/>
+          <img src={teamImage} className={projectSectionStyles.teamImage} style={{top: "320px", left:"50px", width:"280px"}}/>
+          <img src={groupImage} className={projectSectionStyles.teamImage} style={{top: "50px", right:"10px", width:"250px"}}/>
+          <img src={amiinSmoker} className={projectSectionStyles.teamImage} style={{top: "350px", right:"50px", width:"120px"}}/>
         </div>
       </Card>
     </Stack>
