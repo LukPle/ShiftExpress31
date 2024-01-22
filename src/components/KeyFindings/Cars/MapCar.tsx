@@ -19,16 +19,18 @@ interface Props {
     endYear: string;
     currentFilter: FilterOptions;
     populationData: PopulationYearlyData;
+    onStateHover: (stateId: string | null) => void;
+    selectedState: string | null;
 }
 
 const mapData: FeatureCollection = germanyGeoJSON as FeatureCollection;
 
-const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFilter, populationData }) => {
+const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFilter, onStateHover, selectedState, populationData }) => {
     const [startYear, setStartYear] = useState<string>('2013');
     const [selectedMetricPT, setSelectedMetricPT] = useState<keyof TransportData>('total_local_passenger_km');
     const [selectedMetricCar, setSelectedMetricCar] = useState<keyof CarData>('passenger_km');
     const svgRef = useRef<SVGSVGElement | null>(null);
-    const [selectedState, setSelectedState] = useState(null);
+    // const [selectedState, setSelectedState] = useState(null);
     const [tooltipVisible, setTooltipVisible] = useState(false);
 
     // Controlls which dataset is active
@@ -186,7 +188,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
         switch(currentFilter) {
           case FilterOptions.CarsAbs:
           default:
-            tooltipContent = isPC ? `${calculateCarAbsBil(d.properties.id, selectedMetricCar).toFixed(0)} km pc` : `${calculateCarAbsBil(d.properties.id, selectedMetricCar).toFixed(2)} bil. passenger km`;
+            tooltipContent = isPC ? `${calculateCarAbsBil(d.properties.id, selectedMetricCar).toFixed(0)} km pc.` : `${calculateCarAbsBil(d.properties.id, selectedMetricCar).toFixed(2)} bil. passenger km`;
             break;
           case FilterOptions.Comparison:
             tooltipContent = isPT ? `${calculatePTAbsBil(d.properties.id, selectedMetricPT).toFixed(2)} bil. passenger km` : `${calculateCarAbsBil(d.properties.id, selectedMetricCar).toFixed(2)} bil. passenger km`;
@@ -200,6 +202,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
         setTooltipContent(tooltipContent);
         setTooltipVisible(true); // Show the tooltip
         d3.select(event.currentTarget as Element).style('fill', 'url(#stripes-pattern)');
+        onStateHover(d.properties.id);
     };
 
     // Handling the mouse exit
@@ -221,6 +224,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
             d3.select(event.currentTarget as Element).style('fill', d => colorScale(calculatePercentageChange(d.properties.id, selectedMetricCar, carData)));
             break;
         }
+        onStateHover(null);
     };
     
 
@@ -262,6 +266,8 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
         
         // Render the map
         const getMapData = (d: any) => {
+          if (selectedState === d.properties.id) { return 'url(#stripes-pattern)' }
+          
           switch(currentFilter) {
             case FilterOptions.CarsAbs:
             default:
@@ -282,7 +288,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
             .on('mouseover', handleMouseOver)
             .on('mouseout', handleMouseOut);
 
-    }, [startYear, endYear, selectedMetricPT, selectedMetricCar, isPT, isPC, currentFilter]);
+    }, [startYear, endYear, selectedMetricPT, selectedMetricCar, isPT, isPC, currentFilter, selectedState]);
 
     const top3StatesCar = getTop3States(selectedMetricCar, carData);
     const top3StatesCarAbs = getTop3StatesCarAbs(selectedMetricCar, carData);    
