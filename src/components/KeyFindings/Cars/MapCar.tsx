@@ -351,8 +351,17 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
                   )}
               </Stack>
 
-              {(currentFilter === FilterOptions.Comparison) ? (
-                <Stack direction="column" width={"100px"} paddingLeft="35px" >
+              <Stack direction="column" width={"100px"} paddingLeft={currentFilter === FilterOptions.CarsAbs ? "15px" : "35px"} paddingRight={currentFilter === FilterOptions.CarsAbs ? "20px" : "0"} >
+                {(currentFilter === FilterOptions.CarsAbs) ? (
+                  <MapLegend 
+                    paddingEnd={40} 
+                    tooltip={`Color Scale for ${isPC ? 'car usage pc.' : 'absolute car usage' }`} 
+                    headline={isPC ? "Car usage pc. in km" : "Car usage in bil. km"}
+                    scale={isPC
+                      ? [{text: "11000", color: "#FFA500"}, {text: "7500", color: "rgba(255, 165, 0, 0.5)"}, {text: "4000", color: "#FFFFFF"}] 
+                      : [{text: "200", color: "#FFA500"}, {text: "100", color: "rgba(255, 165, 0, 0.5)"}, {text: "0", color: "#FFFFFF"}]}
+                  ></MapLegend>
+                ) : ((currentFilter === FilterOptions.Comparison) ? (
                   <MapLegend 
                     paddingEnd={40} 
                     tooltip={`Color Scale for ${isPT ? 'Public Transport' : 'Cars'}`} 
@@ -361,17 +370,15 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
                       ? [{text: "40", color: "#9BC4FD"}, {text: "20", color: "rgba(155, 196, 253, 0.5)"}, {text: "0", color: "#FFFFFF"}] 
                       : [{text: "200", color: "#FFA500"}, {text: "100", color: "rgba(255, 165, 0, 0.5)"}, {text: "0", color: "#FFFFFF"}]}
                   ></MapLegend>
-                </Stack>
-              ) : ((currentFilter === FilterOptions.CarsDev) ? (
-                <Stack direction="column" width={"100px"} paddingLeft="35px" >
+                ) : ((currentFilter === FilterOptions.CarsDev) ? (
                   <MapLegend 
                     paddingEnd={40} 
                     tooltip="Color Scale for Cars" 
                     headline="🚗 Change of usage in %"
                     scale={[{text: "10", color: "#FFA500"}, {text: "5", color: "rgba(255, 165, 0, 0.5)"}, {text: "0", color: "#FFFFFF"}, {text: "-5", color: "rgba(221, 6, 6, 0.5)"}, {text: "-10", color: "#DD0606"}]}
                   ></MapLegend>
-                </Stack>
-              ) : <></>)}
+                ) : <></>))}
+              </Stack>
             </Stack>
 
             {tooltipVisible && (
