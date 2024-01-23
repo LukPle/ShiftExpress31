@@ -188,13 +188,13 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
         switch(currentFilter) {
           case FilterOptions.CarsAbs:
           default:
-            tooltipContent = isPC ? `${calculateCarAbsBil(d.properties.id, selectedMetricCar).toFixed(0)} km pc.` : `${calculateCarAbsBil(d.properties.id, selectedMetricCar).toFixed(2)} bil. passenger km`;
+            tooltipContent = isPC ? `${calculateCarAbsBil(d.properties.id, selectedMetricCar).toFixed(0)} km pc.` : `${calculateCarAbsBil(d.properties.id, selectedMetricCar).toFixed(1)} bil. passenger km`;
             break;
           case FilterOptions.Comparison:
-            tooltipContent = isPT ? `${calculatePTAbsBil(d.properties.id, selectedMetricPT).toFixed(2)} bil. passenger km` : `${calculateCarAbsBil(d.properties.id, selectedMetricCar).toFixed(2)} bil. passenger km`;
+            tooltipContent = isPT ? `${calculatePTAbsBil(d.properties.id, selectedMetricPT).toFixed(1)} bil. passenger km` : `${calculateCarAbsBil(d.properties.id, selectedMetricCar).toFixed(1)} bil. passenger km`;
             break;  
           case FilterOptions.CarsDev:
-            tooltipContent = `${calculatePercentageChange(d.properties.id, selectedMetricCar, carData).toFixed(2)} % change`;
+            tooltipContent = `${calculatePercentageChange(d.properties.id, selectedMetricCar, carData).toFixed(2)} % change\nin pass. km`;
             break;
         }
 
@@ -314,7 +314,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
                                   transition={{ duration: 0.5, delay: index * 0.1 }}
                               >
                                   <Typography>
-                                      {index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'} {stateData.stateName} - {isPC ? stateData.value.toFixed(0) : stateData.value.toFixed(2)} {isPC ? "km pc." : "bil. pass. km"}
+                                      {index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'} {stateData.stateName} - {isPC ? stateData.value.toFixed(0) : stateData.value.toFixed(1)} {isPC ? "km pc." : "bil. pass. km"}
                                   </Typography>
                               </motion.div>
                             ))}
@@ -331,7 +331,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
                                   transition={{ duration: 0.5, delay: index * 0.1 }}
                               >
                                   <Typography>
-                                      {index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'} {stateData.stateName} - {stateData.value.toFixed(2)} %
+                                      {index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'} {stateData.stateName} - {stateData.value.toFixed(2)} % change in pass. km
                                   </Typography>
                               </motion.div>
                             ))}

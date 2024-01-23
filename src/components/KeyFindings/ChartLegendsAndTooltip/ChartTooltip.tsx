@@ -29,6 +29,8 @@ const ChartTooltip: React.FC<ChartTooltipProps> = ({ tooltipPosition, tooltipSta
         marginBottom: '10px',
     };
 
+    const tooltipContentDisplay = typeof tooltipContent === "string" ? tooltipContent?.split('\n').map((subStr: string) => (<>{subStr}<br /></>)) : tooltipContent;
+
 
     return (
         <div style={getTooltipContainerStyle}>
@@ -37,7 +39,7 @@ const ChartTooltip: React.FC<ChartTooltipProps> = ({ tooltipPosition, tooltipSta
                 <img src={getFlagProperty(tooltipState)} alt="flag" style={{ width: '35px', height: '22.5px', marginRight: '10px', border: '1px solid black', borderRadius: '5px',}} />
                 {tooltipState}
             </div>
-            {tooltipContent}
+            {tooltipContentDisplay}
         </div>
     );
 };
