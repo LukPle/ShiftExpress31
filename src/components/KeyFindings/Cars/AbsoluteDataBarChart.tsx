@@ -229,13 +229,13 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
                 </>
             ) : (
                 <Card>
-                    <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
-                        <Stack direction={"row"}>
+                    <Stack direction={"row"} justifyContent={"center"} alignItems={"center"}>
+                        <Stack direction={"row"} marginRight={"317.5px"}>
                             <InteractionTooltip tooltipText={'Cars'} delay={0}><div style={getRectangleStyle(carColor)}></div></InteractionTooltip>
                             <Typography>🚗</Typography>
                             <Divider orientation="vertical" sx={{ mx: 2 }} />
                         </Stack>
-                        <Stack direction={"row"}>
+                        <Stack direction={"row"} marginLeft={"317.5px"}>
                             <Divider orientation="vertical" sx={{ mx: 2 }} />
                             <InteractionTooltip tooltipText={'Public Transport'} delay={0}><div style={getRectangleStyle(currentFilter === FilterOptions.Comparison ? ptColor : unfocusedColor)}></div></InteractionTooltip>
                             <Typography>🚊</Typography>
