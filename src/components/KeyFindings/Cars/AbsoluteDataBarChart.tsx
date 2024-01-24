@@ -28,13 +28,14 @@ const ptColor = "#9BC4FD";
 const carColor = '#FFA500';
 const unfocusedColor = '#E8E8E8';
 
-const getRectangleStyle = (color: string): React.CSSProperties => {
+const getRectangleStyle = (color: string, isLeft: boolean): React.CSSProperties => {
     return {
         width: '30px',
         height: '20px',
         backgroundColor: color,
         borderRadius: '10%',
-        marginRight: '10px',
+        marginLeft: isLeft ? '10px' : '0px',
+        marginRight: isLeft ? '0px' : '10px',
         border: '1px solid #BFBFBF',
     };
 };
@@ -231,13 +232,13 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
                 <Card>
                     <Stack direction={"row"} justifyContent={"center"} alignItems={"center"}>
                         <Stack direction={"row"} marginRight={"317.5px"}>
-                            <InteractionTooltip tooltipText={'Cars'} delay={0}><div style={getRectangleStyle(carColor)}></div></InteractionTooltip>
                             <Typography>🚗</Typography>
+                            <InteractionTooltip tooltipText={'Cars'} delay={0}><div style={getRectangleStyle(carColor, true)}></div></InteractionTooltip>
                             <Divider orientation="vertical" sx={{ mx: 2 }} />
                         </Stack>
                         <Stack direction={"row"} marginLeft={"317.5px"}>
                             <Divider orientation="vertical" sx={{ mx: 2 }} />
-                            <InteractionTooltip tooltipText={'Public Transport'} delay={0}><div style={getRectangleStyle(currentFilter === FilterOptions.Comparison ? ptColor : unfocusedColor)}></div></InteractionTooltip>
+                            <InteractionTooltip tooltipText={'Public Transport'} delay={0}><div style={getRectangleStyle(currentFilter === FilterOptions.Comparison ? ptColor : unfocusedColor, false)}></div></InteractionTooltip>
                             <Typography>🚊</Typography>
                         </Stack>
                     </Stack>
