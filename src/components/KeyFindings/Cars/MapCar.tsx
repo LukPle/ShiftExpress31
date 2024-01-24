@@ -204,7 +204,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
 
                             
     const colorScaleAbs = d3.scaleLinear<string>()
-      .domain(isPC ? [-3000, 500, 4000, 7500, 11000] : (isPT ? [-40, -20, 0, 20, 40] : [-200, -100, 0, 100, 200]))
+      .domain(isPC ? [-3000, 500, 5000, 7500, 10000] : (isPT ? [-40, -20, 0, 20, 40] : [-200, -100, 0, 100, 200]))
       .range(colorRangeAbs);    
     const colorScale = d3.scaleLinear<string>()
       .domain(isPT ? [-40, -20, 0, 20, 40] : [-10, -5, 0, 5, 10])
@@ -411,9 +411,9 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
                     <MapLegend 
                       paddingEnd={40} 
                       tooltip={`Color Scale for ${isPC ? 'Car Usage per Capita' : 'Total Car Usage' }`} 
-                      headline={isPC ? "🚗 Passenger km / capita" : "🚗 Passenger km in billion"}
+                      headline={isPC ? "🚗 Passenger km in thsd." : "🚗 Passenger km in billion"}
                       scale={isPC
-                        ? [{text: "11000", color: "#FFA500"}, {text: "7500", color: "rgba(255, 165, 0, 0.5)"}, {text: "4000", color: "#FFFFFF"}] 
+                        ? [{text: "10", color: "#FFA500"}, {text: "7.5", color: "rgba(255, 165, 0, 0.5)"}, {text: "5", color: "#FFFFFF"}] 
                         : [{text: "200", color: "#FFA500"}, {text: "100", color: "rgba(255, 165, 0, 0.5)"}, {text: "0", color: "#FFFFFF"}]}
                     ></MapLegend>
                 ) : ((currentFilter === FilterOptions.Comparison) ? (
