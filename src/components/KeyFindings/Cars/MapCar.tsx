@@ -406,12 +406,12 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
                   )}
               </Stack>
 
-              <Stack direction="column" width={"100px"} paddingLeft={"25px"} paddingRight={currentFilter === FilterOptions.CarsAbs ? "20px" : "0"}>
+              <Stack direction="column" width={"100px"} paddingLeft={"25px"}>
                 {(currentFilter === FilterOptions.CarsAbs && !rankingVisible) ? (
                     <MapLegend 
                       paddingEnd={40} 
                       tooltip={`Color Scale for ${isPC ? 'Car Usage per Capita' : 'Total Car Usage' }`} 
-                      headline={isPC ? "🚗 Car usage pc. in km" : "🚗 Car usage in bil. km"}
+                      headline={isPC ? "🚗 Passenger km / capita" : "🚗 Passenger km in billion"}
                       scale={isPC
                         ? [{text: "11000", color: "#FFA500"}, {text: "7500", color: "rgba(255, 165, 0, 0.5)"}, {text: "4000", color: "#FFFFFF"}] 
                         : [{text: "200", color: "#FFA500"}, {text: "100", color: "rgba(255, 165, 0, 0.5)"}, {text: "0", color: "#FFFFFF"}]}
@@ -420,7 +420,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
                   <MapLegend 
                     paddingEnd={40} 
                     tooltip={`Color Scale for ${isPT ? 'Public Transport' : 'Cars'}`} 
-                    headline={isPT ? "🚊 Billion passenger km" : "🚗 Billion passenger km"}
+                    headline={isPT ? "🚊 Passenger km in billion" : "🚗 Passenger km in billion"}
                     scale={isPT 
                       ? [{text: "40", color: "#9BC4FD"}, {text: "20", color: "rgba(155, 196, 253, 0.5)"}, {text: "0", color: "#FFFFFF"}] 
                       : [{text: "200", color: "#FFA500"}, {text: "100", color: "rgba(255, 165, 0, 0.5)"}, {text: "0", color: "#FFFFFF"}]}
