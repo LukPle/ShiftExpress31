@@ -221,10 +221,16 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
             ) : (
                 <Card>
                     <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
-                        <Stack direction={"row"}><div style={getRectangleStyle(carColor)}></div><Typography>🚗</Typography>            <Divider orientation="vertical" sx={{ mx: 2 }} />
+                        <Stack direction={"row"}>
+                            <InteractionTooltip tooltipText={'Cars'} delay={0}><div style={getRectangleStyle(carColor)}></div></InteractionTooltip>
+                            <Typography>🚗</Typography>
+                            <Divider orientation="vertical" sx={{ mx: 2 }} />
                         </Stack>
-                        <Stack direction={"row"}>            <Divider orientation="vertical" sx={{ mx: 2 }} />
-                            <div style={getRectangleStyle(currentFilter === FilterOptions.Comparison ? ptColor : unfocusedColor)}></div><Typography>🚊</Typography></Stack>
+                        <Stack direction={"row"}>
+                            <Divider orientation="vertical" sx={{ mx: 2 }} />
+                            <InteractionTooltip tooltipText={'Public Transport'} delay={0}><div style={getRectangleStyle(currentFilter === FilterOptions.Comparison ? ptColor : unfocusedColor)}></div></InteractionTooltip>
+                            <Typography>🚊</Typography>
+                        </Stack>
                     </Stack>
                     <Stack alignItems={"center"}>
                         <svg ref={d3Container} />
@@ -233,7 +239,7 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
                         <Divider inset="context" />
                         <CardContent orientation="horizontal">
                             <Stack direction={"row"} sx={{ flex: 1 }} alignItems={"center"} justifyContent={"flex-start"}>
-                                <Typography startDecorator={<InteractionTooltip tooltipText={`Hover over the states to get more details about the change of usage`} delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Total passenger kms per state in {selectedYear}.</Typography>
+                                <Typography startDecorator={<InteractionTooltip tooltipText='Explore detailed usage changes by hovering over a state' delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Total passenger kms per state in {selectedYear}</Typography>
                             </Stack>
                             <Divider orientation="vertical" />
                             <Button variant="outlined" onClick={() => setInRelationToPopulation(!inRelationToPopulation)} sx={{ marginTop: "-5px", marginBottom: "-5px" }} startDecorator={<Calculate />}>

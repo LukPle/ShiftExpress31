@@ -101,10 +101,10 @@ const Cars: React.FC = () => {
               <Divider inset="context" />
               <CardContent orientation="horizontal">
                 <Stack direction={"row"} sx={{ flex: 1 }} alignItems={"center"} justifyContent={"flex-start"}>
-                  <Typography startDecorator={<InteractionTooltip tooltipText={`Adjust the charts by selecting a year in the timeline - you can also play and rewind`} delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Cumulative change of usage in Germany from 2013 to {endYear.toString()}</Typography>
+                  <Typography startDecorator={<InteractionTooltip tooltipText='Explore detailed changes of usage by hovering over specific data points on the chart' delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Cumulative change of usage in Germany from 2013 to {endYear.toString()}</Typography>
                 </Stack>
                 <Divider orientation="vertical" />
-                <MiniLegend currentOption={currentFilter}/>
+                <MiniLegend currentOption={currentFilter} isCarKeyFinding={true}/>
               </CardContent>
             </CardOverflow>
           </Card>
