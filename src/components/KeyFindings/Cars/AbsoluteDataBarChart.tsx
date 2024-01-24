@@ -77,7 +77,7 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
 
             const margin = { top: 15, right: 75, bottom: 20, left: 80 };
             const width = 820 - margin.left - margin.right;
-            const height = 235 - margin.top - margin.bottom;
+            const height = 240 - margin.top - margin.bottom;
 
             const svg = d3.select(d3Container.current)
                 .attr("width", width + margin.left + margin.right)

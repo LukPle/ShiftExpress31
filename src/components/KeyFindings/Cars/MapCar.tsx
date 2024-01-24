@@ -202,7 +202,6 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
         setTooltipContent(tooltipContent);
         setTooltipVisible(true); // Show the tooltip
         d3.select(event.currentTarget as Element).style('fill', 'url(#stripes-pattern)');
-        onStateHover(d.properties.id);
     };
 
     // Handling the mouse exit
@@ -305,7 +304,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
                   (currentFilter === FilterOptions.CarsAbs) ? (
                     <div style={{ height: '120px' }}>
                         <Stack direction={'column'} divider={<Divider orientation='horizontal' />} gap={0.2}>
-                        <SegmentedControlsFilter items={["Absolute data", "Per capita"]} onChange={(index, item) => setPC(index === 1)} />
+                        <SegmentedControlsFilter items={["In Total", "Per Capita"]} onChange={(index, item) => setPC(index === 1)} />
                             {top3StatesCarAbs.map((stateData, index) => (
                               <motion.div
                                   key={index}
@@ -314,7 +313,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
                                   transition={{ duration: 0.5, delay: index * 0.1 }}
                               >
                                   <Typography>
-                                      {index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'} {stateData.stateName} - {isPC ? stateData.value.toFixed(0) : stateData.value.toFixed(1)} {isPC ? "km pc." : "bil. pass. km"}
+                                      {index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'} {stateData.stateName} &#x2022; {isPC ? stateData.value.toFixed(0) : stateData.value.toFixed(1)} {isPC ? "km pc." : "bil. pass. km"}
                                   </Typography>
                               </motion.div>
                             ))}
@@ -331,7 +330,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
                                   transition={{ duration: 0.5, delay: index * 0.1 }}
                               >
                                   <Typography>
-                                      {index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'} {stateData.stateName} - {stateData.value.toFixed(2)} % change in pass. km
+                                      {index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'} {stateData.stateName} &#x2022; {stateData.value.toFixed(2)} % change in pass. km
                                   </Typography>
                               </motion.div>
                             ))}
@@ -341,7 +340,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
                 )}
             </CardOverflow>
 
-            <Stack direction="row" marginTop="20px" alignItems={"center"} justifyContent={"center"}>
+            <Stack direction="row" marginTop="20px" alignItems={"flex-start"} justifyContent={"center"}>
               <Stack direction="column">
                   <svg ref={svgRef} width={width} height={height}></svg>
                   {selectedState && (
@@ -356,7 +355,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
                   <MapLegend 
                     paddingEnd={40} 
                     tooltip={`Color Scale for ${isPC ? 'car usage pc.' : 'absolute car usage' }`} 
-                    headline={isPC ? "Car usage pc. in km" : "Car usage in bil. km"}
+                    headline={isPC ? "🚗 Car usage pc. in km" : "🚗 Car usage in bil. km"}
                     scale={isPC
                       ? [{text: "11000", color: "#FFA500"}, {text: "7500", color: "rgba(255, 165, 0, 0.5)"}, {text: "4000", color: "#FFFFFF"}] 
                       : [{text: "200", color: "#FFA500"}, {text: "100", color: "rgba(255, 165, 0, 0.5)"}, {text: "0", color: "#FFFFFF"}]}
