@@ -168,6 +168,7 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
 
                 const yAxisLeft = d3.axisLeft(yLeft).tickFormat((d) => formatLargeNumber(String(d))).ticks(5);
                 const yAxisRight = d3.axisRight(yRight).tickFormat((d) => formatLargeNumber(String(d))).ticks(5);
+                const yAxisRightColor = currentFilter === FilterOptions.CarsAbs ? unfocusedColor : 'black';
 
                 svg.append("g")
                     .attr("class", "x-axis")
@@ -190,7 +191,15 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
                     .call(yAxisRight)
                     .selectAll('text')
                     .style('font-size', '15px')
-                    .style("font-weight", "300");
+                    .style("font-weight", "300")
+                    .attr('fill', yAxisRightColor);
+                
+                // Adjust both axis line and ticks color dynamically
+                svg.selectAll('.y-axis-right .tick line')
+                    .attr('stroke', yAxisRightColor);
+                
+                svg.selectAll('.y-axis-right path')
+                    .style('stroke', yAxisRightColor);
             };
 
             // Initial chart render
