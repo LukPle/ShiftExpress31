@@ -86,9 +86,9 @@ const Cars: React.FC = () => {
                   </Stack>
                   <Divider orientation="vertical" />
                   <Stack direction={"row"} spacing={2}>
-                    <Button variant={currentFilter === FilterOptions.CarsAbs ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.CarsAbs)} sx={{ maxHeight: "30px" }}>🚗 Cars in Germany</Button>
-                    <Button variant={currentFilter === FilterOptions.Comparison ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.Comparison)} sx={{ maxHeight: "30px" }}>🚗 vs 🚊 in Germany</Button>
-                    <Button variant={currentFilter === FilterOptions.CarsDev ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.CarsDev)} sx={{ maxHeight: "30px" }}>🚗 Development of Cars in Germany</Button>
+                    <Button variant={currentFilter === FilterOptions.CarsAbs ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.CarsAbs)} sx={{ maxHeight: "30px" }}>🚗 Absolute Car Data</Button>
+                    <Button variant={currentFilter === FilterOptions.Comparison ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.Comparison)} sx={{ maxHeight: "30px" }}>🚗 vs 🚊 Comparison</Button>
+                    <Button variant={currentFilter === FilterOptions.CarsDev ? "solid" : "outlined"} onClick={() => setCurrentFilter(FilterOptions.CarsDev)} sx={{ maxHeight: "30px" }}>🚗 Development of Car Usage</Button>
                   </Stack>
                 </Stack>
               </CardContent>

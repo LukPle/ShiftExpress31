@@ -354,7 +354,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
                 {(currentFilter === FilterOptions.CarsAbs) ? (
                   <MapLegend 
                     paddingEnd={40} 
-                    tooltip={`Color Scale for ${isPC ? 'car usage pc.' : 'absolute car usage' }`} 
+                    tooltip={`Color Scale for ${isPC ? 'car usage per capita' : 'total car usage' }`} 
                     headline={isPC ? "🚗 Car usage pc. in km" : "🚗 Car usage in bil. km"}
                     scale={isPC
                       ? [{text: "11000", color: "#FFA500"}, {text: "7500", color: "rgba(255, 165, 0, 0.5)"}, {text: "4000", color: "#FFFFFF"}] 

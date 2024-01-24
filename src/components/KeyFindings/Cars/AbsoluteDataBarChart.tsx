@@ -249,11 +249,11 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
                         <Divider inset="context" />
                         <CardContent orientation="horizontal">
                             <Stack direction={"row"} sx={{ flex: 1 }} alignItems={"center"} justifyContent={"flex-start"}>
-                                <Typography startDecorator={<InteractionTooltip tooltipText='Explore detailed usage changes by hovering over a state' delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Total passenger kms per state in {selectedYear}</Typography>
+                                <Typography startDecorator={<InteractionTooltip tooltipText='Explore detailed usage changes by hovering over a state' delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Total passenger km per state in {selectedYear}</Typography>
                             </Stack>
                             <Divider orientation="vertical" />
                             <Button variant="outlined" onClick={() => setInRelationToPopulation(!inRelationToPopulation)} sx={{ marginTop: "-5px", marginBottom: "-5px" }} startDecorator={<Calculate />}>
-                                {inRelationToPopulation ? 'Show Absolute Values' : 'Show Values in Relation to Population'}
+                                {inRelationToPopulation ? 'Show Total Values' : 'Show Values in Relation to Population'}
                             </Button>
                         </CardContent>
                     </CardOverflow>
