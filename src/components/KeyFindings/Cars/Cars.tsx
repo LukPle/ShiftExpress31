@@ -15,6 +15,9 @@ import {
   FastRewind,
   InfoOutlined
 } from "@mui/icons-material";
+import CombinedDevTS from '../TransportShift/CombinedDevTS';
+import MapCar from '../Cars/MapCar';
+import LineChartTS from '../TransportShift/LineChartTS';
 import AbsoluteDataBarChart from './AbsoluteDataBarChart';
 import MapTS from '../TransportShift/MapTS';
 import LineChartCars from './LineChartCars';
@@ -114,7 +117,7 @@ const Cars: React.FC = () => {
             </CardContent>
           </Card>
           <Card sx={{ flex: 1 }}>
-          <MapTS transportData={pTData} carData={carData} endYear={endYear.toString()} currentFilter={currentFilter} onStateHover={handleStateHover} selectedState={selectedState}/>
+            <MapCar transportData={pTData} carData={carData} endYear={endYear.toString()} currentFilter={currentFilter} populationData={popData} onStateHover={handleStateHover} selectedState={selectedState}/>
           </Card>
         </Stack>
       </Stack>
