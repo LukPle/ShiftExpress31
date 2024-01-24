@@ -3,7 +3,6 @@ import { YearlyData as CarYearlyData, CarData } from '@/data/carDataInterface';
 import { YearlyData as TransportYearlyData, TransportData } from '@/data/pTDataInterface';
 import { Stack, Typography, Divider } from "@mui/joy";
 import { FilterOptions } from './TransportShift';
-import theme from '@/utils/theme';
 import { animate } from "framer-motion";
 
 // Counter component

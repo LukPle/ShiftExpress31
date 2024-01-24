@@ -3,7 +3,6 @@ import { YearlyData as CarYearlyData, CarData } from '@/data/carDataInterface';
 import { YearlyData as TransportYearlyData, TransportData } from '@/data/pTDataInterface';
 import { Stack, Typography, Divider } from "@mui/joy";
 import { FilterOptions } from './Cars';
-import theme from '@/utils/theme';
 import { animate } from "framer-motion";
 
 // Counter component
@@ -168,19 +167,12 @@ const KeyMetricsCars: React.FC<KeyMetricsProps> = ({ carData, transportData, sta
         };
     };
 
-    const getPercentStyle2 = (color: string): React.CSSProperties => {
-        return {
-            color: color,
-            fontVariantNumeric: "tabular-nums"
-        };
-    };
-
     return (
         <>
             <Stack direction={"row"} sx={{ flex: 1 }} alignItems={"end"} justifyContent={"flex-start"} gap={2}>
                 {currentFilter === FilterOptions.CarsAbs && (
                     <>
-                        <Typography sx={getPercentStyle2(carColor)} level='h4'>
+                        <Typography sx={getPercentStyle(carColor, false)} level='h4'>
                             <Counter
                                 from={previousTotalPassengerKm}
                                 to={totalPassengerKm}
@@ -188,20 +180,21 @@ const KeyMetricsCars: React.FC<KeyMetricsProps> = ({ carData, transportData, sta
                                 suffix=" km 🚗"
                             />
                         </Typography>
-                        <Divider orientation="vertical" />
-                        <Typography sx={getPercentStyle2(carColor)} level='h4'>
+                        <Typography sx={{ color: "#646B73", fontVariantNumeric: "tabular-nums"}} level="body-sm">
+                            (
                             <Counter
                                 from={previousCarPercentageChange}
                                 to={carPercentageChange}
                                 prefix={Math.sign(carPercentageChange) >= 0 ? "+" : ""}
-                                suffix="% 🚗"
+                                suffix="% "
                             />
+                            since {startYear})
                         </Typography>
                     </>
                 )}
                 {currentFilter === FilterOptions.Comparison && (
                     <>
-                        <Typography sx={getPercentStyle2(carColor)} level='h4'>
+                        <Typography sx={getPercentStyle(carColor, false)} level='h4'>
                             <Counter
                                 from={previousTotalPassengerKm}
                                 to={totalPassengerKm}
@@ -210,7 +203,7 @@ const KeyMetricsCars: React.FC<KeyMetricsProps> = ({ carData, transportData, sta
                             />
                         </Typography>
                         <Divider orientation="vertical" />
-                        <Typography sx={getPercentStyle2(carColor)} level='h4'>
+                        <Typography sx={getPercentStyle(carColor, false)} level='h4'>
                             <Counter
                                 from={previousTotalLocalPassengerKm}
                                 to={totalLocalPassengerKm}
@@ -222,7 +215,7 @@ const KeyMetricsCars: React.FC<KeyMetricsProps> = ({ carData, transportData, sta
                 )}
                 {currentFilter === FilterOptions.CarsDev && (
                     <>
-                        <Typography sx={getPercentStyle2(carColor)} level='h4'>
+                        <Typography sx={getPercentStyle(carColor, false)} level='h4'>
                             <Counter
                                 from={previousNumberOfCars}
                                 to={numberOfCars}
