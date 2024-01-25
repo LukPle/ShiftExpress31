@@ -100,20 +100,20 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
     // Mouse Event Handlers
     const handleMouseOverBar = (event: React.MouseEvent<SVGRectElement, MouseEvent>, d: any, dataset: 'carData' | 'transportData') => {
         const [x, y] = d3.pointer(event);
-        //const stateFullName = d.state; // Verwenden Sie hier Ihren Logik zur Anzeige des vollständigen Bundeslandnamens
         // @ts-ignore
-        //const stateFullName = GERMAN_STATES[d.state] || d.state; // Volle Namen verwenden
-        const stateCode = d.state; // Dies sollte der Bundeslandcode sein (z.B. 'NW', 'BY', usw.)
+        const stateCode = d.state; // ('NW', 'BY', usw.)
         // @ts-ignore
-        const stateFullName = GERMAN_STATES[stateCode] || stateCode; // Volle Namen verwenden
+        const stateFullName = GERMAN_STATES[stateCode] || stateCode;
 
 
-        const offset = 10; // Anpassen, um die Tooltip-Position zu verändern
-        const adjustedY = y - offset; // Verschieben des Tooltips nach oben
-        console.log("stateFullname= "+ stateFullName);
+        const offsetY = 90; // Anpassen, um die Tooltip-Position zu verändern
+        const adjustedY = y - offsetY; // Verschieben des Tooltips nach oben
+        const offsetX= 10;
+        const adjustedX = x - offsetX; // Verschieben des Tooltips nach oben
+
         setTooltipState(stateFullName);
-        setTooltipPosition({ x, y: adjustedY });
-        setTooltipContent(`${dataset === 'carData' ? '🚗' : '🚈'} ${formatLargeNumber(d.value)} `); // Anpassen des Inhalts basierend auf Ihren Daten
+        setTooltipPosition({ x: adjustedX, y: adjustedY });
+        setTooltipContent(`${dataset === 'carData' ? '🚗' : '🚈'} ${formatLargeNumber(d.value)} `);
         setTooltipVisible(true);
 
         onStateHover(d.state);
@@ -121,7 +121,9 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
     };
 
     const handleMouseOutBar = (event: React.MouseEvent<SVGRectElement, MouseEvent>) => {
+        console.log("Tooltip visible state before =  "+tooltipVisible);
         setTooltipVisible(false);
+        console.log("Tooltip visible state after =  "+tooltipVisible);
         const originalColor = event.currentTarget.getAttribute('data-original-color');
         // @ts-ignore
         d3.select(event.currentTarget).style('fill', originalColor);
@@ -200,7 +202,6 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
 
                 svg.selectAll(".bar").remove();
 
-                console.log("combinedData:", combinedData);
                 const stateGroups = svg.selectAll(".state-group")
                     .data(combinedData)
                     .enter().append("g")
@@ -221,7 +222,10 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
                         currentFilter === FilterOptions.Comparison || currentFilter === FilterOptions.CarsAbs ?
                             (selectedState === null || selectedState === d.state ? 1 : 0.3) : 1)
                     .on("mouseover", (event, d) => handleMouseOverBar(event, d, 'carData'))
-                    .on("mouseout", handleMouseOutBar);
+                    .on("mouseout",d =>  {
+                        console.log('enters handle mouse out');
+                        handleMouseOutBar
+                    });
 
                 stateGroups.selectAll(".bar.transport")
                     .data(d => [{ key: 'transportData', value: d.transportValue , state: d.state}])
@@ -298,7 +302,7 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
                         <Stack direction={"row"}>            <Divider orientation="vertical" sx={{ mx: 2 }} />
                             <div style={getRectangleStyle(currentFilter === FilterOptions.Comparison ? ptColor : unfocusedColor)}></div><Typography>🚊</Typography></Stack>
                     </Stack>
-
+                    <Stack alignItems={"center"}>
                     <svg ref={d3Container} />
                     {tooltipVisible && (
                         <ChartTooltip
@@ -307,6 +311,7 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
                             tooltipContent={tooltipContent}
                         />
                     )}
+                    </Stack>
                     <CardOverflow>
                         <Divider inset="context" />
                         <CardContent orientation="horizontal">
