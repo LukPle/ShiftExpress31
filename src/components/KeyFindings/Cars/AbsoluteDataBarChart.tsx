@@ -115,10 +115,19 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
         setTooltipPosition({ x, y: adjustedY });
         setTooltipContent(`${dataset === 'carData' ? '🚗' : '🚈'} ${formatLargeNumber(d.value)} `); // Anpassen des Inhalts basierend auf Ihren Daten
         setTooltipVisible(true);
+
+        onStateHover(d.state);
+
     };
 
     const handleMouseOutBar = (event: React.MouseEvent<SVGRectElement, MouseEvent>) => {
         setTooltipVisible(false);
+        const originalColor = event.currentTarget.getAttribute('data-original-color');
+        // @ts-ignore
+        d3.select(event.currentTarget).style('fill', originalColor);
+        event.currentTarget.removeAttribute('data-original-color');
+        onStateHover(null);
+
     };
 
 
@@ -208,6 +217,9 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
                     .attr("width", x1.bandwidth())
                     .attr("height", d => height - yLeft(d.value))
                     .attr("fill", color('carData') as string)
+                    .attr("opacity", d =>
+                        currentFilter === FilterOptions.Comparison || currentFilter === FilterOptions.CarsAbs ?
+                            (selectedState === null || selectedState === d.state ? 1 : 0.3) : 1)
                     .on("mouseover", (event, d) => handleMouseOverBar(event, d, 'carData'))
                     .on("mouseout", handleMouseOutBar);
 
@@ -220,6 +232,9 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
                     .attr("width", x1.bandwidth())
                     .attr("height", d => height - yRight(d.value))
                     .attr("fill", color('transportData') as string)
+                    .attr("opacity", d =>
+                        currentFilter === FilterOptions.Comparison || currentFilter === FilterOptions.CarsAbs ?
+                            (selectedState === null || selectedState === d.state ? 1 : 0.3) : 1)
                     .on("mouseover", (event, d) => handleMouseOverBar(event, d, 'transportData'))
                     .on("mouseout", handleMouseOutBar);
 
@@ -283,9 +298,15 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
                         <Stack direction={"row"}>            <Divider orientation="vertical" sx={{ mx: 2 }} />
                             <div style={getRectangleStyle(currentFilter === FilterOptions.Comparison ? ptColor : unfocusedColor)}></div><Typography>🚊</Typography></Stack>
                     </Stack>
-                    <Stack alignItems={"center"}>
-                        <svg ref={d3Container} />
-                    </Stack>
+
+                    <svg ref={d3Container} />
+                    {tooltipVisible && (
+                        <ChartTooltip
+                            tooltipPosition={tooltipPosition}
+                            tooltipState={tooltipState}
+                            tooltipContent={tooltipContent}
+                        />
+                    )}
                     <CardOverflow>
                         <Divider inset="context" />
                         <CardContent orientation="horizontal">
@@ -302,13 +323,7 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
             )
             }
             {/* Rendering der Tooltip-Komponente */}
-            {tooltipVisible && (
-                <ChartTooltip
-                    tooltipPosition={tooltipPosition}
-                    tooltipState={tooltipState}
-                    tooltipContent={tooltipContent}
-                />
-            )}
+
         </div>
     );
 };
