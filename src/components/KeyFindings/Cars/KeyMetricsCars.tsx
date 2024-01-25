@@ -29,7 +29,7 @@ function Counter({ from, to, prefix = "", suffix = "" }) {
     return <span ref={nodeRef} />;
 }
 
-function formatLargeNumber(num:number) {
+function formatLargeNumber(num: number) {
     if (num >= 1e12) {
         return (num / 1e12).toFixed(2) + ' trl';
     } else if (num >= 1e9) {
@@ -92,7 +92,7 @@ const KeyMetricsCars: React.FC<KeyMetricsProps> = ({ carData, transportData, sta
             .filter(([year]) => parseInt(year) >= parseInt(startYear) && parseInt(year) <= parseInt(endYear))
             .reduce((total, [year, dataArray]) => {
                 const federalData = dataArray.find(d => d.state === 'FEDERAL');
-                return  (federalData ? federalData.passenger_km : 0);
+                return (federalData ? federalData.passenger_km : 0);
             }, 0);
     };
 
@@ -118,7 +118,7 @@ const KeyMetricsCars: React.FC<KeyMetricsProps> = ({ carData, transportData, sta
             .filter(([year]) => parseInt(year) >= parseInt(startYear) && parseInt(year) <= parseInt(endYear))
             .reduce((total, [year, dataArray]) => {
                 const federalData = dataArray.find(d => d.state === 'FEDERAL');
-                return  (federalData ? federalData.cars : 0);
+                return (federalData ? federalData.cars : 0);
             }, 0);
     };
 
@@ -180,7 +180,7 @@ const KeyMetricsCars: React.FC<KeyMetricsProps> = ({ carData, transportData, sta
                                 suffix=" km 🚗"
                             />
                         </Typography>
-                        <Typography sx={{ color: "#646B73", fontVariantNumeric: "tabular-nums"}} level="body-sm">
+                        <Typography sx={{ color: "#646B73", fontVariantNumeric: "tabular-nums" }} level="body-sm">
                             (
                             <Counter
                                 from={previousCarPercentageChange}
@@ -203,7 +203,7 @@ const KeyMetricsCars: React.FC<KeyMetricsProps> = ({ carData, transportData, sta
                             />
                         </Typography>
                         <Divider orientation="vertical" />
-                        <Typography sx={getPercentStyle(carColor, false)} level='h4'>
+                        <Typography sx={getPercentStyle(ptColor, false)} level='h4'>
                             <Counter
                                 from={previousTotalLocalPassengerKm}
                                 to={totalLocalPassengerKm}
@@ -217,10 +217,20 @@ const KeyMetricsCars: React.FC<KeyMetricsProps> = ({ carData, transportData, sta
                     <>
                         <Typography sx={getPercentStyle(carColor, false)} level='h4'>
                             <Counter
-                                from={previousNumberOfCars}
-                                to={numberOfCars}
-                                prefix=""
-                                suffix=" cars 🚗"
+                                from={previousCarPercentageChange}
+                                to={carPercentageChange}
+                                prefix={Math.sign(carPercentageChange) >= 0 ? "+" : ""}
+                                suffix="% 🚗"
+                            />
+                        </Typography>
+                        <Divider orientation="vertical" />
+
+                        <Typography sx={getPercentStyle(ptColor, true)} level='h4'>
+                            <Counter
+                                from={previousTransportPercentageChange}
+                                to={transportPercentageChange}
+                                prefix={Math.sign(transportPercentageChange) >= 0 ? "+" : ""}
+                                suffix="% 🚊"
                             />
                         </Typography>
                         <Typography sx={{ color: "#646B73" }} level="body-xs">*since {startYear}</Typography>
