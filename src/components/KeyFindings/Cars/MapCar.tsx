@@ -325,7 +325,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
     const top3StatesCarPerc = getTop3States(selectedMetricCar, carData);
     const top10StatesCarAbs = getTop10CarAbs(selectedMetricCar, carData);
     const top10StatesPTAbs = getTop10PTAbs(selectedMetricPT, transportData);
-    const rankingEmojis = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'];
+    const rankingEmojis = ['🥇', '🥈', '🥉', '4.', '5.', '6.', '7.', '8.', '9.', '10.'];
 
     return (
         <>
@@ -411,7 +411,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
                     <MapLegend 
                       paddingEnd={40} 
                       tooltip={`Color Scale for ${isPC ? 'Car Usage per Capita' : 'Total Car Usage' }`} 
-                      headline={isPC ? "🚗 Passenger km in thsd." : "🚗 Passenger km in billion"}
+                      headline={isPC ? "🚗 Passenger km in thsd. per capita" : "🚗 Passenger km in billion"}
                       scale={isPC
                         ? [{text: "10", color: "#FFA500"}, {text: "7.5", color: "rgba(255, 165, 0, 0.5)"}, {text: "5", color: "#FFFFFF"}] 
                         : [{text: "200", color: "#FFA500"}, {text: "100", color: "rgba(255, 165, 0, 0.5)"}, {text: "0", color: "#FFFFFF"}]}
