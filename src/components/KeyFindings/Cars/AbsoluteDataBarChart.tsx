@@ -22,6 +22,8 @@ interface Props {
     populationData: PopulationYearlyData;
     currentFilter: FilterOptions;
     selectedYear: string;
+    onStateHover: (stateId: string | null) => void;
+    selectedState: string | null;
 }
 
 const ptColor = "#9BC4FD";
@@ -39,7 +41,7 @@ const getRectangleStyle = (color: string): React.CSSProperties => {
     };
 };
 
-const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populationData, currentFilter, selectedYear }) => {
+const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populationData, currentFilter, selectedYear,onStateHover, selectedState }) => {
     const [selectedCarMetric, setSelectedCarMetric] = useState<keyof CarData>('passenger_km');
     const [selectedTransportMetric, setSelectedTransportMetric] = useState<keyof TransportData>('total_local_passenger_km');
     const [sortByPopulation, setSortByPopulation] = useState<boolean>(false);
