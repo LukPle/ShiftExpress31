@@ -10,6 +10,7 @@ import { FilterOptions as FilterOptionsTS } from '../TransportShift/TransportShi
 import CombinedDevTS from "../TransportShift/CombinedDevTS";
 import MiniLegend from '../ChartLegendsAndTooltip/MiniLegend';
 import InteractionTooltip from "@/components/InteractionTooltip";
+import ChartTooltip from "@/components/KeyFindings/ChartLegendsAndTooltip/ChartTooltip";
 interface CombinedData {
     state: string;
     carValue: number;
@@ -71,6 +72,55 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
         else if (num >= 1e3) { return (num / 1e3).toFixed(2) + ' thsd'; }
         else { return num.toString(); }
     };
+
+    // Tooltip State Management
+    const [tooltipVisible, setTooltipVisible] = useState(false);
+    const [tooltipContent, setTooltipContent] = useState('');
+    const [tooltipState, setTooltipState] = useState('');
+    const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
+    // GERMAN_STATES Map
+    const GERMAN_STATES = {
+        'BW': 'Baden-Württemberg',
+        'BY': 'Bavaria',
+        'BE': 'Berlin',
+        'BB': 'Brandenburg',
+        'HB': 'Bremen',
+        'HH': 'Hamburg',
+        'HE': 'Hesse',
+        'MV': 'Mecklenburg-Vorpommern',
+        'NI': 'Lower-Saxony',
+        'NW': 'North Rhine-Westphalia',
+        'RP': 'Rhineland-Palatinate',
+        'SL': 'Saarland',
+        'SN': 'Saxony',
+        'ST': 'Saxony-Anhalt',
+        'SH': 'Schleswig-Holstein',
+        'TH': 'Thuringia'
+    };
+    // Mouse Event Handlers
+    const handleMouseOverBar = (event: React.MouseEvent<SVGRectElement, MouseEvent>, d: any, dataset: 'carData' | 'transportData') => {
+        const [x, y] = d3.pointer(event);
+        //const stateFullName = d.state; // Verwenden Sie hier Ihren Logik zur Anzeige des vollständigen Bundeslandnamens
+        // @ts-ignore
+        //const stateFullName = GERMAN_STATES[d.state] || d.state; // Volle Namen verwenden
+        const stateCode = d.state; // Dies sollte der Bundeslandcode sein (z.B. 'NW', 'BY', usw.)
+        // @ts-ignore
+        const stateFullName = GERMAN_STATES[stateCode] || stateCode; // Volle Namen verwenden
+
+
+        const offset = 10; // Anpassen, um die Tooltip-Position zu verändern
+        const adjustedY = y - offset; // Verschieben des Tooltips nach oben
+        console.log("stateFullname= "+ stateFullName);
+        setTooltipState(stateFullName);
+        setTooltipPosition({ x, y: adjustedY });
+        setTooltipContent(`${dataset === 'carData' ? '🚗' : '🚈'} ${formatLargeNumber(d.value)} `); // Anpassen des Inhalts basierend auf Ihren Daten
+        setTooltipVisible(true);
+    };
+
+    const handleMouseOutBar = (event: React.MouseEvent<SVGRectElement, MouseEvent>) => {
+        setTooltipVisible(false);
+    };
+
 
     useEffect(() => {
         if (d3Container.current) {
@@ -141,6 +191,7 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
 
                 svg.selectAll(".bar").remove();
 
+                console.log("combinedData:", combinedData);
                 const stateGroups = svg.selectAll(".state-group")
                     .data(combinedData)
                     .enter().append("g")
@@ -149,24 +200,28 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
 
 
                 stateGroups.selectAll(".bar.car")
-                    .data(d => [{ key: 'carData', value: d.carValue }])
+                    .data(d => [{ key: 'carData', value: d.carValue, state: d.state}])
                     .enter().append("rect")
                     .attr("class", "bar car")
                     .attr("x", (d: { key: string; value: number; }) => String(x1(d.key)))
                     .attr("y", d => yLeft(d.value))
                     .attr("width", x1.bandwidth())
                     .attr("height", d => height - yLeft(d.value))
-                    .attr("fill", color('carData') as string);
+                    .attr("fill", color('carData') as string)
+                    .on("mouseover", (event, d) => handleMouseOverBar(event, d, 'carData'))
+                    .on("mouseout", handleMouseOutBar);
 
                 stateGroups.selectAll(".bar.transport")
-                    .data(d => [{ key: 'transportData', value: d.transportValue }])
+                    .data(d => [{ key: 'transportData', value: d.transportValue , state: d.state}])
                     .enter().append("rect")
                     .attr("class", "bar transport")
                     .attr("x", (d: { key: string; value: number; }) => String(x1(d.key)))
                     .attr("y", d => yRight(d.value))
                     .attr("width", x1.bandwidth())
                     .attr("height", d => height - yRight(d.value))
-                    .attr("fill", color('transportData') as string); //Please review
+                    .attr("fill", color('transportData') as string)
+                    .on("mouseover", (event, d) => handleMouseOverBar(event, d, 'transportData'))
+                    .on("mouseout", handleMouseOutBar);
 
                 const yAxisLeft = d3.axisLeft(yLeft).tickFormat((d) => formatLargeNumber(String(d))).ticks(5);
                 const yAxisRight = d3.axisRight(yRight).tickFormat((d) => formatLargeNumber(String(d))).ticks(5);
@@ -198,7 +253,7 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
             // Initial chart render
             updateChart();
         }
-    }, [carData, transportData, selectedYear, selectedCarMetric, selectedTransportMetric, sortByPopulation, inRelationToPopulation, populationData, color]);
+    }, [carData, transportData, selectedYear, selectedCarMetric, selectedTransportMetric, sortByPopulation, inRelationToPopulation, populationData, color, selectedState]);
 
     return (
         <div>
@@ -246,6 +301,14 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
                 </Card>
             )
             }
+            {/* Rendering der Tooltip-Komponente */}
+            {tooltipVisible && (
+                <ChartTooltip
+                    tooltipPosition={tooltipPosition}
+                    tooltipState={tooltipState}
+                    tooltipContent={tooltipContent}
+                />
+            )}
         </div>
     );
 };
