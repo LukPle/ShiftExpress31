@@ -4,13 +4,16 @@ import React from 'react';
 import { FilterOptions as FilterOptionTSCovid } from '../TransportShift/TransportShift';
 import { FilterOptions as FilterOptionsCars } from '../Cars/Cars';
 import InteractionTooltip from '@/components/InteractionTooltip';
+import MetricView from './MetricView';
 
 interface GroupedBarChartLegendProps {
     currentOption: FilterOptionTSCovid | FilterOptionsCars,
     isCarKeyFinding?: boolean,
+    carText: string,
+    ptText: string,
 }
 
-const GroupedBarChartLegend: React.FC<GroupedBarChartLegendProps> = ({ currentOption, isCarKeyFinding = false }) => {
+const GroupedBarChartLegend: React.FC<GroupedBarChartLegendProps> = ({ currentOption, isCarKeyFinding = false, carText, ptText }) => {
     const ptColor = "#9BC4FD";
     const carColor = '#FFA500';
     const unfocusedColor = '#E8E8E8';
@@ -44,11 +47,13 @@ const GroupedBarChartLegend: React.FC<GroupedBarChartLegendProps> = ({ currentOp
 
     return (
         <Stack direction="row" >
-            <InteractionTooltip tooltipText={'Public Transport'} delay={0}><div style={getRectangleStyle(isFocusedPT() ? ptColor : unfocusedColor)}></div></InteractionTooltip>
-            <Typography>🚊</Typography>
-            <Divider orientation="vertical" sx={{mx:2}}/>
-            <InteractionTooltip tooltipText={'Cars'} delay={0}><div style={getRectangleStyle(isFocusedCars() ? carColor : unfocusedColor)}></div></InteractionTooltip>
-            <Typography>🚗</Typography>
+            <InteractionTooltip tooltipText={'Public Transport'} delay={0}>
+                <MetricView color={isFocusedPT() ? ptColor : unfocusedColor} text={ptText} />
+            </InteractionTooltip>
+            <Divider orientation="vertical" sx={{ mx: 1 }} />
+            <InteractionTooltip tooltipText={'Cars'} delay={0}>
+                <MetricView color={isFocusedCars() ? carColor : unfocusedColor} text={carText} />
+            </InteractionTooltip>
         </Stack>
     );
 };
