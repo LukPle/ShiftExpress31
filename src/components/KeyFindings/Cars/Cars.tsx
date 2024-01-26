@@ -104,7 +104,7 @@ const Cars: React.FC = () => {
                   <Typography startDecorator={<InteractionTooltip tooltipText='Explore detailed changes of usage by hovering over specific data points on the chart' delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Change from 2013 to {endYear.toString()} in %</Typography>
                 </Stack>
                 <Divider orientation="vertical" />
-                <MiniLegend currentOption={currentFilter} isCarKeyFinding={true} carText='🚗 total passenger kms' ptText='🚉 total passenger kms'/>
+                <MiniLegend currentOption={currentFilter} isCarKeyFinding={true} carText='🚗 total passenger kms' ptText='🚊 total passenger kms'/>
               </CardContent>
             </CardOverflow>
           </Card>

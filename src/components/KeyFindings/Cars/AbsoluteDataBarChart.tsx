@@ -225,7 +225,7 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
                                     <Typography startDecorator={<InteractionTooltip tooltipText={`Explore detailed usage changes by hovering a state.`} delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Change from 2013 to {selectedYear} in %</Typography>
                                 </Stack>
                                 <Divider orientation="vertical" />
-                                <MiniLegend currentOption={FilterOptionsTS.FocusCars} carText='🚗 total passenger kms' ptText='🚉 total passenger kms'/>
+                                <MiniLegend currentOption={FilterOptionsTS.FocusCars} carText='🚗 total passenger kms' ptText='🚊 total passenger kms'/>
                             </CardContent>
                         </CardOverflow>
                     </Card>
@@ -237,7 +237,7 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
                             <MetricView color={carColor} text={'🚗 passenger kms per state'} isPT={false}/>
                         </Stack>
                         <Stack direction={"row"}>
-                            <MetricView color={currentFilter === FilterOptions.Comparison ? ptColor : unfocusedColor} text={'🚉 passenger kms per state'} isPT={true}/>
+                            <MetricView color={currentFilter === FilterOptions.Comparison ? ptColor : unfocusedColor} text={'🚊 passenger kms per state'} isPT={true}/>
                         </Stack>
                     </Stack>
                     <Stack alignItems={"center"}>

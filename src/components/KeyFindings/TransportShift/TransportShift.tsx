@@ -102,7 +102,7 @@ const TransportShift: React.FC = () => {
                   <Typography startDecorator={<InteractionTooltip tooltipText={`Explore detailed changes of usage by hovering over specific data points on the chart`} delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Change from 2013 to {endYear.toString()} in %</Typography>
                 </Stack>
                 <Divider orientation="vertical" />
-                <MiniLegend currentOption={currentFilter} carText='🚗 total passenger kms' ptText='🚉 total passenger kms'/>
+                <MiniLegend currentOption={currentFilter} carText='🚗 total passenger kms' ptText='🚊 total passenger kms'/>
               </CardContent>
             </CardOverflow>
           </Card>
@@ -117,7 +117,7 @@ const TransportShift: React.FC = () => {
                   <Typography startDecorator={<InteractionTooltip tooltipText={`Explore detailed usage changes by hovering over a state`} delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Change from 2013 to {endYear.toString()} in %</Typography>
                 </Stack>
                 <Divider orientation="vertical" />
-                <MiniLegend currentOption={currentFilter} carText='🚗 passenger kms per state' ptText='🚉 passenger kms per state'/>
+                <MiniLegend currentOption={currentFilter} carText='🚗 passenger kms per state' ptText='🚊 passenger kms per state'/>
               </CardContent>
             </CardOverflow>
           </Card>
