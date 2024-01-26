@@ -311,7 +311,7 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
                 .style("font-size", "14px") // Set the font size
                 .style("font-weight", "550");
         }
-    }, [carData, transportData, startYear, endYear, selectedCarMetric, selectedTransportMetric, currentSorting,selectedState]);
+    }, [carData, transportData, startYear, endYear, selectedCarMetric, selectedTransportMetric, currentSorting, selectedState]);
 
 
     return (

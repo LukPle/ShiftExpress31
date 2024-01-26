@@ -97,13 +97,11 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
         const stateFullName = GERMAN_STATES[stateCode] || stateCode;
 
 
-        const offsetY = 90; // Anpassen, um die Tooltip-Position zu verändern
-        const adjustedY = y - offsetY; // Verschieben des Tooltips nach oben
-        const offsetX= 10;
-        const adjustedX = x - offsetX; // Verschieben des Tooltips nach oben
+        const offset = 90; // Adjust this value to move the tooltip up by desired amount
+        const adjustedY = y - offset; // Shift the tooltip up
 
         setTooltipState(stateFullName);
-        setTooltipPosition({ x: adjustedX, y: adjustedY });
+        setTooltipPosition({ x, y: adjustedY });
         setTooltipContent(`${dataset === 'carData' ? '🚗' : '🚈'} ${formatLargeNumber(d.value)} `);
         setTooltipVisible(true);
 
@@ -269,7 +267,7 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
             // Initial chart render
             updateChart();
         }
-    }, [carData, transportData, selectedYear, selectedCarMetric, selectedTransportMetric, sortByPopulation, inRelationToPopulation, populationData, color, selectedState]);
+    }, [carData, transportData, selectedCarMetric, selectedTransportMetric, selectedState, currentFilter, inRelationToPopulation, selectedYear]);
 
     return (
         <div>
