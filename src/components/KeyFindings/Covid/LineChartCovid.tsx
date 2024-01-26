@@ -4,7 +4,7 @@ import { motion, useAnimation } from 'framer-motion';
 import { YearlyData as CarYearlyData, CarData } from '@/data/carDataInterface';
 import { YearlyData as TransportYearlyData, TransportData } from '@/data/pTDataInterface';
 import styles from "@/styles/charts.module.css";
-import { FilterOptions } from './TransportShift';
+import { FilterOptions } from './Covid';
 import ChartTooltip from '../ChartLegendsAndTooltip/ChartTooltip';
 
 
@@ -18,7 +18,7 @@ interface LineChartCombinedProps {
     currentFilter: FilterOptions;
 }
 
-const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData, startYear, endYear, currentYear, setCurrentYear, currentFilter }) => {
+const LineChartCovid: React.FC<LineChartCombinedProps> = ({ carData, transportData, startYear, endYear, currentYear, setCurrentYear, currentFilter }) => {
     const d3Container = useRef(null);
     const margin = { top: 10, right: 20, bottom: 20, left: 30 };
     const width = 820 - margin.left - margin.right;
@@ -61,7 +61,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                 .range([height, 0]);
 
             // Specify the tick values you want (2, 4, 6, 8 in this case)
-            const tickValues = [2, 4, 6, 8];
+            const tickValues = [0, -10, -20, -30];
 
             // Create a custom tick format function to add "%" symbol
             //@ts-ignore
@@ -100,7 +100,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
 
             // Draw horizontal lines at specified values
             //TODO: Build reference lines based on max / min values of dataset props
-            const referenceLines = [2, 4, 6, 8];
+            const referenceLines = [0, -10, -20, -30];
             svg.selectAll(".reference-line")
                 .data(referenceLines)
                 .enter().append("line")
@@ -340,4 +340,4 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
     );
 };
 
-export default LineChartTS;
+export default LineChartCovid;

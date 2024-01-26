@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { FeatureCollection } from 'geojson';
 import { TransportData, YearlyData } from '@/data/pTDataInterface';
 import { PopulationData, YearlyData as PopulationYearlyData } from '@/data/populationInterface';
-import MapLegend from "./MapLegend";
+import MapLegend from "../KeyFindings/ChartLegendsAndTooltip/MapLegend";
 import TextColumn from "../ProjectSection/TextColumn";
 
 interface Props {
@@ -42,11 +42,6 @@ const MapChart: React.FC = () => {
             d3.select(event.currentTarget as Element).style('fill', 'rgba(3,4,94,0.92)');
         };
 
-        // Sort Data
-
-
-
-
         // Render the map
         svg
             .selectAll('path')
@@ -75,10 +70,6 @@ const MapChart: React.FC = () => {
                             {selectedState}
                         </div>
                     )}
-                </Stack>
-                <Stack direction="column">
-                    <MapLegend isPT={true} paddingEnd={40}></MapLegend>
-                    <MapLegend isPT={false} paddingEnd={0}></MapLegend>
                 </Stack>
             </Stack>
         </Card>

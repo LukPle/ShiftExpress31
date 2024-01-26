@@ -9,7 +9,7 @@ import { CarData, YearlyData as CarYearlyData } from '../../../data/carDataInter
 import MapLegend from "@/components/KeyFindings/ChartLegendsAndTooltip/MapLegend";
 import SegmentedControlsFilter from "../SegmentedControlsFilter";
 import ChartTooltip from "../ChartLegendsAndTooltip/ChartTooltip";
-import { FilterOptions } from "./TransportShift";
+import { FilterOptions } from "./Covid";
 import { motion } from "framer-motion";
 
 
@@ -25,7 +25,7 @@ interface Props {
 const mapData: FeatureCollection = germanyGeoJSON as FeatureCollection;
 
 const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFilter,  onStateHover, selectedState  }) => {
-    const [startYear, setStartYear] = useState<string>('2013');
+    const [startYear, setStartYear] = useState<string>('2019');
     const [selectedMetricPT, setSelectedMetricPT] = useState<keyof TransportData>('total_local_passenger_km');
     const [selectedMetricCar, setSelectedMetricCar] = useState<keyof CarData>('passenger_km');
     const svgRef = useRef<SVGSVGElement | null>(null);
@@ -284,8 +284,8 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
 
                 </Stack>
                 <Stack direction="column" width={"100px"}>
-                    <MapLegend  
-                      paddingEnd={40} 
+                    <MapLegend 
+                      paddingEnd={40}
                       tooltip={`Color Scale for ${isPT ? 'Public Transport' : 'Cars'}`} 
                       headline={isPT ? "🚊 Change of usage in %" : "🚗 Change of usage in %"}
                       scale={isPT 
