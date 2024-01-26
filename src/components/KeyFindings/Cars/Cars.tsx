@@ -42,6 +42,7 @@ const Cars: React.FC = () => {
     setSelectedState(stateId);
   };
 
+
   useEffect(() => {
     let interval: NodeJS.Timeout;
 
@@ -108,7 +109,7 @@ const Cars: React.FC = () => {
               </CardContent>
             </CardOverflow>
           </Card>
-              <AbsoluteDataBarChart carData={carData} transportData={pTData} populationData={popData} currentFilter={currentFilter} selectedYear={endYear.toString()} />
+              <AbsoluteDataBarChart carData={carData} transportData={pTData} populationData={popData} currentFilter={currentFilter} selectedYear={endYear.toString()} onStateHover={handleStateHover} selectedState={selectedState} />
         </Stack>
         <Stack direction={"column"} gap={2} >
           <Card>

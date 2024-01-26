@@ -145,9 +145,6 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
             const height = 270 - margin.top - margin.bottom;
 
 
-
-
-
             const svg = d3.select(d3Container.current)
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)
@@ -167,8 +164,6 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
             let combinedPercentageChanges = Array.from(allStates).map(state => {
                 const carChange = calculatePercentageChange(carData, state, selectedCarMetric);
                 const transportChange = calculatePercentageChange(transportData, state, selectedTransportMetric);
-
-                console.log(carChange, transportChange);
 
                 return {
                     state,
@@ -314,7 +309,7 @@ const CombinedDevTS: React.FC<Props> = ({ carData, transportData, endYear, curre
                 .style("font-size", "14px") // Set the font size
                 .style("font-weight", "550");
         }
-    }, [carData, transportData, startYear, endYear, selectedCarMetric, selectedTransportMetric, currentSorting,selectedState]);
+    }, [carData, transportData, startYear, endYear, selectedCarMetric, selectedTransportMetric, currentSorting, selectedState]);
 
 
     return (

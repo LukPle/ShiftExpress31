@@ -34,6 +34,7 @@ const TransportShift: React.FC = () => {
   const [currentFilter, setCurrentFilter] = useState<FilterOptions>(FilterOptions.Comparison);
 
   const [selectedState, setSelectedState] = useState<string | null>(null);
+  
   const handleStateHover = (stateId: string | null) => {
     setSelectedState(stateId);
   };

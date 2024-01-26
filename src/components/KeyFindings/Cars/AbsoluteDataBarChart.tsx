@@ -11,6 +11,7 @@ import CombinedDevTS from "../TransportShift/CombinedDevTS";
 import MiniLegend from '../ChartLegendsAndTooltip/MiniLegend';
 import InteractionTooltip from "@/components/InteractionTooltip";
 import MetricView from "../ChartLegendsAndTooltip/MetricView";
+import ChartTooltip from "@/components/KeyFindings/ChartLegendsAndTooltip/ChartTooltip";
 
 interface CombinedData {
     state: string;
@@ -24,25 +25,15 @@ interface Props {
     populationData: PopulationYearlyData;
     currentFilter: FilterOptions;
     selectedYear: string;
+    onStateHover: (stateId: string | null) => void;
+    selectedState: string | null;
 }
 
 const ptColor = "#9BC4FD";
 const carColor = '#FFA500';
 const unfocusedColor = '#E8E8E8';
 
-const getRectangleStyle = (color: string, isLeft: boolean): React.CSSProperties => {
-    return {
-        width: '30px',
-        height: '20px',
-        backgroundColor: color,
-        borderRadius: '10%',
-        marginLeft: isLeft ? '10px' : '0px',
-        marginRight: isLeft ? '0px' : '10px',
-        border: '1px solid #BFBFBF',
-    };
-};
-
-const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populationData, currentFilter, selectedYear }) => {
+const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populationData, currentFilter, selectedYear, onStateHover, selectedState }) => {
     const [selectedCarMetric, setSelectedCarMetric] = useState<keyof CarData>('passenger_km');
     const [selectedTransportMetric, setSelectedTransportMetric] = useState<keyof TransportData>('total_local_passenger_km');
     const [sortByPopulation, setSortByPopulation] = useState<boolean>(false);
@@ -72,6 +63,63 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
         else if (num >= 1e3) { return (num / 1e3).toFixed(2) + ' thsd'; }
         else { return num.toString(); }
     };
+
+    // Tooltip State Management
+    const [tooltipVisible, setTooltipVisible] = useState(false);
+    const [tooltipContent, setTooltipContent] = useState('');
+    const [tooltipState, setTooltipState] = useState('');
+    const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
+
+    // GERMAN_STATES Map
+    const GERMAN_STATES = {
+        'BW': 'Baden-Württemberg',
+        'BY': 'Bavaria',
+        'BE': 'Berlin',
+        'BB': 'Brandenburg',
+        'HB': 'Bremen',
+        'HH': 'Hamburg',
+        'HE': 'Hesse',
+        'MV': 'Mecklenburg-Vorpommern',
+        'NI': 'Lower-Saxony',
+        'NW': 'North Rhine-Westphalia',
+        'RP': 'Rhineland-Palatinate',
+        'SL': 'Saarland',
+        'SN': 'Saxony',
+        'ST': 'Saxony-Anhalt',
+        'SH': 'Schleswig-Holstein',
+        'TH': 'Thuringia'
+    };
+    // Mouse Event Handlers
+    const handleMouseOverBar = (event: React.MouseEvent<SVGRectElement, MouseEvent>, d: any, dataset: 'carData' | 'transportData') => {
+        const [x, y] = d3.pointer(event);
+        // @ts-ignore
+        const stateCode = d.state; // ('NW', 'BY', usw.)
+        // @ts-ignore
+        const stateFullName = GERMAN_STATES[stateCode] || stateCode;
+
+
+        const offset = 60; // Adjust this value to move the tooltip up by desired amount
+        const adjustedY = y - offset; // Shift the tooltip up
+
+        setTooltipState(stateFullName);
+        // @ts-ignore
+        setTooltipPosition({ x: (event.layerX), y: adjustedY });
+        setTooltipContent(`${dataset === 'carData' ? '🚗' : '🚈'} ${formatLargeNumber(d.value)} `);
+        setTooltipVisible(true);
+
+        onStateHover(d.state);
+
+    };
+
+    const handleMouseOutBar = (event: React.MouseEvent<SVGRectElement, MouseEvent>) => {
+        setTooltipVisible(false);
+        const originalColor = event.currentTarget.getAttribute('data-original-color');
+        // @ts-ignore
+        d3.select(event.currentTarget).style('fill', originalColor);
+        event.currentTarget.removeAttribute('data-original-color');
+        onStateHover(null);
+    };
+
 
     useEffect(() => {
         if (d3Container.current) {
@@ -150,24 +198,34 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
 
 
                 stateGroups.selectAll(".bar.car")
-                    .data(d => [{ key: 'carData', value: d.carValue }])
+                    .data(d => [{ key: 'carData', value: d.carValue, state: d.state}])
                     .enter().append("rect")
                     .attr("class", "bar car")
                     .attr("x", (d: { key: string; value: number; }) => String(x1(d.key)))
                     .attr("y", d => yLeft(d.value))
                     .attr("width", x1.bandwidth())
                     .attr("height", d => height - yLeft(d.value))
-                    .attr("fill", color('carData') as string);
+                    .attr("fill", color('carData') as string)
+                    .attr("opacity", d =>
+                        currentFilter === FilterOptions.Comparison || currentFilter === FilterOptions.CarsAbs ?
+                            (selectedState === null || selectedState === d.state ? 1 : 0.3) : 1)
+                    .on("mouseover", (event, d) => handleMouseOverBar(event, d, 'carData'))
+                    .on("mouseout",handleMouseOutBar);
 
                 stateGroups.selectAll(".bar.transport")
-                    .data(d => [{ key: 'transportData', value: d.transportValue }])
+                    .data(d => [{ key: 'transportData', value: d.transportValue , state: d.state}])
                     .enter().append("rect")
                     .attr("class", "bar transport")
                     .attr("x", (d: { key: string; value: number; }) => String(x1(d.key)))
                     .attr("y", d => yRight(d.value))
                     .attr("width", x1.bandwidth())
                     .attr("height", d => height - yRight(d.value))
-                    .attr("fill", color('transportData') as string); //Please review
+                    .attr("fill", color('transportData') as string)
+                    .attr("opacity", d =>
+                        currentFilter === FilterOptions.Comparison || currentFilter === FilterOptions.CarsAbs ?
+                            (selectedState === null || selectedState === d.state ? 1 : 0.3) : 1)
+                    .on("mouseover", (event, d) => handleMouseOverBar(event, d, 'transportData'))
+                    .on("mouseout", handleMouseOutBar);
 
                 const yAxisLeft = d3.axisLeft(yLeft).tickFormat((d) => formatLargeNumber(String(d))).ticks(5);
                 const yAxisRight = d3.axisRight(yRight).tickFormat((d) => formatLargeNumber(String(d))).ticks(5);
@@ -208,7 +266,7 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
             // Initial chart render
             updateChart();
         }
-    }, [carData, transportData, selectedYear, selectedCarMetric, selectedTransportMetric, sortByPopulation, inRelationToPopulation, populationData, color]);
+    }, [carData, transportData, selectedCarMetric, selectedTransportMetric, selectedState, currentFilter, inRelationToPopulation, selectedYear]);
 
     return (
         <div>
@@ -216,7 +274,7 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
                 <>
                     <Card>
                     <Stack alignItems={"center"}>
-                        <CombinedDevTS carData={carData} transportData={transportData} endYear={selectedYear} currentFilter={FilterOptionsTS.FocusCars} />
+                        <CombinedDevTS carData={carData} transportData={transportData} endYear={selectedYear} currentFilter={FilterOptionsTS.FocusCars} selectedState={selectedState} onStateHover={onStateHover}/>
                     </Stack>
                         <CardOverflow>
                             <Divider inset="context" />
@@ -225,7 +283,7 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
                                     <Typography startDecorator={<InteractionTooltip tooltipText={`Explore detailed usage changes by hovering a state.`} delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Change from 2013 to {selectedYear} in %</Typography>
                                 </Stack>
                                 <Divider orientation="vertical" />
-                                <MiniLegend currentOption={FilterOptionsTS.FocusCars} carText='🚗 total passenger kms' ptText='🚊 total passenger kms'/>
+                                <MiniLegend currentOption={FilterOptionsTS.FocusCars} carText='🚗 passenger kms per state' ptText='🚊 passenger kms per state'/>
                             </CardContent>
                         </CardOverflow>
                     </Card>
@@ -241,7 +299,14 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
                         </Stack>
                     </Stack>
                     <Stack alignItems={"center"}>
-                        <svg ref={d3Container} />
+                    <svg ref={d3Container} />
+                    {tooltipVisible && (
+                        <ChartTooltip
+                            tooltipPosition={tooltipPosition}
+                            tooltipState={tooltipState}
+                            tooltipContent={tooltipContent}
+                        />
+                    )}
                     </Stack>
                     <CardOverflow>
                         <Divider inset="context" />
@@ -258,6 +323,8 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
                 </Card>
             )
             }
+            {/* Rendering der Tooltip-Komponente */}
+
         </div>
     );
 };

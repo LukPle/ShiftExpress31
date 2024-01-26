@@ -71,10 +71,6 @@ const MapChart: React.FC = () => {
                         </div>
                     )}
                 </Stack>
-                <Stack direction="column">
-                    <MapLegend isPT={true} paddingEnd={40}></MapLegend>
-                    <MapLegend isPT={false} paddingEnd={0}></MapLegend>
-                </Stack>
             </Stack>
         </Card>
     );

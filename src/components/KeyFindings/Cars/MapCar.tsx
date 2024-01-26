@@ -235,6 +235,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
         setTooltipContent(tooltipContent);
         setTooltipVisible(true); // Show the tooltip
         d3.select(event.currentTarget as Element).style('fill', 'url(#stripes-pattern)');
+        onStateHover(d.properties.id);
     };
 
     // Handling the mouse exit
@@ -399,11 +400,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
 
               <Stack direction="column">
                   <svg ref={svgRef} width={width} height={height}></svg>
-                  {selectedState && (
-                      <div style={{ position: 'absolute', pointerEvents: 'none' }}>
-                          {selectedState}
-                      </div>
-                  )}
+
               </Stack>
 
               <Stack direction="column" width={"100px"} paddingLeft={"25px"}>
