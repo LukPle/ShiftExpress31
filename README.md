@@ -44,11 +44,13 @@ Open http://localhost:3000 with your browser to see the result.
 ### Content
 
 Feature List:
-- A Header to navigate to various sections
-- Our launch page using a framer motion animation
-- Our Project Section - providing some general information
-- Our KeyFindings Section - Here Users can choose on what excatly they want to research and find out more about
-- Selecting a KeyFinding navigates to the KeyFinding itself. Here we've built intercative timeline, map and bar charts. The timeline controls the timeframe where as map and bar chart can be used to select individual states. A Key Finding also has various filters that focus on specific aspects of these charts.
-- Currently only the Transportation Shift KeyFinding is fully built
-- Our Team Section presenting us
-- And currently a repository of all the charts we have built for later use in the remaining KeyFindings
+- Our launch page featuring a framer motion animation.
+- Our Project Section providing general information about the project.
+- Our KeyFindings Section, where users can choose which topics they want to explore and learn more about.
+- Interactive KeyFinding pages with timeline, map, and bar charts, where the timeline controls the timeframe and the map and bar charts allow for selection of individual states.
+- Enhanced interactivity across all KeyFindings, with multiple bar charts and map charts equipped with tooltips for precise information on each federal state.
+- Predefined filter options in all KeyFindings to aid user engagement and ease chart interpretation.
+- An integrated timeline chart in each KeyFinding for enhanced user exploration.
+- Design considerations for color-blind and low vision accessibility, ensuring inclusive and user-friendly color choices.
+- Interactive highlighting feature linking map and bar charts, allowing mutual highlighting of states across the charts.
+- Our Team Section showcasing the project contributors.
