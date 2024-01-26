@@ -222,10 +222,7 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
                         currentFilter === FilterOptions.Comparison || currentFilter === FilterOptions.CarsAbs ?
                             (selectedState === null || selectedState === d.state ? 1 : 0.3) : 1)
                     .on("mouseover", (event, d) => handleMouseOverBar(event, d, 'carData'))
-                    .on("mouseout",d =>  {
-                        console.log('enters handle mouse out');
-                        handleMouseOutBar
-                    });
+                    .on("mouseout",handleMouseOutBar);
 
                 stateGroups.selectAll(".bar.transport")
                     .data(d => [{ key: 'transportData', value: d.transportValue , state: d.state}])

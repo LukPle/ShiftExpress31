@@ -63,7 +63,7 @@ const CombinedDataDevelopment: React.FC<Props> = ({ carData, transportData }) =>
                 const carChange = calculatePercentageChange(carData, state, selectedCarMetric);
                 const transportChange = calculatePercentageChange(transportData, state, selectedTransportMetric);
 
-                console.log(carChange, transportChange);
+                //console.log(carChange, transportChange);
 
                 return {
                     state,
