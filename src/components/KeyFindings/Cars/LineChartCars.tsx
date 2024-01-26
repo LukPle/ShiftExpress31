@@ -55,13 +55,12 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
             const y = d3
                 .scaleLinear()
                 .domain([
-                    -32,
-                    11
+                    -40,
+                    15
                 ])
                 .range([height, 0]);
 
-            // Specify the tick values you want (2, 4, 6, 8 in this case)
-            const tickValues = [-32, -21, -11, 0, 11];
+            const tickValues = [-30, -15, 0, 15];
 
             // Create a custom tick format function to add "%" symbol
             //@ts-ignore
@@ -99,7 +98,7 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
 
 
             // Draw horizontal lines at specified values
-            const referenceLines = [-21, -11, 0, 11];
+            const referenceLines = [-30, -15, 0, 15];
             svg.selectAll(".reference-line")
                 .data(referenceLines)
                 .enter().append("line")
@@ -112,21 +111,6 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                 // @ts-ignore
                 .attr("stroke-width", 2)
                 .attr("stroke-dasharray", "3,4"); // Dashed line style
-
-            // Car Data Line
-            svg
-                .append('path')
-                .datum(carPercentageChangeData)
-                .attr('fill', 'none')
-                .attr('stroke', '#FFA500')
-                .attr('stroke-width', 5)
-                .attr(
-                    'd',
-                    d3
-                        .line<any>()
-                        .x((d) => x(d.year))
-                        .y((d) => y(d.percentageChange))
-                );
 
             // Transport Data Line
             svg
@@ -143,15 +127,20 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                         .y((d) => y(d.percentageChange))
                 );
 
-            // Car Data Circles
-            svg.selectAll(".car-circle")
-            .data(carPercentageChangeData)
-            .enter().append("circle")
-            .attr("class", "car-circle")
-            .attr("cx", d => x(d.year))
-            .attr("cy", d => y(d.percentageChange))
-            .attr("r", 5) // Adjust the radius as needed
-            .style('fill', '#FFA500');
+            // Car Data Line
+            svg
+                .append('path')
+                .datum(carPercentageChangeData)
+                .attr('fill', 'none')
+                .attr('stroke', '#FFA500')
+                .attr('stroke-width', 5)
+                .attr(
+                    'd',
+                    d3
+                        .line<any>()
+                        .x((d) => x(d.year))
+                        .y((d) => y(d.percentageChange))
+                );
 
             // Transport Data Circles
             svg.selectAll(".transport-circle")
@@ -163,6 +152,16 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
             .attr("r", 5) // Adjust the radius as needed
             .style('fill', (currentFilter !== FilterOptions.CarsAbs && currentFilter !== FilterOptions.CarsDev) ? '#9BC4FD' : '#E8E8E8');
 
+            // Car Data Circles
+            svg.selectAll(".car-circle")
+            .data(carPercentageChangeData)
+            .enter().append("circle")
+            .attr("class", "car-circle")
+            .attr("cx", d => x(d.year))
+            .attr("cy", d => y(d.percentageChange))
+            .attr("r", 5) // Adjust the radius as needed
+            .style('fill', '#FFA500');
+
             // Add an overlay to capture mouse events on the canvas for the dots and the marker
             const overlay = svg.append('rect')
                 .attr('class', 'overlay')
@@ -172,15 +171,15 @@ const LineChartTS: React.FC<LineChartCombinedProps> = ({ carData, transportData,
                 .style('pointer-events', 'all');
 
             // Add circles for the data points
-            const focusCar = svg.append('g')
-                .append('circle')
-                .style('fill', '#FFA500')
-                .attr('r', 7)
-                .style('display', 'none');
-
             const focusTransport = svg.append('g')
                 .append('circle')
                 .style('fill', (currentFilter !== FilterOptions.CarsAbs && currentFilter !== FilterOptions.CarsDev) ? '#9BC4FD' : '#E8E8E8')
+                .attr('r', 7)
+                .style('display', 'none');
+
+            const focusCar = svg.append('g')
+                .append('circle')
+                .style('fill', '#FFA500')
                 .attr('r', 7)
                 .style('display', 'none');
 

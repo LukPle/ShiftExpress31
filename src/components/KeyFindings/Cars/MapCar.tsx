@@ -1,4 +1,4 @@
-import { Select, Option, Stack, CardOverflow, CardContent, Divider, Typography} from "@mui/joy";
+import { Select, Option, Stack, CardOverflow, CardContent, Divider, Typography, Button} from "@mui/joy";
 import * as d3 from "d3";
 import germanyGeoJSON from "../../../data/germany-states.json";
 import React, { useEffect, useRef, useState } from 'react';
@@ -11,6 +11,7 @@ import SegmentedControlsFilter from "../SegmentedControlsFilter";
 import ChartTooltip from "../ChartLegendsAndTooltip/ChartTooltip";
 import { FilterOptions } from "./Cars";
 import { motion } from "framer-motion";
+import { Map, Sort } from "@mui/icons-material";
 
 
 interface Props {
@@ -37,38 +38,49 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
     const [isPT, setPT] = useState(true);
     const [isPC, setPC] = useState(false);
 
+    const [rankingVisible, setRankingVisibility] = useState(false);
+
+    const handleRankingVisibility = () => {
+      if (currentFilter != FilterOptions.CarsDev) {
+        if (rankingVisible) {
+          setRankingVisibility(false);
+        } else {
+        setRankingVisibility(true);
+       }
+      }
+    }
+
     const width = 300;
-    const [height, setHeight] = useState(currentFilter == FilterOptions.CarsAbs ? 380 : 440);
+    const [height, setHeight] = useState(currentFilter != FilterOptions.CarsDev ? 395 : 430);
 
     switch(currentFilter) {
         case FilterOptions.CarsAbs:
             if(isPT === true) {
               setPT(false);
             }
-            if (height != 380) {
-              setHeight(380);
+            if (height != 395) {
+              setHeight(395);
             }
             break;
         case FilterOptions.Comparison:
             if(isPC === true) {
               setPC(false);
             }
-            if (height != 440) {
-              setHeight(440);
+            if (height != 395) {
+              setHeight(395);
             }
             break;  
         case FilterOptions.CarsDev:
             if(isPT === true) {
               setPT(false);
             }
-            if (height != 440) {
-              setHeight(440);
+            if (height != 430) {
+              setHeight(430);
             }
             break;
         default:
             console.log(`Got ${currentFilter} but expected CarsAbs, Comparison or CarsDev`);
     }
-
 
     // New state for tooltip position and content
     const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
@@ -143,8 +155,8 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
       return top3States;
     };    
     
-    // Function to get the top 3 states based on percentage change
-    const getTop3StatesCarAbs = (metric: keyof CarData, data: CarYearlyData) => {
+    // Function to get the top 10 states based on absolute data
+    const getTop10CarAbs = (metric: keyof CarData, data: CarYearlyData) => {
       const stateTopValueList = mapData.features.map((feature) => {
         // @ts-ignore
         const stateId = feature.properties.id;
@@ -157,12 +169,33 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
     
       // Sort states based on percentage change in descending order
       const sortedStates = stateTopValueList.sort((a, b) => b.value - a.value);
+
+      // Get the top 10 states
+      const top10States = sortedStates.slice(0, 10);
   
-      // Get the top 3 states
-      const top3States = sortedStates.slice(0, 3);
-  
-      return top3States;
-    };    
+      return top10States;
+    };
+
+    // Function to get the top 10 states based on absolute PT data
+    const getTop10PTAbs = (metric: keyof TransportData, data: TransportYearlyData) => {
+      const stateTopValueList = mapData.features.map((feature) => {
+        // @ts-ignore
+        const stateId = feature.properties.id;
+        // @ts-ignore
+        const stateName = feature.properties.name;
+
+        const value = calculatePTAbsBil(stateId, metric);
+        return { stateName, value };
+      });
+
+      // Sort states based on absolute PT data in descending order
+      const sortedStates = stateTopValueList.sort((a, b) => b.value - a.value);
+
+      // Get the top 10 states
+      const top10States = sortedStates.slice(0, 10);
+
+      return top10States;
+    };
 
     const colorRangeAbs = isPT ? ['#DD0606','rgba(221, 6, 6, 0.5)', '#FFFFFF','rgba(155, 196, 253, 0.5)', '#9BC4FD'] 
                                : ['#DD0606','rgba(221, 6, 6, 0.5)', '#FFFFFF','rgba(255, 165, 0, 0.5)', '#FFA500'];      
@@ -171,7 +204,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
 
                             
     const colorScaleAbs = d3.scaleLinear<string>()
-      .domain(isPC ? [-3000, 500, 4000, 7500, 11000] : (isPT ? [-40, -20, 0, 20, 40] : [-200, -100, 0, 100, 200]))
+      .domain(isPC ? [-3000, 500, 5000, 7500, 10000] : (isPT ? [-40, -20, 0, 20, 40] : [-200, -100, 0, 100, 200]))
       .range(colorRangeAbs);    
     const colorScale = d3.scaleLinear<string>()
       .domain(isPT ? [-40, -20, 0, 20, 40] : [-10, -5, 0, 5, 10])
@@ -202,7 +235,6 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
         setTooltipContent(tooltipContent);
         setTooltipVisible(true); // Show the tooltip
         d3.select(event.currentTarget as Element).style('fill', 'url(#stripes-pattern)');
-        onStateHover(d.properties.id);
     };
 
     // Handling the mouse exit
@@ -288,13 +320,16 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
             .on('mouseover', handleMouseOver)
             .on('mouseout', handleMouseOut);
 
-    }, [startYear, endYear, selectedMetricPT, selectedMetricCar, isPT, isPC, currentFilter, selectedState]);
+    }, [startYear, endYear, selectedMetricPT, selectedMetricCar, isPT, isPC, currentFilter, selectedState, rankingVisible]);
 
-    const top3StatesCar = getTop3States(selectedMetricCar, carData);
-    const top3StatesCarAbs = getTop3StatesCarAbs(selectedMetricCar, carData);    
+    const top3StatesCarPerc = getTop3States(selectedMetricCar, carData);
+    const top10StatesCarAbs = getTop10CarAbs(selectedMetricCar, carData);
+    const top10StatesPTAbs = getTop10PTAbs(selectedMetricPT, transportData);
+    const rankingEmojis = ['🥇', '🥈', '🥉', '4.', '5.', '6.', '7.', '8.', '9.', '10.'];
 
     return (
         <>
+        <div style={{ width: '430px' }}>
             <CardOverflow>
                 {(currentFilter === FilterOptions.Comparison) ? (
                   <>
@@ -303,27 +338,14 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
                   </>
                 ) : (
                   (currentFilter === FilterOptions.CarsAbs) ? (
-                    <div style={{ height: '120px' }}>
-                        <Stack direction={'column'} divider={<Divider orientation='horizontal' />} gap={0.2}>
-                        <SegmentedControlsFilter items={["Absolute data", "Per capita"]} onChange={(index, item) => setPC(index === 1)} />
-                            {top3StatesCarAbs.map((stateData, index) => (
-                              <motion.div
-                                  key={index}
-                                  initial={{ opacity: 0, y: -10 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                              >
-                                  <Typography>
-                                      {index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'} {stateData.stateName} - {isPC ? stateData.value.toFixed(0) : stateData.value.toFixed(1)} {isPC ? "km pc." : "bil. pass. km"}
-                                  </Typography>
-                              </motion.div>
-                            ))}
-                        </Stack>
-                    </div>
+                    <>
+                    <SegmentedControlsFilter items={["In Total", "Per Capita"]} onChange={(index, item) => setPC(index === 1)} />
+                    <Divider inset="context" />
+                  </>
                   ) : (
-                    <div style={{ height: '60px' }}>
+                    <div style={{ height: '60px', marginBottom: '20px'}}>
                         <Stack direction={'column'} divider={<Divider orientation='horizontal' />} gap={0.2}>
-                            {top3StatesCar.map((stateData, index) => (
+                            {top3StatesCarPerc.map((stateData, index) => (
                               <motion.div
                                   key={index}
                                   initial={{ opacity: 0, y: -10 }}
@@ -331,7 +353,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
                                   transition={{ duration: 0.5, delay: index * 0.1 }}
                               >
                                   <Typography>
-                                      {index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'} {stateData.stateName} - {stateData.value.toFixed(2)} % change in pass. km
+                                      {rankingEmojis[index]} {stateData.stateName} &#x2022; {stateData.value.toFixed(2)} % change in pass. km
                                   </Typography>
                               </motion.div>
                             ))}
@@ -341,27 +363,60 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
                 )}
             </CardOverflow>
 
-            <Stack direction="row" marginTop="20px" alignItems={"center"} justifyContent={"center"}>
+          {currentFilter != FilterOptions.CarsDev && rankingVisible ?
+            <>
+            <Typography sx={{ marginTop: '20px', marginBottom: '15px' }}>{`Top 10 ${isPT ? 'Public Transport' : 'Car'} States:`}</Typography>
+            <Stack direction={'column'} divider={<Divider orientation='horizontal' />} gap={0.6}>
+            {isPT
+              ? top10StatesPTAbs.map((stateData, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                  >
+                    <Typography>
+                      {rankingEmojis[index]} {stateData.stateName} &#x2022; {isPC ? stateData.value.toFixed(0) : stateData.value.toFixed(1)} {isPC ? "km pc." : "bil. pass. km"}
+                    </Typography>
+                  </motion.div>
+                ))
+              : top10StatesCarAbs.map((stateData, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                  >
+                    <Typography>
+                      {rankingEmojis[index]} {stateData.stateName} &#x2022; {isPC ? stateData.value.toFixed(0) : stateData.value.toFixed(1)} {isPC ? "km pc." : "bil. pass. km"}
+                    </Typography>
+                  </motion.div>
+                ))}
+            </Stack>
+            </>
+          :
+            <Stack direction="row" marginTop="20px" alignItems={"flex-start"} justifyContent={"center"}>
+
               <Stack direction="column">
                   <svg ref={svgRef} width={width} height={height}></svg>
 
               </Stack>
 
-              <Stack direction="column" width={"100px"} paddingLeft={currentFilter === FilterOptions.CarsAbs ? "15px" : "35px"} paddingRight={currentFilter === FilterOptions.CarsAbs ? "20px" : "0"} >
-                {(currentFilter === FilterOptions.CarsAbs) ? (
-                  <MapLegend 
-                    paddingEnd={40} 
-                    tooltip={`Color Scale for ${isPC ? 'car usage pc.' : 'absolute car usage' }`} 
-                    headline={isPC ? "Car usage pc. in km" : "Car usage in bil. km"}
-                    scale={isPC
-                      ? [{text: "11000", color: "#FFA500"}, {text: "7500", color: "rgba(255, 165, 0, 0.5)"}, {text: "4000", color: "#FFFFFF"}] 
-                      : [{text: "200", color: "#FFA500"}, {text: "100", color: "rgba(255, 165, 0, 0.5)"}, {text: "0", color: "#FFFFFF"}]}
-                  ></MapLegend>
+              <Stack direction="column" width={"100px"} paddingLeft={"25px"}>
+                {(currentFilter === FilterOptions.CarsAbs && !rankingVisible) ? (
+                    <MapLegend 
+                      paddingEnd={40} 
+                      tooltip={`Color Scale for ${isPC ? 'Car Usage per Capita' : 'Total Car Usage' }`} 
+                      headline={isPC ? "🚗 Passenger km in thsd. per capita" : "🚗 Passenger km in billion"}
+                      scale={isPC
+                        ? [{text: "10", color: "#FFA500"}, {text: "7.5", color: "rgba(255, 165, 0, 0.5)"}, {text: "5", color: "#FFFFFF"}] 
+                        : [{text: "200", color: "#FFA500"}, {text: "100", color: "rgba(255, 165, 0, 0.5)"}, {text: "0", color: "#FFFFFF"}]}
+                    ></MapLegend>
                 ) : ((currentFilter === FilterOptions.Comparison) ? (
                   <MapLegend 
                     paddingEnd={40} 
                     tooltip={`Color Scale for ${isPT ? 'Public Transport' : 'Cars'}`} 
-                    headline={isPT ? "🚊 Billion passenger km" : "🚗 Billion passenger km"}
+                    headline={isPT ? "🚊 Passenger km in billion" : "🚗 Passenger km in billion"}
                     scale={isPT 
                       ? [{text: "40", color: "#9BC4FD"}, {text: "20", color: "rgba(155, 196, 253, 0.5)"}, {text: "0", color: "#FFFFFF"}] 
                       : [{text: "200", color: "#FFA500"}, {text: "100", color: "rgba(255, 165, 0, 0.5)"}, {text: "0", color: "#FFFFFF"}]}
@@ -375,11 +430,23 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
                   ></MapLegend>
                 ) : <></>))}
               </Stack>
+
             </Stack>
+            }
+
+            {currentFilter != FilterOptions.CarsDev ? 
+            <Stack style={{ position: 'absolute', bottom: 0, right: 0, width: '100%'}}>
+              <Divider/>
+              <CardContent orientation="horizontal" sx={{ marginLeft: 'auto' }}>
+                <Button variant="outlined" sx={{margin: '7.25px'}} onClick={() => handleRankingVisibility()} startDecorator={rankingVisible? <Map/> : <Sort/>}>{rankingVisible ? 'Switch to Map' : 'Switch to Ranking'}</Button>
+              </CardContent>
+            </Stack> : null
+            }
 
             {tooltipVisible && (
                 <ChartTooltip tooltipPosition={tooltipPosition} tooltipState={tooltipState} tooltipContent={tooltipContent}></ChartTooltip>
             )}
+        </div>
         </>
     );
 };

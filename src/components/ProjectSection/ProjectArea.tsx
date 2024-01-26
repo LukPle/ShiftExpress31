@@ -32,11 +32,11 @@ const ProjectArea: React.FC = () => {
       </Stack>
       <Card sx={{ minWidth: "40%" }}>
         <div style={{position: "relative"}}>
-          <img src={presentationImage} className={projectSectionStyles.teamImage} style={{top: "150px", right:"110px", width:"280px"}}/>
+          <img src={presentationImage} className={projectSectionStyles.teamImage} style={{top: "155px", right:"165px", width:"290px"}}/>
           <img src={workImage} className={projectSectionStyles.teamImage} style={{top: "10px", left:"10px", width:"200px"}}/>
-          <img src={teamImage} className={projectSectionStyles.teamImage} style={{top: "320px", left:"50px", width:"280px"}}/>
+          <img src={teamImage} className={projectSectionStyles.teamImage} style={{top: "360px", left:"50px", width:"300px"}}/>
           <img src={groupImage} className={projectSectionStyles.teamImage} style={{top: "50px", right:"10px", width:"250px"}}/>
-          <img src={amiinSmoker} className={projectSectionStyles.teamImage} style={{top: "350px", right:"50px", width:"120px"}}/>
+          <img src={amiinSmoker} className={projectSectionStyles.teamImage} style={{top: "340px", right:"50px", width:"120px"}}/>
         </div>
       </Card>
     </Stack>
