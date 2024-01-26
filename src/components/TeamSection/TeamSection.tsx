@@ -25,7 +25,7 @@ const TeamSection: React.FC<TeamSectionProps> = () => {
                     imageSrc={"/amiin.png"}
                     name="Amiin Najjar"
                     desc="HCI student with a passion for sport and cooking, swapped public transportation for pedaling my bike, blending tech with a dash of culinary creativity and a healthy dose of physical activity."
-                    badges={["Cyclist", "Cook"]}
+                    badges={["Cyclist", "Runner"]}
                 />
             </Grid>
             <Grid xs={2} className={styles.teamTileGridTop}>
