@@ -40,14 +40,14 @@ const MapLegend: React.FC<MapLegendProps> = ({ paddingEnd, tooltip, headline, sc
                 <Stack direction="column" justifyContent="space-evenly" alignItems="center" paddingRight="15px">
                     <Typography sx={{fontVariantNumeric: "tabular-nums"}}>^</Typography>
                       {scale?.map((el, i) => 
-                        <Typography sx={{fontVariantNumeric: "tabular-nums"}}>{el?.text}</Typography>
+                        <Typography key={i} sx={{fontVariantNumeric: "tabular-nums"}}>{el?.text}</Typography>
                       )}
                     <Typography sx={{fontVariantNumeric: "tabular-nums"}}>⌄</Typography>
                 </Stack>
                 <InteractionTooltip tooltipText={tooltip ?? ""} delay={0} position={'bottom-start'}>
                     <Stack direction="column" divider={<Divider orientation="horizontal"/>} style={getColorColumnStyle}>
                       {scale?.map((el, i) => 
-                        <div style={getRectangleStyle(el?.color, false, i == 0, i == scale.length - 1)}></div>
+                        <div key={i} style={getRectangleStyle(el?.color, false, i == 0, i == scale.length - 1)}></div>
                       )}
                     </Stack>
                 </InteractionTooltip>
