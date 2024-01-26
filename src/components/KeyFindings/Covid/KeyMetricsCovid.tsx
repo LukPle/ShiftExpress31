@@ -2,7 +2,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import { YearlyData as CarYearlyData, CarData } from '@/data/carDataInterface';
 import { YearlyData as TransportYearlyData, TransportData } from '@/data/pTDataInterface';
 import { Stack, Typography, Divider } from "@mui/joy";
-import { FilterOptions } from './TransportShift';
+import { FilterOptions } from './Covid';
+import theme from '@/utils/theme';
 import { animate } from "framer-motion";
 
 // Counter component
@@ -36,7 +37,7 @@ interface KeyMetricsProps {
     currentFilter: FilterOptions;
 }
 
-const KeyMetricsTS: React.FC<KeyMetricsProps> = ({ carData, transportData, startYear, endYear, currentFilter }) => {
+const KeyMetricsCovid: React.FC<KeyMetricsProps> = ({ carData, transportData, startYear, endYear, currentFilter }) => {
     const [carPercentageChange, setCarPercentageChange] = useState<number>(0);
     const [transportPercentageChange, setTransportPercentageChange] = useState<number>(0);
     const [previousCarPercentageChange, setPreviousCarPercentageChange] = useState<number>(0);
@@ -121,4 +122,4 @@ const KeyMetricsTS: React.FC<KeyMetricsProps> = ({ carData, transportData, start
     );
 };
 
-export default KeyMetricsTS;
+export default KeyMetricsCovid;

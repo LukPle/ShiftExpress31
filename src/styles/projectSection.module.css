@@ -69,4 +69,15 @@
     top: -30px;
     position: relative;
 }
-  
+
+.teamImage {
+    position: absolute;
+    border-radius: 10px;
+    border: 2px solid #FFF;
+    transform: scale(1);
+    transition: 0.3s;
+}
+
+.teamImage:hover {
+    transform: scale(1.05);  
+  }

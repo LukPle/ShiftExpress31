@@ -98,7 +98,6 @@ const TimeLineChart: React.FC<TimeLineChartProps> = ( {startYearProp, endYearPro
     }
 
     const updateChart = () => {
-        console.log(animationFinished);
         //remove existing shapes before redrawing
         svg.selectAll('.y-axis').remove();
         svg.selectAll('.x-axis').remove();

@@ -4,9 +4,10 @@ import ProjectArea from "@/components/ProjectSection/ProjectArea";
 import ToolBar from "@/components/KeyFindings/ToolBar";
 import TransportShift from "@/components/KeyFindings/TransportShift/TransportShift";
 import Covid from "@/components/KeyFindings/Covid/Covid";
+import Cars from "@/components/KeyFindings/Cars/Cars";
 import IntroSection from "@/components/IntroSection";
 import KeyFindingsSection from "@/components/KeyFindings/KeyFindingsSection";
-import TeamSection from "@/components/TeamSection";
+import TeamSection from "@/components/TeamSection/TeamSection";
 import BaseChartsSection from "@/components/BaseCharts/BaseChartsSection";
 import Section from "@/components/Section";
 import styles from "@/styles/index.module.css";
@@ -68,8 +69,12 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
           <TransportShift />
         </Section>;
       case KeyFinding.Covid:
-        return <Section title="🦠 Covid" onInViewChange={setIsKeyFindingSectionInView} style={{display: "flow-root"}} scrollToSection={scrollToSection} keyFindingSection={true}>
+        return <Section title="🦠 Covid Impact" onInViewChange={setIsKeyFindingSectionInView} style={{display: "flow-root"}} scrollToSection={scrollToSection} keyFindingSection={true}>
           <Covid />
+        </Section>;
+      case KeyFinding.CarCountry:
+        return <Section title="🚗 Cars in Germany" onInViewChange={setIsKeyFindingSectionInView} style={{display: "flow-root"}} scrollToSection={scrollToSection} keyFindingSection={true}>
+          <Cars />
         </Section>;
       case KeyFinding.None:
       default:
@@ -98,7 +103,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
         )}
         </div>
 
-        <Section title="Who is the team?" id="team" teamSection={true} onInViewChange={inView => {if (inView) {setSection(3)}}}>
+        <Section title="Who are we?" id="team" teamSection={true} onInViewChange={inView => {if (inView) {setSection(3)}}}>
           <TeamSection />
         </Section>
 
