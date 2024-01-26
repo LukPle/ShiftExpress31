@@ -69,6 +69,7 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
     const [tooltipContent, setTooltipContent] = useState('');
     const [tooltipState, setTooltipState] = useState('');
     const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
+
     // GERMAN_STATES Map
     const GERMAN_STATES = {
         'BW': 'Baden-Württemberg',
@@ -97,11 +98,11 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
         const stateFullName = GERMAN_STATES[stateCode] || stateCode;
 
 
-        const offset = 90; // Adjust this value to move the tooltip up by desired amount
+        const offset = 60; // Adjust this value to move the tooltip up by desired amount
         const adjustedY = y - offset; // Shift the tooltip up
 
         setTooltipState(stateFullName);
-        setTooltipPosition({ x, y: adjustedY });
+        setTooltipPosition({ x: (event.screenX - 450), y: adjustedY });
         setTooltipContent(`${dataset === 'carData' ? '🚗' : '🚈'} ${formatLargeNumber(d.value)} `);
         setTooltipVisible(true);
 
@@ -110,15 +111,12 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
     };
 
     const handleMouseOutBar = (event: React.MouseEvent<SVGRectElement, MouseEvent>) => {
-        console.log("Tooltip visible state before =  "+tooltipVisible);
         setTooltipVisible(false);
-        console.log("Tooltip visible state after =  "+tooltipVisible);
         const originalColor = event.currentTarget.getAttribute('data-original-color');
         // @ts-ignore
         d3.select(event.currentTarget).style('fill', originalColor);
         event.currentTarget.removeAttribute('data-original-color');
         onStateHover(null);
-
     };
 
 
