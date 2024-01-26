@@ -34,6 +34,7 @@ const TransportShift: React.FC = () => {
   const [currentFilter, setCurrentFilter] = useState<FilterOptions>(FilterOptions.Comparison);
 
   const [selectedState, setSelectedState] = useState<string | null>(null);
+  
   const handleStateHover = (stateId: string | null) => {
     setSelectedState(stateId);
   };
@@ -99,10 +100,10 @@ const TransportShift: React.FC = () => {
               <Divider inset="context" />
               <CardContent orientation="horizontal">
                 <Stack direction={"row"} sx={{ flex: 1 }} alignItems={"center"} justifyContent={"flex-start"}>
-                  <Typography startDecorator={<InteractionTooltip tooltipText={`Explore detailed changes of usage by hovering over specific data points on the chart`} delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Cumulative percentual change of usage from 2013 to {endYear.toString()} in Germany</Typography>
+                  <Typography startDecorator={<InteractionTooltip tooltipText={`Explore detailed changes of usage by hovering over specific data points on the chart`} delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Change from 2013 to {endYear.toString()} in %</Typography>
                 </Stack>
                 <Divider orientation="vertical" />
-                <MiniLegend currentOption={currentFilter} />
+                <MiniLegend currentOption={currentFilter} carText='🚗 total passenger kms' ptText='🚊 total passenger kms'/>
               </CardContent>
             </CardOverflow>
           </Card>
@@ -114,10 +115,10 @@ const TransportShift: React.FC = () => {
               <Divider inset="context" />
               <CardContent orientation="horizontal">
                 <Stack direction={"row"} sx={{ flex: 1 }} alignItems={"center"} justifyContent={"flex-start"}>
-                  <Typography startDecorator={<InteractionTooltip tooltipText={`Explore detailed usage changes by hovering over a state`} delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Percentual change of usage from 2013 to {endYear} across each federal state</Typography>
+                  <Typography startDecorator={<InteractionTooltip tooltipText={`Explore detailed usage changes by hovering over a state`} delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Change from 2013 to {endYear.toString()} in %</Typography>
                 </Stack>
                 <Divider orientation="vertical" />
-                <MiniLegend currentOption={currentFilter} />
+                <MiniLegend currentOption={currentFilter} carText='🚗 passenger kms per state' ptText='🚊 passenger kms per state'/>
               </CardContent>
             </CardOverflow>
           </Card>

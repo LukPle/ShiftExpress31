@@ -4,14 +4,13 @@ import React, { ReactNode } from 'react';
 import InteractionTooltip from '../../InteractionTooltip';
 
 interface MapLegendProps {
-    isPT: boolean;
-    paddingEnd: number;
+  paddingEnd: number;
+  tooltip?: string;
+  headline?: string;
+  scale: {text: string, color: string}[];
 }
 
-const MapLegend: React.FC<MapLegendProps> = ({ isPT, paddingEnd }) => {
-    const legendColor = isPT ? "#9BC4FD" : "#FFA500";
-    const ptHeadline = "🚊 Change of usage in %";
-    const carHeadline = "🚗 Change of usage in %";
+const MapLegend: React.FC<MapLegendProps> = ({ paddingEnd, tooltip, headline, scale }) => {
     const radius = 7.5;
 
     const getColorColumnStyle: React.CSSProperties = {
@@ -36,24 +35,20 @@ const MapLegend: React.FC<MapLegendProps> = ({ isPT, paddingEnd }) => {
 
     return (
         <Stack direction="column" maxWidth="100px" paddingBottom={paddingEnd + "px"}>
-            <Typography marginTop="15px" paddingBottom="20px">{isPT ? ptHeadline : carHeadline}</Typography>
+            <Typography marginTop="15px" paddingBottom="20px">{headline}</Typography>
             <Stack direction="row" alignItems={'center'}>
                 <Stack direction="column" justifyContent="space-evenly" alignItems="center" paddingRight="15px">
                     <Typography sx={{fontVariantNumeric: "tabular-nums"}}>^</Typography>
-                    <Typography sx={{fontVariantNumeric: "tabular-nums"}}>{isPT ? '+40' : '+10'}</Typography>
-                    <Typography sx={{fontVariantNumeric: "tabular-nums"}}>{isPT ? '+20' : '+5'}</Typography>
-                    <Typography sx={{fontVariantNumeric: "tabular-nums"}}>0</Typography>
-                    <Typography sx={{fontVariantNumeric: "tabular-nums"}}>{isPT ? '-20' : '-5'}</Typography>
-                    <Typography sx={{fontVariantNumeric: "tabular-nums"}}>{isPT ? '-40' : '-10'}</Typography>
+                      {scale?.map((el, i) => 
+                        <Typography key={i} sx={{fontVariantNumeric: "tabular-nums"}}>{el?.text}</Typography>
+                      )}
                     <Typography sx={{fontVariantNumeric: "tabular-nums"}}>⌄</Typography>
                 </Stack>
-                <InteractionTooltip tooltipText={`Color Scale for ${isPT ? 'Public Transport' : 'Cars'}`} delay={0} position={'bottom-start'}>
+                <InteractionTooltip tooltipText={tooltip ?? ""} delay={0} position={'bottom-start'}>
                     <Stack direction="column" divider={<Divider orientation="horizontal"/>} style={getColorColumnStyle}>
-                        <div style={getRectangleStyle(legendColor, false, true, false)}></div>
-                        <div style={getRectangleStyle(legendColor, true, false, false)}></div>
-                        <div style={getRectangleStyle('#fff', false, false, false)}></div>
-                        <div style={getRectangleStyle('#DD0606', true, false, false)}></div>
-                        <div style={getRectangleStyle('#DD0606', false, false, true)}></div>
+                      {scale?.map((el, i) => 
+                        <div key={i} style={getRectangleStyle(el?.color, false, i == 0, i == scale.length - 1)}></div>
+                      )}
                     </Stack>
                 </InteractionTooltip>
             </Stack>

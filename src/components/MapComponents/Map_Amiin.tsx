@@ -56,8 +56,6 @@ const MapChart: React.FC<Props> = ({ transportData }) => {
 
         // Calculate color based on the change in total_local_passengers between baseYear and comparisonYear
         function calculateColor(stateId: string) {
-            //console.log(`transportData Set:  ${transportData}`);
-            //console.log(`Calculating color for state ${stateId} between ${baseYear} and ${comparisonYear}`);
             const baseYearData = transportData[baseYear].find(d => d.state === stateId);
             const comparisonYearData = transportData[comparisonYear].find(d => d.state === stateId);
             //const startYearData = transportData[baseYear].find(d => d.state === stateId);
@@ -101,8 +99,6 @@ const MapChart: React.FC<Props> = ({ transportData }) => {
                     <svg ref={svgRef} width={width} height={height}></svg>
                 </Stack>
                 <Stack direction="column">
-                    <MapLegend isPT={true} paddingEnd={40}></MapLegend>
-                    <MapLegend isPT={false} paddingEnd={0}></MapLegend>
                     <select value={baseYear} onChange={(e) => setBaseYear(e.target.value)}>
                         <option value="2013">2013</option>
                         {/* Add other years here */}

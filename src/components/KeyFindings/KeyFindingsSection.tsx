@@ -126,12 +126,26 @@ const KeyFindingsSection: React.FC<KeyFindingsSectionProps> = ({ keyFinding, onU
             <Typography level="h3" mt="0.5">🚗 Cars in Germany</Typography>
             <Typography mt={1.5} mb={1.5}>
               Germany is well known for its car industry. But how
-              many cars are actually on the road? How many people
-              own a car? Check how these numbers have evolved from
-              2013 to 2022 and examine which states are dominated by cars.
+              much are people actually driving? Are there now more cars
+              on the road than before? Check how these numbers have
+              evolved from 2013 to 2022 and examine which states are
+              dominated by cars.
             </Typography>
             <div style={{ height: "100%" }}></div>
-            <Button sx={{ width: "115px", mt: 2 }}>Take a look!</Button>
+            <Button
+              sx={{ width: "115px", mt: 2 }}
+              onClick={() => {
+                onUpdateKeyFinding(KeyFinding.CarCountry)
+                scrollToSection('keyFinding')
+              }}
+            >
+              <a
+                href="#keyFindingDetail"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                Take a look!
+              </a>
+            </Button>
           </CardContent>
         </Card>
       </Stack>
