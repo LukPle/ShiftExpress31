@@ -102,7 +102,8 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
         const adjustedY = y - offset; // Shift the tooltip up
 
         setTooltipState(stateFullName);
-        setTooltipPosition({ x: (event.screenX - 450), y: adjustedY });
+        // @ts-ignore
+        setTooltipPosition({ x: (event.layerX), y: adjustedY });
         setTooltipContent(`${dataset === 'carData' ? '🚗' : '🚈'} ${formatLargeNumber(d.value)} `);
         setTooltipVisible(true);
 
