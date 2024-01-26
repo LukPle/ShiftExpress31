@@ -101,8 +101,6 @@ const MapChart: React.FC<Props> = ({ transportData }) => {
                     <svg ref={svgRef} width={width} height={height}></svg>
                 </Stack>
                 <Stack direction="column">
-                    <MapLegend isPT={true} paddingEnd={40}></MapLegend>
-                    <MapLegend isPT={false} paddingEnd={0}></MapLegend>
                     <select value={baseYear} onChange={(e) => setBaseYear(e.target.value)}>
                         <option value="2013">2013</option>
                         {/* Add other years here */}
