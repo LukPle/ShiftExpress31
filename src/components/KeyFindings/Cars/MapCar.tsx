@@ -235,6 +235,7 @@ const MapChart: React.FC<Props> = ({ transportData, carData, endYear, currentFil
         setTooltipContent(tooltipContent);
         setTooltipVisible(true); // Show the tooltip
         d3.select(event.currentTarget as Element).style('fill', 'url(#stripes-pattern)');
+        onStateHover(d.properties.id);
     };
 
     // Handling the mouse exit
