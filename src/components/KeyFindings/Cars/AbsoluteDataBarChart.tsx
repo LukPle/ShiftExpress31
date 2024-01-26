@@ -33,19 +33,7 @@ const ptColor = "#9BC4FD";
 const carColor = '#FFA500';
 const unfocusedColor = '#E8E8E8';
 
-const getRectangleStyle = (color: string, isLeft: boolean): React.CSSProperties => {
-    return {
-        width: '30px',
-        height: '20px',
-        backgroundColor: color,
-        borderRadius: '10%',
-        marginLeft: isLeft ? '10px' : '0px',
-        marginRight: isLeft ? '0px' : '10px',
-        border: '1px solid #BFBFBF',
-    };
-};
-
-const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populationData, currentFilter, selectedYear,onStateHover, selectedState }) => {
+const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populationData, currentFilter, selectedYear, onStateHover, selectedState }) => {
     const [selectedCarMetric, setSelectedCarMetric] = useState<keyof CarData>('passenger_km');
     const [selectedTransportMetric, setSelectedTransportMetric] = useState<keyof TransportData>('total_local_passenger_km');
     const [sortByPopulation, setSortByPopulation] = useState<boolean>(false);
@@ -289,7 +277,7 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
                 <>
                     <Card>
                     <Stack alignItems={"center"}>
-                        <CombinedDevTS carData={carData} transportData={transportData} endYear={selectedYear} currentFilter={FilterOptionsTS.FocusCars} />
+                        <CombinedDevTS carData={carData} transportData={transportData} endYear={selectedYear} currentFilter={FilterOptionsTS.FocusCars} selectedState={selectedState} onStateHover={onStateHover}/>
                     </Stack>
                         <CardOverflow>
                             <Divider inset="context" />
@@ -298,7 +286,7 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
                                     <Typography startDecorator={<InteractionTooltip tooltipText={`Explore detailed usage changes by hovering a state.`} delay={0} position={'bottom-end'}><InfoOutlined /></InteractionTooltip>}>Change from 2013 to {selectedYear} in %</Typography>
                                 </Stack>
                                 <Divider orientation="vertical" />
-                                <MiniLegend currentOption={FilterOptionsTS.FocusCars} carText='🚗 total passenger kms' ptText='🚊 total passenger kms'/>
+                                <MiniLegend currentOption={FilterOptionsTS.FocusCars} carText='🚗 passenger kms per state' ptText='🚊 passenger kms per state'/>
                             </CardContent>
                         </CardOverflow>
                     </Card>
