@@ -47,13 +47,9 @@ const GroupedBarChartLegend: React.FC<GroupedBarChartLegendProps> = ({ currentOp
 
     return (
         <Stack direction="row" >
-            <InteractionTooltip tooltipText={'Public Transport'} delay={0}>
-                <MetricView color={isFocusedPT() ? ptColor : unfocusedColor} text={ptText} />
-            </InteractionTooltip>
+            <MetricView color={isFocusedPT() ? ptColor : unfocusedColor} text={ptText} isPT={true}/>
             <Divider orientation="vertical" sx={{ mx: 1 }} />
-            <InteractionTooltip tooltipText={'Cars'} delay={0}>
-                <MetricView color={isFocusedCars() ? carColor : unfocusedColor} text={carText} />
-            </InteractionTooltip>
+            <MetricView color={isFocusedCars() ? carColor : unfocusedColor} text={carText} isPT={false}/>
         </Stack>
     );
 };
