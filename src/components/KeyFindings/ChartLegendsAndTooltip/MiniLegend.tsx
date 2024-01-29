@@ -16,7 +16,7 @@ interface GroupedBarChartLegendProps {
 const GroupedBarChartLegend: React.FC<GroupedBarChartLegendProps> = ({ currentOption, isCarKeyFinding = false, carText, ptText }) => {
     const ptColor = "#9BC4FD";
     const carColor = '#FFA500';
-    const unfocusedColor = '#E8E8E8';
+    const unfocusedColor = '#CCCCCC';
 
     const getRectangleStyle = (color: string): React.CSSProperties => {
         return {
@@ -46,10 +46,10 @@ const GroupedBarChartLegend: React.FC<GroupedBarChartLegendProps> = ({ currentOp
     }
 
     return (
-        <Stack direction="row" >
-            <MetricView color={isFocusedPT() ? ptColor : unfocusedColor} text={ptText} isPT={true}/>
+        <Stack direction="row" alignItems="center">
+            <MetricView color={isFocusedPT() ? ptColor : unfocusedColor} text={ptText} isPT={true} opacity={isFocusedPT() ? 1 : 0.5}/>
             <Divider orientation="vertical" sx={{ mx: 1 }} />
-            <MetricView color={isFocusedCars() ? carColor : unfocusedColor} text={carText} isPT={false}/>
+            <MetricView color={isFocusedCars() ? carColor : unfocusedColor} text={carText} isPT={false} opacity={isFocusedCars() ? 1 : 0.5}/>
         </Stack>
     );
 };

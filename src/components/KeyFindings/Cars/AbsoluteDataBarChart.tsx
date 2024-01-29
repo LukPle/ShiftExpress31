@@ -292,10 +292,10 @@ const AbsoluteDataBarChart: React.FC<Props> = ({ carData, transportData, populat
                 <Card>
                     <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
                         <Stack direction={"row"}>
-                            <MetricView color={carColor} text={'🚗 passenger kms per state'} isPT={false}/>
+                            <MetricView color={carColor} text={'🚗 passenger kms per state'} isPT={false} opacity={1}/>
                         </Stack>
                         <Stack direction={"row"}>
-                            <MetricView color={currentFilter === FilterOptions.Comparison ? ptColor : unfocusedColor} text={'🚊 passenger kms per state'} isPT={true}/>
+                            <MetricView color={currentFilter === FilterOptions.Comparison ? ptColor : unfocusedColor} text={'🚊 passenger kms per state'} isPT={true} opacity={currentFilter === FilterOptions.Comparison ? 1 : 0.5}/>
                         </Stack>
                     </Stack>
                     <Stack alignItems={"center"}>
