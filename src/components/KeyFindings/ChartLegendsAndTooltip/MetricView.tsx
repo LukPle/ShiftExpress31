@@ -5,12 +5,16 @@ interface MetricViewProps {
     color: string;
     text: string;
     isPT: boolean;
+    opacity: number;
 }
 
-const MetricView: React.FC<MetricViewProps> = ({ color, text, isPT }) => {
+const MetricView: React.FC<MetricViewProps> = ({ color, text, isPT, opacity }) => {
     const pillStyle = {
-        backgroundColor: `${color}50`,
-        borderRadius: "16px"
+      backgroundColor: `${color}50`,
+      borderRadius: "16px",
+      cursor: "default",
+      height: "28px",
+      opacity: opacity,
     };
 
     const circleStyle = {
