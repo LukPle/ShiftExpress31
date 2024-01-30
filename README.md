@@ -10,8 +10,8 @@ Besides the aforementioned main dataset, we additionally relied on 2 other data 
 This table describes briefly each of the datasets.
 | Data Set/Source      | Description |
 | :---        |    :----:   |
-| [The Federal Statistical Office of Germany - Table Example](https://www-genesis.destatis.de/genesis//online?operation=table&code=46181-0015&bypass=true&levelindex=0&levelid=1697718366080#abreadcrumb) | The specific link shows an example table data about bus and train usage. However, we additionally looked at tables containing data about the population and car ownership in Germany as well.|
-| [Check24 - Article Example](https://www.check24.de/unternehmen/presse/pressemitteilungen/mecklenburg-vorpommern-legen-die-meisten-kilometer-mit-dem-auto-zurueck-1126/) | We relied on several similar yearly articles such as this one to get data about driven Kilometers per federal state in a specific year.|
+| [The Federal Statistical Office of Germany - Table Example](https://www-genesis.destatis.de/genesis//online?operation=table&code=46181-0015&bypass=true&levelindex=0&levelid=1697718366080#abreadcrumb) | This specific link shows an example table containing data about bus and train usage. However, we additionally looked at tables containing data about the population and car ownership in Germany as well from the same source.|
+| [Check24 - Article Example](https://www.check24.de/unternehmen/presse/pressemitteilungen/mecklenburg-vorpommern-legen-die-meisten-kilometer-mit-dem-auto-zurueck-1126/) | Besides this linked article, we relied on several similar yearly one to get data about driven Kilometers per federal state in a specific year.|
 
 
 ## Website
@@ -19,7 +19,7 @@ You can visit the website via this [link](https://team-31-iv2324-projects-9267fe
 
 ### Content
 The website is divided into 5 main sections, each having a unique purpose:
-1. Introduction into the project and its context.
+1. Introduction about the project and its context.
 2. A thorough overview of its background, relevance and objectives.
 3. The visualization section, which constitutes the main part of the project. It contains 3 key insights that we derived from the data using their corresponding visualizations.
 4. A view depicting each key finding's specific visualization. At first glance, this section is not directly displayed. To reach it, one has to choose one of the three key findings. This view contains:
