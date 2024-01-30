@@ -39,8 +39,7 @@ const KeyFindingsSection: React.FC<KeyFindingsSectionProps> = ({ keyFinding, onU
   return (
     <div>
       <Typography mt={2}>
-        To continue, select a specific key finding in order to take a
-        deeper dive into our data!
+        To continue, select a key finding you would like to explore!
       </Typography>
       <Stack direction={"row"} mt={2} spacing={2}>
         <Card sx={{ width: "30%" }}>
