@@ -41,6 +41,7 @@ This table summarizes and specifies the features implemented on the website, and
 |The timeline chart allows the user to hover over a specific year for detailed information |(4.I)|
 |The bar chart and map allow the user to hover specific federal states for detailed information |(4.II), (4.III)|
 |Interactive highlighting feature linking map and bar charts, allowing mutual highlighting of states across the charts |(4.II), (4.III)|
+|The map has a built-in filter to switch between the public transportation data set and the cars data set |(4.III)|
 |Enhanced interactivity across all key findings, with multiple bar charts and map charts equipped with tooltips for precise information on each federal state |(4)|
 |Pre-defined filter options in all key findings to aid user engagement and ease chart interpretation |(4)|
 |Design considerations for color-blind and low vision accessibility, ensuring inclusive and user-friendly color choices |all sections|
