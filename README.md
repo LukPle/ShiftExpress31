@@ -52,7 +52,7 @@ This table summarizes and specifies the features implemented on the website, and
 This section depicts the milestones achieved over the implementation phase. Through the course of the project, it has been updated depending on the current milestone's requirements.
 
 ### Status - Until Milestone 4
-At this point of the project we've developed an MVP version of our desired visualization. All key functionalities have been implemented. This includes: various charts to visualize both car and public transportation data, the main site structure, our "key finding" functionality, and the first fully developed key finding.
+At this point of the project we've developed an MVP version of our desired visualizations. All key functionalities have been implemented. This includes: various charts to visualize both car and public transportation data, the main site structure, our "key finding" functionality, and the first fully developed key finding.
 Next steps are to add the remaining Key findings and to clean up the site, making it ready to ship 🚀
 
 ### Status - Today
