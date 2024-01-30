@@ -44,6 +44,7 @@ This table summarizes and specifies the features implemented on the website, and
 |The map has a built-in filter to switch between the public transportation data set and the cars data set |(4.III)|
 |Enhanced interactivity across all key findings, with multiple bar charts and map charts equipped with tooltips for precise information on each federal state |(4)|
 |Pre-defined filter options in all key findings to aid user engagement and ease chart interpretation |(4)|
+|Several focus filters display a ranking of leading states (depending on the chosen metric) above the map |(4.III)|
 |Design considerations for color-blind and low vision accessibility, ensuring inclusive and user-friendly color choices |all sections|
 
 

@@ -56,7 +56,7 @@ const KeyFindingsSection: React.FC<KeyFindingsSectionProps> = ({ keyFinding, onU
           <CardContent sx={{ padding: 0.5 }}>
             <Typography level="h3" mt="0.5">🚉 Transportation Shift</Typography>
             <Typography mt={1.5} mb={1.5}>
-            See how transportation has evolved from 2013 to 2019.
+            See how the usage of transportation means has evolved between 2013 and 2019.
             Take a deeper look at how public transportation and cars
             compete and examine which states were successful in
             their strategy for transportation shift and which not.
@@ -127,9 +127,9 @@ const KeyFindingsSection: React.FC<KeyFindingsSectionProps> = ({ keyFinding, onU
             <Typography mt={1.5} mb={1.5}>
               Germany is well known for its car industry. But how
               much are people actually driving? Are there now more cars
-              on the road than before? Check how these numbers have
-              evolved from 2013 to 2022 and examine which states are
-              dominated by cars.
+              on the road than before? Check out how these metrics have
+              evolved from 2013 to 2022, and examine the leading states in
+              car usage.
             </Typography>
             <div style={{ height: "100%" }}></div>
             <Button
