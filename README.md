@@ -24,12 +24,12 @@ The website is divided into 5 main sections, each having a unique purpose:
 3. The visualization section, which constitutes the main part of the project. It contains 3 key insights that we derived from the data using their corresponding visualizations.
 4. A view depicting each key finding's specific visualization. At first glance, this section is not directly displayed. To reach it, one has to choose one of the three key findings. This view contains:
     1. A line chart, which we will refer to as "the timeline chart". This component depicts yearly cumulative % changes in specific metrics related to our topic.
-    2. A bar chart that shows % changes for each state.
+    2. A bar chart that shows those % yearly changes for each state.
     3. A map of Germany that displays the change seen in the bar chart to its geographical area.
 5. A section to introduce our team.
 
 ### Features
-This table summarizes and specifies the features implemented on the website, and maps each feature into its encapsulating section to help you finding where to try it out directly.
+This table summarizes and specifies the features implemented on the website, and maps each feature into its encapsulating section to help you find where to try it out directly.
 | Feature Description | Section |
 | :---        |    :----:   |
 |The launch page features a framer motion animation|(1)|
@@ -48,7 +48,7 @@ This table summarizes and specifies the features implemented on the website, and
 |Design considerations for color-blind and low vision accessibility, ensuring inclusive and user-friendly color choices |all sections|
 
 
-## Roadmap - 
+## Roadmap
 This section depicts the milestones achieved over the implementation phase. Through the course of the project, it has been updated depending on the current milestone's requirements.
 
 ### Status - Until Milestone 4
