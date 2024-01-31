@@ -97,7 +97,7 @@ const IntroSection: React.FC<IntroSectionProps> = () => {
             <a 
                 style={{ color: 'inherit', textDecoration: 'none' }} 
                 target='_blank' 
-                href=''
+                href='https://github.com/najjar77'
                 onMouseOver={(e) => { e.currentTarget.style.color = '#03045E'; }}
                 onMouseOut={(e) => { e.currentTarget.style.color = 'inherit'; }}
             >
