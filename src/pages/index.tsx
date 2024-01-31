@@ -106,11 +106,6 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
         <Section title="Who are we?" id="team" teamSection={true} onInViewChange={inView => {if (inView) {setSection(3)}}}>
           <TeamSection />
         </Section>
-
-        {/* <Section title="🛠️ Legacy Components" onInViewChange={inView => {if (inView) {setSection(4)}}}>
-          <BaseChartsSection />
-        </Section> */}
-
       </Stack>
     </div>
   );
