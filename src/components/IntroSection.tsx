@@ -87,7 +87,7 @@ const IntroSection: React.FC<IntroSectionProps> = () => {
             <a 
                 style={{ color: 'inherit', textDecoration: 'none' }} 
                 target='_blank' 
-                href='https://gitlab.lrz.de/00000000013648E5'
+                href='https://github.com/mj-on-git'
                 onMouseOver={(e) => { e.currentTarget.style.color = '#03045E'; }}
                 onMouseOut={(e) => { e.currentTarget.style.color = 'inherit'; }}
             >
@@ -107,7 +107,7 @@ const IntroSection: React.FC<IntroSectionProps> = () => {
             <a 
                 style={{ color: 'inherit', textDecoration: 'none' }} 
                 target='_blank' 
-                href=''
+                href='https://www.timsum.net'
                 onMouseOver={(e) => { e.currentTarget.style.color = '#03045E'; }}
                 onMouseOut={(e) => { e.currentTarget.style.color = 'inherit'; }}
             >
