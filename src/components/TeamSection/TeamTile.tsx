@@ -30,7 +30,7 @@ export default function TeamTile({ className, name, imageSrc, desc, badges, stra
               <Stack direction={"row"} gap={1}>
               {badges?.map((badge, index) => (
                   (hasStravaConnection && badge === 'Cyclist') ?
-                    <a href={stravaCyclistLink} style={{ color: 'inherit', textDecoration: 'none' }} target='_blank' ><div key={index} className={teamTileStyles.teamTileBadge}>{badge}</div></a> :
+                    <a key={index} href={stravaCyclistLink} style={{ color: 'inherit', textDecoration: 'none' }} target='_blank' ><div className={teamTileStyles.teamTileBadge}>{badge}</div></a> :
                     <div key={index} className={teamTileStyles.teamTileBadge}>{badge}</div>
                 )) ?? ""}
               </Stack>
