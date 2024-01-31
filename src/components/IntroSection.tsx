@@ -69,15 +69,61 @@ const IntroSection: React.FC<IntroSectionProps> = () => {
             
             {/**<div className={styles.introStationDot}></div>/** */}
 
-            <Typography level="body-sm" mt="auto" startDecorator={<Copyright />}><span style={{ color: "#030456" }}>
-                LMU &#x2022; Course: Information-Visualizaton &#x2022; Team 31: </span>
-                &nbsp;
-                @LukasPlenk 
-                <a style={{ color: 'inherit', textDecoration: 'none' }} href='https://gitlab.lrz.de/00000000013648E5'>@MalekJarraya</a>
-                @AmiinNajjar 
-                @TimothySummers 
+        <Typography level="body-sm" mt="auto" startDecorator={<Copyright />}>
+            <span style={{ color: "#030456" }}>
+                LMU &#x2022; Course: Information Visualization &#x2022; Team 31: 
+            </span>
+            &nbsp;
+            <a 
+                style={{ color: 'inherit', textDecoration: 'none' }} 
+                target='_blank' 
+                href='https://bento.me/lukasplenk'
+                onMouseOver={(e) => { e.currentTarget.style.color = '#03045E'; }}
+                onMouseOut={(e) => { e.currentTarget.style.color = 'inherit'; }}
+            >
+                @LukasPlenk
+            </a>
+            &nbsp;
+            <a 
+                style={{ color: 'inherit', textDecoration: 'none' }} 
+                target='_blank' 
+                href='https://gitlab.lrz.de/00000000013648E5'
+                onMouseOver={(e) => { e.currentTarget.style.color = '#03045E'; }}
+                onMouseOut={(e) => { e.currentTarget.style.color = 'inherit'; }}
+            >
+                @MalekJarraya
+            </a>
+            &nbsp;
+            <a 
+                style={{ color: 'inherit', textDecoration: 'none' }} 
+                target='_blank' 
+                href=''
+                onMouseOver={(e) => { e.currentTarget.style.color = '#03045E'; }}
+                onMouseOut={(e) => { e.currentTarget.style.color = 'inherit'; }}
+            >
+                @AmiinNajjar
+            </a>
+            &nbsp;
+            <a 
+                style={{ color: 'inherit', textDecoration: 'none' }} 
+                target='_blank' 
+                href=''
+                onMouseOver={(e) => { e.currentTarget.style.color = '#03045E'; }}
+                onMouseOut={(e) => { e.currentTarget.style.color = 'inherit'; }}
+            >
+                @TimothySummers
+            </a>
+            &nbsp;
+            <a 
+                style={{ color: 'inherit', textDecoration: 'none' }} 
+                target='_blank' 
+                href=''
+                onMouseOver={(e) => { e.currentTarget.style.color = '#03045E'; }}
+                onMouseOut={(e) => { e.currentTarget.style.color = 'inherit'; }}
+            >
                 @MaximillianWiegand
-            </Typography>
+            </a>
+        </Typography>
 
         </Stack>
     );
