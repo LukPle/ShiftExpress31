@@ -78,7 +78,7 @@ const Cars: React.FC = () => {
               <CardContent orientation="horizontal">
                 <Stack direction={"row"} gap={2} alignItems={"center"} justifyContent={"flex-start"}>
                   <Stack direction={"row"} gap={1} sx={{}} alignItems={"center"} justifyContent={"flex-start"}>
-                    <IconButton variant="solid" onClick={(endYear === 2019) ? () => { } : handlePlayPause} size="lg" sx={{ backgroundColor: (endYear === 2019) ? 'grey' : "#03045A" }}>
+                    <IconButton variant="solid" onClick={(endYear === 2022) ? () => { } : handlePlayPause} size="lg" sx={{ backgroundColor: (endYear === 2022) ? 'grey' : "#03045A" }}>
                       {isPlaying ? <Pause /> : <PlayArrow />}
                     </IconButton>
                     <IconButton variant="solid" onClick={() => setEndYear(2013)} size="lg" sx={{ backgroundColor: "#03045A" }}>
