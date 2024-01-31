@@ -72,10 +72,10 @@ const IntroSection: React.FC<IntroSectionProps> = () => {
             <Typography level="body-sm" mt="auto" startDecorator={<Copyright />}><span style={{ color: "#030456" }}>
                 LMU &#x2022; Course: Information-Visualizaton &#x2022; Team 31: </span>
                 &nbsp;
-                @LukasPlenk 
+                @LukasPlenk
                 <a style={{ color: 'inherit', textDecoration: 'none' }} href='https://gitlab.lrz.de/00000000013648E5'>@MalekJarraya</a>
-                @AmiinNajjar 
-                @TimothySummers 
+                <a style={{ color: 'inherit', textDecoration: 'none' }} href='https://github.com/najjar77'>@AmiinNajjar</a>
+                @TimothySummers
                 @MaximillianWiegand
             </Typography>
 
