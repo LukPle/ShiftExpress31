@@ -17,6 +17,7 @@ const TeamSection: React.FC<TeamSectionProps> = () => {
                     name="Lukas Plenk"
                     desc="I’m a Human-Computer-Interaction student at LMU Munich interested in digital media, culture, and traveling. Just like public transport, I’m always out for the next destination ahead."
                     badges={["Subway Surfer", "E-Scooter", "Cyclist"]}
+                    stravaCyclistLink='https://www.strava.com/athletes/lukas_plenk'
                 />
             </Grid>
             <Grid xs={2} className={styles.teamTileGridTop}>
@@ -26,6 +27,7 @@ const TeamSection: React.FC<TeamSectionProps> = () => {
                     name="Amiin Najjar"
                     desc="HCI student with a passion for sport and cooking, swapped public transportation for pedaling my bike, blending tech with a dash of culinary creativity and a healthy dose of physical activity."
                     badges={["Cyclist", "Runner"]}
+                    stravaCyclistLink='https://strava.app.link/iRs5ufTAOGb'
                 />
             </Grid>
             <Grid xs={2} className={styles.teamTileGridTop}>

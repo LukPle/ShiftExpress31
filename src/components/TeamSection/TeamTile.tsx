@@ -7,11 +7,14 @@ type TeamTileProps = {
   name: string;
   imageSrc: string;
   desc: string;
-  badges?: string[]
+  badges?: string[];
+  stravaCyclistLink?: string;
 };
 
 // Use the type for the component's props
-export default function TeamTile({ className, name, imageSrc, desc, badges }: TeamTileProps) {
+export default function TeamTile({ className, name, imageSrc, desc, badges, stravaCyclistLink }: TeamTileProps) {
+    const hasStravaConnection = (badges?.includes('Cyclist') && stravaCyclistLink != null);
+
     return (
       <Card
           className={teamTileStyles.teamTile + ' ' + className} 
@@ -26,7 +29,9 @@ export default function TeamTile({ className, name, imageSrc, desc, badges }: Te
               <Typography level="h2" className={teamTileStyles.teamTileTitle}>{name}</Typography>
               <Stack direction={"row"} gap={1}>
               {badges?.map((badge, index) => (
-                  <div key={index} className={teamTileStyles.teamTileBadge}>{badge}</div>
+                  (hasStravaConnection && badge === 'Cyclist') ?
+                    <a href={stravaCyclistLink} style={{ color: 'inherit', textDecoration: 'none' }} target='_blank' ><div key={index} className={teamTileStyles.teamTileBadge}>{badge}</div></a> :
+                    <div key={index} className={teamTileStyles.teamTileBadge}>{badge}</div>
                 )) ?? ""}
               </Stack>
             </Stack>
