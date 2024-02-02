@@ -145,7 +145,7 @@
   padding: 5px 10px;
   box-sizing: border-box;
   border-radius: 8px;
-  margin-top: 20px;
+  margin-top: 20px !important;
   background: linear-gradient(var(--joy-palette-primary-500) 0 0) calc(100% - var(--pad, 0%)) / var(--pad, 0%) no-repeat;
   transition: 0.5s, background-position 0s;
   background-repeat: no-repeat;
