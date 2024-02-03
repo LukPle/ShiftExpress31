@@ -11,6 +11,7 @@ import TeamSection from "@/components/TeamSection/TeamSection";
 import BaseChartsSection from "@/components/BaseCharts/BaseChartsSection";
 import Section from "@/components/Section";
 import styles from "@/styles/index.module.css";
+import DataMenu from "@/components/TeamSection/DataMenu";
 
 
 type HomeProps = {
@@ -105,6 +106,9 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
 
         <Section title="Who are we?" id="team" teamSection={true} onInViewChange={inView => {if (inView) {setSection(3)}}}>
           <TeamSection />
+          <div style={{position: 'absolute', bottom: '20px'}}>
+            <DataMenu />
+          </div>
         </Section>
       </Stack>
     </div>
