@@ -20,13 +20,9 @@ const DataMenu: React.FC<DataMenuProps> = ({}) => {
                 Public Transportation Data
             </MenuItem>
             <ListDivider />
-            <MenuItem onClick={() => handleMenuItemClick('')}>
+            <MenuItem onClick={() => handleMenuItemClick('https://www.check24.de/files/p/2015/2/5/e/5981-2015-03-16_check24_praesentation_fahrleistung.pdf')}>
                 <DirectionsCarRounded />
-                Car Data 2013
-            </MenuItem>
-            <MenuItem onClick={() => handleMenuItemClick('')}>
-                <span style={{ display: 'inline-block', width: '20px' }}></span> {/* Icon container */}
-                Car Data 2014
+                Car Data 2013 and 2014
             </MenuItem>
             <MenuItem onClick={() => handleMenuItemClick('https://www.check24.de/files/p/2017/d/5/8/10635-2017_02_07_check24_praesentation_fahrleistung_bundesland.pdf')}>
                 <span style={{ display: 'inline-block', width: '20px' }}></span> {/* Icon container */}
