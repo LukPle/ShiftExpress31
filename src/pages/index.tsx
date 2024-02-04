@@ -8,7 +8,6 @@ import Cars from "@/components/KeyFindings/Cars/Cars";
 import IntroSection from "@/components/IntroSection";
 import KeyFindingsSection from "@/components/KeyFindings/KeyFindingsSection";
 import TeamSection from "@/components/TeamSection/TeamSection";
-import BaseChartsSection from "@/components/BaseCharts/BaseChartsSection";
 import Section from "@/components/Section";
 import styles from "@/styles/index.module.css";
 
@@ -91,7 +90,7 @@ const Home: React.FC<HomeProps> = ({ currentSection, setSection }) => {
         <Section title="What is this project about?" id="project" onInViewChange={inView => {if (inView) {setSection(1)}}}>
           <ProjectArea />
         </Section>
-        <Section title="What do you want to research?" id="insights" onInViewChange={inView => {if (inView) {setSection(2)}}}>
+        <Section title="What do you want to research?" id="insights" onInViewChange={inView => {if (inView) {setSection(2)}}} exploreSection={true}>
           <KeyFindingsSection keyFinding={currentKeyFinding} onUpdateKeyFinding={updateKeyFinding} />
         </Section>
 

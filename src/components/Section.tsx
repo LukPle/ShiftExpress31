@@ -4,6 +4,7 @@ import { Button, Stack, Typography, } from "@mui/joy";
 import { useInView } from 'react-intersection-observer';
 import styles from "@/styles/index.module.css";
 import { ArrowUpward } from '@mui/icons-material';
+import DataMenu from './TeamSection/DataMenu';
 
 interface SectionProps {
   title: string;
@@ -13,11 +14,12 @@ interface SectionProps {
   style?: React.CSSProperties;
   introSection?: Boolean;
   teamSection?: Boolean;
-  keyFindingSection?: Boolean
+  keyFindingSection?: Boolean;
+  exploreSection?: Boolean;
   scrollToSection?: (sectionId: any) => void;
 }
 
-const Section: React.FC<SectionProps> = ({ title, children, onInViewChange, id, style, introSection, teamSection, keyFindingSection, scrollToSection }) => {
+const Section: React.FC<SectionProps> = ({ title, children, onInViewChange, id, style, introSection, teamSection, keyFindingSection, exploreSection, scrollToSection }) => {
   const { ref, inView } = useInView({
     threshold: 0.9,
   });
@@ -34,6 +36,7 @@ const Section: React.FC<SectionProps> = ({ title, children, onInViewChange, id, 
         <Stack direction="row" justifyContent="space-between" alignItems="center">
           <Typography level="h2" className={`${styles.heading} ${inView ? styles.headingActive : ""}`}>{title}</Typography>
           {keyFindingSection ? <Button onClick={() => scrollToSection!('insights')} sx={{ mt: "20px" }} endDecorator={<ArrowUpward/>} style={{maxHeight: "36px"}}>Back to Keyfindings</Button> : null}
+          {exploreSection ? <DataMenu /> : null}
         </Stack>
       )
       }
