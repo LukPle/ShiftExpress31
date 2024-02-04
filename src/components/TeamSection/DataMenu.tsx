@@ -13,7 +13,7 @@ const DataMenu: React.FC<DataMenuProps> = ({}) => {
 
     return (
         <Dropdown>
-        <MenuButton startDecorator={<DnsRounded />}>Data Sources</MenuButton>
+        <MenuButton startDecorator={<DnsRounded />} sx={{ mt: "30px", minWidth: '190px', maxHeight: '36px' }}>Data Sources</MenuButton>
         <Menu placement="bottom-start">
             <MenuItem onClick={() => handleMenuItemClick('https://www-genesis.destatis.de/genesis//online?operation=table&code=46181-0010&bypass=true&levelindex=1&levelid=1706999120933#abreadcrumb')}>
                 <TrainRounded />
